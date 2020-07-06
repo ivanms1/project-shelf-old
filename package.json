@@ -10,8 +10,8 @@
   "scripts": {
     "format": "npx prettier --write './**/*.{ts,md}'",
     "dev:backend": "nexus dev",
-    "dev:client":"cd client && npm start ",
-    "dev":"concurrently --names 'SERVER,FRONTEND' \"npm run dev:backend\" \"npm run dev:client\"",
+    "dev:client": "cd client && npm start ",
+    "dev": "concurrently --names 'SERVER,FRONTEND' \"npm run dev:backend\" \"npm run dev:client\"",
     "build": "nexus build",
     "start": "node .nexus/build/api"
   },
