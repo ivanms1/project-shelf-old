@@ -1,9 +1,12 @@
 import React from 'react';
+import Footer from '../../components/Footer/Footer';
+import Header from '../../components/Header/Header';
 
 function Signin(props) {
     return (
         <div>
-            <h1>this is signin</h1>
+            <Header />
+            <Footer />
         </div>
     );
 }

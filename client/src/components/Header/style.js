@@ -7,7 +7,7 @@ box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.20);
 padding:20px 100px 20px 100px;
 display:flex;
 width:100%;
-justify-content:space-between;
+justify-content:space-around;
 align-items:center;
 
 
