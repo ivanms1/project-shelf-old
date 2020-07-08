@@ -1,15 +1,11 @@
 import React, { forwardRef } from 'react';
 import Popup from 'reactjs-popup';
-import { useLocation } from 'react-router-dom';
 import { Container, Links, Logo, StyledLink } from "./style";
 import Kathmandu from '../../assets/kathmandu.svg';
 import MobileMenu from '../MobileMenu/Mobilemenu';
 import BurgerIcon from '../BurgerIcon/BurgerIcon';
 
 function Header(props) {
-
-    let location = useLocation()
-    console.log(location.pathname)
 
     const contentStyle = {
         background: "rgba(255,255,255,0)",
@@ -37,7 +33,7 @@ function Header(props) {
             <PopUpContainer />
             <Logo>
                 <div>
-                    <img alt={Kathmandu} src={Kathmandu}></img>
+                    <img alt='kathmandu' src={Kathmandu}></img>
                 </div>
                 <span>ShowCase</span>
             </Logo>
