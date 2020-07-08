@@ -1,4 +1,6 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+
 import Home from '../pages/Home/Home';
 import Contact from '../pages/Contact/Contact';
 import Register from '../pages/Register/Register';
@@ -7,12 +9,8 @@ import Submitproject from '../pages/SubmitYourProject/Submit';
 import Weekly from '../pages/WeeklyProjects/Weekly';
 import Error from '../pages/Error/error';
 
-import { Switch, Route } from 'react-router-dom';
-
 function Routes(props) {
     return (
-
-
         <Switch>
             <Route exact path='/' component={Home}></Route>
             <Route path='/contact' component={Contact}></Route>
@@ -22,7 +20,6 @@ function Routes(props) {
             <Route path='/weekly' component={Weekly}></Route>
             <Route component={Error}></Route>
         </Switch>
-
     );
 }
 

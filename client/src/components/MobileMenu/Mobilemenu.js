@@ -1,31 +1,30 @@
 import React from 'react';
-import { Menu } from './style';
-import { NavLink } from 'react-router-dom';
+import { Menu, NavLinks } from './style';
 
 export default function Mobilemenu({ close }) {
     return (
         <Menu>
             <ul>
                 <li>
-                    <NavLink onClick={close} activeClassName='current' style={{ textDecoration: 'none', color: '#474547' }} to='/'>
+                    <NavLinks exact onClick={close} activeClassName='current' to='/'>
                         Home
-                    </NavLink>
+                    </NavLinks>
                 </li>
                 <li>
 
-                    <NavLink onClick={close} activeClassName='current' style={{ textDecoration: 'none', color: '#474547' }} to='/weekly'>
+                    <NavLinks onClick={close} activeClassName='current' to='/weekly'>
                         Weekly Projects
-                    </NavLink>
+                    </NavLinks>
                 </li>
                 <li>
-                    <NavLink onClick={close} activeClassName='current' style={{ textDecoration: 'none', color: '#474547' }} to='/submit'>
+                    <NavLinks onClick={close} activeClassName='current' to='/submit'>
                         Submit your Projects ?
-                    </NavLink>
+                    </NavLinks>
                 </li>
                 <li>
-                    <NavLink onClick={close} activeClassName='current' style={{ textDecoration: 'none', color: '#474547' }} to='/contact'>
+                    <NavLinks onClick={close} activeClassName='current' to='/contact'>
                         Contact
-                    </NavLink>
+                    </NavLinks>
                 </li>
             </ul>
         </Menu>

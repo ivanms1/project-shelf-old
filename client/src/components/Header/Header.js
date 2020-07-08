@@ -1,11 +1,15 @@
 import React, { forwardRef } from 'react';
+import Popup from 'reactjs-popup';
+import { useLocation } from 'react-router-dom';
 import { Container, Links, Logo, StyledLink } from "./style";
 import Kathmandu from '../../assets/kathmandu.svg';
 import MobileMenu from '../MobileMenu/Mobilemenu';
 import BurgerIcon from '../BurgerIcon/BurgerIcon';
-import Popup from 'reactjs-popup';
 
 function Header(props) {
+
+    let location = useLocation()
+    console.log(location.pathname)
 
     const contentStyle = {
         background: "rgba(255,255,255,0)",
@@ -13,7 +17,7 @@ function Header(props) {
         border: "none"
     };
 
-    const PopUpContainer = forwardRef((props, ref) => {
+    const PopUpContainer = React.forwardRef((props, ref) => {
         return (
             <Popup
                 modal
@@ -33,40 +37,37 @@ function Header(props) {
             <PopUpContainer />
             <Logo>
                 <div>
-                    <StyledLink to='/'>
-                        <img alt={Kathmandu} src={Kathmandu}></img>
-                    </StyledLink>
+                    <img alt={Kathmandu} src={Kathmandu}></img>
                 </div>
                 <span>ShowCase</span>
             </Logo>
 
-
             <Links>
                 <ul>
-                    <StyledLink to='/'>
-                        <li>
+                    <li>
+                        <StyledLink exact activeClassName='current' to='/'>
                             Home
-                        </li>
-                    </StyledLink>
+                        </StyledLink>
+                    </li>
 
-                    <StyledLink to='/weekly'>
-                        <li>
+                    <li>
+                        <StyledLink activeClassName='current' to='/weekly'>
                             Weekly Projects
-                        </li>
-                    </StyledLink>
+                        </StyledLink>
+                    </li>
 
 
-                    <StyledLink to='/submit'>
-                        <li>
+                    <li>
+                        <StyledLink activeClassName='current' to='/submit'>
                             Submit your Projects ?
-                        </li>
-                    </StyledLink>
+                        </StyledLink>
+                    </li>
 
-                    <StyledLink to='/contact'>
-                        <li>
+                    <li>
+                        <StyledLink activeClassName='current' to='/contact'>
                             Contact
-                        </li>
-                    </StyledLink>
+                        </StyledLink>
+                    </li>
 
                 </ul>
             </Links>

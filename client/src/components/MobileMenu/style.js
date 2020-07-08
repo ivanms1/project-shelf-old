@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 export const Menu = styled.div`
   width: 100%;
@@ -8,7 +9,7 @@ export const Menu = styled.div`
    ul {
     position: relative;
     top: 0px;
-    font-size: 24px;
+    font-size: 50px;
     padding: 0px;
   }
    li {
@@ -22,4 +23,16 @@ export const Menu = styled.div`
       transition:0.3s linear;
     }
   }
+
+  .current{
+    color: #222222;
+    font-weight:600;
+  }
+
+`;
+
+
+export const NavLinks = styled(NavLink)`
+text-decoration: none;
+color: #474547;
 `;
