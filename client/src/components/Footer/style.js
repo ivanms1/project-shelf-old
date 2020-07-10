@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 
 export const Container = styled.div`
 /* border:2px solid green; */
-position:absolute;
-bottom:0;
+/* position:absolute;
+bottom:0; */
 width:100%;
 min-height:100px;
 padding:20px 10px 20px 10px;
