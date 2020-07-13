@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
 width:100%;
 height:100%;
-/* border:2px solid green; */
 background-color:#F7F8FC;
 display:flex;
 flex-direction:column;
@@ -76,13 +75,11 @@ p:nth-child(3){
 `
 
 export const TextContainer = styled.div`
-/* border:2px solid green; */
 text-align:center;
 width:100%;
 `
 
 export const LowerContainer = styled.div`
-/* border:2px solid green; */
 width:100%;
 max-width:1000px;
 margin-top:50px;
@@ -131,7 +128,6 @@ export const RegisterBox = styled.div`
 width:100%;
 max-width:400px;
 padding:20px 30px 50px 30px;
-/* border:2px solid green; */
 border-radius:7px;
 background-color:white;
 box-shadow:5px 5px 20px rgba(0,0,0,0.20);
@@ -142,13 +138,11 @@ margin-bottom:20px;
 `
 
 export const Collection = styled.div`
-/* border:2px solid green; */
 width:100%;
 display:flex;
 `
 
 export const InputContainer = styled.div`
-/* border:2px solid green; */
 width:100%;
 margin-top:20px;
 
@@ -202,8 +196,6 @@ letter-spacing:1.1px;
 
 export const TextArea = styled.textarea`
 width:100%;
-/* min-width:374px;
-max-width:374px; */
 height:100%;
 min-height:120px;
 max-height:120px;
