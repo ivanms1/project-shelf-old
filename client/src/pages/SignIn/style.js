@@ -29,7 +29,6 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 position:relative;
-/* border:2px solid green; */
 
 >span{
     font-size:35px;
@@ -45,7 +44,6 @@ display:flex;
 flex-direction:column;
 margin-top:17px;
 width:100%;
-/* border:2px solid green; */
 
 >span{
     font-weight:600;

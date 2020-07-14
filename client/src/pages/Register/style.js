@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 export const Container = styled.div`
 width:100%;
 height:100vh;
-/* border:2px solid green; */
 background-color:#F7F8FC;
 display:flex;
 flex-direction:column;
@@ -21,7 +20,6 @@ export const RegisterBox = styled.div`
 width:100%;
 max-width:433px;
 padding:40px 30px 50px 30px;
-/* border:2px solid green; */
 border-radius:7px;
 background-color:white;
 box-shadow:5px 5px 20px rgba(0,0,0,0.20);
@@ -38,7 +36,6 @@ flex-direction:column;
 `
 
 export const InputContainer = styled.div`
-/* border:2px solid green; */
 width:100%;
 margin-top:20px;
 
@@ -72,7 +69,6 @@ letter-spacing:1.1px;
 
 export const Links = styled(Link)`
 width:100%;
-/* border:2px solid green; */
 text-align:center;
 margin-top:20px;
 text-decoration:none;
