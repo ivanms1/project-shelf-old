@@ -62,7 +62,7 @@ width:100%;
 max-width:506px;
 border-radius:7px;
 box-shadow:9px 9px 25px 0px rgb(0,0,0,0.25);
-padding:20px 20px;
+padding: 0px 20px 20px 20px;
 margin:15px 0;
 
 p{
@@ -74,16 +74,6 @@ p{
        line-height:1.1em;
    }
 }
-`
-export const Active = styled.div`
-margin-bottom:10px;
-`
-
-export const Color = styled.div`
-width:30px;
-height:30px;
-background-color:#ED2C49;
-border-radius:50%;
 `
 
 export const ImageContainer = styled.div`

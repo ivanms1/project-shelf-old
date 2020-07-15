@@ -9,6 +9,7 @@ function Contact(props) {
     return (
         <div>
             <Header />
+
             <Container>
                 <TextContainer>
                     <p>
@@ -56,7 +57,7 @@ function Contact(props) {
                                 <TextArea placeholder='e.g Weekly Category : mern stack the project titled ‘MERN’ and update my new one.' />
                             </InputContainer>
 
-                            <Button bgColor='#00cb5b' margin='20px 0px 0px 0px' type='submit'>Send Message</Button>
+                            <Button loading={true} bgColor='#00cb5b' margin='20px 0px 0px 0px' type='submit'>Send Message</Button>
                         </RegisterBox>
                     </form>
 

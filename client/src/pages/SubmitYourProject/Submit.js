@@ -1,9 +1,10 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import { Container, FormContainer, Card, Active, Color, ImageContainer, Description, Submission, Collection, InputContainer, Input, Upload, TextArea } from './style';
+import { Container, FormContainer, Card, ImageContainer, Description, Submission, Collection, InputContainer, Input, Upload, TextArea } from './style';
 import Preview from '../../assets/desktop-preview.jpg';
 import Button from '../../components/Button/Button';
+import Active from "../../components/Active/Active";
 
 function style(props) {
     return (
@@ -20,9 +21,8 @@ function style(props) {
                     <FormContainer>
 
                         <Card>
-                            <Active>
-                                <Color />
-                            </Active>
+                            <Active />
+
                             <ImageContainer>
                                 <img alt='preview' src={Preview}></img>
                             </ImageContainer>
@@ -53,7 +53,7 @@ function style(props) {
                                     eg : this was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.
                             </p>
 
-                                <Button bgColor='#ED2C49' margin='20px 0 0 0'>Visit the repository</Button>
+                                <Button loading={true} bgColor='#ED2C49' margin='20px 0 0 0'>Visit the repository</Button>
                             </Description>
 
                         </Card>
@@ -107,7 +107,7 @@ function style(props) {
                                 <TextArea placeholder='eg : this was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.' />
                             </InputContainer>
 
-                            <Button bgColor='#00CB5B' margin='20px 0 0 0'>Submit your Project</Button>
+                            <Button loading={true} bgColor='#00CB5B' margin='20px 0 0 0'>Submit your Project</Button>
                         </Submission>
                     </FormContainer>
 

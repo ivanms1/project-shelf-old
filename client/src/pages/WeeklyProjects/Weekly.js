@@ -1,9 +1,10 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import { Container, SearchContainer, CardContainer, Card, Active, Color, ImageContainer, Description } from './style';
+import { Container, SearchContainer, CardContainer, Card, ImageContainer, Description } from './style';
 import Preview from '../../assets/desktop-preview.jpg';
 import Button from '../../components/Button/Button';
+import Actives from '../../components/Active/Active';
 
 function Weekly(props) {
     return (
@@ -25,9 +26,8 @@ function Weekly(props) {
 
                 <CardContainer>
                     <Card>
-                        <Active>
-                            <Color />
-                        </Active>
+                        <Actives active />
+
                         <ImageContainer>
                             <img alt='preview' src={Preview}></img>
                         </ImageContainer>
@@ -58,15 +58,13 @@ function Weekly(props) {
                                 eg : this was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.
                             </p>
 
-                            <Button bgColor='#ED2C49' margin='20px 0 0 0'>Visit the repository</Button>
+                            <Button loading={true} bgColor='#ED2C49' margin='20px 0 0 0'>Visit the repository</Button>
                         </Description>
 
                     </Card>
 
                     <Card>
-                        <Active>
-                            <Color />
-                        </Active>
+                        <Actives />
                         <ImageContainer>
                             <img alt='preview' src={Preview}></img>
                         </ImageContainer>
@@ -96,15 +94,13 @@ function Weekly(props) {
                             <p className='desc'>
                                 eg : this was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.
                             </p>
-                            <Button bgColor='#ED2C49' margin='20px 0 0 0'>Visit the repository</Button>
+                            <Button loading={true} bgColor='#ED2C49' margin='20px 0 0 0'>Visit the repository</Button>
                         </Description>
 
                     </Card>
 
                     <Card>
-                        <Active>
-                            <Color />
-                        </Active>
+                        <Actives active={false} />
                         <ImageContainer>
                             <img alt='preview' src={Preview}></img>
                         </ImageContainer>
@@ -135,15 +131,14 @@ function Weekly(props) {
                                 eg : this was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.
                             </p>
 
-                            <Button bgColor='#ED2C49' margin='20px 0 0 0'>Visit the repository</Button>
+                            <Button loading={true} bgColor='#ED2C49' margin='20px 0 0 0'>Visit the repository</Button>
                         </Description>
 
                     </Card>
 
                     <Card>
-                        <Active>
-                            <Color />
-                        </Active>
+                        <Actives active={true} />
+
                         <ImageContainer>
                             <img alt='preview' src={Preview}></img>
                         </ImageContainer>

@@ -1,10 +1,11 @@
 import React from 'react';
 import { CustomButton } from './style';
+import Loader from '../Loader/Loader';
 
-function Button({ bgColor, margin, children }) {
+function Button({ bgColor, margin, loading, children, ...props }) {
     return (
-        <CustomButton bgColor={bgColor} margin={margin}>
-            {children}
+        <CustomButton bgColor={bgColor} margin={margin} {...props}>
+            {loading ? <Loader /> : children}
         </CustomButton>
     );
 }

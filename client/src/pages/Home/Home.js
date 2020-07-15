@@ -1,9 +1,10 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import { Container, Approval, CardContainer, Card, Active, Color, ImageContainer, Description } from './style';
+import { Container, Approval, CardContainer, Card, ImageContainer, Description } from './style';
 import Preview from '../../assets/desktop-preview.jpg';
 import Button from "../../components/Button/Button";
+import Active from "../../components/Active/Active";
 
 function Home(props) {
     return (
@@ -17,24 +18,20 @@ function Home(props) {
                     </p>
                     <div>
                         <p>
-                            <Active>
-                                <Color />
-                            </Active>
+                            <Active />
+
                         </p>
-                        <span>Not Approved yet</span>
+                        <span className='text'>Not Approved yet</span>
                         <p>
-                            <Active >
-                                <Color active />
-                            </Active>
+                            <Active active={true} />
                         </p>
-                        <span>Approved</span>
+                        <span className='text'>Approved</span>
                     </div>
                 </Approval>
                 <CardContainer>
                     <Card>
-                        <Active>
-                            <Color />
-                        </Active>
+                        <Active />
+
                         <ImageContainer>
                             <img alt='preview' src={Preview}></img>
                         </ImageContainer>
@@ -70,9 +67,8 @@ function Home(props) {
                     </Card>
 
                     <Card>
-                        <Active>
-                            <Color />
-                        </Active>
+                        <Active active={true} />
+
                         <ImageContainer>
                             <img alt='preview' src={Preview}></img>
                         </ImageContainer>
