@@ -1,8 +1,9 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import { Container, Approval, CardContainer, Card, Active, Color, ImageContainer, Description, Visit } from './style';
+import { Container, Approval, CardContainer, Card, Active, Color, ImageContainer, Description } from './style';
 import Preview from '../../assets/desktop-preview.jpg';
+import Button from "../../components/Button/Button";
 
 function Home(props) {
     return (
@@ -64,7 +65,7 @@ function Home(props) {
                                 eg : this was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.
                             </p>
 
-                            <Visit type='submit' value='Visit the repository' />
+                            <Button bgColor='#ED2C49' margin='20px 0 0 0'>Visit the repository</Button>
                         </Description>
                     </Card>
 
@@ -102,7 +103,7 @@ function Home(props) {
                                 eg : this was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.
                             </p>
 
-                            <Visit type='submit' value='Visit the repository' />
+                            <Button bgColor='#ED2C49' margin='20px 0 0 0'>Visit the repository</Button>
                         </Description>
 
                     </Card>

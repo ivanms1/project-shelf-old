@@ -127,7 +127,7 @@ div{
 export const RegisterBox = styled.div`
 width:100%;
 max-width:400px;
-padding:20px 30px 50px 30px;
+padding:20px 30px 30px 30px;
 border-radius:7px;
 background-color:white;
 box-shadow:5px 5px 20px rgba(0,0,0,0.20);
@@ -214,24 +214,5 @@ letter-spacing:1.1px;
     font-weight:600;
     font-size:15px;
     letter-spacing:1.1px;
-}
-`
-
-export const SignInButton = styled.input`
-background-color:#00CB5B;
-width:100%;
-padding:15px;
-border-radius:7px;
-box-shadow: 2px 2px 10px 0px rgba(0,0,0,0.25);
-border:none;
-color:white;
-font-weight:600;
-font-size:22px;
-margin-top:20px;
-letter-spacing:1.1px;
-cursor:pointer;
-
-:active {
-  transform: translateY(4px) scale(1.1);
 }
 `

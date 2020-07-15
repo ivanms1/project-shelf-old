@@ -1,8 +1,9 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import { Container, TextContainer, LowerContainer, RegisterBox, Collection, InputContainer, Input, Discord, TextArea, SignInButton } from './style';
+import { Container, TextContainer, LowerContainer, RegisterBox, Collection, InputContainer, Input, Discord, TextArea } from './style';
 import Kathmandu from '../../assets/kathmandu.svg';
+import Button from '../../components/Button/Button';
 
 function Contact(props) {
     return (
@@ -55,8 +56,7 @@ function Contact(props) {
                                 <TextArea placeholder='e.g Weekly Category : mern stack the project titled ‘MERN’ and update my new one.' />
                             </InputContainer>
 
-                            <SignInButton type='submit' value='Send Message' />
-
+                            <Button bgColor='#00cb5b' margin='20px 0px 0px 0px' type='submit'>Send Message</Button>
                         </RegisterBox>
                     </form>
 
