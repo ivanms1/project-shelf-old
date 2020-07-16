@@ -32,7 +32,6 @@ justify-content:space-between;
         display:flex;
         justify-content:space-around;
         align-items:center;
-        
     }
 
     >span:first-child{
