@@ -2,9 +2,6 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 export const Container = styled.div`
-/* border:2px solid green; */
-position:absolute;
-bottom:0;
 width:100%;
 min-height:100px;
 padding:20px 10px 20px 10px;
@@ -24,7 +21,6 @@ overflow:hidden;
 
 
 export const Links = styled.div`
-/* border:2px solid green; */
 width:100%;
 max-width:900px;
 
@@ -71,5 +67,4 @@ export const StyledLink = styled(NavLink)`
     font-size:18px;
     margin-left:0px;
 }
-
 `;
