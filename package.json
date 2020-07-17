@@ -13,12 +13,8 @@
     "dev:client": "cd client && npm start ",
     "dev": "concurrently --names 'SERVER,FRONTEND' \"npm run dev:backend\" \"npm run dev:client\"",
     "build": "nexus build",
-    "start": "node .nexus/build/api"
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "all"
+    "start": "node .nexus/build/api",
+    "migrate": "npx prisma migrate save --experimental && npx prisma migrate up --experimental"
   },
   "devDependencies": {
     "prettier": "^2.0.5"

@@ -1,15 +1,10 @@
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator prisma_client {
   provider = "prisma-client-js"
-}
-
-enum Role {
-  USER
-  ADMIN
 }
 
 model User {
@@ -18,10 +13,10 @@ model User {
   lastName String
   password String
   email    String
-  role     Role      @default(USER)
+  role     String
   github   String?
   discord  String?
-  projects Project[]
+  Project  Project[]
 }
 
 model Project {

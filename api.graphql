@@ -14,13 +14,38 @@ The `JSON` scalar type represents JSON objects as specified by [ECMA-404](http:/
 """
 scalar Json
 
-type Query {
-  hello(world: String): World
-  worlds: [World!]
+type Mutation {
+  createProject(authorId: Int!, description: String!, preview: String!, repoLink: String!, siteLink: String!, title: String!): Project
+  login(email: String!, password: String!): Json
+  signUp(email: String!, lastName: String!, name: String!, password: String!): User
 }
 
-type World {
+type Project {
+  author: User!
   id: Int!
+  isApproved: Boolean!
+  likes: Int!
+  preview: String!
+  repoLink: String!
+  siteLink: String!
+  title: String!
+}
+
+type Query {
+  ok: Boolean!
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+type User {
+  discord: String
+  email: String!
+  github: String
+  id: Int!
+  lastName: String!
   name: String!
-  population: Float!
+  role: Role!
 }
