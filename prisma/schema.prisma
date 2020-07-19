@@ -6,9 +6,34 @@ datasource db {
 generator prisma_client {
   provider = "prisma-client-js"
 }
-     
-model World {
-  id         Int    @id @default(autoincrement())
-  name       String @unique
-  population Float
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  name          String
+  lastName      String
+  password      String
+  email         String
+  role          Role      @default(USER)
+  github        String?
+  discord       String?
+  projects      Project[]
+  projectsLiked Project[] @relation("ProjectstLiked")
+}
+
+model Project {
+  id          Int     @id @default(autoincrement())
+  title       String
+  preview     String
+  repoLink    String
+  siteLink    String
+  author      User    @relation(fields: [authorId], references: [id])
+  authorId    Int
+  description String
+  likes       User[]  @relation(name: "ProjectstLiked")
+  isApproved  Boolean @default(false)
 }
