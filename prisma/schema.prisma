@@ -13,15 +13,16 @@ enum Role {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  name     String
-  lastName String
-  password String
-  email    String
-  role     Role      @default(USER)
-  github   String?
-  discord  String?
-  projects Project[]
+  id            Int       @id @default(autoincrement())
+  name          String
+  lastName      String
+  password      String
+  email         String
+  role          Role      @default(USER)
+  github        String?
+  discord       String?
+  projects      Project[]
+  projectsLiked Project[] @relation("ProjectstLiked")
 }
 
 model Project {
@@ -33,6 +34,6 @@ model Project {
   author      User    @relation(fields: [authorId], references: [id])
   authorId    Int
   description String
-  likes       Int     @default(0)
+  likes       User[]  @relation(name: "ProjectstLiked")
   isApproved  Boolean @default(false)
 }

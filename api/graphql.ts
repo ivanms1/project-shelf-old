@@ -10,6 +10,8 @@ schema.objectType({
     t.model.github();
     t.model.discord();
     t.model.role();
+    t.model.projects();
+    t.model.projectsLiked();
   },
 });
 
@@ -24,6 +26,40 @@ schema.objectType({
     t.model.siteLink();
     t.model.likes();
     t.model.isApproved();
+  },
+});
+
+schema.queryType({
+  definition(t) {
+    t.field('getUser', {
+      type: 'User',
+      args: {
+        id: schema.intArg({ required: true }),
+      },
+      resolve(_root, args, ctx) {
+        return ctx.db.user.findOne({
+          where: { id: args.id },
+        });
+      },
+    });
+    t.field('getProject', {
+      type: 'Project',
+      args: {
+        id: schema.intArg({ required: true }),
+      },
+      resolve(_root, args, ctx) {
+        return ctx.db.project.findOne({
+          where: { id: args.id },
+        });
+      },
+    });
+    t.field('getProjects', {
+      type: 'Project',
+      list: true,
+      resolve(_root, _, ctx) {
+        return ctx.db.project.findMany();
+      },
+    });
   },
 });
 
@@ -52,9 +88,6 @@ schema.mutationType({
           where: {
             email: args.email,
           },
-          include: {
-            projects: true,
-          },
         });
 
         if (user.length < 1) {
@@ -64,7 +97,7 @@ schema.mutationType({
         return {
           userId: user[0].id,
           toke: 'some token',
-          expiresId: '1 year',
+          expiresIn: '1 year',
         };
       },
     });
@@ -87,6 +120,43 @@ schema.mutationType({
                 id: authorId,
               },
             },
+          },
+        });
+      },
+    });
+    t.field('reactToProject', {
+      type: 'Project',
+      args: {
+        projectId: schema.intArg({ required: true }),
+        userId: schema.intArg({ required: true }),
+        action: schema.stringArg({ required: true }),
+        currentLikes: schema.intArg({ required: true, list: true }),
+      },
+      async resolve(_root, args, ctx) {
+        if (args.action !== 'LIKE' && args.action !== 'DISLIKE') {
+          throw new Error('Invalid action');
+        }
+        let action;
+        if (args.action === 'LIKE') {
+          action = 'connect';
+        } else {
+          action = 'disconnect';
+        }
+
+        return ctx.db.project.update({
+          where: {
+            id: args.projectId,
+          },
+          data: {
+            likes: {
+              [action]: {
+                id: args.userId,
+              },
+            },
+          },
+          include: {
+            likes: true,
+            author: true,
           },
         });
       },
