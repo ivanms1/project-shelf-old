@@ -3,7 +3,9 @@
   "license": "UNLICENSED",
   "version": "0.0.0",
   "dependencies": {
+    "@types/cors": "^2.8.6",
     "concurrently": "^5.2.0",
+    "cors": "^2.8.5",
     "nexus": "^0.24.2",
     "nexus-plugin-prisma": "^0.16.1"
   },
