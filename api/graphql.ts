@@ -1,5 +1,23 @@
 import { schema } from 'nexus';
 
+const ProjectActions = schema.enumType({
+  name: 'ProjectAction',
+  members: ['LIKE', 'DISLIKE'],
+  description: 'Actions available to the user',
+});
+
+const ReactToProjectInput = schema.inputObjectType({
+  name: 'ReactToProjectInput',
+  definition(t) {
+    t.string('projectId');
+    t.string('userId');
+    t.field('action', {
+      type: ProjectActions,
+      required: true,
+    });
+  },
+});
+
 schema.objectType({
   name: 'User',
   definition(t) {
@@ -34,7 +52,7 @@ schema.queryType({
     t.field('getUser', {
       type: 'User',
       args: {
-        id: schema.intArg({ required: true }),
+        id: schema.stringArg({ required: true }),
       },
       resolve(_root, args, ctx) {
         return ctx.db.user.findOne({
@@ -45,7 +63,7 @@ schema.queryType({
     t.field('getProject', {
       type: 'Project',
       args: {
-        id: schema.intArg({ required: true }),
+        id: schema.stringArg({ required: true }),
       },
       resolve(_root, args, ctx) {
         return ctx.db.project.findOne({
@@ -66,15 +84,20 @@ schema.queryType({
 schema.mutationType({
   definition(t) {
     t.field('signUp', {
-      type: 'User',
+      type: 'Json',
       args: {
         email: schema.stringArg({ required: true }),
         password: schema.stringArg({ required: true }),
         name: schema.stringArg({ required: true }),
         lastName: schema.stringArg({ required: true }),
       },
-      resolve(_root, args, ctx) {
-        return ctx.db.user.create({ data: { ...args } });
+      async resolve(_root, args, ctx) {
+        const newUser = await ctx.db.user.create({ data: { ...args } });
+        return {
+          userId: newUser.id,
+          token: 'some token',
+          expiresIn: '1 year',
+        };
       },
     });
     t.field('login', {
@@ -96,7 +119,7 @@ schema.mutationType({
 
         return {
           userId: user[0].id,
-          toke: 'some token',
+          token: 'some token',
           expiresIn: '1 year',
         };
       },
@@ -104,7 +127,7 @@ schema.mutationType({
     t.field('createProject', {
       type: 'Project',
       args: {
-        authorId: schema.intArg({ required: true }),
+        authorId: schema.stringArg({ required: true }),
         title: schema.stringArg({ required: true }),
         preview: schema.stringArg({ required: true }),
         repoLink: schema.stringArg({ required: true }),
@@ -124,20 +147,32 @@ schema.mutationType({
         });
       },
     });
+    t.field('deleteProject', {
+      type: 'String',
+      args: {
+        projectId: schema.stringArg({ required: true }),
+      },
+      async resolve(_root, { projectId }, ctx) {
+        await ctx.db.project.delete({ where: { id: projectId } });
+
+        return projectId;
+      },
+    });
     t.field('reactToProject', {
       type: 'Project',
       args: {
-        projectId: schema.intArg({ required: true }),
-        userId: schema.intArg({ required: true }),
-        action: schema.stringArg({ required: true }),
-        currentLikes: schema.intArg({ required: true, list: true }),
+        input: 'ReactToProjectInput',
       },
-      async resolve(_root, args, ctx) {
-        if (args.action !== 'LIKE' && args.action !== 'DISLIKE') {
+      async resolve(_root, { input }, ctx) {
+        if (!input) {
           throw new Error('Invalid action');
         }
+
+        if (!input.projectId) {
+          throw new Error('Missing project dd');
+        }
         let action;
-        if (args.action === 'LIKE') {
+        if (input.action === 'LIKE') {
           action = 'connect';
         } else {
           action = 'disconnect';
@@ -145,12 +180,12 @@ schema.mutationType({
 
         return ctx.db.project.update({
           where: {
-            id: args.projectId,
+            id: input.projectId,
           },
           data: {
             likes: {
               [action]: {
-                id: args.userId,
+                id: input.userId,
               },
             },
           },
