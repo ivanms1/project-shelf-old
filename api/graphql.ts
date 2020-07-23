@@ -6,11 +6,35 @@ const ProjectActions = schema.enumType({
   description: 'Actions available to the user',
 });
 
-const ReactToProjectInput = schema.inputObjectType({
+schema.inputObjectType({
+  name: 'CreateProjectInput',
+  definition(t) {
+    t.string('authorId', { required: true });
+    t.string('title', { required: true });
+    t.string('preview', { required: true });
+    t.string('repoLink', { required: true });
+    t.string('siteLink', { required: true });
+    t.string('description', { required: true });
+  },
+});
+
+schema.inputObjectType({
+  name: 'UpdateProjectInput',
+  definition(t) {
+    t.string('projectId', { required: true });
+    t.string('title');
+    t.string('preview');
+    t.string('repoLink');
+    t.string('siteLink');
+    t.string('description');
+  },
+});
+
+schema.inputObjectType({
   name: 'ReactToProjectInput',
   definition(t) {
-    t.string('projectId');
-    t.string('userId');
+    t.string('projectId', { required: true });
+    t.string('userId', { required: true });
     t.field('action', {
       type: ProjectActions,
       required: true,
@@ -43,6 +67,7 @@ schema.objectType({
     t.model.repoLink();
     t.model.siteLink();
     t.model.likes();
+    t.model.description();
     t.model.isApproved();
   },
 });
@@ -127,23 +152,32 @@ schema.mutationType({
     t.field('createProject', {
       type: 'Project',
       args: {
-        authorId: schema.stringArg({ required: true }),
-        title: schema.stringArg({ required: true }),
-        preview: schema.stringArg({ required: true }),
-        repoLink: schema.stringArg({ required: true }),
-        siteLink: schema.stringArg({ required: true }),
-        description: schema.stringArg({ required: true }),
+        input: 'CreateProjectInput',
       },
-      resolve(_root, { authorId, ...args }, ctx) {
+      resolve(_root, { input }, ctx) {
+        const { authorId, ...rest } = input;
         return ctx.db.project.create({
           data: {
-            ...args,
+            ...rest,
             author: {
               connect: {
                 id: authorId,
               },
             },
           },
+        });
+      },
+    });
+    t.field('updateProject', {
+      type: 'Project',
+      args: {
+        input: 'UpdateProjectInput',
+      },
+      resolve(_root, { input }, ctx) {
+        const { projectId, ...rest } = input;
+        return ctx.db.project.update({
+          where: { id: projectId },
+          data: rest,
         });
       },
     });
@@ -156,6 +190,24 @@ schema.mutationType({
         await ctx.db.project.delete({ where: { id: projectId } });
 
         return projectId;
+      },
+    });
+    t.field('deleteManyProjects', {
+      type: 'Json',
+      args: {
+        projectIds: schema.stringArg({ required: true, list: true }),
+      },
+      async resolve(_root, { projectIds }, ctx) {
+        const { count } = await ctx.db.project.deleteMany({
+          where: {
+            id: { in: projectIds },
+          },
+        });
+
+        return {
+          count,
+          ids: projectIds,
+        };
       },
     });
     t.field('reactToProject', {
