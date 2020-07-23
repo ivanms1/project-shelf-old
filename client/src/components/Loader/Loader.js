@@ -1,5 +1,5 @@
-import React from 'react'
-import styled, { keyframes } from 'styled-components'
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
 
 const Bounce = keyframes`
   0%, 80%, 100% { 
@@ -7,11 +7,11 @@ const Bounce = keyframes`
   } 40% { 
     transform: scale(1.0);
   }
-`
+`;
 
 const StyledDotsLoader = styled.div`
     display: inline-block;
-`
+`;
 
 const Dot = styled.span`
     width: ${props => (props.big ? '18px' : '15px')};
@@ -26,7 +26,7 @@ const Dot = styled.span`
     &:nth-child(2) {
         animation-delay: -0.16s;
     }
-`
+`;
 
 const Loader = props => {
     return (
@@ -35,7 +35,7 @@ const Loader = props => {
             <Dot {...props} style={{}} />
             <Dot {...props} style={{}} />
         </StyledDotsLoader>
-    )
-}
+    );
+};
 
-export default Loader
+export default Loader;

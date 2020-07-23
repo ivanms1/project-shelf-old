@@ -1,0 +1,19 @@
+mutation CreateUser(
+    $authorId:String!
+    $title:String!
+    $preview:String!
+    $repoLink:String!
+    $siteLink:String!
+    $description:String!
+){
+    createProject(authorId:$authorId,title:$title,preview:$preview,repoLink:$repoLink,siteLink:$siteLink,description:$description){
+        id 
+        title 
+        preview 
+        repoLink 
+        siteLink 
+        author { 
+            name 
+        } 
+    }
+}

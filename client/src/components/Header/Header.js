@@ -1,9 +1,10 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import Popup from 'reactjs-popup';
 import { Container, Links, Logo, StyledLink } from "./style";
 import Kathmandu from '../../assets/kathmandu.svg';
 import MobileMenu from '../MobileMenu/Mobilemenu';
 import BurgerIcon from '../BurgerIcon/BurgerIcon';
+
 
 function Header(props) {
 
@@ -24,7 +25,7 @@ function Header(props) {
             >
                 {close => <MobileMenu close={close} />}
             </Popup>
-        )
+        );
     });
 
 

@@ -1,7 +1,16 @@
-query GetUser($id: Int!) {
+query GetUser($id: String!) {
   user: getUser(id: $id) {
-    id
-    name
-    lastName
+   name
+   lastName
+   email
+    projects{
+      id
+      title
+      preview
+      siteLink
+      repoLink
+      isApproved
+      
+    }
   }
 }

@@ -1,11 +1,9 @@
 mutation RegisterUser(
-  $email: String!
-  $password: String!
-  $name: String!
+  $email: String!,
+  $password: String!,
+  $name: String!,
   $lastName: String!
 ) {
-  signUp(email: $email, password: $password, name: $name, lastName: $lastName) {
-    id
-    name
-  }
+  signUp(email:$email, password:$password, name:$name, lastName:$lastName)
 }
+
