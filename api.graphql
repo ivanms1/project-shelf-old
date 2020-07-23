@@ -2,6 +2,15 @@
 ### Do not make changes to this file directly
 
 
+input CreateProjectInput {
+  authorId: String!
+  description: String!
+  preview: String!
+  repoLink: String!
+  siteLink: String!
+  title: String!
+}
+
 """
 A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the
 `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO
@@ -15,15 +24,18 @@ The `JSON` scalar type represents JSON objects as specified by [ECMA-404](http:/
 scalar Json
 
 type Mutation {
-  createProject(authorId: String!, description: String!, preview: String!, repoLink: String!, siteLink: String!, title: String!): Project
+  createProject(input: CreateProjectInput): Project
+  deleteManyProjects(projectIds: [String!]!): Json
   deleteProject(projectId: String!): String
   login(email: String!, password: String!): Json
   reactToProject(input: ReactToProjectInput): Project
   signUp(email: String!, lastName: String!, name: String!, password: String!): Json
+  updateProject(input: UpdateProjectInput): Project
 }
 
 type Project {
   author: User!
+  description: String!
   id: String!
   isApproved: Boolean!
   likes(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
@@ -51,13 +63,22 @@ type Query {
 
 input ReactToProjectInput {
   action: ProjectAction!
-  projectId: String
-  userId: String
+  projectId: String!
+  userId: String!
 }
 
 enum Role {
   ADMIN
   USER
+}
+
+input UpdateProjectInput {
+  description: String
+  preview: String
+  projectId: String!
+  repoLink: String
+  siteLink: String
+  title: String
 }
 
 type User {
