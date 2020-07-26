@@ -8,4 +8,5 @@ lerna-debug.log*
 failed-inferMigrationSteps*
 
 # migrations
-migrations
+**/prisma/migrations
+**/prisma/.env
