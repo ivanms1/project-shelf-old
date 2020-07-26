@@ -3,7 +3,9 @@
   "license": "UNLICENSED",
   "version": "0.0.0",
   "dependencies": {
+    "cloudinary": "^1.22.0",
     "concurrently": "^5.2.0",
+    "graphql-upload": "^11.0.0",
     "nexus": "^0.24.2",
     "nexus-plugin-prisma": "^0.16.1"
   },
@@ -16,6 +18,7 @@
     "migrate": "npx prisma migrate save --experimental && npx prisma migrate up --experimental"
   },
   "devDependencies": {
+    "@types/graphql-upload": "^8.0.3",
     "prettier": "^2.0.5"
   }
 }
