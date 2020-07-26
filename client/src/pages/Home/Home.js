@@ -20,6 +20,11 @@ import Spinner from '../../components/Spinner/Spinner';
 
 const GET_USER_QUERY = loader('./queryUser.graphql');
 
+function redirect(path) {
+  return window.location.href=path;
+
+}
+
 function Home(props) {
   const userToken = localStorage.getItem('userToken');
 
@@ -38,18 +43,21 @@ function Home(props) {
     return <p>Please try again later</p>;
   }
 
+  
+
   const { user } = data;
+
   console.log(user);
   return (
     <div>
       <Header />
       <Container>
         <Approval>
-          <p>
-            Welcome {user.name} {user.lastName} Your Projects
+          <p style={{ textAlign: 'center' }}>
+            Welcome {user.name} {user.lastName}
           </p>
-          <div>
-            <div>
+          <div >
+            <div >
               <Active />
             </div>
             <span className='text'>Not Approved yet</span>
@@ -62,18 +70,21 @@ function Home(props) {
 
         <CardContainer>
           {user.projects.map(users => (
-            <Card>
+           
+            <Card key={users.id}>
               <Active active={users.isApproved} />
 
               <ImageContainer>
-                <img alt={users.name} src={Preview}></img>
+                <img alt={users.name} src={users.preview}></img>
               </ImageContainer>
 
               <Description>
                 <span>{users.title}</span>
                 <p>
                   <span className='first'>Live Link </span>
-                  <span className='second'>: {users.siteLink}</span>
+                  <a href={users.siteLink} style={{textDecoration:'none'}}> 
+                    <span className='second'>: {users.siteLink} </span>
+                  </a>
                 </p>
 
                 <p>
@@ -91,14 +102,14 @@ function Home(props) {
                   <span className='second'>: {user.name} {user.lastName}</span>
                 </p>
                 <p className='desc'>
-                  eg : this was built using MERN stacks. Used cloudaniary for
-                  image hosting. Used netlify for hosting in the live server.
-              </p>
+                  {users.description}
+                </p> 
 
-                <Button bgColor='#ED2C49' margin='20px 0 0 0'>
+                <Button bgColor='#ED2C49' margin='20px 0 0 0' onClick={()=> redirect(users.repoLink)}> 
                   Visit the repository
-                  <a href={users.repoLink}></a>
+                
                 </Button>
+        
               </Description>
             </Card>
 

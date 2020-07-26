@@ -95,6 +95,7 @@ cursor:pointer;
   transform: translateY(4px) scale(1.1);
 }
 `;
+
 export const ErrorText = styled.small`
 color:red;
 margin:5px 0 0 10px;

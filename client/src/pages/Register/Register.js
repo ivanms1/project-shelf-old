@@ -22,8 +22,10 @@ import { Redirect } from 'react-router-dom';
 const MUTATION_REGISTER_USER = loader('./mutationRegisterUser.graphql');
 
 function Register(props) {
-
+  console.count(1);
   const [redirect, setRedirect] = useState(false);
+
+  const [value, setValue] = useState();
 
   const { register, handleSubmit, watch, errors } = useForm();
 
@@ -33,6 +35,10 @@ function Register(props) {
     return <Spinner />;
   }
 
+  function handleChange(e) {
+    setValue(e.target.value);
+    console.log(value);
+  }
 
   async function onSubmit(data) {
     console.log(data);
@@ -71,7 +77,7 @@ function Register(props) {
               <span>Register</span>
               <InputContainer>
                 <label>First name</label>
-                <Input name='firstname' placeholder='#234567' ref={register({
+                <Input onChange={handleChange} name='firstname' placeholder='#234567' ref={register({
                   required: "Full Name is required.",
                   maxLength: 10,
                   minLength: {
