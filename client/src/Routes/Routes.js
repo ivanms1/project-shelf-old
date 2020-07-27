@@ -10,17 +10,17 @@ import Weekly from '../pages/WeeklyProjects/Weekly';
 import Error from '../pages/Error/error';
 
 function Routes(props) {
-    return (
-        <Switch>
-            <Route exact path='/' component={Home}></Route>
-            <Route path='/contact' component={Contact}></Route>
-            <Route path='/register' component={Register}></Route>
-            <Route path='/signin' component={SignIn}></Route>
-            <Route path='/submit' component={Submitproject}></Route>
-            <Route path='/weekly' component={Weekly}></Route>
-            <Route component={Error}></Route>
-        </Switch>
-    );
+  return (
+    <Switch>
+      <Route exact path='/' component={Home}></Route>
+      <Route path='/contact' component={Contact}></Route>
+      <Route path='/register' component={Register}></Route>
+      <Route path='/signin' component={SignIn}></Route>
+      <Route path='/submit' component={Submitproject}></Route>
+      <Route path='/weekly' component={Weekly}></Route>
+      <Route component={Error}></Route>
+    </Switch>
+  );
 }
 
 export default Routes;

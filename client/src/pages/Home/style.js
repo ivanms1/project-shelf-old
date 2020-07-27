@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
 width:100%;
 background-color:#F7F8FC;
-`
+`;
 
 export const Approval = styled.div`
 width:100%;
@@ -67,7 +67,7 @@ justify-content:space-between;
         }
     }
 }
-`
+`;
 
 export const CardContainer = styled.div`
 width:100%;
@@ -78,7 +78,7 @@ flex-direction:row;
 justify-content:space-around;
 flex-wrap:wrap;
 padding:15px;
-`
+`;
 export const Card = styled.div`
 width:100%;
 max-width:506px;
@@ -96,21 +96,21 @@ p{
        line-height:1.1em;
    }
 }
-`
+`;
 export const Active = styled.div`
 margin-bottom:10px;
-`
+`;
 
 export const Color = styled.div`
 width:30px;
 height:30px;
 background-color:${props => props.active ? '#00CB5B' : '#ED2C49'};
 border-radius:50%;
-`
+`;
 
 export const ImageContainer = styled.div`
 overflow:hidden;
-height:331px;
+height:350px;
 
 img{
     width:100%;
@@ -121,7 +121,7 @@ img{
 @media screen and (max-width:450px){
     height:250px;
 }
-`
+`;
 
 export const Description = styled.div`
 width:100%;
@@ -150,4 +150,4 @@ margin-top:20px;
     color:#010101;
     font-size:20px;
 }
-`
+`;
