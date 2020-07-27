@@ -1,9 +1,11 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import Popup from 'reactjs-popup';
 import { Container, Links, Logo, StyledLink } from "./style";
 import Kathmandu from '../../assets/kathmandu.svg';
 import MobileMenu from '../MobileMenu/Mobilemenu';
 import BurgerIcon from '../BurgerIcon/BurgerIcon';
+import { Link } from 'react-router-dom';
+
 
 function Header(props) {
 
@@ -24,7 +26,7 @@ function Header(props) {
             >
                 {close => <MobileMenu close={close} />}
             </Popup>
-        )
+        );
     });
 
 
@@ -33,18 +35,14 @@ function Header(props) {
             <PopUpContainer />
             <Logo>
                 <div>
-                    <img alt='kathmandu' src={Kathmandu}></img>
+                    <Link to='/'>
+                        <img alt='kathmandu' src={Kathmandu}></img>
+                    </Link>
                 </div>
-                <span>ShowCase</span>
             </Logo>
 
             <Links>
                 <ul>
-                    <li>
-                        <StyledLink exact activeClassName='current' to='/'>
-                            Home
-                        </StyledLink>
-                    </li>
 
                     <li>
                         <StyledLink activeClassName='current' to='/weekly'>
@@ -60,11 +58,16 @@ function Header(props) {
                     </li>
 
                     <li>
-                        <StyledLink activeClassName='current' to='/contact'>
-                            Contact
+                        <StyledLink activeClassName='current' to='/signin'>
+                            Sign in
                         </StyledLink>
                     </li>
 
+                    <li>
+                        <StyledLink activeClassName='current' to='/register'>
+                            Register
+                        </StyledLink>
+                    </li>
                 </ul>
             </Links>
         </Container>

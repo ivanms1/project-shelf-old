@@ -17,4 +17,4 @@ cursor:pointer;
 :active {
   transform: translateY(4px) scale(1.02);
 }
-`
+`;
