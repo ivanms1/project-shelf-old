@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { loader } from 'graphql.macro';
 import { useQuery } from '@apollo/client';
 
@@ -13,7 +14,6 @@ import {
   Description,
 } from './style';
 
-import Preview from '../../assets/desktop-preview.jpg';
 import Button from '../../components/Button/Button';
 import Active from '../../components/Active/Active';
 import Spinner from '../../components/Spinner/Spinner';
@@ -21,33 +21,32 @@ import Spinner from '../../components/Spinner/Spinner';
 const GET_USER_QUERY = loader('./queryUser.graphql');
 
 function redirect(path) {
-  return window.location.href=path;
-
+  return (window.location.href = path);
 }
 
-function Home(props) {
+function Home() {
   const userToken = localStorage.getItem('userToken');
 
   const { data, loading, error } = useQuery(GET_USER_QUERY, {
     variables: {
       id: userToken,
+      skip: !userToken,
     },
   });
+
+  if (!userToken) {
+    return <Redirect to='register' />;
+  }
 
   if (loading) {
     return <Spinner />;
   }
 
   if (error) {
-    console.log(error);
     return <p>Please try again later</p>;
   }
 
-  
-
   const { user } = data;
-
-  console.log(user);
   return (
     <div>
       <Header />
@@ -56,8 +55,8 @@ function Home(props) {
           <p style={{ textAlign: 'center' }}>
             Welcome {user.name} {user.lastName}
           </p>
-          <div >
-            <div >
+          <div>
+            <div>
               <Active />
             </div>
             <span className='text'>Not Approved yet</span>
@@ -69,8 +68,7 @@ function Home(props) {
         </Approval>
 
         <CardContainer>
-          {user.projects.map(users => (
-           
+          {user.projects.map((users) => (
             <Card key={users.id}>
               <Active active={users.isApproved} />
 
@@ -82,7 +80,7 @@ function Home(props) {
                 <span>{users.title}</span>
                 <p>
                   <span className='first'>Live Link </span>
-                  <a href={users.siteLink} style={{textDecoration:'none'}}> 
+                  <a href={users.siteLink} style={{ textDecoration: 'none' }}>
                     <span className='second'>: {users.siteLink} </span>
                   </a>
                 </p>
@@ -99,20 +97,21 @@ function Home(props) {
 
                 <p>
                   <span className='first'>Name </span>
-                  <span className='second'>: {user.name} {user.lastName}</span>
+                  <span className='second'>
+                    : {user.name} {user.lastName}
+                  </span>
                 </p>
-                <p className='desc'>
-                  {users.description}
-                </p> 
+                <p className='desc'>{users.description}</p>
 
-                <Button bgColor='#ED2C49' margin='20px 0 0 0' onClick={()=> redirect(users.repoLink)}> 
+                <Button
+                  bgColor='#ED2C49'
+                  margin='20px 0 0 0'
+                  onClick={() => redirect(users.repoLink)}
+                >
                   Visit the repository
-                
                 </Button>
-        
               </Description>
             </Card>
-
           ))}
 
           {/* <Card>
