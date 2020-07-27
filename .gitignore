@@ -6,7 +6,6 @@ yarn-error.log*
 lerna-debug.log*
 # Prisma
 failed-inferMigrationSteps*
-
-# migrations
-**/prisma/migrations
-**/prisma/.env
+migrations
+.env*
+.vscode
