@@ -14,7 +14,7 @@ padding:0 10px;
 img{
     margin: 0 0 40px 0;
 }
-`
+`;
 
 export const RegisterBox = styled.div`
 width:100%;
@@ -33,7 +33,7 @@ flex-direction:column;
     letter-spacing:1.1px;
     margin-bottom:10px;
 }
-`
+`;
 
 export const InputContainer = styled.div`
 width:100%;
@@ -45,7 +45,7 @@ label{
     margin-left:5px;
     letter-spacing:1.1px;
 }
-`
+`;
 
 export const Input = styled.input`
 width:100%;
@@ -65,7 +65,7 @@ letter-spacing:1.1px;
     font-size:15px;
     letter-spacing:1.1px;
 }
-`
+`;
 
 export const Links = styled(Link)`
 width:100%;
@@ -75,7 +75,7 @@ text-decoration:none;
 font-weight:600;
 font-size:18px;
 color:#4285F4;
-`
+`;
 
 export const SignInButton = styled.input`
 background-color:#00CB5B;
@@ -94,4 +94,11 @@ cursor:pointer;
 :active {
   transform: translateY(4px) scale(1.1);
 }
-`
+`;
+
+export const ErrorText = styled.small`
+color:red;
+margin:5px 0 0 10px;
+font-size:15px;
+font-weight:400;
+`;

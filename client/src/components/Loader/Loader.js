@@ -1,5 +1,5 @@
-import React from 'react'
-import styled, { keyframes } from 'styled-components'
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
 
 const Bounce = keyframes`
   0%, 80%, 100% { 
@@ -7,35 +7,35 @@ const Bounce = keyframes`
   } 40% { 
     transform: scale(1.0);
   }
-`
+`;
 
 const StyledDotsLoader = styled.div`
-    display: inline-block;
-`
+  display: inline-block;
+`;
 
 const Dot = styled.span`
-    width: ${props => (props.big ? '18px' : '15px')};
-    height: ${props => (props.big ? '18px' : '15px')};
-    background-color:white;
-    border-radius: 100%;
-    display: inline-block;
-    animation: ${Bounce} 1s infinite ease-in-out both;
-    &:first-child {
-        animation-delay: -0.32s;
-    }
-    &:nth-child(2) {
-        animation-delay: -0.16s;
-    }
-`
+  width: ${(props) => (props.big ? '18px' : '15px')};
+  height: ${(props) => (props.big ? '18px' : '15px')};
+  background-color: white;
+  border-radius: 100%;
+  display: inline-block;
+  animation: ${Bounce} 1s infinite ease-in-out both;
+  &:first-child {
+    animation-delay: -0.32s;
+  }
+  &:nth-child(2) {
+    animation-delay: -0.16s;
+  }
+`;
 
-const Loader = props => {
-    return (
-        <StyledDotsLoader {...props}>
-            <Dot {...props} style={{}} />
-            <Dot {...props} style={{}} />
-            <Dot {...props} style={{}} />
-        </StyledDotsLoader>
-    )
-}
+const Loader = (props) => {
+  return (
+    <StyledDotsLoader {...props}>
+      <Dot {...props} style={{}} />
+      <Dot {...props} style={{}} />
+      <Dot {...props} style={{}} />
+    </StyledDotsLoader>
+  );
+};
 
-export default Loader
+export default Loader;

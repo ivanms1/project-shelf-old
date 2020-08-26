@@ -35,9 +35,7 @@ export const Logo = styled.div`
 display:flex;
 justify-content:space-between;
 align-items:center;
-width:100%;
-max-width:300px;
-min-width:300px;
+
 
 >div{
     width:101px;
@@ -60,18 +58,15 @@ span{
 }
 
 
-
-
 @media screen and (max-width:535px){
     /* border:2px solid green; */
     display:flex;
     flex-direction:row;
-    justify-content:space-between;
+    justify-content:center;
     align-items:center;
     width:100%;
     max-width:250px;
     min-width:250px;
-    margin-right:-40px;
 
     >div{
     width:70px;
@@ -83,7 +78,7 @@ span{
         font-size:25px;
     }
 }
-`
+`;
 
 export const Links = styled.div`
 /* border:2px solid green; */

@@ -1,8 +1,8 @@
-# Node
 node_modules
+migrations/
+*.env
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
-# Prisma
 failed-inferMigrationSteps*
