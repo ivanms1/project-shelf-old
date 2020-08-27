@@ -48,7 +48,8 @@ function Signin(props) {
           password: data.password,
         },
       });
-      console.log(response);
+
+
       localStorage.setItem('userToken', response.data.login.userId);
       // redirect with the id from the response
       history.push('/');
