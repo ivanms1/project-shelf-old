@@ -6,7 +6,7 @@ import Globalstyles from './styles/Globalstyles';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter forceRefresh={true}>
       <Globalstyles />
       <Routes />
     </BrowserRouter>

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { loader } from 'graphql.macro';
 import { useMutation } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
 
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
@@ -15,6 +16,7 @@ import {
   Input,
   Links,
   SignInButton,
+  LoginDetailsError
 } from './style';
 import Rocket from '../../assets/rocket.svg';
 import Spinner from '../../components/Spinner/Spinner';
@@ -22,6 +24,7 @@ import Spinner from '../../components/Spinner/Spinner';
 const GET_USER_QUERY = loader('./mutationLoginUser.graphql');
 
 function Signin(props) {
+  const history = useHistory();
   const { register, errors, handleSubmit } = useForm({ criteriaMode: 'all' });
 
   const [reg, { loading, error }] = useMutation(GET_USER_QUERY);
@@ -31,7 +34,10 @@ function Signin(props) {
   }
 
   if (error) {
-    return <p>error</p>;
+    return <LoginDetailsError>
+      <p>Login Details didnt match</p>
+      <button onClick={() => history.push('/signin')}>Back to SignIn</button>
+    </LoginDetailsError>;
   }
 
   async function onsubmit(data) {
@@ -43,9 +49,10 @@ function Signin(props) {
         },
       });
 
-      localStorage.setItem('userToken', response.data.login.userId);
 
+      localStorage.setItem('userToken', response.data.login.userId);
       // redirect with the id from the response
+      history.push('/');
     } catch (error) {
       // display error
       console.log(error.message);
@@ -53,11 +60,11 @@ function Signin(props) {
   }
 
   return (
-    // localStorage.getItem('userToken') ? <Redirect to='/' /> :
+
     <div>
       <Header />
-
       <Main>
+
         <img alt='rocket' src={Rocket}></img>
         <SignInBox>
           <Form onSubmit={handleSubmit(onsubmit)}>
@@ -104,7 +111,7 @@ function Signin(props) {
               </ErrorText>
             </InputContainer>
 
-            <Links to='/'>Forgot Password ?</Links>
+            <Links to='/register'>Register ?</Links>
             <SignInButton type='submit' value='Sign In'></SignInButton>
           </Form>
         </SignInBox>

@@ -21,10 +21,10 @@ const Pulse = keyframes`
     transform: scale(0.9);
     box-shadow: 0 0 0 0 rgba(90, 153, 212, 0);
   }
-`
+`;
 
 export const Container = styled.div`
-  width: 100%;
+  width:50px;
   height: 70px;
   perspective: 1000;
   backface-visibility: hidden;
@@ -33,7 +33,7 @@ export const Container = styled.div`
   padding:0 10px 0 0px;
   justify-content:flex-end;
   align-items:center;
-`
+`;
 
 export const PulseButton = styled.span`
   position: absolute;
@@ -50,9 +50,9 @@ export const PulseButton = styled.span`
   color: white;
   border: none;
   border-radius: 50%;
-  background: ${props => props.active ? '#00cb5b' : '#ed2c49'};
-  cursor: pointer;
+  background: ${props => props.active ? '#00cb5b' : '#D70330'};
+  cursor: default;
   box-shadow: 0 0 0 0 ${props => props.active ? '#00cb5b' : '#ed2c49'};;
   animation: ${Pulse} 1.5s infinite;
-`
+`;
 

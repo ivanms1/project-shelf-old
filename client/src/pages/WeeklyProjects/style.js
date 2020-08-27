@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
 width:100%;
 background-color:#F7F8FC;
-`
+`;
 
 export const SearchContainer = styled.div`
 width:100%;
@@ -43,7 +43,7 @@ flex-wrap:wrap;
     margin-bottom:20px;
 }
 }
-`
+`;
 
 export const CardContainer = styled.div`
 width:100%;
@@ -55,7 +55,14 @@ justify-content:space-around;
 align-items:center;
 flex-wrap:wrap;
 padding:15px;
-`
+
+.noproject{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+`;
 
 export const Card = styled.div`
 width:100%;
@@ -74,7 +81,7 @@ p{
        line-height:1.1em;
    }
 }
-`
+`;
 
 export const ImageContainer = styled.div`
 overflow:hidden;
@@ -89,7 +96,7 @@ img{
 @media screen and (max-width:450px){
     height:250px;
 }
-`
+`;
 
 export const Description = styled.div`
 width:100%;
@@ -111,10 +118,11 @@ margin-top:20px;
     color:#65587F;
     font-size:20px;
     font-weight:500;
+    word-wrap:break-word;
 }
 
 .desc{
     color:#010101;
     font-size:20px;
 }
-`
+`;

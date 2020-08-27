@@ -1,24 +1,29 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
 import Home from '../pages/Home/Home';
 import Contact from '../pages/Contact/Contact';
 import Register from '../pages/Register/Register';
 import SignIn from '../pages/SignIn/Signin';
+import Logout from '../pages/Logout/Logout';
 import Submitproject from '../pages/SubmitYourProject/Submit';
 import Weekly from '../pages/WeeklyProjects/Weekly';
 import Error from '../pages/Error/error';
 
+import PublicRoutes from './PublicRoutes';
+import PrivateRoutes from './PrivateRoutes';
+
 function Routes(props) {
   return (
     <Switch>
-      <Route exact path='/' component={Home}></Route>
-      <Route path='/contact' component={Contact}></Route>
-      <Route path='/register' component={Register}></Route>
-      <Route path='/signin' component={SignIn}></Route>
-      <Route path='/submit' component={Submitproject}></Route>
-      <Route path='/weekly' component={Weekly}></Route>
-      <Route component={Error}></Route>
+      <PrivateRoutes exact path='/' component={Home}></PrivateRoutes>
+      <PrivateRoutes path='/contact' component={Contact}></PrivateRoutes>
+      <PublicRoutes path='/register' component={Register}></PublicRoutes>
+      <PublicRoutes path='/signin' component={SignIn}></PublicRoutes>
+      <PrivateRoutes path='/logout' component={Logout}></PrivateRoutes>
+      <PrivateRoutes path='/submit' component={Submitproject}></PrivateRoutes>
+      <PrivateRoutes path='/weekly' component={Weekly}></PrivateRoutes>
+      <PublicRoutes component={Error}></PublicRoutes>
     </Switch>
   );
 }
