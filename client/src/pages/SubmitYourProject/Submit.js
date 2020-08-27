@@ -1,19 +1,20 @@
 import React from 'react';
 import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
 
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
+import Spinner from '../../components/Spinner/Spinner';
 import SubmitForm from './SubmitForm';
 
 import { Container } from './style';
 
-import Spinner from '../../components/Spinner/Spinner';
+const userToken = localStorage.getItem('userToken');
 
 const GET_USER_QUERY = loader('./queryGetUser.graphql');
 const CREATE_PROJECT_MUTATION = loader('./mutationCreateProject.graphql');
 
-const userToken = localStorage.getItem('userToken');
 
 function Submit(props) {
   const { loading, data } = useQuery(GET_USER_QUERY, {
@@ -21,6 +22,8 @@ function Submit(props) {
       id: userToken,
     },
   });
+
+  const history = useHistory();
 
   const [sendInputs, { error }] = useMutation(CREATE_PROJECT_MUTATION);
 
@@ -50,6 +53,7 @@ function Submit(props) {
         },
       });
       alert('success');
+      history.push('/');
     } catch (error) {
       console.log(JSON.stringify(error, null, 2));
     }

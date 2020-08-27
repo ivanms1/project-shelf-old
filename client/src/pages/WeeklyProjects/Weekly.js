@@ -1,12 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useQuery } from '@apollo/client';
+import { loader } from 'graphql.macro';
+
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
+
 import { Container, SearchContainer, CardContainer, Card, ImageContainer, Description } from './style';
+
 import Preview from '../../assets/desktop-preview.jpg';
 import Button from '../../components/Button/Button';
 import Actives from '../../components/Active/Active';
+import Spinner from '../../components/Spinner/Spinner';
+
+const QUERY_WEEKLY_PROJECTS = loader('./queryGetProjects.graphql');
+
+function redirect(path) {
+    return (window.location.href = path);
+}
 
 function Weekly(props) {
+    const [loadingState, setLoadingState] = useState(false);
+    const { data, loading, error } = useQuery(QUERY_WEEKLY_PROJECTS);
+
+    if (loading) {
+        return <Spinner />;
+    }
+
+    if (error) {
+        return JSON.stringify(error, null, 2);
+    }
+
+    const { projects } = data;
+
     return (
         <div>
             <Header />
@@ -25,159 +50,66 @@ function Weekly(props) {
                 </SearchContainer>
 
                 <CardContainer>
-                    <Card>
-                        <Actives active />
+                    {projects.length > 0 ?
 
-                        <ImageContainer>
-                            <img alt='preview' src={Preview}></img>
-                        </ImageContainer>
+                        <>
+                            {projects.map(project => (
+                                < Card key={project.id}>
+                                    <Actives active={project.isApproved} />
 
-                        <Description>
-                            <span>Recipe App</span>
-                            <p>
-                                <span className='first'>Live Link </span>
-                                <span className='second'>: Live link here</span>
-                            </p>
+                                    <ImageContainer>
+                                        <img alt='preview' src={Preview}></img>
+                                    </ImageContainer>
 
-                            <p>
-                                <span className='first'>Contributors Name </span>
-                                <span className='second'>: John, Smigal</span>
-                            </p>
+                                    <Description>
+                                        <span>{project.title}</span>
+                                        <p>
+                                            <span className='first'>Link to the Repo </span>
+                                            <span className='second'>: {project.repoLink}</span>
+                                        </p>
 
-                            <p>
-                                <span className='first'>Weekly Category </span>
-                                <span className='second'>: 4th weekly project</span>
-                            </p>
+                                        <p>
+                                            <span className='first'>Live Link </span>
+                                            <span className='second'>: {project.siteLink}</span>
+                                        </p>
 
-                            <p>
-                                <span className='first'>Discord Name </span>
-                                <span className='second'>: Uzamaki21</span>
-                            </p>
+                                        <p>
+                                            <span className='first'>Email </span>
+                                            <span className='second'>: {project.author.email}</span>
+                                        </p>
 
-                            <p className='desc'>
-                                eg : this was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.
-                            </p>
+                                        <p>
+                                            <span className='first'>Name </span>
+                                            <span className='second'>
+                                                : {project.author.name} {project.author.lastName}
+                                            </span>
+                                        </p>
 
-                            <Button loading={true} bgColor='#ED2C49' margin='20px 0 0 0'>Visit the repository</Button>
-                        </Description>
+                                        <p className='desc'>{project.description}</p>
 
-                    </Card>
+                                        <Button
+                                            onClick={() => {
+                                                setLoadingState(true);
+                                                redirect(project.repoLink);
+                                            }}
+                                            loading={loadingState}
+                                            bgColor='#ED2C49'
+                                            margin='20px 0 0 0'
+                                        >Visit the repository</Button>
+                                    </Description>
 
-                    <Card>
-                        <Actives />
-                        <ImageContainer>
-                            <img alt='preview' src={Preview}></img>
-                        </ImageContainer>
+                                </Card>
+                            ))}
+                        </>
+                        :
+                        <p className='noproject'>no one has ever posted a project yet.</p>
+                    }
 
-                        <Description>
-                            <span>Recipe App</span>
-                            <p>
-                                <span className='first'>Live Link </span>
-                                <span className='second'>: Live link here</span>
-                            </p>
-
-                            <p>
-                                <span className='first'>Contributors Name </span>
-                                <span className='second'>: John, Smigal</span>
-                            </p>
-
-                            <p>
-                                <span className='first'>Weekly Category </span>
-                                <span className='second'>: 4th weekly project</span>
-                            </p>
-
-                            <p>
-                                <span className='first'>Discord Name </span>
-                                <span className='second'>: Uzamaki21</span>
-                            </p>
-
-                            <p className='desc'>
-                                eg : this was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.
-                            </p>
-                            <Button loading={true} bgColor='#ED2C49' margin='20px 0 0 0'>Visit the repository</Button>
-                        </Description>
-
-                    </Card>
-
-                    <Card>
-                        <Actives active={false} />
-                        <ImageContainer>
-                            <img alt='preview' src={Preview}></img>
-                        </ImageContainer>
-
-                        <Description>
-                            <span>Recipe App</span>
-                            <p>
-                                <span className='first'>Live Link </span>
-                                <span className='second'>: Live link here</span>
-                            </p>
-
-                            <p>
-                                <span className='first'>Contributors Name </span>
-                                <span className='second'>: John, Smigal</span>
-                            </p>
-
-                            <p>
-                                <span className='first'>Weekly Category </span>
-                                <span className='second'>: 4th weekly project</span>
-                            </p>
-
-                            <p>
-                                <span className='first'>Discord Name </span>
-                                <span className='second'>: Uzamaki21</span>
-                            </p>
-
-                            <p className='desc'>
-                                eg : this was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.
-                            </p>
-
-                            <Button loading={true} bgColor='#ED2C49' margin='20px 0 0 0'>Visit the repository</Button>
-                        </Description>
-
-                    </Card>
-
-                    <Card>
-                        <Actives active={true} />
-
-                        <ImageContainer>
-                            <img alt='preview' src={Preview}></img>
-                        </ImageContainer>
-
-                        <Description>
-                            <span>Recipe App</span>
-                            <p>
-                                <span className='first'>Live Link </span>
-                                <span className='second'>: Live link here</span>
-                            </p>
-
-                            <p>
-                                <span className='first'>Contributors Name </span>
-                                <span className='second'>: John, Smigal</span>
-                            </p>
-
-                            <p>
-                                <span className='first'>Weekly Category </span>
-                                <span className='second'>: 4th weekly project</span>
-                            </p>
-
-                            <p>
-                                <span className='first'>Discord Name </span>
-                                <span className='second'>: Uzamaki21</span>
-                            </p>
-
-                            <p className='desc'>
-                                eg : this was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.
-                            </p>
-
-                            <Button bgColor='#ED2C49' margin='20px 0 0 0'>Visit the repository</Button>
-                        </Description>
-
-                    </Card>
                 </CardContainer>
             </Container>
 
             <Footer />
-        </div>
+        </div >
     );
 }
 

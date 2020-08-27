@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Popup from 'reactjs-popup';
+import { Link } from 'react-router-dom';
+
 import { Container, Links, Logo, StyledLink } from './style';
 import Kathmandu from '../../assets/kathmandu.svg';
 import MobileMenu from '../MobileMenu/Mobilemenu';
 import BurgerIcon from '../BurgerIcon/BurgerIcon';
-import { Link } from 'react-router-dom';
+
+import { Context } from "../../Context/AppContext";
 
 function Header(props) {
+
+  const hooks = useContext(Context);
+  const { isAuthenticated } = hooks;
+
   const contentStyle = {
     background: 'rgba(255,255,255,0)',
     width: '80%',
@@ -39,33 +46,62 @@ function Header(props) {
       </Logo>
 
       <Links>
-        <ul>
-          <li>
-            <StyledLink activeClassName='current' to='/weekly'>
-              Weekly Projects
-            </StyledLink>
-          </li>
+        {isAuthenticated ?
+          <ul>
+            <li>
+              <StyledLink exact activeClassName='current' to='/'>
+                Home
+              </StyledLink>
+            </li>
 
-          <li>
-            <StyledLink activeClassName='current' to='/submit'>
-              Submit your Projects
-            </StyledLink>
-          </li>
+            <li>
+              <StyledLink activeClassName='current' to='/weekly'>
+                Weekly Projects
+              </StyledLink>
+            </li>
 
-          <li>
-            <StyledLink activeClassName='current' to='/signin'>
-              Sign in
-            </StyledLink>
-          </li>
+            <li>
+              <StyledLink activeClassName='current' to='/submit'>
+                Submit your Projects
+              </StyledLink>
+            </li>
 
-          <li>
-            <StyledLink activeClassName='current' to='/register'>
-              Register
-            </StyledLink>
-          </li>
-        </ul>
+            <li>
+              <StyledLink activeClassName='current' to='/logout'>
+                Log out
+              </StyledLink>
+            </li>
+          </ul>
+          :
+          <ul>
+
+            <li>
+              <StyledLink activeClassName='current' to='/weekly'>
+                Weekly Projects
+              </StyledLink>
+            </li>
+
+            <li>
+              <StyledLink activeClassName='current' to='/submit'>
+                Submit your Projects
+              </StyledLink>
+            </li>
+
+            <li>
+              <StyledLink activeClassName='current' to='/register'>
+                Register
+              </StyledLink>
+            </li>
+            <li>
+              <StyledLink activeClassName='current' to='/signin'>
+                Sign in
+              </StyledLink>
+            </li>
+          </ul>
+        }
+
       </Links>
-    </Container>
+    </Container >
   );
 }
 

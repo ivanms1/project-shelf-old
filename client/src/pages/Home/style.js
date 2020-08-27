@@ -14,37 +14,12 @@ padding:20px 40px;
 display:flex;
 align-items:center;
 justify-content:space-between;
-
+    
 >p{
     font-weight:600;
     font-size:28px;
 }
 
->div{
-    width:100%;
-    max-width:550px;
-    display:flex;
-    align-items:center;
-    justify-content:space-around;
-
-    >p{
-        width:50px;
-        display:flex;
-        justify-content:space-around;
-        align-items:center;
-        
-    }
-
-    >span:first-child{
-        margin-right:20px;
-    }
-
-    .text{
-        font-weight:600;
-        font-size:22px;
-    }
-
-}
 
 @media screen and (max-width:700px){
     display:flex;
@@ -69,6 +44,44 @@ justify-content:space-between;
 }
 `;
 
+export const ActiveContainer = styled.div`
+width:100%;
+max-width:600px;
+display:flex;
+justify-content:space-evenly;
+margin:0 0 0 30px;
+
+>div{
+    margin:0 5px;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    width:100%;
+
+>span{
+    margin:0 0 0 20px;
+    font-weight:600;
+    font-size:1.5rem;
+}
+}
+
+@media screen and (max-width:950px){
+display:flex;
+flex-direction:column;
+justify-content:space-evenly;
+margin:0 0 0 0px;
+}
+
+>div{
+
+>span{
+    margin:0 0 0 20px;
+    font-weight:600;
+    font-size:1.3rem;
+}
+}
+`;
+
 export const CardContainer = styled.div`
 width:100%;
 max-width:1400px;
@@ -78,6 +91,13 @@ flex-direction:row;
 justify-content:space-around;
 flex-wrap:wrap;
 padding:15px;
+
+.noproject{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
 `;
 export const Card = styled.div`
 width:100%;
@@ -144,6 +164,7 @@ margin-top:20px;
     color:#65587F;
     font-size:20px;
     font-weight:500;
+    word-wrap: break-word;
 }
 
 .desc{

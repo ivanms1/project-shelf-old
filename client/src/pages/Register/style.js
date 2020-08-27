@@ -75,6 +75,11 @@ text-decoration:none;
 font-weight:600;
 font-size:18px;
 color:#4285F4;
+
+&:hover{
+    text-decoration:underline;
+    transition:1.3s linear;
+}
 `;
 
 export const SignInButton = styled.input`

@@ -1,11 +1,13 @@
 import React from 'react';
+
 import { Container, PulseButton } from "./style";
 
 function Active({ active }) {
     return (
-        <Container>
+        <Container >
             <PulseButton active={active}></PulseButton>
         </Container>
+
     );
 }
 
