@@ -4,7 +4,6 @@ import { useQuery, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
 import Spinner from '../../components/Spinner/Spinner';
 import SubmitForm from './SubmitForm';
 
@@ -72,7 +71,6 @@ function Submit(props) {
           {user && <SubmitForm user={user} onSubmit={onSubmit} />}
         </Container>
       </div>
-      <Footer />
     </div>
   );
 }

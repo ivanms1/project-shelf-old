@@ -5,9 +5,9 @@ import { loader } from 'graphql.macro';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
-import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 import {
+  Container,
   Main,
   SignInBox,
   Form,
@@ -61,11 +61,13 @@ function Signin(props) {
 
   return (
 
-    <div>
+    <Container>
       <Header />
+
       <Main>
 
         <img alt='rocket' src={Rocket}></img>
+
         <SignInBox>
           <Form onSubmit={handleSubmit(onsubmit)}>
             <span>Sign In</span>
@@ -73,7 +75,7 @@ function Signin(props) {
               <span>Email Address</span>
               <Input
                 name='email'
-                placeholder='a@a.com'
+                placeholder='joe@don.com'
                 ref={register({
                   required: 'Email address is required.',
                   maxLength: 20,
@@ -111,14 +113,19 @@ function Signin(props) {
               </ErrorText>
             </InputContainer>
 
-            <Links to='/register'>Register ?</Links>
+
+            <div className='registerContainer'>
+              <Links to='/register'>
+                Register ?
+              </Links>
+            </div>
+
             <SignInButton type='submit' value='Sign In'></SignInButton>
           </Form>
         </SignInBox>
       </Main>
 
-      <Footer />
-    </div>
+    </Container>
   );
 }
 

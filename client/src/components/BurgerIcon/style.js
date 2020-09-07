@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  @media (min-width: 595px) {
+  @media (min-width: 677px) {
     display: none;
   }
   .burger-menu,

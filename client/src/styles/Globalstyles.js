@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
 
@@ -25,6 +25,7 @@ html{
 body{
     font-family: 'Poppins', sans-serif;
     -webkit-font-smoothing: antialiased;
+    
 }
 
 button{
@@ -34,4 +35,4 @@ button{
 li{
     list-style:none;
 }
-`
+`;

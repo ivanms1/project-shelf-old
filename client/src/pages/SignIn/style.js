@@ -1,15 +1,19 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+export const Container = styled.div`
+min-height:100vh;
+display:flex;
+flex-direction:column;
+`;
+
 export const Main = styled.div`
-width:100%;
-height:100vh;
+flex:1;
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-overflow:hidden;
-padding:0 10px;
+padding:0 25px;
 background-color:#f7f8fc;
 `;
 
@@ -18,9 +22,15 @@ background-color:white;
 width:100%;
 max-width:433px;
 border-radius:5px;
-padding:30px 30px 40px 30px;
+padding:30px 30px 35px 30px;
 box-shadow: 5px 5px 20px 0px rgba(0,0,0,0.20);
-margin:50px 15px;
+margin:50px 0 0 0;
+
+.registerContainer{
+    width:100%;
+    text-align:center;
+    margin:10px 0;
+}
 `;
 
 export const Form = styled.form`
@@ -47,7 +57,7 @@ width:100%;
 
 >span{
     font-weight:600;
-    font-size:16px;
+    font-size:15px;
     margin-left:5px;
     letter-spacing:1.1px;
 }
@@ -55,21 +65,30 @@ width:100%;
 
 export const Input = styled.input`
 width:100%;
-border-radius:7px;
-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.25);
-border:1px solid #c4c4c4;
+background-color:transparent;
+border:1.11px solid hsl(213,1%,84%);
+border-radius:5px;
+color:hsl(210,12%,16%);
+line-height:20px;
 margin-top:5px;
-padding:15px 0 15px 35px;
-color:#6C757D;
+padding:15px 0 15px 20px;
 font-weight:600;
 font-size:15px;
+font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 letter-spacing:1.1px;
+
+&:focus{
+  outline:none;
+  border:1px solid #2188ff;
+  box-shadow:inset 0 1px 2px rgba(27,31,35,.075), 0 0 0 0.2em rgba(3,102,214,.3);
+}
 
 &::placeholder{
     color:#6C757D;
     font-weight:600;
     font-size:15px;
-    letter-spacing:1.1px;
+    letter-spacing:1.7px;
+    font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
 `;
 
@@ -88,8 +107,8 @@ letter-spacing:1.1px;
 cursor:pointer;
 
 :active {
-  
   transform: translateY(4px);
+  transition:0.3s linear;
 }
 `;
 
@@ -103,10 +122,9 @@ font-weight:400;
 export const Links = styled(Link)`
 text-decoration:none;
 font-weight:600;
-margin:12px 0;
 color:#4285F4;
+font-size:18px;
 width:100%;
-text-align:right;
 
 &:hover{
     text-decoration:underline;
@@ -144,7 +162,6 @@ letter-spacing:1.1px;
 cursor:pointer;
 
 :active {
-  
   transform: translateY(4px);
 }
 }

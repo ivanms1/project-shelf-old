@@ -5,9 +5,9 @@ import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
 import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
 import Spinner from '../../components/Spinner/Spinner';
 import {
+  Main,
   Container,
   RegisterBox,
   InputContainer,
@@ -54,7 +54,7 @@ function Register(props) {
   return redirect === true ? (
     <Redirect to='/signin' />
   ) : (
-      <div>
+      <Main>
         <Header />
         <Container>
           <img alt='light' src={Light}></img>
@@ -65,7 +65,7 @@ function Register(props) {
                 <label>First name</label>
                 <Input
                   name='firstname'
-                  placeholder='#234567'
+                  placeholder='Joe'
                   ref={register({
                     required: 'Full Name is required.',
                     maxLength: 10,
@@ -87,7 +87,7 @@ function Register(props) {
                 <label>Last name</label>
                 <Input
                   name='lastname'
-                  placeholder='#234567'
+                  placeholder='Don'
                   ref={register({
                     required: 'Last Name is required.',
                     maxLength: 10,
@@ -109,7 +109,7 @@ function Register(props) {
                 <label>Email Address</label>
                 <Input
                   name='email'
-                  placeholder='a@a.com'
+                  placeholder='joe@don.com'
                   ref={register({
                     required: 'Email address is required.',
                     maxLength: 20,
@@ -149,14 +149,15 @@ function Register(props) {
                 </ErrorText>
               </InputContainer>
 
-              <Links to='/signin'>Sign in</Links>
+              <div className='registerContainer'>
+                <Links to='/signin'>Sign in</Links>
+              </div>
 
               <SignInButton type='submit' value='Register' />
             </RegisterBox>
           </form>
         </Container>
-        <Footer />
-      </div>
+      </Main>
     );
 }
 
