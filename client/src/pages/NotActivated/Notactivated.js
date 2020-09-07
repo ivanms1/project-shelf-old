@@ -1,19 +1,13 @@
 import React, { useState } from 'react';
 import ReactToolTip from 'react-tooltip';
-
-
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 import { useQuery } from '@apollo/client';
 import { loader } from 'graphql.macro';
-
 
 import Header from "../../components/Header/Header";
 import Active from "../../components/Active/Active";
 import Spinner from '../../components/Spinner/Spinner';
-
-import Zoom from 'react-medium-image-zoom';
-import 'react-medium-image-zoom/dist/styles.css';
-
-import IMG_Social from "../../assets/social.png";
 
 import { Container, ActivatedContainer, ProjectCollection, Card, HeaderCollection, Links, Name, Button } from "./style";
 
@@ -46,6 +40,7 @@ function Notactivated(props) {
         <Container>
 
             <Header />
+
             <ActivatedContainer>
                 <main>
                     <p>
@@ -105,7 +100,6 @@ function Notactivated(props) {
                             :
                             <p>No projects</p>
                         }
-
 
                     </ProjectCollection>
                 </main>

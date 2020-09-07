@@ -107,7 +107,6 @@ function Weekly(props) {
                 </CardContainer>
             </Container>
 
-            {/* <Footer /> */}
         </div >
     );
 }
