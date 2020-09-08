@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 export const Container = styled.div`
 box-shadow: 0px 3px 2px 0px rgba(0,0,0,0.20);
-padding:20px 100px 20px 100px;
+padding:20px 30px 20px 100px;
 display:flex;
 width:100%;
 justify-content:space-around;
@@ -38,8 +38,8 @@ align-items:center;
 
 
 >div{
-    width:101px;
-    height:101px;
+    width:90px;
+    height:90px;
 }
 
 img{
@@ -69,8 +69,8 @@ span{
     min-width:250px;
 
     >div{
-    width:70px;
-    height:70px;
+    width:80px;
+    height:80px;
     margin-right:0px;
     }
 
