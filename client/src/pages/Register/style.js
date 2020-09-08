@@ -1,15 +1,21 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+export const Main = styled.div`
+min-height:100vh;
+display:flex;
+flex-direction:column;
+`;
+
 export const Container = styled.div`
+flex:1;
 width:100%;
-height:100vh;
 background-color:#F7F8FC;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-padding:0 10px;
+padding:60px 25px;
 
 img{
     margin: 0 0 40px 0;
@@ -33,6 +39,12 @@ flex-direction:column;
     letter-spacing:1.1px;
     margin-bottom:10px;
 }
+
+.registerContainer{
+    width:100%;
+    text-align:center;
+    margin:20px 0;
+}
 `;
 
 export const InputContainer = styled.div`
@@ -44,33 +56,43 @@ label{
     font-size:16px;
     margin-left:5px;
     letter-spacing:1.1px;
+    color: hsl(36, 41, 46);
+    font-size: 15px;
+    line-height: 21px;
 }
 `;
 
 export const Input = styled.input`
 width:100%;
-border-radius:7px;
-box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.25);
-border:1px solid #c4c4c4;
+background-color:transparent;
+border:1.11px solid hsl(213,1%,84%);
+border-radius:5px;
+color:hsl(210,12%,16%);
+line-height:20px;
 margin-top:5px;
-padding:15px 0 15px 35px;
-color:#6C757D;
+padding:15px 0 15px 20px;
 font-weight:600;
 font-size:15px;
+font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 letter-spacing:1.1px;
+
+&:focus{
+  outline:none;
+  border:1px solid #2188ff;
+  box-shadow:inset 0 1px 2px rgba(27,31,35,.075), 0 0 0 0.2em rgba(3,102,214,.3);
+}
 
 &::placeholder{
     color:#6C757D;
     font-weight:600;
     font-size:15px;
-    letter-spacing:1.1px;
+    letter-spacing:1.7px;
+    font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
 `;
 
 export const Links = styled(Link)`
 width:100%;
-text-align:center;
-margin-top:20px;
 text-decoration:none;
 font-weight:600;
 font-size:18px;
@@ -92,12 +114,12 @@ border:none;
 color:white;
 font-weight:600;
 font-size:22px;
-margin-top:20px;
 letter-spacing:1.1px;
 cursor:pointer;
 
 :active {
-  transform: translateY(4px) scale(1.1);
+  transform: translateY(4px);
+  transition:0.3s linear;
 }
 `;
 

@@ -4,7 +4,6 @@ import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
 
 import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
 import {
   Container,
   Approval,
@@ -171,7 +170,7 @@ function Home() {
         </CardContainer>
       </Container>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

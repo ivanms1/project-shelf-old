@@ -3,7 +3,6 @@ import { useQuery } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
 import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
 
 import { Container, SearchContainer, CardContainer, Card, ImageContainer, Description } from './style';
 
@@ -108,7 +107,6 @@ function Weekly(props) {
                 </CardContainer>
             </Container>
 
-            <Footer />
         </div >
     );
 }
