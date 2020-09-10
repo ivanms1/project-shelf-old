@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { loader } from 'graphql.macro';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
@@ -18,8 +20,12 @@ import Preview from '../../assets/desktop-preview.jpg';
 import Button from '../../components/Button/Button';
 import Active from '../../components/Active/Active';
 
+const UPLOAD_IMAGE_MUTATION = loader('./mutationUploadImage.graphql');
+
 function SubmitForm({ user, onSubmit }) {
   const { register, handleSubmit, errors } = useForm();
+
+  const [uploadImage] = useMutation(UPLOAD_IMAGE_MUTATION);
 
   const [image, setImage] = useState(Preview);
   const [value, setValue] = useState({
@@ -41,13 +47,26 @@ function SubmitForm({ user, onSubmit }) {
     });
   }
 
-  function handleImage(event) {
+  async function handleImage(event) {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
       reader.onload = (e) => {
         setImage(e.target.result);
       };
       reader.readAsDataURL(event.target.files[0]);
+
+      console.log(event.target.files[0]);
+
+      await uploadImage({
+        variables: {
+          file: {
+            filename: event.target.files[0].name,
+            url: image,
+            mimetype: event.target.files[0].type,
+          },
+        },
+      });
+      // console.log(event.target.files[0]);
     }
   }
 
@@ -91,7 +110,6 @@ function SubmitForm({ user, onSubmit }) {
           </Button>
         </Description>
       </Card>
-
 
       <Submission onSubmit={handleSubmit(onSubmit)}>
         <span>Submit your Project</span>
@@ -204,9 +222,8 @@ function SubmitForm({ user, onSubmit }) {
 
         <Button bgColor='#00CB5B' margin='20px 0 0 0'>
           Submit your Project
-          </Button>
+        </Button>
       </Submission>
-
     </FormContainer>
   );
 }

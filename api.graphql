@@ -19,11 +19,9 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the
 scalar DateTime
 
 input File {
-  encoding: String
   filename: String
-  id: ID
   mimetype: String
-  path: String
+  url: String
 }
 
 """

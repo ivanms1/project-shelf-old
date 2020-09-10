@@ -1,19 +1,15 @@
 import { schema } from 'nexus';
-import { GraphQLUpload } from 'graphql-upload';
+import fs from 'fs';
 import * as cloudinary from 'cloudinary';
-import { arg } from 'nexus/components/schema';
 
 const imageUploader = cloudinary.v2;
-const Upload = GraphQLUpload;
 
 schema.inputObjectType({
   name: 'File',
   definition(t) {
-    t.id('id');
-    t.string('path');
     t.string('filename');
     t.string('mimetype');
-    t.string('encoding');
+    t.string('url');
   },
 });
 
@@ -271,10 +267,11 @@ schema.mutationType({
         file: schema.arg({ type: 'File', required: true }),
       },
       async resolve(_root, { file }, ctx) {
-        const { createReadStream, filename, mimetype, encoding } = await file;
+        const { stream, filename, mimetype, url } = await file;
+        console.log(file);
         try {
           const result = await new Promise((resolve, reject) => {
-            createReadStream().pipe(
+            stream().pipe(
               imageUploader.uploader.upload_stream((error, result) => {
                 if (error) {
                   reject(error);
@@ -291,7 +288,7 @@ schema.mutationType({
           };
           return;
         } catch (err) {
-          console.log(err);
+          console.log(err), 'hdhdh';
         }
       },
     });
