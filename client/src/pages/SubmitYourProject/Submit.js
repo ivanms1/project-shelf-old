@@ -14,7 +14,6 @@ const userToken = localStorage.getItem('userToken');
 const GET_USER_QUERY = loader('./queryGetUser.graphql');
 const CREATE_PROJECT_MUTATION = loader('./mutationCreateProject.graphql');
 
-
 function Submit(props) {
   const { loading, data } = useQuery(GET_USER_QUERY, {
     variables: {

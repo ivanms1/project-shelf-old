@@ -4,10 +4,16 @@ import Zoom from 'react-medium-image-zoom';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
-import IMG_Social from "../../assets/social.png";
+import IMG_Social from '../../assets/social.png';
 import Rick from '../../assets/rick.png';
 
-import { CardOuter, CardInner, HeaderCollection, Links, Profile } from "../../components/Card/style";
+import {
+  CardOuter,
+  CardInner,
+  HeaderCollection,
+  Links,
+  Profile,
+} from '../../components/Card/style';
 
 import {
   FormContainer,
@@ -25,7 +31,20 @@ import Active from '../../components/Active/Active';
 const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
 
 function getCurrentDate() {
-  var mos = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+  var mos = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sept',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
 
   let newDate = new Date();
   let date = newDate.getDate();
@@ -33,7 +52,6 @@ function getCurrentDate() {
   let year = newDate.getFullYear();
   return `${mos[month - 1]} ${date < 10 ? `0${date}` : `${date}`}, ${year}`;
 }
-
 
 function SubmitForm({ user, onSubmit }) {
   const { register, handleSubmit, errors } = useForm();
@@ -46,7 +64,8 @@ function SubmitForm({ user, onSubmit }) {
     firstname: 'Uzamaki21',
     lastname: 'miroz',
     email: user.email,
-    description: 'This was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server. A nightmare 👻 Dm for collaboration 🙏',
+    description:
+      'This was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server. A nightmare 👻 Dm for collaboration 🙏',
   });
 
   function handleChange(e) {
@@ -70,20 +89,18 @@ function SubmitForm({ user, onSubmit }) {
 
   return (
     <FormContainer>
-
       <CardOuter>
-        <ReactToolTip className='notActivated' id='notActivated' >
-          <span >Active</span>
+        <ReactToolTip className='notActivated' id='notActivated'>
+          <span>Active</span>
         </ReactToolTip>
 
-        <div data-tip data-for='notActivated' >
+        <div data-tip data-for='notActivated'>
           <div className='activeContainer'>
             <Active active='true' />
           </div>
         </div>
 
         <CardInner>
-
           <HeaderCollection>
             <span>{value.title}</span>
           </HeaderCollection>
@@ -102,7 +119,7 @@ function SubmitForm({ user, onSubmit }) {
 
           <Profile>
             <div className='profileContainer'>
-              <img src={Rick} width='100%' height='100%'></img>
+              <img alt={Rick} src={Rick} width='100%' height='100%'></img>
             </div>
 
             <div className='profileDetails'>
@@ -110,20 +127,14 @@ function SubmitForm({ user, onSubmit }) {
                 {user.name} {user.lastName}
               </p>
 
-              <p>
-                4th weekly project
-              </p>
+              <p>4th weekly project</p>
             </div>
-
           </Profile>
           <p className='date'>Published Date : {getCurrentDate()}</p>
 
-          <p className='description'>
-            {value.description}
-          </p>
-
+          <p className='description'>{value.description}</p>
         </CardInner>
-      </CardOuter >
+      </CardOuter>
 
       <Submission onSubmit={handleSubmit(onSubmit)}>
         <span>Submit your Project</span>
@@ -236,9 +247,8 @@ function SubmitForm({ user, onSubmit }) {
 
         <Button bgColor='#7057FF' margin='20px 0 0 0'>
           Submit your Project
-          </Button>
+        </Button>
       </Submission>
-
     </FormContainer>
   );
 }

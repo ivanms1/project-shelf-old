@@ -2,196 +2,188 @@ import styled from 'styled-components';
 import Popup from 'reactjs-popup';
 
 export const Main = styled.div`
-display:flex;
-flex-direction:column;
-min-height:100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 `;
 
 export const Container = styled.div`
-flex:1;
-display:flex;
-flex-direction:column;
-align-items:center;
-width:100%;
-background-color:#F7F8FC;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: #f7f8fc;
 `;
 
 export const Approval = styled.div`
-width:100%;
-max-width:1420px;
-padding:40px 20px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-    
->p{
-    padding:0 10px;
-    width:100%;
-    max-width:500px;
-    font-weight:600;
-    font-size:27px;
-    text-transform:capitalize;
-}
+  width: 100%;
+  max-width: 1420px;
+  padding: 40px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
+  > p {
+    padding: 0 10px;
+    width: 100%;
+    max-width: 500px;
+    font-weight: 600;
+    font-size: 27px;
+    text-transform: capitalize;
+  }
 
-@media screen and (max-width:746px){
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
+  @media screen and (max-width: 746px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-    >p{
-        text-align:center;
-        font-size:23px;
-        margin-bottom:20px;
+    > p {
+      text-align: center;
+      font-size: 23px;
+      margin-bottom: 20px;
     }
 
-    >div{
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        justify-content:space-between;
+    > div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
 
-        >span{
-            margin:0 5px;
-        }
+      > span {
+        margin: 0 5px;
+      }
     }
-}
+  }
 `;
 
 export const ActiveContainer = styled.div`
-    width:100%;
-    display:flex;
-    justify-content:flex-end;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 
-    div{
-        width:100%;
-        max-width:240px;
+  div {
+    width: 100%;
+    max-width: 240px;
+  }
+
+  .activeContainer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .text {
+    width: 100%;
+    min-width: 170px;
+    padding: 0 15px;
+  }
+
+  @media screen and (max-width: 950px) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  > div {
+    width: 100%;
+
+    > span {
+      margin: 0 0 0 20px;
+      font-weight: 600;
+      font-size: 19px;
+    }
+  }
+
+  @media screen and (max-width: 746px) {
+    div {
+      width: 100%;
     }
 
-.activeContainer{
-    width:100%;
-    display:flex;
-    justify-content:flex-end;
-    align-items:center;
-}
-
-.text{
-    width:100%;
-    min-width:170px;
-    padding:0 15px;
-}
-
-
-
-@media screen and (max-width:950px){
-    display:flex;
-    flex-direction:column;
-    align-items:flex-end;
+    .activeContainer {
+      width: 100%;
+      display: flex;
     }
-
-    >div{
-    width:100%;
-
-    >span{
-        margin:0 0 0 20px;
-        font-weight:600;
-        font-size:19px;
-    }
-}
-
-@media screen and (max-width:746px){
-
-div{
-    width:100%;
-}
-
-.activeContainer{
-    width:100%;
-    display:flex;
-
-}
-}
+  }
 `;
 
 export const CardContainer = styled.div`
-width:100%;
-max-width:1400px;
-margin:0 auto;
-display:flex;
-flex-direction:row;
-justify-content:space-around;
-flex-wrap:wrap;
-padding:15px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 15px;
 
-.noproject{
-    margin:20vh auto;
-    font-size:20px;
-    text-align:center;
-}
+  .noproject {
+    margin: 20vh auto;
+    font-size: 20px;
+    text-align: center;
+  }
 `;
 
 export const Active = styled.div`
-margin-bottom:10px;
+  margin-bottom: 10px;
 `;
 
 export const Color = styled.div`
-width:30px;
-height:30px;
-background-color:${props => props.active ? '#00CB5B' : '#ED2C49'};
-border-radius:50%;
+  width: 30px;
+  height: 30px;
+  background-color: ${(props) => (props.active ? '#00CB5B' : '#ED2C49')};
+  border-radius: 50%;
 `;
 
 export const ButtonHolder = styled.div`
-    display:flex;
-    justify-content:space-between;
-    margin:20px 0 0 0;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0 0 0;
 
-    button{
-        width:100%;
-        padding:10px 40px;
-        border-radius:7px;
-        color:white;
-        font-weight:400;
-        letter-spacing:2px;
-        font-size:20px;
-        border:none;
-        outline:none;
-    }
+  button {
+    width: 100%;
+    padding: 10px 40px;
+    border-radius: 7px;
+    color: white;
+    font-weight: 400;
+    letter-spacing: 2px;
+    font-size: 20px;
+    border: none;
+    outline: none;
+  }
 `;
 
 export const Buttons = styled.button`
-    margin:${props => props.delete ? '0 16px 0 0' : '0 0px 0 0'};
-    background-color:${props => props.delete ? '#D1383D' : '#7057FF'};
+  margin: ${(props) => (props.delete ? '0 16px 0 0' : '0 0px 0 0')};
+  background-color: ${(props) => (props.delete ? '#D1383D' : '#7057FF')};
 `;
 
-
 export const StyledPopup = styled(Popup)`
-
-
-&-overlay {
-      background-color:rgba(45,78,255,0.15);
+  &-overlay {
+    background-color: rgba(0, 0, 0, 0.15);
   }
-     
-     &-content {
-         margin:0 20px;
-     border:2px solid green;
-      padding:25px 35px;
-      background-color:white;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      width:100%;
-      height:100%;
-      max-width: 526px;
-      max-height: 208px;
-      border-radius: 10px;
-      border: none;
-      box-Shadow: 10px 10px 40px 4px rgba(45,78,255,0.15);
-     
-     @media screen and (max-width:676px){
-        padding:20px 20px 40px 20px;
-}
+
+  &-content {
+    margin: 0 20px;
+    border: 2px solid green;
+    padding: 25px 35px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    max-width: 526px;
+    max-height: 208px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 10px 10px 40px 4px rgba(45, 78, 255, 0.15);
+
+    @media screen and (max-width: 676px) {
+      padding: 20px 20px 40px 20px;
+    }
   }
 `;
