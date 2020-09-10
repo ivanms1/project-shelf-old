@@ -3,28 +3,42 @@ import { Redirect, useHistory } from 'react-router-dom';
 import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
 
+import CardComponent from '../../components/Card/Card';
 import Header from '../../components/Header/Header';
 import {
+  Main,
   Container,
   Approval,
   CardContainer,
-  Card,
-  ImageContainer,
-  Description,
-  ActiveContainer
+  ActiveContainer,
+  ButtonHolder,
+  Buttons,
+  StyledPopup,
 } from './style';
+import {
+  HeaderContainer,
+  Sure,
+  ButtonContainer,
+} from '../../components/Header/style';
 
-import Button from '../../components/Button/Button';
 import Active from '../../components/Active/Active';
 import Spinner from '../../components/Spinner/Spinner';
 
 const GET_USER_QUERY = loader('./queryUser.graphql');
 const DELETE_USER_PROJECT = loader('./mutationDeleteProject.graphql');
 
-
+let toDelete = '';
 
 function Home() {
+  //eslint-disable-next-line
   const [loadingState, setLoadingState] = useState(false);
+
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const closeDeleteModal = () => setDeleteOpen(false);
+
+  const [open, setOpen] = useState(false);
+  const closeModal = () => setOpen(false);
+
   const userToken = localStorage.getItem('userToken');
   const history = useHistory();
 
@@ -36,10 +50,16 @@ function Home() {
   });
 
   //since data error loading cannot be used multiple times for multiple queries or mutation we rename them
-  const [deleteProject, { data: dataR, error: errorR, loading: loadingR }] = useMutation(DELETE_USER_PROJECT);
+
+  const [
+    deleteProject,
+    //eslint-disable-next-line
+    { data: dataR, error: errorR, loading: loadingR },
+  ] = useMutation(DELETE_USER_PROJECT);
 
   console.log(loadingR);
 
+  //eslint-disable-next-line
   function redirect(path) {
     setLoadingState(true);
     setTimeout(() => {
@@ -48,15 +68,9 @@ function Home() {
     }, 500);
   }
 
-
   function deleteuserProject(projectId) {
-    if (window.confirm('Are you sure you want to delete it ?')) {
-      deleteProject({ variables: { projectId: projectId } });
-      history.go();
-    }
-    else {
-      return;
-    }
+    deleteProject({ variables: { projectId: projectId } });
+    history.go();
   }
 
   if (!userToken) {
@@ -74,19 +88,22 @@ function Home() {
   const { user } = data;
   console.log(user);
   return (
-    <div>
+    <Main>
       <Header />
+
       <Container>
         <Approval>
-          <p style={{ textAlign: 'center' }}>
+          <p>
             Welcome {user.name} {user.lastName}
           </p>
+
           <ActiveContainer>
-            <div>
+            <div className='activeContainer'>
               <Active />
-              <span className='text'>Not Approved yet</span>
+              <span className='text'>Not Approved</span>
             </div>
-            <div className='approved'>
+
+            <div className='activeContainer'>
               <Active active={true} />
               <span className='text'>Approved</span>
             </div>
@@ -94,84 +111,82 @@ function Home() {
         </Approval>
 
         <CardContainer>
-          {user.projects.length === 0 ?
+          {user.projects.length === 0 ? (
             <p className='noproject'>You dont have any projects to ShowCase.</p>
-            :
+          ) : (
             <>
-              {
-                user.projects.map((users) => (
-                  <Card key={users.id}>
-                    <Active active={users.isApproved} />
-
-                    <ImageContainer>
-                      <img alt={users.name} src={users.preview}></img>
-                    </ImageContainer>
-
-                    <Description>
-                      <span>{users.title}</span>
-                      <p>
-                        <span className='first'>Link to the Repo </span>
-                        <a href={users.repoLink} style={{ textDecoration: 'none' }}>
-                          <span className='second'>: {users.siteLink} </span>
-                        </a>
-                      </p>
-
-                      <p>
-                        <span className='first'>Live Link </span>
-                        <a href={users.siteLink} style={{ textDecoration: 'none' }}>
-                          <span className='second'>: {users.siteLink} </span>
-                        </a>
-                      </p>
-
-                      <p>
-                        <span className='first'>Email </span>
-                        <span className='second'>: {user.email}</span>
-                      </p>
-
-                      <p>
-                        <span className='first'>Weekly Category </span>
-                        <span className='second'>: 4th weekly project</span>
-                      </p>
-
-                      <p>
-                        <span className='first'>Name </span>
-                        <span className='second'>
-                          : {user.name} {user.lastName}
-                        </span>
-                      </p>
-                      <p className='desc'>{users.description}</p>
-
-                      <Button
-                        loading={loadingState}
-                        bgColor='#0070f3'
-                        margin='20px 0 0 0'
-                        onClick={() => redirect(users.repoLink)}
-                      >
-                        Visit the repository
-                      </Button>
-
-                      <Button
-                        bgColor='#ED2C49'
-                        margin='20px 0 0 0'
-                        onClick={() => {
-                          deleteuserProject(users.id);
-                        }
-                        }
-                      >
-                        Delete the Project
-                    </Button>
-                    </Description>
-                  </Card>
-                ))
-              }
+              {user.projects.map((users) => (
+                <CardComponent key={users.id} user={user} users={users}>
+                  <ButtonHolder>
+                    <Buttons
+                      delete
+                      onClick={() => {
+                        setDeleteOpen((o) => !o);
+                        toDelete = users.id;
+                      }}
+                    >
+                      Delete
+                    </Buttons>
+                    <Buttons onClick={() => setOpen((o) => !o)}>Edit</Buttons>
+                  </ButtonHolder>
+                </CardComponent>
+              ))}
             </>
-          }
-
+          )}
         </CardContainer>
       </Container>
 
-      {/* <Footer /> */}
-    </div>
+      <StyledPopup
+        open={open}
+        closeOnDocumentClick={false}
+        onClose={closeModal}
+      >
+        <HeaderContainer>
+          <h1>Edit</h1>
+          {/* eslint-disable-next-line */}
+          <a onClick={closeModal}>X</a>
+        </HeaderContainer>
+
+        <Sure>Do you want to edit this project ?</Sure>
+
+        <ButtonContainer>
+          <button onClick={closeModal}>Cancel</button>
+          <button
+            onClick={() => {
+              alert('ok');
+            }}
+          >
+            Confirm
+          </button>
+        </ButtonContainer>
+      </StyledPopup>
+
+      {/* for delete */}
+      <StyledPopup
+        open={deleteOpen}
+        closeOnDocumentClick={false}
+        onClose={closeDeleteModal}
+      >
+        <HeaderContainer>
+          <h1>Delete</h1>
+          {/* eslint-disable-next-line */}
+          <a onClick={closeDeleteModal}>X</a>
+        </HeaderContainer>
+
+        <Sure>Do you want to Delete this project ?</Sure>
+
+        <ButtonContainer>
+          <button onClick={closeDeleteModal}>Cancel</button>
+          <button
+            onClick={() => {
+              deleteuserProject(toDelete);
+            }}
+          >
+            Confirm
+          </button>
+        </ButtonContainer>
+      </StyledPopup>
+    </Main>
   );
 }
 

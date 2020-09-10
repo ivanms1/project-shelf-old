@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { loader } from 'graphql.macro';
@@ -16,7 +16,7 @@ import {
   Input,
   Links,
   SignInButton,
-  LoginDetailsError
+  LoginDetailsError,
 } from './style';
 import Rocket from '../../assets/rocket.svg';
 import Spinner from '../../components/Spinner/Spinner';
@@ -34,10 +34,12 @@ function Signin(props) {
   }
 
   if (error) {
-    return <LoginDetailsError>
-      <p>Login Details didnt match</p>
-      <button onClick={() => history.push('/signin')}>Back to SignIn</button>
-    </LoginDetailsError>;
+    return (
+      <LoginDetailsError>
+        <p>Login Details didnt match</p>
+        <button onClick={() => history.push('/signin')}>Back to SignIn</button>
+      </LoginDetailsError>
+    );
   }
 
   async function onsubmit(data) {
@@ -49,7 +51,6 @@ function Signin(props) {
         },
       });
 
-
       localStorage.setItem('userToken', response.data.login.userId);
       // redirect with the id from the response
       history.push('/');
@@ -60,12 +61,10 @@ function Signin(props) {
   }
 
   return (
-
     <Container>
       <Header />
 
       <Main>
-
         <img alt='rocket' src={Rocket}></img>
 
         <SignInBox>
@@ -80,6 +79,7 @@ function Signin(props) {
                   required: 'Email address is required.',
                   maxLength: 20,
                   pattern: {
+                    //eslint-disable-next-line
                     value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                     message: 'Email address is not valid',
                   },
@@ -113,18 +113,14 @@ function Signin(props) {
               </ErrorText>
             </InputContainer>
 
-
             <div className='registerContainer'>
-              <Links to='/register'>
-                Register ?
-              </Links>
+              <Links to='/register'>Register ?</Links>
             </div>
 
             <SignInButton type='submit' value='Sign In'></SignInButton>
           </Form>
         </SignInBox>
       </Main>
-
     </Container>
   );
 }

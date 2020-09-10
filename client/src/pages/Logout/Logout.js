@@ -1,18 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Container } from "./style";
+import { Container } from './style';
 
 function Logout({ modalStatus = true }) {
-    localStorage.setItem('userToken', '');
+  localStorage.setItem('userToken', '');
 
-    const history = useHistory();
-    history.push('/signin');
+  const history = useHistory();
+  history.push('/signin');
 
-    return (
-        <Container>
-
-        </Container>
-    );
+  return <Container></Container>;
 }
 
 export default Logout;

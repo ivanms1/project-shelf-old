@@ -3,17 +3,25 @@ import Popup from 'reactjs-popup';
 import { Link, useHistory } from 'react-router-dom';
 import Modal from 'react-modal';
 
-
-import { ReactModalStyled, Container, Nav, Logo, StyledLink, LogoutButton, HeaderContainer, Sure, ButtonContainer } from './style';
+import {
+  ReactModalStyled,
+  Container,
+  Nav,
+  Logo,
+  StyledLink,
+  LogoutButton,
+  HeaderContainer,
+  Sure,
+  ButtonContainer,
+} from './style';
 import HeaderLogo from '../../assets/logo.png';
 
 import MobileMenu from '../MobileMenu/Mobilemenu';
 import BurgerIcon from '../BurgerIcon/BurgerIcon';
 
-import { Context } from "../../Context/AppContext";
+import { Context } from '../../Context/AppContext';
 
 function Header(props) {
-
   const hooks = useContext(Context);
   const { isAuthenticated } = hooks;
 
@@ -37,7 +45,6 @@ function Header(props) {
     );
   });
 
-
   const history = useHistory();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   Modal.setAppElement('#root');
@@ -52,7 +59,7 @@ function Header(props) {
       </Logo>
 
       <Nav>
-        {isAuthenticated ?
+        {isAuthenticated ? (
           <ul>
             <li>
               <StyledLink exact activeClassName='current' to='/'>
@@ -73,12 +80,13 @@ function Header(props) {
             </li>
 
             <li>
-              <LogoutButton onClick={() => setModalIsOpen(true)}>Log out</LogoutButton>
+              <LogoutButton onClick={() => setModalIsOpen(true)}>
+                Log out
+              </LogoutButton>
             </li>
           </ul>
-          :
+        ) : (
           <ul>
-
             <li>
               <StyledLink activeClassName='current' to='/register'>
                 Register
@@ -91,8 +99,7 @@ function Header(props) {
               </StyledLink>
             </li>
           </ul>
-        }
-
+        )}
       </Nav>
 
       <ReactModalStyled
@@ -102,24 +109,26 @@ function Header(props) {
       >
         <HeaderContainer>
           <h1>Log Out</h1>
+          {/* eslint-disable-next-line */}
           <a onClick={() => setModalIsOpen(false)}>X</a>
         </HeaderContainer>
 
-        <Sure>
-          Are you sure ?
-          </Sure>
+        <Sure>Are you sure ?</Sure>
 
         <ButtonContainer>
           <button onClick={() => setModalIsOpen(false)}>Cancel</button>
-          <button onClick={() => {
-            localStorage.setItem('userToken', '');
-            setModalIsOpen(false);
-            history.push('/signin');
-          }}>Confirm</button>
+          <button
+            onClick={() => {
+              localStorage.setItem('userToken', '');
+              setModalIsOpen(false);
+              history.push('/signin');
+            }}
+          >
+            Confirm
+          </button>
         </ButtonContainer>
-
       </ReactModalStyled>
-    </Container >
+    </Container>
   );
 }
 

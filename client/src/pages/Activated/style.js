@@ -22,7 +22,7 @@ main{
     margin:20px 20px;
 
     p{
-        font-size:30px;
+        font-size:25px;
         font-weight:600;
         color:#212529;
         letter-spacing:1px;

@@ -25,12 +25,12 @@ const Pulse = keyframes`
 
 export const Container = styled.div`
   width:50px;
-  height: 70px;
+  height: 50px;
   perspective: 1000;
   backface-visibility: hidden;
   position:relative;
   display:flex;
-  padding:0 10px 0 0px;
+  padding:0 0px 0 0px;
   justify-content:flex-end;
   align-items:center;
 `;

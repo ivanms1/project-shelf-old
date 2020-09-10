@@ -34,14 +34,14 @@ export const ReactModalStyled = styled(Modal)`
 `;
 
 export const Container = styled.div`
-padding:20px 20px 20px 50px;
+padding:0px 20px 0px 50px;
 display:flex;
 width:100%;
 justify-content:space-around;
 align-items:center;
 
 @media screen and (max-width:676px){
-   padding:20px 20px 20px 20px;
+   padding:0px 20px 0px 20px;
    display:flex;
    flex-direction:row;
    justify-content:center;
@@ -49,7 +49,7 @@ align-items:center;
 }
 
 @media screen and (max-width:676px){
-   padding:20px 10px 20px 20px;
+   padding:0px 10px 0px 20px;
    display:flex;
    flex-direction:row;
    justify-content:center;
@@ -59,7 +59,10 @@ align-items:center;
 
 export const Logo = styled.div`
 overflow:hidden;
-min-width:100px;
+width:100%;
+margin:10px 0px 0px 0px;
+max-width:90px;
+height:75px;
 
 img{
     width:100%;
@@ -88,7 +91,7 @@ li{
 }
 
 .current{
-    color: #c71585;
+    color: #7057FF;
     font-weight:600;
   }
 `;
@@ -101,7 +104,7 @@ export const StyledLink = styled(NavLink)`
     letter-spacing:1px;
 
         &:hover{
-            color:#c71585;
+            color:#7057FF;
             transition:0.3s linear;
         }
 `;
@@ -117,12 +120,12 @@ export const LogoutButton = styled.a`
     margin:0 0px 0 0px;
 
         &:focus{
-                color:#c71585;
+                color:#7057FF;
                 transition:0.3s linear;
         }
 
         &:hover{
-            color:#c71585;
+            color:#7057FF;
             transition:0.3s linear;
         }
 `;
