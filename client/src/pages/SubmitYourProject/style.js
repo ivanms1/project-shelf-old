@@ -33,7 +33,7 @@ export const Container = styled.div`
   }
 
   @media screen and (max-width: 600px) {
-    > p {
+    p {
       span {
         font-size: 19px;
       }
