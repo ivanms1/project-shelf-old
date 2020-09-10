@@ -68,9 +68,9 @@ function Notactivated(props) {
                                         </HeaderCollection>
 
                                         <Links>
-                                            <a href={project.siteLink}>Live Link</a>
-                                            <a href={project.repoLink}>Repo Link</a>
-                                            <a href={EMAIL_STRING + project.author.email} target="_blank">Contact</a>
+                                            <a target='_blank' rel="noopener noreferrer" href={project.siteLink}>Live Link</a>
+                                            <a target='_blank' rel="noopener noreferrer" href={project.repoLink}>Repo Link</a>
+                                            <a target='_blank' rel="noopener noreferrer" href={EMAIL_STRING + project.author.email}>Contact</a>
 
                                         </Links>
 
@@ -79,7 +79,7 @@ function Notactivated(props) {
                                                 <img src={project.preview} alt={project.preview} style={{ display: 'block' }} width='100%' height='100%'></img>
                                             </Zoom>
 
-                                            <ReactToolTip id={project.id} type='error' aria-haspopup='true' role='example'>
+                                            <ReactToolTip className='description' id={project.id} multiline={true} type='error' aria-haspopup='true' role='example'>
                                                 <span>{project.description}</span>
                                             </ReactToolTip>
 
@@ -105,7 +105,6 @@ function Notactivated(props) {
                 </main>
             </ActivatedContainer>
 
-            {/* <Footer /> */}
         </Container >
     );
 }

@@ -1,0 +1,192 @@
+import styled from 'styled-components';
+
+export const CardOuter = styled.div`
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,300&display=swap');
+
+    height:100%;
+    position:relative;
+    margin:20px 0;
+
+    .activeContainer{
+        position:absolute;
+        right:-5px;
+    }
+
+    .notActivated{
+        background-color:white;
+        box-Shadow: 1px 1px 20px 0px rgba(45,78,255,0.15);
+        border-radius:5px;
+        padding:10px 10px 10px 10px;
+
+        span{
+            color:#d70330;
+            font-size:15px;
+            font-weight:600;
+        }
+    }
+`;
+
+export const CardInner = styled.div`
+    max-width:370px;
+    display:flex;
+    flex-direction:column;
+    border-radius:10px;
+    box-Shadow: 10px 10px 40px 4px rgba(45,78,255,0.15);
+    background-color:white;
+    margin:20px 7px 20px 7px;
+    padding:20px 20px 20px 20px;
+
+.imgContainer{
+    flex:1;
+    margin:20px 0 0 0;
+
+     img{
+            width:100%;
+            height:100%;
+            display:block;
+            border-radius:10px;
+        }
+}
+
+.date{
+    color:#2E2E2E;
+    font-weight:600;
+    font-size:17px;
+    margin:10px 0;
+
+ @media screen and (max-width:500px){
+       font-size:16px;    
+    }
+}
+
+.description{
+    color:rgba(0,0,0,0.70);
+    font-weight:600;
+    font-size:19px;
+    overflow:hidden;
+    word-wrap: break-word;
+    font-family: 'Mulish', sans-serif;
+
+    
+    @media screen and (max-width:500px){
+       font-size:18px;    
+    }
+}
+
+    @media screen and (max-width:500px){
+        padding:15px 20px 20px 20px;
+
+        span{
+            font-size:22px;
+        }
+    }
+`;
+
+export const HeaderCollection = styled.div`
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    span{
+        font-weight:600;
+        font-size:22px;
+        color:#000;
+        text-transform:capitalize;
+    }
+
+    @media screen and (max-width:500px){
+        
+        span{
+            font-size:20px;
+        }
+    }
+`;
+
+export const Links = styled.div`
+    padding:0px 0;
+    display:flex;
+    margin:10px 0 0 0;
+    justify-content:space-between;
+
+    a{
+        text-align:center;
+        padding:0 5px;
+        font-size:16px;
+        font-weight:500;
+        color:#65587F;
+        position: relative;
+        text-decoration:none;
+        cursor:pointer;
+    }
+
+    a:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 1px;
+    left: 0;
+    background-color: #d30320;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out 0s;
+  }
+  
+   a:hover::before {
+    visibility: visible;
+    transform: scaleX(1);
+    
+  }
+
+    @media screen and (max-width:400px){
+        margin:10px 0 0 0;
+        display:flex;
+        justify-content:space-around;
+        flex-wrap:wrap;
+        
+         a{
+            text-align:center;
+            font-size:15px;
+            font-weight:500;
+            color:#65587F;
+            cursor:pointer;
+        }
+    }
+`;
+
+
+export const Profile = styled.div`
+display:flex;
+flex-direction:row;
+align-items:center;
+margin:20px 0 0 0;
+
+
+.profileContainer{
+   width:100px;
+   height:98px;
+
+     img{
+            width:100%;
+            height:100%;
+            display:block;
+            border-radius:10px;
+        }
+
+}
+
+.profileDetails{
+    margin:0 0 0 5px;
+
+    p{
+        color:#2E2E2E;
+        font-weight:600;
+        font-size:18px;
+        margin:3px 0;
+        text-transform:capitalize;
+    }
+
+    
+    
+}
+`;

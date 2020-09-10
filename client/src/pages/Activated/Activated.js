@@ -12,10 +12,8 @@ import { Container, ActivatedContainer, ProjectCollection, Card, HeaderCollectio
 
 
 
-
 function Activated(props) {
 
-    const [isActive, setIsActive] = useState(true);
 
     return (
         <Container>
@@ -27,32 +25,6 @@ function Activated(props) {
                     </p>
 
                     <ProjectCollection>
-                        <Card>
-                            <HeaderCollection>
-                                <span>Recipe App</span>
-                                <Active active={true} />
-                            </HeaderCollection>
-
-                            <Links>
-                                <a>Live Link</a>
-                                <a>Repo Link</a>
-                                <a>Contact</a>
-                            </Links>
-
-                            <div className='imgContainer'>
-                                <Zoom wrapStyle={{ display: 'block' }}>
-
-                                    <img src={IMG_Social} width='100%' height='100%'></img>
-                                </Zoom>
-
-                            </div>
-
-                            <Name>
-                                <span>Miroz Devkota</span>
-                                <Button>Disapprove</Button>
-                            </Name>
-                        </Card>
-
 
                         <Card>
                             <HeaderCollection>
@@ -61,69 +33,15 @@ function Activated(props) {
                             </HeaderCollection>
 
                             <Links>
-                                <a>Live Link</a>
-                                <a>Repo Link</a>
-                                <a>Contact</a>
+                                <a target='_blank' rel="noopener noreferrer">Live Link</a>
+                                <a target='_blank' rel="noopener noreferrer">Repo Link</a>
+                                <a target='_blank' rel="noopener noreferrer">Contact</a>
                             </Links>
 
                             <div className='imgContainer'>
                                 <Zoom wrapStyle={{ display: 'block' }}>
 
-                                    <img src={IMG_Social} width='100%' height='100%'></img>
-                                </Zoom>
-
-                            </div>
-
-                            <Name>
-                                <span>Miroz Devkota</span>
-                                <Button>Disapprove</Button>
-                            </Name>
-                        </Card>
-
-
-                        <Card>
-                            <HeaderCollection>
-                                <span>Recipe App</span>
-                                <Active active={true} />
-                            </HeaderCollection>
-
-                            <Links>
-                                <a>Live Link</a>
-                                <a>Repo Link</a>
-                                <a>Contact</a>
-                            </Links>
-
-                            <div className='imgContainer'>
-                                <Zoom wrapStyle={{ display: 'block' }}>
-
-                                    <img src={IMG_Social} width='100%' height='100%'></img>
-                                </Zoom>
-
-                            </div>
-
-                            <Name>
-                                <span>Miroz Devkota</span>
-                                <Button>Disapprove</Button>
-                            </Name>
-                        </Card>
-
-
-                        <Card>
-                            <HeaderCollection>
-                                <span>Recipe App</span>
-                                <Active active={true} />
-                            </HeaderCollection>
-
-                            <Links>
-                                <a>Live Link</a>
-                                <a>Repo Link</a>
-                                <a>Contact</a>
-                            </Links>
-
-                            <div className='imgContainer'>
-                                <Zoom wrapStyle={{ display: 'block' }}>
-
-                                    <img src={IMG_Social} width='100%' height='100%'></img>
+                                    <img alt='aasdasd' src={IMG_Social} width='100%' height='100%'></img>
                                 </Zoom>
 
                             </div>
@@ -141,15 +59,15 @@ function Activated(props) {
                             </HeaderCollection>
 
                             <Links>
-                                <a>Live Link</a>
-                                <a>Repo Link</a>
-                                <a>Contact</a>
+                                <a target='_blank' rel="noopener noreferrer">Live Link</a>
+                                <a target='_blank' rel="noopener noreferrer">Repo Link</a>
+                                <a target='_blank' rel="noopener noreferrer">Contact</a>
                             </Links>
 
                             <div className='imgContainer'>
                                 <Zoom wrapStyle={{ display: 'block' }}>
 
-                                    <img src={IMG_Social} width='100%' height='100%'></img>
+                                    <img alt='aasdasd' src={IMG_Social} width='100%' height='100%'></img>
                                 </Zoom>
 
                             </div>
@@ -167,15 +85,15 @@ function Activated(props) {
                             </HeaderCollection>
 
                             <Links>
-                                <a>Live Link</a>
-                                <a>Repo Link</a>
-                                <a>Contact</a>
+                                <a target='_blank' rel="noopener noreferrer">Live Link</a>
+                                <a target='_blank' rel="noopener noreferrer">Repo Link</a>
+                                <a target='_blank' rel="noopener noreferrer">Contact</a>
                             </Links>
 
                             <div className='imgContainer'>
                                 <Zoom wrapStyle={{ display: 'block' }}>
 
-                                    <img src={IMG_Social} width='100%' height='100%'></img>
+                                    <img alt='aasdasd' src={IMG_Social} width='100%' height='100%'></img>
                                 </Zoom>
 
                             </div>
@@ -193,15 +111,15 @@ function Activated(props) {
                             </HeaderCollection>
 
                             <Links>
-                                <a>Live Link</a>
-                                <a>Repo Link</a>
-                                <a>Contact</a>
+                                <a target='_blank' rel="noopener noreferrer">Live Link</a>
+                                <a target='_blank' rel="noopener noreferrer">Repo Link</a>
+                                <a target='_blank' rel="noopener noreferrer">Contact</a>
                             </Links>
 
                             <div className='imgContainer'>
                                 <Zoom wrapStyle={{ display: 'block' }}>
 
-                                    <img src={IMG_Social} width='100%' height='100%'></img>
+                                    <img alt='aasdasd' src={IMG_Social} width='100%' height='100%'></img>
                                 </Zoom>
 
                             </div>
@@ -219,15 +137,15 @@ function Activated(props) {
                             </HeaderCollection>
 
                             <Links>
-                                <a>Live Link</a>
-                                <a>Repo Link</a>
-                                <a>Contact</a>
+                                <a target='_blank' rel="noopener noreferrer">Live Link</a>
+                                <a target='_blank' rel="noopener noreferrer">Repo Link</a>
+                                <a target='_blank' rel="noopener noreferrer">Contact</a>
                             </Links>
 
                             <div className='imgContainer'>
                                 <Zoom wrapStyle={{ display: 'block' }}>
 
-                                    <img src={IMG_Social} width='100%' height='100%'></img>
+                                    <img alt='aasdasd' src={IMG_Social} width='100%' height='100%'></img>
                                 </Zoom>
 
                             </div>
@@ -237,12 +155,39 @@ function Activated(props) {
                                 <Button>Disapprove</Button>
                             </Name>
                         </Card>
+
+                        <Card>
+                            <HeaderCollection>
+                                <span>Recipe App</span>
+                                <Active active={true} />
+                            </HeaderCollection>
+
+                            <Links>
+                                <a target='_blank' rel="noopener noreferrer">Live Link</a>
+                                <a target='_blank' rel="noopener noreferrer">Repo Link</a>
+                                <a target='_blank' rel="noopener noreferrer">Contact</a>
+                            </Links>
+
+                            <div className='imgContainer'>
+                                <Zoom wrapStyle={{ display: 'block' }}>
+
+                                    <img alt='aasdasd' src={IMG_Social} width='100%' height='100%'></img>
+                                </Zoom>
+
+                            </div>
+
+                            <Name>
+                                <span>Miroz Devkota</span>
+                                <Button>Disapprove</Button>
+                            </Name>
+                        </Card>
+
+
 
                     </ProjectCollection>
                 </main>
             </ActivatedContainer>
 
-            {/* <Footer /> */}
         </Container>
     );
 }

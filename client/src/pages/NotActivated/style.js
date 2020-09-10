@@ -22,7 +22,7 @@ main{
     margin:20px 20px;
 
     p{
-        font-size:30px;
+        font-size:25px;
         font-weight:600;
         color:#212529;
         letter-spacing:1px;
@@ -58,6 +58,12 @@ export const Card = styled.div`
     margin:0px 20px 50px 20px;
     padding:10px 20px 20px 20px;
 
+    
+    .description{
+        width:100% !important;
+        max-width:300px !important;
+    }
+
     .imgContainer{    
         flex:1;
         margin:20px 0 0 0;    
@@ -82,6 +88,7 @@ export const HeaderCollection = styled.div`
     display:flex;
     justify-content:space-between;
     align-items:center;
+
 
     span{
         font-weight:600;

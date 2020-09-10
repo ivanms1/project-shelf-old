@@ -1,9 +1,15 @@
 import styled from "styled-components";
 
+export const Main = styled.div`
+display:flex;
+flex-direction:column;
+min-height:100vh;
+`;
+
 export const Container = styled.div`
 width:100%;
-max-width:1450px;
-height:100%;
+flex:1;
+max-width:1250px;
 margin:0 auto;
 background-color:#F7F8FC;
 
@@ -15,15 +21,24 @@ background-color:#F7F8FC;
 
     span{
         font-weight:600;
-        font-size:29px;
+        font-size:27px;
     }
 
     span:first-child{
-        color:#F18867;
+        color:#000000;
     }
     span:last-child{
-        color:#E85F99;
+        color:#000000;
     }
+}
+
+@media screen and (max-width:600px){
+   >p{
+
+    span{
+        font-size:19px;
+    }
+   }
 }
 `;
 
@@ -31,7 +46,7 @@ export const FormContainer = styled.div`
 width:100%;
 display:flex;
 flex-direction:row;
-padding:20px 20px;
+padding:20px 20px 100px 20px;
 justify-content:space-between;
 align-items:flex-start;
 
@@ -114,7 +129,7 @@ margin-top:20px;
 export const Submission = styled.form`
 width:100%;
 height:100%;
-max-width:506px;
+max-width:450px;
 background-color:white;
 border-radius:7px;
 box-shadow:13px 8px 16px 0px rgb(0,0,0,0.20);
@@ -125,7 +140,7 @@ justify-content:center;
 align-items:center;
 
 span{
-    color:#E85F99;
+    color:#000000;
     font-weight:600;
     font-size:30px;
     letter-spacing:1.1px;

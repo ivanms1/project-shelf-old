@@ -1,34 +1,49 @@
 import styled from 'styled-components';
+import Popup from 'reactjs-popup';
+
+export const Main = styled.div`
+display:flex;
+flex-direction:column;
+min-height:100vh;
+`;
 
 export const Container = styled.div`
+flex:1;
+display:flex;
+flex-direction:column;
+align-items:center;
 width:100%;
 background-color:#F7F8FC;
 `;
 
 export const Approval = styled.div`
 width:100%;
-max-width:1300px;
-margin:0 auto;
-background-color:#F7F8FC;
-padding:20px 40px;
+max-width:1420px;
+padding:40px 20px;
 display:flex;
 align-items:center;
 justify-content:space-between;
     
 >p{
+    padding:0 10px;
+    width:100%;
+    max-width:500px;
     font-weight:600;
-    font-size:28px;
+    font-size:27px;
+    text-transform:capitalize;
 }
 
 
-@media screen and (max-width:700px){
+@media screen and (max-width:746px){
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
 
     >p{
-        margin-bottom:10px;
+        text-align:center;
+        font-size:23px;
+        margin-bottom:20px;
     }
 
     >div{
@@ -45,39 +60,56 @@ justify-content:space-between;
 `;
 
 export const ActiveContainer = styled.div`
-width:100%;
-max-width:600px;
-display:flex;
-justify-content:space-evenly;
-margin:0 0 0 30px;
-
->div{
-    margin:0 5px;
-    display:flex;
-    flex-direction:row;
-    align-items:center;
     width:100%;
+    display:flex;
+    justify-content:flex-end;
 
->span{
-    margin:0 0 0 20px;
-    font-weight:600;
-    font-size:1.5rem;
+    div{
+        width:100%;
+        max-width:240px;
+    }
+
+.activeContainer{
+    width:100%;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
 }
+
+.text{
+    width:100%;
+    min-width:170px;
+    padding:0 15px;
 }
+
+
 
 @media screen and (max-width:950px){
-display:flex;
-flex-direction:column;
-justify-content:space-evenly;
-margin:0 0 0 0px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    }
+
+    >div{
+    width:100%;
+
+    >span{
+        margin:0 0 0 20px;
+        font-weight:600;
+        font-size:19px;
+    }
 }
 
->div{
+@media screen and (max-width:746px){
 
->span{
-    margin:0 0 0 20px;
-    font-weight:600;
-    font-size:1.3rem;
+div{
+    width:100%;
+}
+
+.activeContainer{
+    width:100%;
+    display:flex;
+
 }
 }
 `;
@@ -93,30 +125,12 @@ flex-wrap:wrap;
 padding:15px;
 
 .noproject{
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    text-align: center;
+    margin:20vh auto;
+    font-size:20px;
+    text-align:center;
 }
 `;
-export const Card = styled.div`
-width:100%;
-max-width:506px;
-border-radius:7px;
-box-shadow:9px 9px 25px 0px rgb(0,0,0,0.25);
-padding: 0px 20px 20px 20px;
-margin:15px 0;
 
-p{
-    margin:10px 0;
-}
-
-@media screen and (max-width:420px){
-   span{
-       line-height:1.1em;
-   }
-}
-`;
 export const Active = styled.div`
 margin-bottom:10px;
 `;
@@ -128,47 +142,56 @@ background-color:${props => props.active ? '#00CB5B' : '#ED2C49'};
 border-radius:50%;
 `;
 
-export const ImageContainer = styled.div`
-overflow:hidden;
-height:350px;
+export const ButtonHolder = styled.div`
+    display:flex;
+    justify-content:space-between;
+    margin:20px 0 0 0;
 
-img{
-    width:100%;
-    height:100%;
-    display:block;
-}
-
-@media screen and (max-width:450px){
-    height:250px;
-}
+    button{
+        width:100%;
+        padding:10px 40px;
+        border-radius:7px;
+        color:white;
+        font-weight:400;
+        letter-spacing:2px;
+        font-size:20px;
+        border:none;
+        outline:none;
+    }
 `;
 
-export const Description = styled.div`
-width:100%;
-margin-top:20px;
+export const Buttons = styled.button`
+    margin:${props => props.delete ? '0 16px 0 0' : '0 0px 0 0'};
+    background-color:${props => props.delete ? '#D1383D' : '#7057FF'};
+`;
 
->span{
-    font-weight:600;
-    color:#E85F99;
-    font-size:30px;
+
+export const StyledPopup = styled(Popup)`
+
+
+&-overlay {
+      background-color:rgba(45,78,255,0.15);
+  }
+     
+     &-content {
+         margin:0 20px;
+     border:2px solid green;
+      padding:25px 35px;
+      background-color:white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      width:100%;
+      height:100%;
+      max-width: 526px;
+      max-height: 208px;
+      border-radius: 10px;
+      border: none;
+      box-Shadow: 10px 10px 40px 4px rgba(45,78,255,0.15);
+     
+     @media screen and (max-width:676px){
+        padding:20px 20px 40px 20px;
 }
-
-.first{
-    font-weight:500;
-    font-size:20px;
-    color:#E85F99;
-
-}
-
-.second{
-    color:#65587F;
-    font-size:20px;
-    font-weight:500;
-    word-wrap: break-word;
-}
-
-.desc{
-    color:#010101;
-    font-size:20px;
-}
+  }
 `;

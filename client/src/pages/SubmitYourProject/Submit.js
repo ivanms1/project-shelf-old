@@ -7,7 +7,7 @@ import Header from '../../components/Header/Header';
 import Spinner from '../../components/Spinner/Spinner';
 import SubmitForm from './SubmitForm';
 
-import { Container } from './style';
+import { Main, Container } from './style';
 
 const userToken = localStorage.getItem('userToken');
 
@@ -59,7 +59,7 @@ function Submit(props) {
   }
 
   return (
-    <div>
+    <Main>
       <Header />
       <div style={{ backgroundColor: '#F7F8FC' }}>
         <Container>
@@ -71,7 +71,7 @@ function Submit(props) {
           {user && <SubmitForm user={user} onSubmit={onSubmit} />}
         </Container>
       </div>
-    </div>
+    </Main>
   );
 }
 

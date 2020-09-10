@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
+import CardComponent from '../../components/Card/Card';
 import Header from '../../components/Header/Header';
 
-import { Container, SearchContainer, CardContainer, Card, ImageContainer, Description } from './style';
+import { Main, Container, SearchContainer, CardContainer } from './style';
 
-import Preview from '../../assets/desktop-preview.jpg';
-import Button from '../../components/Button/Button';
-import Actives from '../../components/Active/Active';
+
 import Spinner from '../../components/Spinner/Spinner';
 
 const QUERY_WEEKLY_PROJECTS = loader('./queryGetProjects.graphql');
@@ -32,7 +31,7 @@ function Weekly(props) {
     const { projects } = data;
 
     return (
-        <div>
+        <Main>
             <Header />
 
             <Container>
@@ -53,51 +52,11 @@ function Weekly(props) {
 
                         <>
                             {projects.map(project => (
-                                < Card key={project.id}>
-                                    <Actives active={project.isApproved} />
 
-                                    <ImageContainer>
-                                        <img alt='preview' src={Preview}></img>
-                                    </ImageContainer>
+                                <CardComponent key={project.id} user={project} users={project}>
 
-                                    <Description>
-                                        <span>{project.title}</span>
-                                        <p>
-                                            <span className='first'>Link to the Repo </span>
-                                            <span className='second'>: {project.repoLink}</span>
-                                        </p>
+                                </CardComponent>
 
-                                        <p>
-                                            <span className='first'>Live Link </span>
-                                            <span className='second'>: {project.siteLink}</span>
-                                        </p>
-
-                                        <p>
-                                            <span className='first'>Email </span>
-                                            <span className='second'>: {project.author.email}</span>
-                                        </p>
-
-                                        <p>
-                                            <span className='first'>Name </span>
-                                            <span className='second'>
-                                                : {project.author.name} {project.author.lastName}
-                                            </span>
-                                        </p>
-
-                                        <p className='desc'>{project.description}</p>
-
-                                        <Button
-                                            onClick={() => {
-                                                setLoadingState(true);
-                                                redirect(project.repoLink);
-                                            }}
-                                            loading={loadingState}
-                                            bgColor='#ED2C49'
-                                            margin='20px 0 0 0'
-                                        >Visit the repository</Button>
-                                    </Description>
-
-                                </Card>
                             ))}
                         </>
                         :
@@ -107,7 +66,7 @@ function Weekly(props) {
                 </CardContainer>
             </Container>
 
-        </div >
+        </Main >
     );
 }
 
