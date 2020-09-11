@@ -41,7 +41,6 @@ function Notactivated(props) {
 
   //data takes time to load so destruct might give error when its not loaded
   const { projects } = data;
-  console.log(projects);
 
   return (
     <Container>
