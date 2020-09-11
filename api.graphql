@@ -30,7 +30,7 @@ type Mutation {
   login(email: String!, password: String!): Json
   reactToProject(input: ReactToProjectInput): Project
   signUp(email: String!, lastName: String!, name: String!, password: String!): Json
-  updateProject(input: UpdateProjectInput): Project
+  updateProject(input: UpdateProjectInput, projectId: String!): Project
   updateProjectStatus(isApproved: Boolean!, projectId: String!): Project
   updateUser(input: UpdateUsertInput, userId: String!): User
 }
@@ -78,7 +78,6 @@ enum Role {
 input UpdateProjectInput {
   description: String
   preview: String
-  projectId: String!
   repoLink: String
   siteLink: String
   title: String

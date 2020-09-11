@@ -27,7 +27,6 @@ schema.inputObjectType({
 schema.inputObjectType({
   name: 'UpdateProjectInput',
   definition(t) {
-    t.string('projectId', { required: true });
     t.string('title');
     t.string('preview');
     t.string('repoLink');
@@ -218,13 +217,21 @@ schema.mutationType({
     t.field('updateProject', {
       type: 'Project',
       args: {
+        projectId: schema.stringArg({ required: true }),
         input: 'UpdateProjectInput',
       },
-      resolve(_root, { input }, ctx) {
-        const { projectId, ...rest } = input;
+      resolve(_root, { projectId, input }, ctx) {
+        if (!projectId) {
+          throw Error('No ID provided');
+        }
+
+        if (!input) {
+          throw 'No Data';
+        }
+
         return ctx.db.project.update({
           where: { id: projectId },
-          data: rest,
+          data: input,
         });
       },
     });
