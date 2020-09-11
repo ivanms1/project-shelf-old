@@ -31,6 +31,8 @@ type Mutation {
   reactToProject(input: ReactToProjectInput): Project
   signUp(email: String!, lastName: String!, name: String!, password: String!): Json
   updateProject(input: UpdateProjectInput): Project
+  updateProjectStatus(isApproved: Boolean!, projectId: String!): Project
+  updateUser(input: UpdateUsertInput, userId: String!): User
 }
 
 type Project {
@@ -59,6 +61,7 @@ type Query {
   getProject(id: String!): Project
   getProjects: [Project!]
   getUser(id: String!): User
+  getUsers: [User!]
 }
 
 input ReactToProjectInput {
@@ -79,6 +82,16 @@ input UpdateProjectInput {
   repoLink: String
   siteLink: String
   title: String
+}
+
+"""Update the user information"""
+input UpdateUsertInput {
+  discord: String
+  email: String
+  github: String
+  lastName: String
+  name: String
+  role: String
 }
 
 type User {

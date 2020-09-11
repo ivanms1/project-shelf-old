@@ -9,7 +9,6 @@ if (userToken) {
 } else {
   state = false;
 }
-console.log(`logged in:` + state);
 
 export function AppContext({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(state);

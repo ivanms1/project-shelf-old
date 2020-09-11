@@ -1,5 +1,11 @@
 import { schema } from 'nexus';
 
+schema.addToContext((req) => {
+  return {
+    currentUserId: req.headers['current-user-id'],
+  };
+});
+
 const ProjectActions = schema.enumType({
   name: 'ProjectAction',
   members: ['LIKE', 'DISLIKE'],
@@ -27,6 +33,19 @@ schema.inputObjectType({
     t.string('repoLink');
     t.string('siteLink');
     t.string('description');
+  },
+});
+
+schema.inputObjectType({
+  name: 'UpdateUsertInput',
+  description: 'Update the user information',
+  definition(t) {
+    t.string('name');
+    t.string('lastName');
+    t.string('email');
+    t.string('github');
+    t.string('discord');
+    t.string('role');
   },
 });
 
@@ -83,6 +102,13 @@ schema.queryType({
         return ctx.db.user.findOne({
           where: { id: args.id },
         });
+      },
+    });
+    t.field('getUsers', {
+      type: 'User',
+      list: true,
+      resolve(_root, _, ctx) {
+        return ctx.db.user.findMany();
       },
     });
     t.field('getProject', {
@@ -147,6 +173,27 @@ schema.mutationType({
           token: 'some token',
           expiresIn: '1 year',
         };
+      },
+    });
+    t.field('updateUser', {
+      type: 'User',
+      args: {
+        userId: schema.stringArg({ required: true }),
+        input: 'UpdateUsertInput',
+      },
+      async resolve(_root, args, ctx) {
+        const user = await ctx.db.user.update({
+          where: {
+            id: args.userId,
+          },
+          data: args.input,
+        });
+
+        if (!user) {
+          throw new Error('User not found');
+        }
+
+        return user;
       },
     });
     t.field('createProject', {
@@ -215,7 +262,7 @@ schema.mutationType({
       args: {
         input: 'ReactToProjectInput',
       },
-      async resolve(_root, { input }, ctx) {
+      resolve(_root, { input }, ctx) {
         if (!input) {
           throw new Error('Invalid action');
         }
@@ -245,6 +292,32 @@ schema.mutationType({
             likes: true,
             author: true,
           },
+        });
+      },
+    });
+    t.field('updateProjectStatus', {
+      type: 'Project',
+      args: {
+        projectId: schema.stringArg({ required: true }),
+        isApproved: schema.booleanArg({ required: true }),
+      },
+      async resolve(_root, args, ctx) {
+        if (!ctx.currentUserId) {
+          throw Error('Not Authorized');
+        }
+        const user = await ctx.db.user.findOne({
+          where: {
+            id: ctx.currentUserId,
+          },
+        });
+
+        if (!user || user.role !== 'ADMIN') {
+          throw Error('Not Authorized');
+        }
+
+        return ctx.db.project.update({
+          where: { id: args.projectId },
+          data: { isApproved: args.isApproved },
         });
       },
     });

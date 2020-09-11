@@ -57,8 +57,6 @@ function Home() {
     { data: dataR, error: errorR, loading: loadingR },
   ] = useMutation(DELETE_USER_PROJECT);
 
-  console.log(loadingR);
-
   //eslint-disable-next-line
   function redirect(path) {
     setLoadingState(true);
@@ -86,7 +84,7 @@ function Home() {
   }
 
   const { user } = data;
-  console.log(user);
+
   return (
     <Main>
       <Header />
