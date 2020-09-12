@@ -1,16 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Popup from 'reactjs-popup';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import Modal from 'react-modal';
 
-import { Container, Links, Logo, StyledLink } from './style';
-import Kathmandu from '../../assets/kathmandu.svg';
+import {
+  ReactModalStyled,
+  Container,
+  Nav,
+  Logo,
+  StyledLink,
+  LogoutButton,
+  HeaderContainer,
+  Sure,
+  ButtonContainer,
+} from './style';
+import HeaderLogo from '../../assets/logo.png';
+
 import MobileMenu from '../MobileMenu/Mobilemenu';
 import BurgerIcon from '../BurgerIcon/BurgerIcon';
 
-import { Context } from "../../Context/AppContext";
+import { Context } from '../../Context/AppContext';
 
 function Header(props) {
-
   const hooks = useContext(Context);
   const { isAuthenticated } = hooks;
 
@@ -34,19 +45,21 @@ function Header(props) {
     );
   });
 
+  const history = useHistory();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  Modal.setAppElement('#root');
+
   return (
     <Container>
       <PopUpContainer />
       <Logo>
-        <div>
-          <Link to='/'>
-            <img alt='kathmandu' src={Kathmandu}></img>
-          </Link>
-        </div>
+        <Link to='/'>
+          <img alt='kathmandu' src={HeaderLogo}></img>
+        </Link>
       </Logo>
 
-      <Links>
-        {isAuthenticated ?
+      <Nav>
+        {isAuthenticated ? (
           <ul>
             <li>
               <StyledLink exact activeClassName='current' to='/'>
@@ -67,41 +80,55 @@ function Header(props) {
             </li>
 
             <li>
-              <StyledLink activeClassName='current' to='/logout'>
+              <LogoutButton onClick={() => setModalIsOpen(true)}>
                 Log out
-              </StyledLink>
+              </LogoutButton>
             </li>
           </ul>
-          :
+        ) : (
           <ul>
-
-            <li>
-              <StyledLink activeClassName='current' to='/weekly'>
-                Weekly Projects
-              </StyledLink>
-            </li>
-
-            <li>
-              <StyledLink activeClassName='current' to='/submit'>
-                Submit your Projects
-              </StyledLink>
-            </li>
-
             <li>
               <StyledLink activeClassName='current' to='/register'>
                 Register
               </StyledLink>
             </li>
+
             <li>
               <StyledLink activeClassName='current' to='/signin'>
                 Sign in
               </StyledLink>
             </li>
           </ul>
-        }
+        )}
+      </Nav>
 
-      </Links>
-    </Container >
+      <ReactModalStyled
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        shouldCloseOnOverlayClick={false}
+      >
+        <HeaderContainer>
+          <h1>Log Out</h1>
+          {/* eslint-disable-next-line */}
+          <a onClick={() => setModalIsOpen(false)}>X</a>
+        </HeaderContainer>
+
+        <Sure>Are you sure ?</Sure>
+
+        <ButtonContainer>
+          <button onClick={() => setModalIsOpen(false)}>Cancel</button>
+          <button
+            onClick={() => {
+              localStorage.setItem('userToken', '');
+              setModalIsOpen(false);
+              history.push('/signin');
+            }}
+          >
+            Confirm
+          </button>
+        </ButtonContainer>
+      </ReactModalStyled>
+    </Container>
   );
 }
 

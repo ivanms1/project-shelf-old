@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
-import { loader } from 'graphql.macro';
+import ReactToolTip from 'react-tooltip';
+import Zoom from 'react-medium-image-zoom';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
+import IMG_Social from '../../assets/social.png';
+import Rick from '../../assets/rick.png';
+
+import {
+  CardOuter,
+  CardInner,
+  HeaderCollection,
+  Links,
+  Profile,
+} from '../../components/Card/style';
+
 import {
   FormContainer,
-  Card,
-  ImageContainer,
-  Description,
   Submission,
   InputContainer,
   Input,
@@ -16,18 +24,39 @@ import {
   TextArea,
   ErrorText,
 } from './style';
-import Preview from '../../assets/desktop-preview.jpg';
+
 import Button from '../../components/Button/Button';
 import Active from '../../components/Active/Active';
 
-const UPLOAD_IMAGE_MUTATION = loader('./mutationUploadImage.graphql');
+const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
+
+function getCurrentDate() {
+  var mos = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sept',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+
+  let newDate = new Date();
+  let date = newDate.getDate();
+  let month = newDate.getMonth() + 1;
+  let year = newDate.getFullYear();
+  return `${mos[month - 1]} ${date < 10 ? `0${date}` : `${date}`}, ${year}`;
+}
 
 function SubmitForm({ user, onSubmit }) {
   const { register, handleSubmit, errors } = useForm();
 
-  const [uploadImage] = useMutation(UPLOAD_IMAGE_MUTATION);
-
-  const [image, setImage] = useState(Preview);
+  const [image, setImage] = useState(IMG_Social);
   const [value, setValue] = useState({
     title: 'Recipe App',
     repoLink: 'repo link',
@@ -35,7 +64,8 @@ function SubmitForm({ user, onSubmit }) {
     firstname: 'Uzamaki21',
     lastname: 'miroz',
     email: user.email,
-    description: 'this was built using MERN stacks.',
+    description:
+      'This was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server. A nightmare 👻 Dm for collaboration 🙏',
   });
 
   function handleChange(e) {
@@ -47,69 +77,64 @@ function SubmitForm({ user, onSubmit }) {
     });
   }
 
-  async function handleImage(event) {
+  function handleImage(event) {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
       reader.onload = (e) => {
         setImage(e.target.result);
       };
       reader.readAsDataURL(event.target.files[0]);
-
-      console.log(event.target.files[0]);
-
-      await uploadImage({
-        variables: {
-          file: {
-            filename: event.target.files[0].name,
-            url: image,
-            mimetype: event.target.files[0].type,
-          },
-        },
-      });
-      // console.log(event.target.files[0]);
     }
   }
 
   return (
     <FormContainer>
-      <Card>
-        <Active />
+      <CardOuter>
+        <ReactToolTip className='notActivated' id='notActivated'>
+          <span>Active</span>
+        </ReactToolTip>
 
-        <ImageContainer>
-          <img alt='preview' src={image}></img>
-        </ImageContainer>
+        <div data-tip data-for='notActivated'>
+          <div className='activeContainer'>
+            <Active active='true' />
+          </div>
+        </div>
 
-        <Description>
-          <span>{value.title}</span>
-          <p>
-            <span className='first'>Link to the Repo </span>
-            <span className='second'>: {value.repoLink}</span>
-          </p>
+        <CardInner>
+          <HeaderCollection>
+            <span>{value.title}</span>
+          </HeaderCollection>
 
-          <p>
-            <span className='first'>Live Link </span>
-            <span className='second'>: {value.siteLink}</span>
-          </p>
+          <Links>
+            <a href={value.siteLink}>Live Link</a>
+            <a href={value.repoLink}>Repo Link</a>
+            <a href={EMAIL_STRING + value.email}>Contact</a>
+          </Links>
 
-          <p>
-            <span className='first'>Email </span>
-            <span className='second'>: {value.email}</span>
-          </p>
+          <div className='imgContainer'>
+            <Zoom wrapStyle={{ display: 'block' }}>
+              <img alt={image} src={image} width='100%' height='100%'></img>
+            </Zoom>
+          </div>
 
-          <p>
-            <span className='first'>Name </span>
-            <span className='second'>
-              : {user.name} {user.lastName}
-            </span>
-          </p>
+          <Profile>
+            <div className='profileContainer'>
+              <img alt={Rick} src={Rick} width='100%' height='100%'></img>
+            </div>
 
-          <p className='desc'>{value.description}</p>
+            <div className='profileDetails'>
+              <p>
+                {user.name} {user.lastName}
+              </p>
 
-          <Button loading={false} bgColor='#0070f3' margin='20px 0 0 0'>
-            Visit the repository
-          </Button>
-        </Description>
-      </Card>
+              <p>4th weekly project</p>
+            </div>
+          </Profile>
+          <p className='date'>Published Date : {getCurrentDate()}</p>
+
+          <p className='description'>{value.description}</p>
+        </CardInner>
+      </CardOuter>
 
       <Submission onSubmit={handleSubmit(onSubmit)}>
         <span>Submit your Project</span>
@@ -220,7 +245,7 @@ function SubmitForm({ user, onSubmit }) {
           </ErrorText>
         </InputContainer>
 
-        <Button bgColor='#00CB5B' margin='20px 0 0 0'>
+        <Button bgColor='#7057FF' margin='20px 0 0 0'>
           Submit your Project
         </Button>
       </Submission>

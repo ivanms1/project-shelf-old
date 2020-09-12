@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { loader } from 'graphql.macro';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
-import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 import {
+  Container,
   Main,
   SignInBox,
   Form,
@@ -16,7 +16,7 @@ import {
   Input,
   Links,
   SignInButton,
-  LoginDetailsError
+  LoginDetailsError,
 } from './style';
 import Rocket from '../../assets/rocket.svg';
 import Spinner from '../../components/Spinner/Spinner';
@@ -34,10 +34,12 @@ function Signin(props) {
   }
 
   if (error) {
-    return <LoginDetailsError>
-      <p>Login Details didnt match</p>
-      <button onClick={() => history.push('/signin')}>Back to SignIn</button>
-    </LoginDetailsError>;
+    return (
+      <LoginDetailsError>
+        <p>Login Details didnt match</p>
+        <button onClick={() => history.push('/signin')}>Back to SignIn</button>
+      </LoginDetailsError>
+    );
   }
 
   async function onsubmit(data) {
@@ -49,7 +51,6 @@ function Signin(props) {
         },
       });
 
-
       localStorage.setItem('userToken', response.data.login.userId);
       // redirect with the id from the response
       history.push('/');
@@ -60,12 +61,12 @@ function Signin(props) {
   }
 
   return (
-
-    <div>
+    <Container>
       <Header />
-      <Main>
 
+      <Main>
         <img alt='rocket' src={Rocket}></img>
+
         <SignInBox>
           <Form onSubmit={handleSubmit(onsubmit)}>
             <span>Sign In</span>
@@ -73,11 +74,12 @@ function Signin(props) {
               <span>Email Address</span>
               <Input
                 name='email'
-                placeholder='a@a.com'
+                placeholder='joe@don.com'
                 ref={register({
                   required: 'Email address is required.',
                   maxLength: 20,
                   pattern: {
+                    //eslint-disable-next-line
                     value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                     message: 'Email address is not valid',
                   },
@@ -111,14 +113,15 @@ function Signin(props) {
               </ErrorText>
             </InputContainer>
 
-            <Links to='/register'>Register ?</Links>
+            <div className='registerContainer'>
+              <Links to='/register'>Register ?</Links>
+            </div>
+
             <SignInButton type='submit' value='Sign In'></SignInButton>
           </Form>
         </SignInBox>
       </Main>
-
-      <Footer />
-    </div>
+    </Container>
   );
 }
 
