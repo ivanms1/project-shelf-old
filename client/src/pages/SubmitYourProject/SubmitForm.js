@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import ReactToolTip from 'react-tooltip';
 import Zoom from 'react-medium-image-zoom';
+import { useMutation } from '@apollo/client';
+import { loader } from 'graphql.macro';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
@@ -28,6 +30,8 @@ import {
 import Button from '../../components/Button/Button';
 import Active from '../../components/Active/Active';
 
+const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
+
 const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
 
 function getCurrentDate() {
@@ -54,11 +58,10 @@ function getCurrentDate() {
 }
 
 function SubmitForm({ user, onSubmit }) {
-  const { register, handleSubmit, errors } = useForm();
-
-  const [image, setImage] = useState(IMG_Social);
+  const { register, handleSubmit, setValue: setFormValue, errors } = useForm();
   const [value, setValue] = useState({
     title: 'Recipe App',
+    preview: IMG_Social,
     repoLink: 'repo link',
     siteLink: 'Live Link here',
     firstname: 'Uzamaki21',
@@ -67,6 +70,8 @@ function SubmitForm({ user, onSubmit }) {
     description:
       'This was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server. A nightmare 👻 Dm for collaboration 🙏',
   });
+
+  const [uploadImage] = useMutation(MUTATION_UPLOAD_IMAGE);
 
   function handleChange(e) {
     const values =
@@ -80,10 +85,19 @@ function SubmitForm({ user, onSubmit }) {
   function handleImage(event) {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
-      reader.onload = (e) => {
-        setImage(e.target.result);
-      };
       reader.readAsDataURL(event.target.files[0]);
+      reader.onload = async (e) => {
+        const res = await uploadImage({
+          variables: {
+            path: reader.result,
+          },
+        });
+        setValue({
+          ...value,
+          preview: res.data ? res.data.image.url : null,
+        });
+        setFormValue('preview', res.data ? res.data.image.url : '');
+      };
     }
   }
 
@@ -113,7 +127,12 @@ function SubmitForm({ user, onSubmit }) {
 
           <div className='imgContainer'>
             <Zoom wrapStyle={{ display: 'block' }}>
-              <img alt={image} src={image} width='100%' height='100%'></img>
+              <img
+                alt={value.preview}
+                src={value.preview}
+                width='100%'
+                height='100%'
+              ></img>
             </Zoom>
           </div>
 
@@ -135,7 +154,6 @@ function SubmitForm({ user, onSubmit }) {
           <p className='description'>{value.description}</p>
         </CardInner>
       </CardOuter>
-
       <Submission onSubmit={handleSubmit(onSubmit)}>
         <span>Submit your Project</span>
 

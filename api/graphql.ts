@@ -1,4 +1,8 @@
 import { schema } from 'nexus';
+import fs from 'fs';
+import * as cloudinary from 'cloudinary';
+
+const imageUploader = cloudinary.v2;
 
 schema.addToContext((req) => {
   return {
@@ -299,6 +303,24 @@ schema.mutationType({
             likes: true,
             author: true,
           },
+        });
+      },
+    });
+    t.field('uploadImage', {
+      type: 'Json',
+      args: {
+        path: schema.stringArg({ required: true }),
+      },
+      async resolve(_root, { path }, ctx) {
+        return new Promise((resolve, reject) => {
+          imageUploader.uploader.upload(path, (err, res) => {
+            if (err) {
+              reject(err);
+            }
+            resolve({
+              url: res!.url,
+            });
+          });
         });
       },
     });

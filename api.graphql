@@ -33,6 +33,7 @@ type Mutation {
   updateProject(input: UpdateProjectInput, projectId: String!): Project
   updateProjectStatus(isApproved: Boolean!, projectId: String!): Project
   updateUser(input: UpdateUsertInput, userId: String!): User
+  uploadImage(path: String!): Json
 }
 
 type Project {

@@ -26,5 +26,10 @@
   "prettier.jsxSingleQuote": true,
 "prettier.singleQuote": true,
 "typescript.format.semicolons": "insert",
-"javascript.format.semicolons": "insert"
+"javascript.format.semicolons": "insert",
+"files.watcherExclude": {
+  "**/.git/objects/**": true,
+  "**/.git/subtree-cache/**": true,
+  "**/.hg/store/**": true
+}
 }
