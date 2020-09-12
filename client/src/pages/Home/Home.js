@@ -113,14 +113,14 @@ function Home() {
             <p className='noproject'>You dont have any projects to ShowCase.</p>
           ) : (
             <>
-              {user.projects.map((users) => (
-                <CardComponent key={users.id} user={user} users={users}>
+              {user.projects.map((project) => (
+                <CardComponent key={project.id} user={user} project={project}>
                   <ButtonHolder>
                     <Buttons
                       delete
                       onClick={() => {
                         setDeleteOpen((o) => !o);
-                        toDelete = users.id;
+                        toDelete = project.id;
                       }}
                     >
                       Delete

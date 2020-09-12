@@ -18,12 +18,6 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the
 """
 scalar DateTime
 
-input File {
-  filename: String
-  mimetype: String
-  url: String
-}
-
 """
 The `JSON` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -39,7 +33,7 @@ type Mutation {
   updateProject(input: UpdateProjectInput, projectId: String!): Project
   updateProjectStatus(isApproved: Boolean!, projectId: String!): Project
   updateUser(input: UpdateUsertInput, userId: String!): User
-  uploadImage(file: File!): Json
+  uploadImage(path: String!): Json
 }
 
 type Project {

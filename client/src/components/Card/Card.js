@@ -16,7 +16,7 @@ import Rick from '../../assets/rick.png';
 
 const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
 
-function Card({ children, user, users }) {
+function Card({ children, user, project }) {
   return (
     <CardOuter>
       <ReactToolTip className='notActivated' id='notActivated'>
@@ -31,14 +31,14 @@ function Card({ children, user, users }) {
 
       <CardInner>
         <HeaderCollection>
-          <span>{users.title}</span>
+          <span>{project.title}</span>
         </HeaderCollection>
 
         <Links>
-          <a target='_blank' rel='noopener noreferrer' href={users.siteLink}>
+          <a target='_blank' rel='noopener noreferrer' href={project.siteLink}>
             Live Link
           </a>
-          <a target='_blank' rel='noopener noreferrer' href={users.repoLink}>
+          <a target='_blank' rel='noopener noreferrer' href={project.repoLink}>
             Repo Link
           </a>
           <a
@@ -53,8 +53,8 @@ function Card({ children, user, users }) {
         <div className='imgContainer'>
           <Zoom wrapStyle={{ display: 'block' }}>
             <img
-              alt={users.preview}
-              src={users.preview}
+              alt={project.preview}
+              src={project.preview}
               width='100%'
               height='100%'
             ></img>
@@ -64,7 +64,7 @@ function Card({ children, user, users }) {
         <Profile>
           <div className='profileContainer'>
             <img
-              alt={users.preview}
+              alt={project.preview}
               src={Rick}
               width='100%'
               height='100%'
@@ -82,20 +82,7 @@ function Card({ children, user, users }) {
         </Profile>
         <p className='date'>Published Date : Sept 08, 2020</p>
 
-        <p className='description'>
-          This was built using MERN stacks. Used cloudaniary for image hosting.
-          Used netlify for hosting in the live server. A nightmare{' '}
-          <span role='img' aria-label='ghost'>
-            👻
-          </span>
-          . Dm for collaboration{' '}
-          <span role='img' aria-label='ghost'>
-            🙏
-          </span>
-          <span role='img' aria-label='sheep'>
-            🐑
-          </span>
-        </p>
+        <p className='description'>{project.description}</p>
 
         {children}
       </CardInner>

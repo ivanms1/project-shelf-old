@@ -687,7 +687,7 @@ bl@^4.0.1:
     inherits "^2.0.4"
     readable-stream "^3.4.0"
 
-body-parser@1.19.0:
+body-parser@1.19.0, body-parser@^1.19.0:
   version "1.19.0"
   resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.19.0.tgz#96b2709e57c9c4e09a6fd66a8fd979844f69f08a"
   integrity sha512-dhEPs72UPbDnAQJ9ZKMNTP6ptJaionhP5cBb541nXPlW60Jepo9RV/a4fX4XWW9CuFNK22krhrj1+rgzifNCsw==
@@ -3154,9 +3154,9 @@ unc-path-regex@^0.1.2:
   resolved "https://registry.yarnpkg.com/unc-path-regex/-/unc-path-regex-0.1.2.tgz#e73dd3d7b0d7c5ed86fbac6b0ae7d8c6a69d50fa"
   integrity sha1-5z3T17DXxe2G+6xrCufYxqadUPo=
 
-"undici@github:mcollina/undici":
-  version "2.0.0"
-  resolved "https://codeload.github.com/mcollina/undici/tar.gz/d4336d82b7f4d2906fcdb833acb727c70f11c279"
+undici@mcollina/undici:
+  version "2.0.1"
+  resolved "https://codeload.github.com/mcollina/undici/tar.gz/71e482f233de06427e435411ea0e18ebf4dd3e5b"
 
 unique-string@^2.0.0:
   version "2.0.0"

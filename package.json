@@ -3,11 +3,12 @@
   "license": "UNLICENSED",
   "version": "0.0.0",
   "dependencies": {
+    "@types/cors": "^2.8.6",
+    "body-parser": "^1.19.0",
     "cloudinary": "^1.22.0",
     "concurrently": "^5.2.0",
-    "graphql-upload": "^11.0.0",
-    "@types/cors": "^2.8.6",
     "cors": "^2.8.5",
+    "graphql-upload": "^11.0.0",
     "nexus": "^0.24.2",
     "nexus-plugin-prisma": "^0.16.1"
   },

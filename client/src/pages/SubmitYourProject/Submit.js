@@ -42,7 +42,7 @@ function Submit(props) {
         variables: {
           input: {
             authorId: userToken,
-            preview: 'https://i.ibb.co/L5N2MBy/item-5.jpg',
+            preview: data.preview,
             title: data.title,
             siteLink: data.siteLink,
             repoLink: data.repoLink,

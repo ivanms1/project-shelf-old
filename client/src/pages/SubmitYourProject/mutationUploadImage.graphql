@@ -1,3 +1,3 @@
-mutation UploadImage($file: File!) {
-  uploadImage(file: $file)
+mutation UploadImage($path: String!) {
+  image: uploadImage(path: $path)
 }

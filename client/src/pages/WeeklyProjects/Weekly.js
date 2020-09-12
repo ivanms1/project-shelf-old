@@ -53,7 +53,7 @@ function Weekly(props) {
                 <CardComponent
                   key={project.id}
                   user={project}
-                  users={project}
+                  project={project}
                 ></CardComponent>
               ))}
             </>

@@ -4,15 +4,6 @@ import * as cloudinary from 'cloudinary';
 
 const imageUploader = cloudinary.v2;
 
-schema.inputObjectType({
-  name: 'File',
-  definition(t) {
-    t.string('filename');
-    t.string('mimetype');
-    t.string('url');
-  },
-});
-
 schema.addToContext((req) => {
   return {
     currentUserId: req.headers['current-user-id'],
@@ -318,32 +309,19 @@ schema.mutationType({
     t.field('uploadImage', {
       type: 'Json',
       args: {
-        file: schema.arg({ type: 'File', required: true }),
+        path: schema.stringArg({ required: true }),
       },
-      async resolve(_root, { file }, ctx) {
-        const { stream, filename, mimetype, url } = await file;
-        console.log(file);
-        try {
-          const result = await new Promise((resolve, reject) => {
-            stream().pipe(
-              imageUploader.uploader.upload_stream((error, result) => {
-                if (error) {
-                  reject(error);
-                }
-                resolve(result);
-              })
-            );
+      async resolve(_root, { path }, ctx) {
+        return new Promise((resolve, reject) => {
+          imageUploader.uploader.upload(path, (err, res) => {
+            if (err) {
+              reject(err);
+            }
+            resolve({
+              url: res!.url,
+            });
           });
-
-          return {
-            filename,
-            url: result.secure_url,
-            mimetype,
-          };
-          return;
-        } catch (err) {
-          console.log(err), 'hdhdh';
-        }
+        });
       },
     });
     t.field('updateProjectStatus', {
