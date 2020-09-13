@@ -3,11 +3,16 @@ import { Route, Redirect } from 'react-router-dom';
 
 import { Context } from '../Context/AppContext';
 
+import useCurrentUser from '../components/useCurrentUser/useCurrentUser';
+
 function PrivateRoutes({ path, children, ...props }) {
   const hooks = useContext(Context);
+
+  const { currentUser } = useCurrentUser();
+
   const { isAuthenticated } = hooks;
 
-  if (isAuthenticated) {
+  if (isAuthenticated || !currentUser) {
     if (path === '/register' || path === '/signin') {
       return <Redirect to='/' />;
     }

@@ -26,14 +26,15 @@ model User {
 }
 
 model Project {
-  id          String  @id @default(cuid())
+  id          String   @id @default(cuid())
   title       String
   preview     String
   repoLink    String
   siteLink    String
-  author      User    @relation(fields: [authorId], references: [id])
+  author      User     @relation(fields: [authorId], references: [id])
   authorId    String
   description String
-  likes       User[]  @relation(name: "ProjectstLiked")
-  isApproved  Boolean @default(false)
+  likes       User[]   @relation(name: "ProjectstLiked")
+  isApproved  Boolean  @default(false)
+  createdAt   DateTime @default(now())
 }
