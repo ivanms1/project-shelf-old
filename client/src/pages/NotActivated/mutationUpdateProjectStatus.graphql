@@ -1,5 +1,5 @@
-query GetAllProjects {
-  projects: getProjects {
+mutation updateStatus($projectId: String!, $isApproved: Boolean!) {
+  updateProjectStatus(projectId: $projectId, isApproved: $isApproved) {
     id
     title
     author {

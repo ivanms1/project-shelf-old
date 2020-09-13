@@ -49,7 +49,7 @@ export const ProjectCollection = styled.div`
 `;
 
 export const Card = styled.div`
-  width: 400px;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
@@ -59,6 +59,7 @@ export const Card = styled.div`
   padding: 10px 20px 20px 20px;
 
   .description {
+    word-break: break-all;
     width: 100% !important;
     max-width: 300px !important;
   }

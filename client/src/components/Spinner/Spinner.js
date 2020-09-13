@@ -1,6 +1,5 @@
 import React from 'react';
-import styled, { keyframes } from "styled-components";
-
+import styled, { keyframes } from 'styled-components';
 
 const rotator = keyframes`
 0% {
@@ -29,7 +28,6 @@ const dash = keyframes`
   }
 `;
 
-
 const color = keyframes`
 0% {
     stroke: #4285F4;
@@ -48,39 +46,52 @@ const color = keyframes`
   }
 `;
 
-
 const Div = styled.div`
-    height:100vh;
-    text-align:center;
-    display: -webkit-box;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
+  height: 100vh;
+  text-align: center;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
 
-.spinner{
-  -webkit-animation: ${rotator} 1.4s linear infinite;
-          animation: ${rotator} 1.4s linear infinite;
-}
+  .spinner {
+    -webkit-animation: ${rotator} 1.4s linear infinite;
+    animation: ${rotator} 1.4s linear infinite;
+  }
 
-.path {
-  stroke-dasharray: 187;
-  stroke-dashoffset: 0;
-  -webkit-transform-origin: center;
-          transform-origin: center;
-  -webkit-animation: ${dash} 1.4s ease-in-out infinite, ${color} 5.6s ease-in-out infinite;
-          animation: ${dash} 1.4s ease-in-out infinite, ${color} 5.6s ease-in-out infinite;
-}
-
+  .path {
+    stroke-dasharray: 187;
+    stroke-dashoffset: 0;
+    -webkit-transform-origin: center;
+    transform-origin: center;
+    -webkit-animation: ${dash} 1.4s ease-in-out infinite,
+      ${color} 5.6s ease-in-out infinite;
+    animation: ${dash} 1.4s ease-in-out infinite,
+      ${color} 5.6s ease-in-out infinite;
+  }
 `;
 
-
-function Spinner(props) {
+function Spinner() {
   return (
     <Div>
-      <svg className="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-        <circle className="path" fill="none" strokeWidth="6" strokeLinecap="round" cx="33" cy="33" r="30"></circle>
+      <svg
+        className='spinner'
+        width='65px'
+        height='65px'
+        viewBox='0 0 66 66'
+        xmlns='http://www.w3.org/2000/svg'
+      >
+        <circle
+          className='path'
+          fill='none'
+          strokeWidth='6'
+          strokeLinecap='round'
+          cx='33'
+          cy='33'
+          r='30'
+        ></circle>
       </svg>
     </Div>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactToolTip from 'react-tooltip';
 import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 
 import Active from '../Active/Active';
 
@@ -19,13 +20,13 @@ const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
 function Card({ children, user, project }) {
   return (
     <CardOuter>
-      <ReactToolTip className='notActivated' id='notActivated'>
-        <span>Not Activated</span>
+      <ReactToolTip className='notActivated' id={project.id}>
+        <span>{project.isApproved ? 'Activated' : 'Not Activated'}</span>
       </ReactToolTip>
 
-      <div data-tip data-for='notActivated'>
+      <div data-tip data-for={project.id}>
         <div className='activeContainer'>
-          <Active />
+          <Active active={project.isApproved} />
         </div>
       </div>
 
@@ -51,7 +52,7 @@ function Card({ children, user, project }) {
         </Links>
 
         <div className='imgContainer'>
-          <Zoom wrapStyle={{ display: 'block' }}>
+          <Zoom wrapStyle={{ display: 'block' }} zoomZindex='10px'>
             <img
               alt={project.preview}
               src={project.preview}
@@ -82,7 +83,9 @@ function Card({ children, user, project }) {
         </Profile>
         <p className='date'>Published Date : Sept 08, 2020</p>
 
-        <p className='description'>{project.description}</p>
+        <div className='descriptionContainer'>
+          <p className='description'>{project.description}</p>
+        </div>
 
         {children}
       </CardInner>
