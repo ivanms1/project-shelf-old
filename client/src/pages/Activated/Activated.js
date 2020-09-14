@@ -35,9 +35,6 @@ function Activated(props) {
     { data: dataR, error: errorR, loading: loadingR },
   ] = useMutation(MUTATION_UPDATE_PROJECT_STATUS);
 
-  if (data) {
-  }
-
   if (loading) {
     return <Spinner />;
   }
