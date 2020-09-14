@@ -80,6 +80,7 @@ export const CardInner = styled.div`
 
   @media screen and (max-width: 500px) {
     padding: 15px 20px 20px 20px;
+    max-width: 320px;
 
     span {
       font-size: 22px;

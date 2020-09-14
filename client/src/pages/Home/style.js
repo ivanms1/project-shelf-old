@@ -166,17 +166,15 @@ export const StyledPopup = styled(Popup)`
   }
 
   &-content {
-    margin: 0 20px;
-    border: 2px solid green;
     padding: 25px 35px;
     background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 80%;
     height: 100%;
-    max-width: 526px;
+    max-width: 500px;
     max-height: 208px;
     border-radius: 10px;
     border: none;
