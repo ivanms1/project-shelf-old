@@ -59,7 +59,7 @@ export const CardContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   padding: 15px;
 

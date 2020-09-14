@@ -49,6 +49,14 @@ export const FormContainer = styled.div`
   justify-content: space-between;
   align-items: flex-start;
 
+  .loading {
+    font-weight: 600;
+    padding: 80px 0;
+    text-align: center;
+    border: 2px solid #2e2e2e;
+    border-radius: 10px;
+  }
+
   @media screen and (max-width: 1050px) {
     display: flex;
     flex-direction: column;

@@ -9,6 +9,8 @@ import { ErrorMessage } from '@hookform/error-message';
 import IMG_Social from '../../assets/social.png';
 import Rick from '../../assets/rick.png';
 
+import Loader from '../../components/Loader/Loader';
+
 import {
   CardOuter,
   CardInner,
@@ -71,7 +73,7 @@ function SubmitForm({ user, onSubmit }) {
       'This was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server. A nightmare 👻 Dm for collaboration 🙏',
   });
 
-  const [uploadImage] = useMutation(MUTATION_UPLOAD_IMAGE);
+  const [uploadImage, { data, loading }] = useMutation(MUTATION_UPLOAD_IMAGE);
 
   function handleChange(e) {
     const values =
@@ -127,12 +129,14 @@ function SubmitForm({ user, onSubmit }) {
 
           <div className='imgContainer'>
             <Zoom wrapStyle={{ display: 'block' }}>
-              <img
-                alt={value.preview}
-                src={value.preview}
-                width='100%'
-                height='100%'
-              ></img>
+              {(loading && <p className='loading'>Loading...</p>) || (
+                <img
+                  alt={value.preview}
+                  src={value.preview}
+                  width='100%'
+                  height='100%'
+                ></img>
+              )}
             </Zoom>
           </div>
 
@@ -243,15 +247,16 @@ function SubmitForm({ user, onSubmit }) {
             name='description'
             onChange={handleChange}
             placeholder='Used netlify for hosting in the live server.'
+            maxLength='150'
             ref={register({
               required: 'Description cannot be empty.',
               maxLength: {
-                value: 100,
-                message: 'Cannot exceed 100 words',
+                value: 150,
+                message: 'Cannot exceed 150 words',
               },
               minLength: {
-                value: 10,
-                message: 'Cannot be less than 10 words',
+                value: 50,
+                message: 'Cannot be less than 50 words',
               },
             })}
           />

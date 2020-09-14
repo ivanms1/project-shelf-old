@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useReducer } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 import { Context } from '../Context/AppContext';
 
 import useCurrentUser from '../components/useCurrentUser/useCurrentUser';
 
-function PrivateRoutes({ path, children, ...props }) {
+function PrivateRoutes({ path, isForAdmin, children, ...props }) {
   const hooks = useContext(Context);
 
   const { currentUser } = useCurrentUser();

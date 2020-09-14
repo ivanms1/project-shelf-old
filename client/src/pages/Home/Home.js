@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
 
@@ -40,7 +40,6 @@ function Home() {
   const closeModal = () => setOpen(false);
 
   const userToken = localStorage.getItem('userToken');
-  const history = useHistory();
 
   const { data, loading, error } = useQuery(GET_USER_QUERY, {
     variables: {
@@ -55,7 +54,43 @@ function Home() {
     deleteProject,
     //eslint-disable-next-line
     { data: dataR, error: errorR, loading: loadingR },
-  ] = useMutation(DELETE_USER_PROJECT);
+  ] = useMutation(DELETE_USER_PROJECT, {
+    update(cache, { data: { deleteProject } }) {
+      const cachedata = cache.read({
+        query: GET_USER_QUERY,
+        variables: {
+          id: userToken,
+          skip: !userToken,
+        },
+      });
+
+      cache.writeQuery({
+        query: GET_USER_QUERY,
+        variables: {
+          id: userToken,
+          skip: !userToken,
+        },
+        data: {
+          ...cachedata,
+          user: {
+            ...cachedata.user,
+            projects: cachedata.user.projects.filter(
+              (project) => project.id !== deleteProject
+            ),
+          },
+        },
+      });
+
+      //just to see if the cache reads the new project
+      const cachedata2 = cache.read({
+        query: GET_USER_QUERY,
+        variables: {
+          id: userToken,
+          skip: !userToken,
+        },
+      });
+    },
+  });
 
   //eslint-disable-next-line
   function redirect(path) {
@@ -66,9 +101,13 @@ function Home() {
     }, 500);
   }
 
-  function deleteuserProject(projectId) {
-    deleteProject({ variables: { projectId: projectId } });
-    history.go();
+  async function deleteuserProject(projectId) {
+    await deleteProject({
+      variables: {
+        projectId: projectId,
+      },
+    });
+    await setDeleteOpen(false);
   }
 
   if (!userToken) {
