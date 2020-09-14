@@ -38,6 +38,7 @@ type Mutation {
 
 type Project {
   author: User!
+  createdAt: DateTime!
   description: String!
   id: String!
   isApproved: Boolean!
@@ -59,6 +60,7 @@ input ProjectWhereUniqueInput {
 }
 
 type Query {
+  getCurrentUser: User
   getProject(id: String!): Project
   getProjects: [Project!]
   getUser(id: String!): User

@@ -91,6 +91,7 @@ schema.objectType({
     t.model.likes();
     t.model.description();
     t.model.isApproved();
+    t.model.createdAt();
   },
 });
 
@@ -112,6 +113,19 @@ schema.queryType({
       list: true,
       resolve(_root, _, ctx) {
         return ctx.db.user.findMany();
+      },
+    });
+    t.field('getCurrentUser', {
+      type: 'User',
+      resolve(_root, _, ctx) {
+        if (!ctx.currentUserId) {
+          throw Error('User not Found');
+        }
+        return ctx.db.user.findOne({
+          where: {
+            id: ctx.currentUserId,
+          },
+        });
       },
     });
     t.field('getProject', {

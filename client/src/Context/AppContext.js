@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useMemo } from 'react';
 
 export const Context = createContext();
 
@@ -13,10 +13,9 @@ if (userToken) {
 export function AppContext({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(state);
 
-  const value = {
+  const value = useMemo(() => ({ isAuthenticated, setIsAuthenticated }), [
     isAuthenticated,
-    setIsAuthenticated,
-  };
+  ]);
 
   return <Context.Provider value={value}>{children}</Context.Provider>;
 }

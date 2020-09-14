@@ -1,8 +1,9 @@
-query GetUser($id: String!) {
-  user: getUser(id: $id) {
+query UseCurrentUser {
+  currentUser: getCurrentUser {
     name
     lastName
     email
+    role
     projects {
       id
       title
