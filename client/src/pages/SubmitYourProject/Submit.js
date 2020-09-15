@@ -62,7 +62,7 @@ function Submit(props) {
         },
       });
       img = data.preview;
-      await setOpen((o) => !o);
+      setOpen((o) => !o);
     } catch (error) {
       console.log(JSON.stringify(error, null, 2));
     }

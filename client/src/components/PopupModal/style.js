@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import Popup from 'reactjs-popup';
 
 export const HeaderContainer = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
   margin: 0 0 20px 0;
 
   span {
@@ -28,13 +28,14 @@ export const StyledPopup = styled(Popup)`
   }
 
   &-content {
+    margin: 0 20px;
     padding: 20px 20px;
     background-color: white;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+
     align-items: center;
-    width: 80%;
+    width: 90%;
     max-width: 526px;
     border-radius: 7px;
     border: none;

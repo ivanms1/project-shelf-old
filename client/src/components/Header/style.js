@@ -139,9 +139,11 @@ export const HeaderContainer = styled.div`
     font-size: 20px;
   }
 
-  a {
+  button {
     cursor: pointer;
     font-weight: 600;
+    background-color: transparent;
+    border: none;
 
     &:hover {
       color: #d30320;
