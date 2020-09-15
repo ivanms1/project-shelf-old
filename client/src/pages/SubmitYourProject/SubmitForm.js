@@ -9,8 +9,6 @@ import { ErrorMessage } from '@hookform/error-message';
 import IMG_Social from '../../assets/social.png';
 import Rick from '../../assets/rick.png';
 
-import Loader from '../../components/Loader/Loader';
-
 import {
   CardOuter,
   CardInner,

@@ -179,9 +179,8 @@ function Home() {
         onClose={closeModal}
       >
         <HeaderContainer>
-          <h1>Edit</h1>
-          {/* eslint-disable-next-line */}
-          <a onClick={closeModal}>X</a>
+          <span>Edit</span>
+          <button onClick={closeModal}>X</button>
         </HeaderContainer>
 
         <Sure>Do you want to edit this project ?</Sure>
@@ -205,9 +204,8 @@ function Home() {
         onClose={closeDeleteModal}
       >
         <HeaderContainer>
-          <h1>Delete</h1>
-          {/* eslint-disable-next-line */}
-          <a onClick={closeDeleteModal}>X</a>
+          <span>Delete</span>
+          <button onClick={closeDeleteModal}>X</button>
         </HeaderContainer>
 
         <Sure>Do you want to Delete this project ?</Sure>
