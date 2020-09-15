@@ -22,7 +22,7 @@ import {
 } from '../../components/Header/style';
 
 import Active from '../../components/Active/Active';
-import Spinner from '../../components/Spinner/Spinner';
+import Loader from '../../components/Loader/Loader';
 
 const GET_USER_QUERY = loader('./queryUser.graphql');
 const DELETE_USER_PROJECT = loader('./mutationDeleteProject.graphql');
@@ -115,7 +115,7 @@ function Home() {
   }
 
   if (loading) {
-    return <Spinner />;
+    return <Loader />;
   }
 
   if (error) {

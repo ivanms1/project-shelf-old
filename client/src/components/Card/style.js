@@ -56,7 +56,7 @@ export const CardInner = styled.div`
   .date {
     color: #2e2e2e;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 17px;
     margin: 5px 0 15px 0;
 
     @media screen and (max-width: 500px) {
@@ -187,4 +187,13 @@ export const Profile = styled.div`
       text-transform: capitalize;
     }
   }
+`;
+
+export const ImgLoading = styled.div`
+  width: 100%;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 `;

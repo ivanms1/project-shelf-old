@@ -8,6 +8,7 @@ query GetUser($id: String!) {
       title
       preview
       description
+      createdAt
       siteLink
       repoLink
       isApproved

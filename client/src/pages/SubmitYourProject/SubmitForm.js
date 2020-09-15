@@ -9,6 +9,8 @@ import { ErrorMessage } from '@hookform/error-message';
 import IMG_Social from '../../assets/social.png';
 import Rick from '../../assets/rick.png';
 
+import Spinner from '../../components/Spinner/Spinner';
+
 import {
   CardOuter,
   CardInner,
@@ -127,7 +129,11 @@ function SubmitForm({ user, onSubmit }) {
 
           <div className='imgContainer'>
             <Zoom wrapStyle={{ display: 'block' }}>
-              {(loading && <p className='loading'>Loading...</p>) || (
+              {(loading && (
+                <p className='loading'>
+                  <Spinner />
+                </p>
+              )) || (
                 <img
                   alt={value.preview}
                   src={value.preview}

@@ -51,7 +51,7 @@ export const FormContainer = styled.div`
 
   .loading {
     font-weight: 600;
-    padding: 80px 0;
+    padding: 40px 0;
     text-align: center;
     border: 2px solid #2e2e2e;
     border-radius: 10px;

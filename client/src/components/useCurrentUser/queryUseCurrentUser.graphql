@@ -12,6 +12,7 @@ query UseCurrentUser {
       siteLink
       repoLink
       isApproved
+      createdAt
     }
   }
 }

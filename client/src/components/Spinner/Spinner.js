@@ -1,100 +1,46 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
 
-const rotator = keyframes`
-0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(270deg);
-            transform: rotate(270deg);
-  }
-`;
-
-const dash = keyframes`
- 0% {
-    stroke-dashoffset: 187;
-  }
-  50% {
-    stroke-dashoffset: 46.75;
-    -webkit-transform: rotate(135deg);
-            transform: rotate(135deg);
-  }
-  100% {
-    stroke-dashoffset: 187;
-    -webkit-transform: rotate(450deg);
-            transform: rotate(450deg);
-  }
-`;
-
-const color = keyframes`
-0% {
-    stroke: #4285F4;
-  }
-  25% {
-    stroke: #DE3E35;
-  }
-  50% {
-    stroke: #F7C223;
-  }
-  75% {
-    stroke: #1B9A59;
-  }
-  100% {
-    stroke: #4285F4;
-  }
-`;
-
-const Div = styled.div`
-  height: 100vh;
-  text-align: center;
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-
-  .spinner {
-    -webkit-animation: ${rotator} 1.4s linear infinite;
-    animation: ${rotator} 1.4s linear infinite;
-  }
-
-  .path {
-    stroke-dasharray: 187;
-    stroke-dashoffset: 0;
-    -webkit-transform-origin: center;
-    transform-origin: center;
-    -webkit-animation: ${dash} 1.4s ease-in-out infinite,
-      ${color} 5.6s ease-in-out infinite;
-    animation: ${dash} 1.4s ease-in-out infinite,
-      ${color} 5.6s ease-in-out infinite;
-  }
-`;
-
-function Spinner() {
+const Spinner = () => {
   return (
-    <Div>
+    <div>
       <svg
-        className='spinner'
-        width='65px'
-        height='65px'
-        viewBox='0 0 66 66'
+        version='1.1'
+        id='loader-1'
         xmlns='http://www.w3.org/2000/svg'
+        xmlnsXlink='http://www.w3.org/1999/xlink'
+        x='0px'
+        y='0px'
+        width='40px'
+        height='40px'
+        viewBox='0 0 40 40'
+        enableBackground='new 0 0 40 40'
+        xmlSpace='preserve'
       >
-        <circle
-          className='path'
-          fill='none'
-          strokeWidth='6'
-          strokeLinecap='round'
-          cx='33'
-          cy='33'
-          r='30'
-        ></circle>
+        <path
+          opacity='0.2'
+          fill='#263238'
+          d='M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+    s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
+    c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z'
+        />
+        <path
+          fill='#263238'
+          d='M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
+    C22.32,8.481,24.301,9.057,26.013,10.047z'
+        >
+          <animateTransform
+            attributeType='xml'
+            attributeName='transform'
+            type='rotate'
+            from='0 20 20'
+            to='360 20 20'
+            dur='0.5s'
+            repeatCount='indefinite'
+          />
+        </path>
       </svg>
-    </Div>
+    </div>
   );
-}
+};
 
 export default Spinner;

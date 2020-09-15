@@ -7,7 +7,7 @@ import Header from '../../components/Header/Header';
 
 import { Main, Container, SearchContainer, CardContainer } from './style';
 
-import Spinner from '../../components/Spinner/Spinner';
+import Loader from '../../components/Loader/Loader';
 
 const QUERY_WEEKLY_PROJECTS = loader('./queryGetProjects.graphql');
 
@@ -22,7 +22,7 @@ function Weekly(props) {
   const { data, loading, error } = useQuery(QUERY_WEEKLY_PROJECTS);
 
   if (loading) {
-    return <Spinner />;
+    return <Loader />;
   }
 
   if (error) {

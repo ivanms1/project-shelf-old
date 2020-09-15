@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import Header from '../../components/Header/Header';
-import Spinner from '../../components/Spinner/Spinner';
+import Loader from '../../components/Loader/Loader';
 import SubmitForm from './SubmitForm';
 
 import { Main, Container } from './style';
@@ -37,11 +37,11 @@ function Submit(props) {
   const [sendInputs, { error }] = useMutation(CREATE_PROJECT_MUTATION);
 
   if (loading) {
-    return <Spinner />;
+    return <Loader />;
   }
 
   if (error || !data) {
-    return <Spinner />;
+    return <Loader />;
   }
 
   const { user } = data;
