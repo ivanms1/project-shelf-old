@@ -4,7 +4,7 @@ import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 
 import Active from '../Active/Active';
-import Spinner from '../../components/Spinner/Spinner';
+import { ReactComponent as Spinner } from './../../assets/spinner.svg';
 
 import {
   CardOuter,

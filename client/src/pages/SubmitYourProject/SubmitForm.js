@@ -9,7 +9,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import IMG_Social from '../../assets/social.png';
 import Rick from '../../assets/rick.png';
 
-import Spinner from '../../components/Spinner/Spinner';
+import { ReactComponent as Spinner } from '../../assets/spinner.svg';
 
 import {
   CardOuter,

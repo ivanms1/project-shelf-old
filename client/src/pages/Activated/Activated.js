@@ -7,7 +7,7 @@ import { loader } from 'graphql.macro';
 
 import Header from '../../components/Header/Header';
 import Active from '../../components/Active/Active';
-import Spinner from '../../components/Spinner/Spinner';
+import Loader from '../../components/Loader/Loader';
 
 import {
   Container,
@@ -36,7 +36,7 @@ function Activated(props) {
   ] = useMutation(MUTATION_UPDATE_PROJECT_STATUS);
 
   if (loading) {
-    return <Spinner />;
+    return <Loader />;
   }
 
   if (error) {

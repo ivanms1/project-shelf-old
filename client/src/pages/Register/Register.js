@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
 import Header from '../../components/Header/Header';
-import Spinner from '../../components/Spinner/Spinner';
+import Loader from '../../components/Loader/Loader';
 import {
   Main,
   Container,
@@ -29,7 +29,7 @@ function Register(props) {
   const [reg, { loading }] = useMutation(MUTATION_REGISTER_USER);
 
   if (loading) {
-    return <Spinner />;
+    return <Loader />;
   }
 
   async function onSubmit(data) {

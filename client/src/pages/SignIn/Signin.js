@@ -19,7 +19,7 @@ import {
   LoginDetailsError,
 } from './style';
 import Rocket from '../../assets/rocket.svg';
-import Spinner from '../../components/Spinner/Spinner';
+import Loader from '../../components/Loader/Loader';
 
 const GET_USER_QUERY = loader('./mutationLoginUser.graphql');
 
@@ -30,7 +30,7 @@ function Signin(props) {
   const [reg, { loading, error }] = useMutation(GET_USER_QUERY);
 
   if (loading) {
-    return <Spinner />;
+    return <Loader />;
   }
 
   if (error) {

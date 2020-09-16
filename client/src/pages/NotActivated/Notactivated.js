@@ -7,7 +7,7 @@ import { loader } from 'graphql.macro';
 
 import Header from '../../components/Header/Header';
 import Active from '../../components/Active/Active';
-import Spinner from '../../components/Spinner/Spinner';
+import Loader from '../../components/Loader/Loader';
 
 import {
   Container,
@@ -39,7 +39,7 @@ function Notactivated(props) {
   }
 
   if (loading) {
-    return <Spinner />;
+    return <Loader />;
   }
 
   if (error) {
