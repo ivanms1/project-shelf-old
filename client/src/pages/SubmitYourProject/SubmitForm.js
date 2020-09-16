@@ -9,6 +9,8 @@ import { ErrorMessage } from '@hookform/error-message';
 import IMG_Social from '../../assets/social.png';
 import Rick from '../../assets/rick.png';
 
+import { ReactComponent as Spinner } from '../../assets/spinner.svg';
+
 import {
   CardOuter,
   CardInner,
@@ -35,26 +37,13 @@ const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
 const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
 
 function getCurrentDate() {
-  var mos = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sept',
-    'Oct',
-    'Nov',
-    'Dec',
-  ];
-
-  let newDate = new Date();
-  let date = newDate.getDate();
-  let month = newDate.getMonth() + 1;
-  let year = newDate.getFullYear();
-  return `${mos[month - 1]} ${date < 10 ? `0${date}` : `${date}`}, ${year}`;
+  const dateOptions = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  };
+  const newDate = new Date();
+  return newDate.toLocaleDateString('en-us', dateOptions);
 }
 
 function SubmitForm({ user, onSubmit }) {
@@ -127,7 +116,11 @@ function SubmitForm({ user, onSubmit }) {
 
           <div className='imgContainer'>
             <Zoom wrapStyle={{ display: 'block' }}>
-              {(loading && <p className='loading'>Loading...</p>) || (
+              {(loading && (
+                <p className='loading'>
+                  <Spinner />
+                </p>
+              )) || (
                 <img
                   alt={value.preview}
                   src={value.preview}

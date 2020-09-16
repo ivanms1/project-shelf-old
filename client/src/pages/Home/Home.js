@@ -5,6 +5,9 @@ import { useQuery, useMutation } from '@apollo/client';
 
 import CardComponent from '../../components/Card/Card';
 import Header from '../../components/Header/Header';
+import Active from '../../components/Active/Active';
+import Loader from '../../components/Loader/Loader';
+
 import {
   Main,
   Container,
@@ -20,9 +23,6 @@ import {
   Sure,
   ButtonContainer,
 } from '../../components/Header/style';
-
-import Active from '../../components/Active/Active';
-import Spinner from '../../components/Spinner/Spinner';
 
 const GET_USER_QUERY = loader('./queryUser.graphql');
 const DELETE_USER_PROJECT = loader('./mutationDeleteProject.graphql');
@@ -115,7 +115,7 @@ function Home() {
   }
 
   if (loading) {
-    return <Spinner />;
+    return <Loader />;
   }
 
   if (error) {
