@@ -19,17 +19,17 @@ import Rick from '../../assets/rick.png';
 
 const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
 
-function Card({ children, user, project }) {
-  function getCurrentDate() {
-    const dateOptions = {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    };
-    const newDate = new Date(project.createdAt);
-    return newDate.toLocaleDateString('en-us', dateOptions);
-  }
+function getCurrentDate(createdDate) {
+  const dateOptions = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  };
+  const newDate = new Date(createdDate);
+  return newDate.toLocaleDateString('en-us', dateOptions);
+}
 
+function Card({ children, user, project }) {
   const [imgLoaded, setImgLoaded] = useState(false);
 
   return (
@@ -101,7 +101,9 @@ function Card({ children, user, project }) {
             <p>4th weekly project</p>
           </div>
         </Profile>
-        <p className='date'>Published Date : {getCurrentDate()}</p>
+        <p className='date'>
+          Published Date : {getCurrentDate(project.createdAt)}
+        </p>
 
         <div className='descriptionContainer'>
           <p className='description'>{project.description}</p>
