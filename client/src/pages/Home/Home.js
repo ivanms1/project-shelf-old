@@ -7,6 +7,7 @@ import CardComponent from '../../components/Card/Card';
 import Header from '../../components/Header/Header';
 import Active from '../../components/Active/Active';
 import Loader from '../../components/Loader/Loader';
+import Button from '../../components/Button/Button';
 
 import {
   Main,
@@ -15,7 +16,7 @@ import {
   CardContainer,
   ActiveContainer,
   ButtonHolder,
-  Buttons,
+  CustomDeleteButtonCSS,
   StyledPopup,
 } from './style';
 import {
@@ -155,16 +156,29 @@ function Home() {
               {user.projects.map((project) => (
                 <CardComponent key={project.id} user={user} project={project}>
                   <ButtonHolder>
-                    <Buttons
-                      delete
+                    <Button
+                      type='button'
+                      maxWidth='big'
+                      fontSize='big'
+                      kind='delete'
+                      size='medium'
                       onClick={() => {
                         setDeleteOpen((o) => !o);
                         toDelete = project.id;
                       }}
+                      addCSS={CustomDeleteButtonCSS}
                     >
                       Delete
-                    </Buttons>
-                    <Buttons onClick={() => setOpen((o) => !o)}>Edit</Buttons>
+                    </Button>
+                    <Button
+                      maxWidth='big'
+                      fontSize='big'
+                      kind='edit'
+                      size='medium'
+                      onClick={() => setOpen((o) => !o)}
+                    >
+                      Edit
+                    </Button>
                   </ButtonHolder>
                 </CardComponent>
               ))}

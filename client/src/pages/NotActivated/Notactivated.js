@@ -8,6 +8,7 @@ import { loader } from 'graphql.macro';
 import Header from '../../components/Header/Header';
 import Active from '../../components/Active/Active';
 import Loader from '../../components/Loader/Loader';
+import Button from '../../components/Button/Button';
 
 import {
   Container,
@@ -17,7 +18,6 @@ import {
   HeaderCollection,
   Links,
   Name,
-  Button,
 } from './style';
 
 const QUERY_GET_ALL_PROJECTS = loader('./queryGetProjects.graphql');
@@ -148,7 +148,9 @@ function Notactivated(props) {
                         </span>
 
                         <Button
-                          approve
+                          maxWidth='medium'
+                          kind='approve'
+                          fontSize='medium'
                           onClick={() => updateProjectStatus(project.id)}
                         >
                           Approve
