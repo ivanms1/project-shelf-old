@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Popup from 'reactjs-popup';
 
 export const Main = styled.div`
@@ -141,23 +141,10 @@ export const ButtonHolder = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 20px 0 0 0;
-
-  button {
-    width: 100%;
-    padding: 10px 40px;
-    border-radius: 7px;
-    color: white;
-    font-weight: 400;
-    letter-spacing: 2px;
-    font-size: 20px;
-    border: none;
-    outline: none;
-  }
 `;
 
-export const Buttons = styled.button`
-  margin: ${(props) => (props.delete ? '0 16px 0 0' : '0 0px 0 0')};
-  background-color: ${(props) => (props.delete ? '#D1383D' : '#7057FF')};
+export const CustomDeleteButtonCSS = css`
+  margin-right: 36px;
 `;
 
 export const StyledPopup = styled(Popup)`

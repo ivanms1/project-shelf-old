@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   min-height: 100vh;
@@ -200,4 +200,8 @@ export const Button = styled.button`
     transform: translateY(-7px);
     transition: 0.1s ease;
   }
+`;
+
+export const customCss = css`
+  max-width: 120px;
 `;

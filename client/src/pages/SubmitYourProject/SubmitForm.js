@@ -233,7 +233,7 @@ function SubmitForm({ user, onSubmit }) {
         </InputContainer>
 
         <InputContainer>
-          <label>Description of the project in 30 words</label>
+          <label>Description of the project in 50 words</label>
           <TextArea
             name='description'
             onChange={handleChange}
@@ -259,7 +259,7 @@ function SubmitForm({ user, onSubmit }) {
           </ErrorText>
         </InputContainer>
 
-        <Button bgColor='#7057FF' margin='20px 0 0 0'>
+        <Button kind='edit' fontSize='big' size='big'>
           Submit your Project
         </Button>
       </Submission>
