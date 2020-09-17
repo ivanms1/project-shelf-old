@@ -28,18 +28,7 @@ export const CustomButton = styled.button`
   border-radius: 7px;
   color: white;
   width: 100%;
-  max-width: ${({ maxWidth }) => {
-    switch (maxWidth) {
-      case 'big':
-        return '180px';
-      case 'medium':
-        return '120px';
-      case 'small':
-        return '120px';
-      default:
-        return '1000px';
-    }
-  }};
+
   font-weight: ${({ kind }) => {
     switch (kind) {
       case 'big':
@@ -89,7 +78,6 @@ export const CustomButton = styled.button`
           return '18px';
       }
     }};
-
     padding: ${({ kind }) => {
       switch (kind) {
         case 'delete':
@@ -98,19 +86,6 @@ export const CustomButton = styled.button`
           return '7px 12px';
         default:
           return '10px 0px';
-      }
-    }};
-
-    max-width: ${({ maxWidth }) => {
-      switch (maxWidth) {
-        case 'big':
-          return '120px';
-        case 'medium':
-          return '95px';
-        case 'small':
-          return '60px';
-        default:
-          return '1000px';
       }
     }};
   }

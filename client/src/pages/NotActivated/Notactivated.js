@@ -18,6 +18,7 @@ import {
   HeaderCollection,
   Links,
   Name,
+  customCss,
 } from './style';
 
 const QUERY_GET_ALL_PROJECTS = loader('./queryGetProjects.graphql');
@@ -152,6 +153,7 @@ function Notactivated(props) {
                           kind='approve'
                           fontSize='medium'
                           onClick={() => updateProjectStatus(project.id)}
+                          addCSS={customCss}
                         >
                           Approve
                         </Button>
