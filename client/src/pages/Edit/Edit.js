@@ -37,18 +37,19 @@ function Edit(props) {
     },
   });
 
-  const { data: dataR = {}, loading: loadingR, error: errorR } = useQuery(
-    QUERY_GET_PROJECT_DATA,
-    {
-      variables: {
-        id: projectId,
-      },
-    }
-  );
+  const {
+    data: GetProjectData = {},
+    loading: GetProjectLoading,
+    error: GetProjecterror,
+  } = useQuery(QUERY_GET_PROJECT_DATA, {
+    variables: {
+      id: projectId,
+    },
+  });
 
   const [sendInputs, { error }] = useMutation(CREATE_PROJECT_MUTATION);
 
-  if (loading || loadingR) {
+  if (loading || GetProjectLoading) {
     return <Loader />;
   }
 
@@ -56,15 +57,15 @@ function Edit(props) {
     return <Loader />;
   }
 
-  if (error || !dataR) {
+  if (error || !GetProjectData) {
     return <Loader />;
   }
 
-  if (errorR) {
-    return console.log(errorR);
+  if (GetProjecterror) {
+    return console.log(GetProjecterror);
   }
 
-  const { getProject } = dataR;
+  const { getProject } = GetProjectData;
 
   const { user } = data;
 

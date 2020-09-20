@@ -200,7 +200,7 @@ function EditForm({ user, onSubmit, project }) {
             ref={register({
               required: 'Link to the Repo Site cannot be empty.',
               pattern: {
-                value: /^((ftp|http|https):\/\/)?www\.([A-z]+)\.([A-z]{2,})/,
+                value: /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&=]*)/,
                 message: 'Its not a valid link',
               },
             })}
@@ -223,7 +223,7 @@ function EditForm({ user, onSubmit, project }) {
             ref={register({
               required: 'Link to the Live Site cannot be empty.',
               pattern: {
-                value: /^((ftp|http|https):\/\/)?www\.([A-z]+)\.([A-z]{2,})/,
+                value: /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&=]*)/,
                 message: 'Its not a valid link',
               },
             })}
