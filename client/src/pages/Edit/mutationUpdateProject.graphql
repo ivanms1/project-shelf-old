@@ -1,0 +1,9 @@
+mutation UpdateUserProject($projectId: String!, $input: UpdateProjectInput) {
+  updateProject(projectId: $projectId, input: $input) {
+    title
+    preview
+    description
+    repoLink
+    siteLink
+  }
+}

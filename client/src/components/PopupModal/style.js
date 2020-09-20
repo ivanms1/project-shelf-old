@@ -9,16 +9,26 @@ export const HeaderContainer = styled.div`
   margin: 0 0 20px 0;
 
   span {
-    font-size: 21px;
+    font-size: 20px;
     font-weight: 600;
   }
 
   button {
     border-radius: 50%;
-    font-size: 30px;
+    font-size: 18px;
+    font-weight: 600;
     color: black;
     border: none;
     background-color: transparent;
+
+    &:hover {
+      color: #d30320;
+      transition: 0.3s linear;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    display: none;
   }
 `;
 
@@ -33,7 +43,6 @@ export const StyledPopup = styled(Popup)`
     background-color: white;
     display: flex;
     flex-direction: column;
-
     align-items: center;
     width: 90%;
     max-width: 526px;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
 
@@ -29,8 +29,10 @@ const GET_USER_QUERY = loader('./queryUser.graphql');
 const DELETE_USER_PROJECT = loader('./mutationDeleteProject.graphql');
 
 let toDelete = '';
+let toEdit = '';
 
 function Home() {
+  const history = useHistory();
   //eslint-disable-next-line
   const [loadingState, setLoadingState] = useState(false);
 
@@ -102,6 +104,11 @@ function Home() {
     }, 500);
   }
 
+  function projectToEdit(projectId) {
+    setOpen(false);
+    history.push(`/edit/${projectId}`);
+  }
+
   async function deleteuserProject(projectId) {
     await deleteProject({
       variables: {
@@ -159,7 +166,7 @@ function Home() {
                     <Button
                       type='button'
                       maxWidth='big'
-                      fontSize='big'
+                      fontSize='medium'
                       kind='delete'
                       size='medium'
                       onClick={() => {
@@ -172,10 +179,13 @@ function Home() {
                     </Button>
                     <Button
                       maxWidth='big'
-                      fontSize='big'
+                      fontSize='medium'
                       kind='edit'
                       size='medium'
-                      onClick={() => setOpen((o) => !o)}
+                      onClick={() => {
+                        setOpen((o) => !o);
+                        toEdit = project.id;
+                      }}
                     >
                       Edit
                     </Button>
@@ -203,7 +213,7 @@ function Home() {
           <button onClick={closeModal}>Cancel</button>
           <button
             onClick={() => {
-              alert('ok');
+              projectToEdit(toEdit);
             }}
           >
             Confirm
@@ -222,7 +232,9 @@ function Home() {
           <button onClick={closeDeleteModal}>X</button>
         </HeaderContainer>
 
-        <Sure>Do you want to Delete this project ?</Sure>
+        <Sure>
+          <p>Do you want to Delete this project ?</p>
+        </Sure>
 
         <ButtonContainer>
           <button onClick={closeDeleteModal}>Cancel</button>

@@ -55,7 +55,7 @@ export const CardInner = styled.div`
 
   .date {
     color: #2e2e2e;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 17px;
     margin: 5px 0 15px 0;
 
@@ -95,7 +95,7 @@ export const HeaderCollection = styled.div`
 
   span {
     font-weight: 600;
-    font-size: 22px;
+    font-size: 21px;
     color: #000;
     text-transform: capitalize;
   }
