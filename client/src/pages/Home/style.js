@@ -18,18 +18,19 @@ export const Container = styled.div`
 
 export const Approval = styled.div`
   width: 100%;
-  max-width: 1420px;
-  padding: 40px 20px;
+  max-width: 1380px;
+  padding: 50px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   > p {
     padding: 0 10px;
+    color: #152c5b;
     width: 100%;
     max-width: 500px;
     font-weight: 600;
-    font-size: 27px;
+    font-size: 26px;
     text-transform: capitalize;
   }
 
@@ -85,6 +86,7 @@ export const ActiveContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    display: none;
   }
 
   > div {
@@ -111,7 +113,7 @@ export const ActiveContainer = styled.div`
 
 export const CardContainer = styled.div`
   width: 100%;
-  max-width: 1400px;
+  max-width: 1350px;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
@@ -145,6 +147,8 @@ export const ButtonHolder = styled.div`
 
 export const CustomDeleteButtonCSS = css`
   margin-right: 36px;
+  letter-spacing: 1px;
+  font-weight: 500;
 `;
 
 export const StyledPopup = styled(Popup)`

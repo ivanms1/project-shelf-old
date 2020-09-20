@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 export const CustomButton = styled.button`
+  display: inline-block;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+
   background-color: ${({ kind }) => {
     switch (kind) {
       case 'delete':
@@ -8,7 +11,7 @@ export const CustomButton = styled.button`
       case 'edit':
         return '#7057FF';
       case 'approve':
-        return '#00cb5b';
+        return '#20c997';
       case 'disapprove':
         return '#d70330';
       default:
@@ -89,4 +92,6 @@ export const CustomButton = styled.button`
       }
     }};
   }
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 `;

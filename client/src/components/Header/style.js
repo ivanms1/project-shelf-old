@@ -13,17 +13,14 @@ const grow = keyframes`
 
 export const ReactModalStyled = styled(Modal)`
   position: absolute;
-  padding: 25px 35px;
+  padding: 20px 30px;
   background-color: white;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   width: 80%;
-  height: 100%;
   max-width: 526px;
-  max-height: 208px;
-  border-radius: 10px;
+  border-radius: 7px;
   border: none;
   box-shadow: 10px 10px 40px 4px rgba(45, 78, 255, 0.15);
   top: 50%;
@@ -33,87 +30,73 @@ export const ReactModalStyled = styled(Modal)`
 `;
 
 export const Container = styled.div`
-  padding: 0px 20px 0px 50px;
   display: flex;
   width: 100%;
-  justify-content: space-around;
+  justify-content: center;
+  border-bottom: 1px solid #e6e6e6;
   align-items: center;
-
-  @media screen and (max-width: 676px) {
-    padding: 0px 20px 0px 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
-
-  @media screen and (max-width: 676px) {
-    padding: 0px 10px 0px 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
-`;
-
-export const Logo = styled.div`
-  overflow: hidden;
-  width: 100%;
-  margin: 10px 0px 0px 0px;
-  max-width: 90px;
-  height: 75px;
-
-  img {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
 `;
 
 export const Nav = styled.nav`
-  margin-left: 60px;
+  width: 100%;
+  max-width: 1350px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 
   ul {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
     justify-content: center;
-    width: 100%;
+
+    @media screen and (max-width: 850px) {
+      display: none;
+    }
   }
 
   li {
-    padding: 5px 21px 5px 21px;
+    padding: 20px 15px 20px 15px;
   }
 
-  @media screen and (max-width: 676px) {
-    display: none;
+  .logo {
+    font-size: 23px;
+    color: #20c997;
+    text-decoration: none !important;
+    font-weight: 500;
   }
 
   .current {
-    color: #7057ff;
-    font-weight: 600;
+    color: #20c997;
+    font-weight: 500;
+  }
+
+  @media screen and (max-width: 850px) {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
   }
 `;
 
 export const StyledLink = styled(NavLink)`
   text-decoration: none;
-  color: #212529;
-  font-size: 21px;
-  font-weight: 600;
+  color: #152c5b;
+  font-size: 18px;
   letter-spacing: 1px;
 
   &:hover {
-    color: #7057ff;
-    transition: 0.3s linear;
+    text-decoration: underline;
+    transition: text-decoration 0.3s ease-in;
   }
 `;
 
 export const LogoutButton = styled.a`
   text-decoration: none;
-  color: #212529;
-  font-size: 21px;
-  font-weight: 600;
-  letter-spacing: 1px;
+  color: #152c5b;
+  font-size: 18px;
   cursor: pointer;
   margin: 0 0px 0 0px;
 
@@ -123,7 +106,7 @@ export const LogoutButton = styled.a`
   }
 
   &:hover {
-    color: #7057ff;
+    text-decoration: underline;
     transition: 0.3s linear;
   }
 `;
@@ -140,10 +123,12 @@ export const HeaderContainer = styled.div`
   }
 
   button {
-    cursor: pointer;
+    border-radius: 50%;
+    font-size: 18px;
     font-weight: 600;
-    background-color: transparent;
+    color: black;
     border: none;
+    background-color: transparent;
 
     &:hover {
       color: #d30320;

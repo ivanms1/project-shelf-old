@@ -1,20 +1,18 @@
 import React, { useContext, useState } from 'react';
 import Popup from 'reactjs-popup';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Modal from 'react-modal';
 
 import {
   ReactModalStyled,
   Container,
   Nav,
-  Logo,
   StyledLink,
   LogoutButton,
-  HeaderContainer,
-  Sure,
   ButtonContainer,
 } from './style';
-import HeaderLogo from '../../assets/logo.png';
+
+import { HeaderContainer, Body } from '../PopupModal/style';
 
 import MobileMenu from '../MobileMenu/Mobilemenu';
 import BurgerIcon from '../BurgerIcon/BurgerIcon';
@@ -52,13 +50,16 @@ function Header(props) {
   return (
     <Container>
       <PopUpContainer />
-      <Logo>
-        <Link to='/'>
-          <img alt='kathmandu' src={HeaderLogo}></img>
-        </Link>
-      </Logo>
 
       <Nav>
+        <div>
+          <li>
+            <StyledLink className='logo' to='/'>
+              ProjectShelf
+            </StyledLink>
+          </li>
+        </div>
+
         {isAuthenticated ? (
           <ul>
             <li>
@@ -108,12 +109,14 @@ function Header(props) {
         shouldCloseOnOverlayClick={false}
       >
         <HeaderContainer>
-          <h1>Log Out</h1>
-          {/* eslint-disable-next-line */}
-          <a onClick={() => setModalIsOpen(false)}>X</a>
+          <span>Log Out</span>
+
+          <button onClick={() => setModalIsOpen(false)}>X</button>
         </HeaderContainer>
 
-        <Sure>Are you sure ?</Sure>
+        <Body>
+          <p>Are you sure ?</p>
+        </Body>
 
         <ButtonContainer>
           <button onClick={() => setModalIsOpen(false)}>Cancel</button>
