@@ -3,6 +3,8 @@ import Popup from 'reactjs-popup';
 import { useHistory } from 'react-router-dom';
 import Modal from 'react-modal';
 
+import useCurrentUser from '../useCurrentUser/useCurrentUser';
+
 import {
   ReactModalStyled,
   Container,
@@ -19,9 +21,56 @@ import BurgerIcon from '../BurgerIcon/BurgerIcon';
 
 import { Context } from '../../Context/AppContext';
 
+const tabs = {
+  auth: [
+    {
+      title: 'Home',
+      to: `/`,
+      exact: true,
+    },
+    {
+      title: 'Weekly',
+      to: `/weekly`,
+      exact: true,
+    },
+    {
+      title: 'Submit Project',
+      to: `/submit`,
+      exact: true,
+    },
+    {
+      title: 'ADMIN',
+      to: `/admin`,
+      exact: true,
+    },
+  ],
+  notAuth: [
+    {
+      title: 'Register',
+      to: `/register`,
+      exact: true,
+    },
+    {
+      title: 'Sign in',
+      to: `/signin`,
+      exact: true,
+    },
+  ],
+};
+
 function Header(props) {
   const hooks = useContext(Context);
   const { isAuthenticated } = hooks;
+
+  const { data, loading, error } = useCurrentUser();
+  const { currentUser } = data;
+
+  if (loading === false && !error) {
+    if (currentUser.role !== 'ADMIN') {
+      const tabfilter = tabs.auth.filter((tab) => tab.title !== 'ADMIN');
+      tabs.auth = tabfilter;
+    }
+  }
 
   const contentStyle = {
     background: 'rgba(255,255,255,0)',
@@ -62,24 +111,17 @@ function Header(props) {
 
         {isAuthenticated ? (
           <ul>
-            <li>
-              <StyledLink exact activeClassName='current' to='/'>
-                Home
-              </StyledLink>
-            </li>
-
-            <li>
-              <StyledLink activeClassName='current' to='/weekly'>
-                Weekly Projects
-              </StyledLink>
-            </li>
-
-            <li>
-              <StyledLink activeClassName='current' to='/submit'>
-                Submit your Projects
-              </StyledLink>
-            </li>
-
+            {tabs.auth.map((tab) => (
+              <li key={tab.title}>
+                <StyledLink
+                  activeClassName='current'
+                  exact={tab.exact}
+                  to={tab.to}
+                >
+                  {tab.title}
+                </StyledLink>
+              </li>
+            ))}
             <li>
               <LogoutButton onClick={() => setModalIsOpen(true)}>
                 Log out
@@ -88,17 +130,17 @@ function Header(props) {
           </ul>
         ) : (
           <ul>
-            <li>
-              <StyledLink activeClassName='current' to='/register'>
-                Register
-              </StyledLink>
-            </li>
-
-            <li>
-              <StyledLink activeClassName='current' to='/signin'>
-                Sign in
-              </StyledLink>
-            </li>
+            {tabs.notAuth.map((tab) => (
+              <li key={tab.title}>
+                <StyledLink
+                  activeClassName='current'
+                  exact={tab.exact}
+                  to={tab.to}
+                >
+                  {tab.title}
+                </StyledLink>
+              </li>
+            ))}
           </ul>
         )}
       </Nav>

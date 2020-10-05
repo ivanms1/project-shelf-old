@@ -12,6 +12,10 @@ function PrivateRoutes({ path, isForAdmin, children, ...props }) {
 
   const { isAuthenticated } = hooks;
 
+  if (isForAdmin && currentUser.role === 'USER') {
+    return <Redirect to='/' />;
+  }
+
   if (isAuthenticated || !currentUser) {
     if (path === '/register' || path === '/signin') {
       return <Redirect to='/' />;
