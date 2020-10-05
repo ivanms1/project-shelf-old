@@ -152,14 +152,10 @@ function SubmitForm({ user, onSubmit }) {
       <Submission onSubmit={handleSubmit(onSubmit)}>
         <span>Submit your Project</span>
 
-        <InputContainer>
-          <label>Upload</label>
-          <Upload
-            type='file'
-            onChange={handleImage}
-            placeholder='Title of the Project'
-          />
-        </InputContainer>
+        <Upload for='file-upload'>
+          <input id='file-upload' type='file' onChange={handleImage} />
+          Upload
+        </Upload>
 
         <InputContainer>
           <label>Title of the Project</label>
