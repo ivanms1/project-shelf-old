@@ -49,6 +49,7 @@ export const Nav = styled.nav`
     display: flex;
     flex-flow: row wrap;
     align-items: center;
+    z-index: 0 !important;
     justify-content: center;
 
     @media screen and (max-width: 850px) {
