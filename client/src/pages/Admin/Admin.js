@@ -20,10 +20,10 @@ const tabs = [
     title: 'Not Approved Projects',
     path: 'notapproved',
   },
-  {
-    title: 'All Users',
-    path: 'allusers',
-  },
+  // {
+  //   title: 'All Users',
+  //   path: 'allusers',
+  // },
 ];
 
 const GET_ALL_USER_QUERY = loader('../UserTable/queryGetAllUsers.graphql');
