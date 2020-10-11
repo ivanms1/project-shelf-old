@@ -23,27 +23,27 @@ import Edit from '../pages/Edit/Edit';
 function Routes(props) {
   return (
     <Switch>
-      <PrivateRoutes exact path='/' component={Home}></PrivateRoutes>
-      <PrivateRoutes path='/contact' component={Contact}></PrivateRoutes>
-      <PublicRoutes path='/register' component={Register}></PublicRoutes>
-      <PublicRoutes path='/signin' component={SignIn}></PublicRoutes>
+      <PrivateRoutes exact path='/' component={Home}/>
+      <PrivateRoutes path='/contact' component={Contact}/>
+      <PublicRoutes path='/register' component={Register}/>
+      <PublicRoutes path='/signin' component={SignIn}/>
 
-      <PrivateRoutes path='/activated' component={Activated}></PrivateRoutes>
+      <PrivateRoutes path='/activated' component={Activated}/>
       <PrivateRoutes
         path='/notactivated'
         component={NotActivated}
-      ></PrivateRoutes>
+      />
 
       <PrivateRoutes
         isForAdmin='true'
         path='/admin'
         component={Admin}
-      ></PrivateRoutes>
-      <PrivateRoutes path='/logout' component={Logout}></PrivateRoutes>
-      <PrivateRoutes path='/edit/:projectId' component={Edit}></PrivateRoutes>
-      <PrivateRoutes path='/submit' component={Submitproject}></PrivateRoutes>
-      <PrivateRoutes path='/weekly' component={Weekly}></PrivateRoutes>
-      <PublicRoutes component={Error}></PublicRoutes>
+      />
+      <PrivateRoutes path='/logout' component={Logout}/>
+      <PrivateRoutes path='/edit/:projectId' component={Edit}/>
+      <PrivateRoutes path='/submit' component={Submitproject}/>
+      <PrivateRoutes path='/weekly' component={Weekly}/>
+      <PublicRoutes component={Error}/>
     </Switch>
   );
 }
