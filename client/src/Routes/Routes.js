@@ -13,6 +13,8 @@ import Error from '../pages/Error/error';
 import Activated from '../pages/Activated/Activated';
 import NotActivated from '../pages/NotActivated/Notactivated';
 
+import Admin from '../pages/Admin/Admin';
+
 import PublicRoutes from './PublicRoutes';
 import PrivateRoutes from './PrivateRoutes';
 
@@ -32,6 +34,11 @@ function Routes(props) {
         component={NotActivated}
       ></PrivateRoutes>
 
+      <PrivateRoutes
+        isForAdmin='true'
+        path='/admin'
+        component={Admin}
+      ></PrivateRoutes>
       <PrivateRoutes path='/logout' component={Logout}></PrivateRoutes>
       <PrivateRoutes path='/edit/:projectId' component={Edit}></PrivateRoutes>
       <PrivateRoutes path='/submit' component={Submitproject}></PrivateRoutes>

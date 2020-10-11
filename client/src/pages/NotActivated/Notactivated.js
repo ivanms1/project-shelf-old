@@ -1,12 +1,8 @@
 import React from 'react';
-import ReactToolTip from 'react-tooltip';
-import Zoom from 'react-medium-image-zoom';
-import 'react-medium-image-zoom/dist/styles.css';
 import { useQuery, useMutation } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
-import Header from '../../components/Header/Header';
-import Active from '../../components/Active/Active';
+import CardComponent from '../../components/Card/Card';
 import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
 
@@ -14,10 +10,6 @@ import {
   Container,
   ActivatedContainer,
   ProjectCollection,
-  Card,
-  HeaderCollection,
-  Links,
-  Name,
   customCss,
 } from './style';
 
@@ -65,8 +57,6 @@ function Notactivated(props) {
 
   return (
     <Container>
-      <Header />
-
       <ActivatedContainer>
         <main>
           <p>Not Approved Projects</p>
@@ -76,89 +66,22 @@ function Notactivated(props) {
               projects.map(
                 (project) =>
                   project.isApproved === false && (
-                    <Card key={project.id}>
-                      <HeaderCollection>
-                        <span>{project.title}</span>
-
-                        <div data-tip data-for='notActivated'>
-                          <Active active={project.isApproved} />
-                        </div>
-
-                        <ReactToolTip
-                          className='notActivated'
-                          id='notActivated'
-                        >
-                          <span>Not Activated</span>
-                        </ReactToolTip>
-                      </HeaderCollection>
-
-                      <Links>
-                        <a
-                          target='_blank'
-                          rel='noopener noreferrer'
-                          href={project.siteLink}
-                        >
-                          Live Link
-                        </a>
-                        <a
-                          target='_blank'
-                          rel='noopener noreferrer'
-                          href={project.repoLink}
-                        >
-                          Repo Link
-                        </a>
-                        <a
-                          target='_blank'
-                          rel='noopener noreferrer'
-                          href={EMAIL_STRING + project.author.email}
-                        >
-                          Contact
-                        </a>
-                      </Links>
-
-                      <div
-                        data-tip
-                        data-for={project.id}
-                        className='imgContainer'
+                    <CardComponent
+                      key={project.id}
+                      user={project.author}
+                      project={project}
+                      descVisible={false}
+                    >
+                      <Button
+                        maxWidth='big'
+                        kind='approve'
+                        fontSize='medium'
+                        onClick={() => updateProjectStatus(project.id)}
+                        addCSS={customCss}
                       >
-                        <Zoom>
-                          <img
-                            src={project.preview}
-                            alt={project.preview}
-                            style={{ display: 'block' }}
-                            width='100%'
-                            height='100%'
-                          ></img>
-                        </Zoom>
-
-                        <ReactToolTip
-                          className='description'
-                          id={project.id}
-                          multiline={true}
-                          type='error'
-                          aria-haspopup='true'
-                          role='example'
-                        >
-                          <span>{project.description}</span>
-                        </ReactToolTip>
-                      </div>
-
-                      <Name>
-                        <span>
-                          {project.author.name + ' ' + project.author.lastName}
-                        </span>
-
-                        <Button
-                          maxWidth='medium'
-                          kind='approve'
-                          fontSize='medium'
-                          onClick={() => updateProjectStatus(project.id)}
-                          addCSS={customCss}
-                        >
-                          Approve
-                        </Button>
-                      </Name>
-                    </Card>
+                        Approve
+                      </Button>
+                    </CardComponent>
                   )
               )
             ) : (

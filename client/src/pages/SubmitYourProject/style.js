@@ -227,23 +227,22 @@ export const Input = styled.input`
   }
 `;
 
-export const Upload = styled.input`
-  width: 100%;
+export const Upload = styled.label`
+  min-width: 100%;
   border-radius: 7px;
   border: 1.11px solid hsl(213, 1%, 84%);
-  margin-top: 5px;
-  padding: 15px 0 15px 35px;
+  padding: 10px 35px 10px 35px;
+  margin-top: 15px;
+  text-align: center;
   color: #24292e;
   font-weight: 600;
   font-size: 15px;
+  display: inline-block;
   letter-spacing: 1.1px;
+  cursor: pointer;
 
-  &::placeholder {
-    color: #6c757d;
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: 1.1px;
-    margin-left: 20px;
+  input[type='file'] {
+    display: none;
   }
 `;
 

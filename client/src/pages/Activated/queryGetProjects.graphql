@@ -10,6 +10,7 @@ query GetAllProjects {
     preview
     repoLink
     siteLink
+    createdAt
     description
     isApproved
   }

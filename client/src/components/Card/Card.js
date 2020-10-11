@@ -29,7 +29,7 @@ function getCurrentDate(createdDate) {
   return newDate.toLocaleDateString('en-us', dateOptions);
 }
 
-function Card({ children, user, project }) {
+function Card({ children, user, project, ...props }) {
   const [imgLoaded, setImgLoaded] = useState(false);
 
   return (
