@@ -3,6 +3,10 @@ import Popup from 'reactjs-popup';
 import { useHistory } from 'react-router-dom';
 import Modal from 'react-modal';
 
+import { ReactComponent as Cog } from '../../assets/cog.svg';
+import { ReactComponent as Bell } from '../../assets/bell.svg';
+import { ReactComponent as Home } from '../../assets/home.svg';
+
 import useCurrentUser from '../useCurrentUser/useCurrentUser';
 
 import {
@@ -10,55 +14,61 @@ import {
   Container,
   Nav,
   StyledLink,
-  LogoutButton,
   ButtonContainer,
 } from './style';
 
 import { HeaderContainer, Body } from '../PopupModal/style';
 
+import DropDownApp from '../DropDown/DropDownApp';
 import MobileMenu from '../MobileMenu/Mobilemenu';
 import BurgerIcon from '../BurgerIcon/BurgerIcon';
 
 import { Context } from '../../Context/AppContext';
 
-const tabs = {
-  auth: [
-    {
-      title: 'Home',
-      to: `/`,
-      exact: true,
-    },
-    {
-      title: 'Weekly',
-      to: `/weekly`,
-      exact: true,
-    },
-    {
-      title: 'Submit Project',
-      to: `/submit`,
-      exact: true,
-    },
-    {
-      title: 'ADMIN',
-      to: `/admin`,
-      exact: true,
-    },
-  ],
-  notAuth: [
-    {
-      title: 'Register',
-      to: `/register`,
-      exact: true,
-    },
-    {
-      title: 'Sign in',
-      to: `/signin`,
-      exact: true,
-    },
-  ],
-};
-
 function Header(props) {
+  const tabs = {
+    auth: [
+      {
+        title: 'Home',
+        to: `/`,
+        exact: true,
+      },
+      {
+        title: 'Weekly',
+        to: `/weekly`,
+        exact: true,
+      },
+      {
+        title: 'Submit Project',
+        to: `/submit`,
+        exact: true,
+      },
+    ],
+    authandDropdown: [
+      {
+        title: 'ADMIN',
+        onClick: () => history.push('/admin'),
+        leftIcon: <Bell />,
+      },
+      {
+        title: 'Log Out',
+        onClick: () => setModalIsOpen(true),
+        leftIcon: <Cog />,
+      },
+    ],
+    notAuth: [
+      {
+        title: 'Register',
+        to: `/register`,
+        exact: true,
+      },
+      {
+        title: 'Sign in',
+        to: `/signin`,
+        exact: true,
+      },
+    ],
+  };
   const hooks = useContext(Context);
   const { isAuthenticated } = hooks;
 
@@ -68,8 +78,20 @@ function Header(props) {
   if (loading === false && !error) {
     if (currentUser.role !== 'ADMIN') {
       const tabfilter = tabs.auth.filter((tab) => tab.title !== 'ADMIN');
+      const tabfilter1 = tabs.authandDropdown.filter(
+        (tab) => tab.title !== 'ADMIN'
+      );
+      tabs.authandDropdown = tabfilter1;
       tabs.auth = tabfilter;
     }
+    tabs.authandDropdown.unshift({
+      title:
+        currentUser.name.toUpperCase() +
+        ' ' +
+        currentUser.lastName.toUpperCase(),
+      onClick: () => history.push('/home'),
+      leftIcon: <Home />,
+    });
   }
 
   const contentStyle = {
@@ -122,11 +144,6 @@ function Header(props) {
                 </StyledLink>
               </li>
             ))}
-            <li>
-              <LogoutButton onClick={() => setModalIsOpen(true)}>
-                Log out
-              </LogoutButton>
-            </li>
           </ul>
         ) : (
           <ul>
@@ -173,6 +190,9 @@ function Header(props) {
           </button>
         </ButtonContainer>
       </ReactModalStyled>
+      {isAuthenticated && (
+        <DropDownApp list={tabs.authandDropdown}></DropDownApp>
+      )}
     </Container>
   );
 }

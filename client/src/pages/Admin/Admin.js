@@ -7,6 +7,7 @@ import Header from '../../components/Header/Header';
 import Activated from '../Activated/Activated';
 import NotActivated from '../NotActivated/Notactivated';
 import UserTable from '../UserTable/UserTable';
+import Loader from '../../components/Loader/Loader';
 
 import { Main, Container, TabContainer } from './style';
 
@@ -19,10 +20,10 @@ const tabs = [
     title: 'Not Approved Projects',
     path: 'notapproved',
   },
-  {
-    title: 'All Users',
-    path: 'allusers',
-  },
+  // {
+  //   title: 'All Users',
+  //   path: 'allusers',
+  // },
 ];
 
 const GET_ALL_USER_QUERY = loader('../UserTable/queryGetAllUsers.graphql');
@@ -33,11 +34,10 @@ function Admin(props) {
   const { data = {}, loading, error } = useQuery(GET_ALL_USER_QUERY);
 
   if (loading) {
-    return <p>loading</p>;
+    return <Loader/>
   }
 
   const { user } = data;
-  console.log(user);
 
   return (
     <Main>
