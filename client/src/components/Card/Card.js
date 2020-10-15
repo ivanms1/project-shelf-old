@@ -102,7 +102,8 @@ function Card({ children, user, project, ...props }) {
           </div>
         </Profile>
         <p className='date'>
-          Published Date : {getCurrentDate(project.createdAt)}
+          <span className='header'>Published Date :</span>{' '}
+          {getCurrentDate(project.createdAt)}
         </p>
 
         <div className='descriptionContainer'>

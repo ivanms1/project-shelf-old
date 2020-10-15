@@ -56,25 +56,41 @@ export const CardInner = styled.div`
   .date {
     color: #2e2e2e;
     font-weight: 500;
-    font-size: 17px;
-    margin: 5px 0 15px 0;
+    font-size: 16px;
+    text-align: left;
+    margin: 5px 0 10px 0;
 
-    @media screen and (max-width: 500px) {
+    .header {
       font-size: 16px;
+      font-weight: 600;
+    }
+
+    @media screen and (max-width: 412px) {
+      font-size: 14px;
+      font-weight: 400;
+
+      .header {
+        font-size: 14px;
+        font-weight: 500;
+      }
     }
   }
 
   .description {
     flex: 1;
     color: rgba(0, 0, 0, 0.7);
-    font-weight: 600;
-    font-size: 17px;
-    overflow: hidden;
+    color: #2e2e2e;
+    font-weight: 400;
+    text-align: left;
+    word-break: break-all;
     word-wrap: break-word;
-    font-family: 'Mulish', sans-serif;
+    line-height: 22px;
+    font-size: 16px;
 
-    @media screen and (max-width: 500px) {
-      font-size: 18px;
+    @media screen and (max-width: 412px) {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 22px;
     }
   }
 
@@ -96,7 +112,7 @@ export const HeaderCollection = styled.div`
   span {
     font-weight: 600;
     font-size: 21px;
-    color: #000;
+    color: #2e2e2e;
     text-transform: capitalize;
   }
 
@@ -142,7 +158,7 @@ export const Links = styled.div`
     transform: scaleX(1);
   }
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 412px) {
     margin: 10px 0 0 0;
     display: flex;
     justify-content: space-around;
@@ -150,7 +166,7 @@ export const Links = styled.div`
 
     a {
       text-align: center;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 500;
       color: #65587f;
       cursor: pointer;
@@ -162,7 +178,8 @@ export const Profile = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 5px 0 0 0;
+  justify-content: flex-start;
+  margin: 12px 0 0 0;
 
   .profileContainer {
     width: 100px;
@@ -185,6 +202,25 @@ export const Profile = styled.div`
       font-size: 18px;
       margin: 3px 0;
       text-transform: capitalize;
+    }
+  }
+
+  @media screen and (max-width: 412px) {
+    .profileContainer {
+      width: 85px;
+      height: 78px;
+    }
+
+    .profileDetails {
+      margin: 0 0 0 5px;
+
+      p {
+        color: #2e2e2e;
+        font-weight: 500;
+        font-size: 15px;
+        text-align: left;
+        text-transform: capitalize;
+      }
     }
   }
 `;

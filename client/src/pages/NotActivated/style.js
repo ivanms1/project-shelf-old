@@ -7,7 +7,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin: 30px 0;
-  /* border: 2px solid green; */
 `;
 
 export const ActivatedContainer = styled.div`
@@ -23,7 +22,6 @@ export const ActivatedContainer = styled.div`
     flex-direction: column;
     width: 100%;
     margin: 0px 35px;
-    /* border: 2px solid green; */
 
     p {
       font-size: 27px;
@@ -35,7 +33,7 @@ export const ActivatedContainer = styled.div`
     @media screen and (max-width: 500px) {
       p {
         text-align: center;
-        font-size: 23px;
+        font-size: 24px;
       }
     }
   }

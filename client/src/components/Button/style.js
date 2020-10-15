@@ -24,6 +24,8 @@ export const CustomButton = styled.button`
         return '10px 0px';
       case 'approve':
         return '7px 0px';
+      case 'disapprove':
+        return '7px 0px';
       default:
         return '10px 0px';
     }
