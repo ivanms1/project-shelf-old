@@ -71,7 +71,19 @@ function SubmitForm({ user, onSubmit }) {
     });
   }
 
+  const FILETYPE = 'jpg';
+
+  function getFileExtension(fileName) {
+    console.log(fileName.split('.').pop());
+    return fileName.split('.').pop();
+  }
+
   function handleImage(event) {
+    if (getFileExtension(event.target.files[0].name) !== FILETYPE) {
+      alert('invalid file type');
+      return false;
+    }
+
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
@@ -144,7 +156,9 @@ function SubmitForm({ user, onSubmit }) {
               <p>4th weekly project</p>
             </div>
           </Profile>
-          <p className='date'>Published Date : {getCurrentDate()}</p>
+          <p className='date'>
+            <span className='header'>Published Date :</span> {getCurrentDate()}
+          </p>
 
           <p className='description'>{value.description}</p>
         </CardInner>

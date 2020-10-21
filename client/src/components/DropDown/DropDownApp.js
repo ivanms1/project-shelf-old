@@ -97,7 +97,7 @@ function DropdownMenu({ children, data }) {
         <div className={styles.menu}>
           {data.length > 0 &&
             data.map((a) => (
-              <DropdownItem leftIcon={<Cog />} props={a}></DropdownItem>
+              <DropdownItem key={a.title} leftIcon={<Cog />} props={a}></DropdownItem>
             ))}
         </div>
       </CSSTransition>

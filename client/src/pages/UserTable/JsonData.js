@@ -1,18 +1,33 @@
+import React from 'react';
 import { loader } from 'graphql.macro';
-import { useQuery } from '@apollo/client';
-import { useState } from 'react';
+
+import Pagination from './Pagination';
+import UserTable from './UserTable';
 
 const GET_ALL_USER_QUERY = loader('./queryGetAllUsers.graphql');
 
 function JsonData(props) {
-  const { data = {}, loading, error } = useQuery(GET_ALL_USER_QUERY);
-
-  return {
-    loading,
+  const {
     data,
-    error,
-    allUsers: data.user || {},
-  };
+    setData,
+    loading,
+    setLoading,
+    pageCount,
+    setPageCount,
+    fetchIdRef,
+    fetchData,
+    count,
+  } = Pagination();
+
+  return (
+    <UserTable
+      data={data}
+      fetchData={fetchData}
+      loading={loading}
+      pageCount={pageCount}
+      getPages={count}
+    />
+  );
 }
 
 export default JsonData;
