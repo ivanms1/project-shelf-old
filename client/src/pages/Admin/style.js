@@ -45,8 +45,19 @@ export const TabContainer = styled.div`
     }
   }
 
+  @media screen and (max-width: 412px) {
+    ul {
+      li {
+      }
+      button {
+        font-size: 14px !important;
+      }
+    }
+  }
+
   @media screen and (max-width: 840px) {
     display: flex;
     justify-content: center;
+    transition: all 0.3s linear;
   }
 `;

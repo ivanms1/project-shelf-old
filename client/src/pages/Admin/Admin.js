@@ -17,7 +17,7 @@ const tabs = [
     path: 'approved',
   },
   {
-    title: 'Not Approved Projects',
+    title: 'Not Approved',
     path: 'notapproved',
   },
   {
@@ -52,6 +52,7 @@ function Admin(props) {
                     backgroundColor: page == tab.path ? '#20c997' : 'white',
                     color: page == tab.path ? 'white' : '#152c5b',
                     border: page == tab.path ? '1px solid #20c997' : '',
+                    fontWeight: page == tab.path ? '600' : '',
                   }}
                   onClick={() => {
                     setPage(tab.path);
