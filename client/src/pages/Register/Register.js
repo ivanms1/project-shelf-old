@@ -158,7 +158,7 @@ function Register(props) {
                 placeholder='123456'
                 maxLength='10'
                 ref={register({
-                  required: 'Re-type Password',
+                  required: 'Re-type Password.',
                   maxLength: {
                     value: 10,
                     message: 'must be 10 or less letters.',
