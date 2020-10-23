@@ -26,6 +26,9 @@ import BurgerIcon from '../BurgerIcon/BurgerIcon';
 import { Context } from '../../Context/AppContext';
 
 function Header(props) {
+  const history = useHistory();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const tabs = {
     auth: [
       {
@@ -75,27 +78,31 @@ function Header(props) {
   const { data, loading, error } = useCurrentUser();
   const { currentUser } = data;
 
-  if (loading === false && !error) {
-    if (currentUser.role !== 'ADMIN') {
-      const tabfilter = tabs.auth.filter((tab) => tab.title !== 'ADMIN');
-      const tabfilter1 = tabs.authandDropdown.filter(
-        (tab) => tab.title !== 'ADMIN'
-      );
-      tabs.authandDropdown = tabfilter1;
-      tabs.auth = tabfilter;
+  if (!isAuthenticated) {
+    return null;
+  } else {
+    if (loading === false && !error) {
+      if (currentUser.role !== 'ADMIN') {
+        const tabfilter = tabs.auth.filter((tab) => tab.title !== 'ADMIN');
+        const tabfilter1 = tabs.authandDropdown.filter(
+          (tab) => tab.title !== 'ADMIN'
+        );
+        tabs.authandDropdown = tabfilter1;
+        tabs.auth = tabfilter;
+      }
+      tabs.authandDropdown.unshift({
+        title:
+          currentUser.name.toUpperCase() +
+          ' ' +
+          currentUser.lastName.toUpperCase(),
+        onClick: () => history.push('/home'),
+        leftIcon: <Home />,
+      });
     }
-    tabs.authandDropdown.unshift({
-      title:
-        currentUser.name.toUpperCase() +
-        ' ' +
-        currentUser.lastName.toUpperCase(),
-      onClick: () => history.push('/home'),
-      leftIcon: <Home />,
-    });
   }
 
   const contentStyle = {
-    background: 'rgba(255,255,255,0)',
+    background: '#f7f8fc',
     width: '80%',
     border: 'none',
   };
@@ -104,7 +111,7 @@ function Header(props) {
     return (
       <Popup
         modal
-        overlayStyle={{ background: '#fce4ec' }}
+        overlayStyle={{ background: '#f7f8fc' }}
         contentStyle={contentStyle}
         closeOnDocumentClick={false}
         trigger={(open) => <BurgerIcon open={open} />}
@@ -114,8 +121,6 @@ function Header(props) {
     );
   });
 
-  const history = useHistory();
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   Modal.setAppElement('#root');
 
   return (

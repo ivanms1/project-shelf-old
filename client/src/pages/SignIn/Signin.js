@@ -14,12 +14,14 @@ import {
   InputContainer,
   ErrorText,
   Input,
-  Links,
-  SignInButton,
+  Register,
   LoginDetailsError,
+  CustomSignInCss,
+  CustomGoBackCss,
 } from './style';
 import Rocket from '../../assets/rocket.svg';
 import Loader from '../../components/Loader/Loader';
+import Button from '../../components/Button/Button';
 
 const GET_USER_QUERY = loader('./mutationLoginUser.graphql');
 
@@ -36,8 +38,13 @@ function Signin(props) {
   if (error) {
     return (
       <LoginDetailsError>
-        <p>Login Details didnt match</p>
-        <button onClick={() => history.push('/signin')}>Back to SignIn</button>
+        <p>Login Details didn't match</p>
+        <Button
+          addCSS={CustomGoBackCss}
+          onClick={() => history.push('/signin')}
+        >
+          Return to Sign In ?
+        </Button>
       </LoginDetailsError>
     );
   }
@@ -70,8 +77,9 @@ function Signin(props) {
         <SignInBox>
           <Form onSubmit={handleSubmit(onsubmit)}>
             <span>Sign In</span>
+
             <InputContainer>
-              <span>Email Address</span>
+              <label>Email Address</label>
               <Input
                 name='email'
                 placeholder='joe@don.com'
@@ -85,39 +93,38 @@ function Signin(props) {
                   },
                 })}
               />
-              <ErrorText>
-                <ErrorMessage errors={errors} name='email'>
-                  {({ message }) => <p>{message}</p>}
-                </ErrorMessage>
-              </ErrorText>
+
+              <ErrorMessage errors={errors} name='email' as={<ErrorText />}>
+                {({ message }) => <small>{message}</small>}
+              </ErrorMessage>
             </InputContainer>
 
             <InputContainer>
-              <span>Password</span>
+              <label>Password</label>
               <Input
                 name='password'
+                type='password'
                 placeholder='abcdefgh'
                 ref={register({
                   required: 'Password is required.',
                   maxLength: 10,
                   minLength: {
                     value: 2,
-                    message: 'must be 2 or more letters.',
+                    message: 'Must be 2 or more letters.',
                   },
                 })}
               />
-              <ErrorText>
-                <ErrorMessage errors={errors} name='password'>
-                  {({ message }) => <p>{message}</p>}
-                </ErrorMessage>
-              </ErrorText>
+
+              <ErrorMessage errors={errors} name='password' as={<ErrorText />}>
+                {({ message }) => <p>{message}</p>}
+              </ErrorMessage>
             </InputContainer>
 
-            <div className='registerContainer'>
-              <Links to='/register'>Register ?</Links>
-            </div>
+            <Register to='/register'>Register ?</Register>
 
-            <SignInButton type='submit' value='Sign In'></SignInButton>
+            <Button addCSS={CustomSignInCss} type='submit'>
+              Sign In
+            </Button>
           </Form>
         </SignInBox>
       </Main>

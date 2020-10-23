@@ -6,33 +6,31 @@ export const Menu = styled.div`
   display: block;
   text-align: center;
   padding: 0px;
-   ul {
+  ul {
     position: relative;
     top: 0px;
     font-size: 50px;
     padding: 0px;
   }
-   li {
+  li {
     list-style: none;
     margin: 10px 0px;
     padding: 0;
     cursor: pointer;
 
-    &:hover{
-      color:#2ECC71;
-      transition:0.3s linear;
+    &:hover {
+      color: #2ecc71;
+      transition: 0.3s linear;
     }
   }
 
-  .current{
+  .current {
     color: #222222;
-    font-weight:600;
+    font-weight: 600;
   }
-
 `;
 
-
 export const NavLinks = styled(NavLink)`
-text-decoration: none;
-color: #474547;
+  text-decoration: none;
+  color: #474547;
 `;
