@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 export const Container = styled.div`
   min-height: 100vh;
@@ -20,17 +20,11 @@ export const Main = styled.div`
 export const SignInBox = styled.div`
   background-color: white;
   width: 100%;
-  max-width: 433px;
+  max-width: 350px;
   border-radius: 5px;
-  padding: 30px 30px 35px 30px;
-  box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.2);
+  padding: 25px 30px 25px 30px;
+  box-shadow: 10px 10px 40px 4px rgba(45, 78, 255, 0.15);
   margin: 50px 0 0 0;
-
-  .registerContainer {
-    width: 100%;
-    text-align: center;
-    margin: 10px 0;
-  }
 `;
 
 export const Form = styled.form`
@@ -41,25 +35,27 @@ export const Form = styled.form`
   position: relative;
 
   > span {
-    font-size: 35px;
+    font-size: 32px;
     font-weight: 600;
-    margin: 0px 0 10px 0;
-    color: #212529;
+    color: #152c5b;
     letter-spacing: 1.1px;
+    margin-bottom: 20px;
   }
 `;
 
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 17px;
   width: 100%;
 
-  > span {
-    font-weight: 600;
+  &:nth-child(3) {
+    margin-top: 10px;
+  }
+
+  > label {
+    font-weight: 500;
     font-size: 15px;
     margin-left: 5px;
-    letter-spacing: 1.1px;
   }
 `;
 
@@ -69,11 +65,9 @@ export const Input = styled.input`
   border: 1.11px solid hsl(213, 1%, 84%);
   border-radius: 5px;
   color: hsl(210, 12%, 16%);
-  line-height: 20px;
   margin-top: 5px;
-  padding: 15px 0 15px 20px;
-  font-weight: 600;
-  font-size: 15px;
+  padding: 12px 0 12px 20px;
+  font-size: 14px;
   font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
   letter-spacing: 1.1px;
@@ -87,47 +81,34 @@ export const Input = styled.input`
 
   &::placeholder {
     color: #6c757d;
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: 1.7px;
+    font-size: 14px;
+    letter-spacing: 1.1px;
     font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI',
       Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 `;
 
-export const SignInButton = styled.input`
+export const CustomSignInCss = css`
   background-color: #00cb5b;
-  width: 100%;
-  padding: 15px;
-  border-radius: 7px;
-  box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.25);
-  border: none;
-  color: white;
-  font-weight: 600;
-  font-size: 22px;
-  margin-top: 10px;
-  letter-spacing: 1.1px;
-  cursor: pointer;
-
-  :active {
-    transform: translateY(4px);
-    transition: 0.3s linear;
-  }
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-family: 'Poppins';
+  font-size: 18px;
 `;
 
 export const ErrorText = styled.small`
-  color: red;
+  color: #ff3a4c !important;
   margin: 5px 0 0 10px;
-  font-size: 15px;
-  font-weight: 400;
+  font-size: 13px;
 `;
 
-export const Links = styled(Link)`
+export const Register = styled(NavLink)`
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 500;
   color: #4285f4;
-  font-size: 18px;
-  width: 100%;
+  font-size: 15px;
+  text-align: center;
+  margin: 15px 0;
 
   &:hover {
     text-decoration: underline;
@@ -138,34 +119,26 @@ export const Links = styled(Link)`
 export const LoginDetailsError = styled.div`
   background-color: #f7f8fc;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  p {
+  small {
     font-weight: 600;
-    font-size: 25px;
+    font-size: 23px;
+    text-align: center;
+    color: #152c5b;
   }
+`;
 
-  button {
-    background-color: #00cb5b;
-    width: 100%;
-    max-width: 300px;
-    margin: 10px 20px;
-    padding: 15px;
-    border-radius: 7px;
-    box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.25);
-    border: none;
-    color: white;
-    font-weight: 600;
-    font-size: 22px;
-    letter-spacing: 1.1px;
-    cursor: pointer;
-
-    :active {
-      transform: translateY(4px);
-    }
-  }
+export const CustomGoBackCss = css`
+  background-color: #00cb5b;
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-family: 'Poppins';
+  font-size: 18px;
+  max-width: 300px;
+  margin: 20px 0 0 0;
 `;

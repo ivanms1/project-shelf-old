@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 export const Main = styled.div`
   min-height: 100vh;
@@ -9,56 +9,47 @@ export const Main = styled.div`
 
 export const Container = styled.div`
   flex: 1;
-  width: 100%;
   background-color: #f7f8fc;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 60px 25px;
-
-  img {
-    margin: 0 0 40px 0;
-  }
+  padding: 0px 25px;
 `;
 
 export const RegisterBox = styled.div`
   width: 100%;
-  max-width: 433px;
-  padding: 40px 30px 50px 30px;
-  border-radius: 7px;
+  max-width: 350px;
+  padding: 25px 30px 25px 30px;
+  border-radius: 5px;
   background-color: white;
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 10px 10px 40px 4px rgba(45, 78, 255, 0.15);
   display: flex;
   align-items: center;
   flex-direction: column;
+  position: relative;
+  margin: 50px 0 0px 0;
 
   > span {
     font-weight: 600;
-    font-size: 35px;
+    font-size: 32px;
+    color: #152c5b;
     letter-spacing: 1.1px;
-    margin-bottom: 10px;
-  }
-
-  .registerContainer {
-    width: 100%;
-    text-align: center;
-    margin: 20px 0;
+    margin-bottom: 20px;
   }
 `;
 
 export const InputContainer = styled.div`
   width: 100%;
-  margin-top: 20px;
 
-  label {
-    font-weight: 600;
-    font-size: 16px;
-    margin-left: 5px;
-    letter-spacing: 1.1px;
-    color: hsl(36, 41, 46);
+  &:nth-child(n + 1) {
+    margin-top: 10px;
+  }
+
+  > label {
+    font-weight: 500;
     font-size: 15px;
-    line-height: 21px;
+    margin-left: 5px;
   }
 `;
 
@@ -68,11 +59,9 @@ export const Input = styled.input`
   border: 1.11px solid hsl(213, 1%, 84%);
   border-radius: 5px;
   color: hsl(210, 12%, 16%);
-  line-height: 20px;
   margin-top: 5px;
-  padding: 15px 0 15px 20px;
-  font-weight: 600;
-  font-size: 15px;
+  padding: 12px 0 12px 20px;
+  font-size: 14px;
   font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
   letter-spacing: 1.1px;
@@ -86,49 +75,37 @@ export const Input = styled.input`
 
   &::placeholder {
     color: #6c757d;
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: 1.7px;
+    font-size: 14px;
+    letter-spacing: 1.1px;
     font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI',
       Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 `;
 
-export const Links = styled(Link)`
-  width: 100%;
-  text-decoration: none;
-  font-weight: 600;
+export const CustomRegisterCss = css`
+  background-color: #00cb5b;
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-family: 'Poppins';
   font-size: 18px;
+`;
+
+export const ErrorText = styled.small`
+  color: #ff3a4c !important;
+  margin: 5px 0 0 10px;
+  font-size: 13px;
+`;
+
+export const SignIn = styled(NavLink)`
+  text-decoration: none;
+  font-weight: 500;
   color: #4285f4;
+  font-size: 15px;
+  text-align: center;
+  margin: 15px 0;
 
   &:hover {
     text-decoration: underline;
     transition: 1.3s linear;
   }
-`;
-
-export const SignInButton = styled.input`
-  background-color: #00cb5b;
-  width: 100%;
-  padding: 15px;
-  border-radius: 7px;
-  box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.25);
-  border: none;
-  color: white;
-  font-weight: 600;
-  font-size: 22px;
-  letter-spacing: 1.1px;
-  cursor: pointer;
-
-  :active {
-    transform: translateY(4px);
-    transition: 0.3s linear;
-  }
-`;
-
-export const ErrorText = styled.small`
-  color: red;
-  margin: 5px 0 0 10px;
-  font-size: 15px;
-  font-weight: 400;
 `;

@@ -3,21 +3,22 @@ import { useMutation } from '@apollo/client';
 import { loader } from 'graphql.macro';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+import { Redirect } from 'react-router-dom';
 
 import Header from '../../components/Header/Header';
 import Loader from '../../components/Loader/Loader';
+import Button from '../../components/Button/Button';
 import {
   Main,
   Container,
   RegisterBox,
   InputContainer,
   Input,
-  Links,
-  SignInButton,
+  SignIn,
   ErrorText,
+  CustomRegisterCss,
 } from './style';
 import Light from '../../assets/light.svg';
-import { Redirect } from 'react-router-dom';
 
 const MUTATION_REGISTER_USER = loader('./mutationRegisterUser.graphql');
 
@@ -33,21 +34,23 @@ function Register(props) {
   }
 
   async function onSubmit(data) {
-    try {
-      await reg({
-        variables: {
-          email: data.email,
-          password: data.password,
-          name: data.firstname,
-          lastName: data.lastname,
-        },
-      });
+    if (data.password === data.rePassword) {
+      try {
+        await reg({
+          variables: {
+            email: data.email,
+            password: data.password,
+            name: data.firstname,
+            lastName: data.lastname,
+          },
+        });
 
-      setRedirect(true);
-      // redirect with the id from the response
-    } catch (error) {
-      // display error
-      console.log(JSON.stringify(error, null, 2));
+        setRedirect(true);
+        // redirect with the id from the response
+      } catch (error) {
+        // display error
+        console.log(JSON.stringify(error, null, 2));
+      }
     }
   }
 
@@ -66,6 +69,7 @@ function Register(props) {
               <Input
                 name='firstname'
                 placeholder='Joe'
+                maxLength='15'
                 ref={register({
                   required: 'Full Name is required.',
                   maxLength: 10,
@@ -76,11 +80,9 @@ function Register(props) {
                 })}
               />
 
-              <ErrorText>
-                <ErrorMessage errors={errors} name='firstname'>
-                  {({ message }) => <p>{message}</p>}
-                </ErrorMessage>
-              </ErrorText>
+              <ErrorMessage errors={errors} name='firstname' as={<ErrorText />}>
+                {({ message }) => <p>{message}</p>}
+              </ErrorMessage>
             </InputContainer>
 
             <InputContainer>
@@ -88,6 +90,7 @@ function Register(props) {
               <Input
                 name='lastname'
                 placeholder='Don'
+                maxLength='15'
                 ref={register({
                   required: 'Last Name is required.',
                   maxLength: 10,
@@ -98,11 +101,9 @@ function Register(props) {
                 })}
               />
 
-              <ErrorText>
-                <ErrorMessage errors={errors} name='lastname'>
-                  {({ message }) => <p>{message}</p>}
-                </ErrorMessage>
-              </ErrorText>
+              <ErrorMessage errors={errors} name='lastname' as={<ErrorText />}>
+                {({ message }) => <p>{message}</p>}
+              </ErrorMessage>
             </InputContainer>
 
             <InputContainer>
@@ -110,6 +111,7 @@ function Register(props) {
               <Input
                 name='email'
                 placeholder='joe@don.com'
+                maxLength='30'
                 ref={register({
                   required: 'Email address is required.',
                   maxLength: 20,
@@ -121,18 +123,18 @@ function Register(props) {
                 })}
               />
 
-              <ErrorText>
-                <ErrorMessage errors={errors} name='email'>
-                  {({ message }) => <p>{message}</p>}
-                </ErrorMessage>
-              </ErrorText>
+              <ErrorMessage errors={errors} name='email' as={<ErrorText />}>
+                {({ message }) => <p>{message}</p>}
+              </ErrorMessage>
             </InputContainer>
 
             <InputContainer>
               <label>Password</label>
               <Input
                 name='password'
+                type='password'
                 placeholder='123456'
+                maxLength='10'
                 ref={register({
                   required: 'Password is required.',
                   maxLength: 10,
@@ -143,18 +145,45 @@ function Register(props) {
                 })}
               />
 
-              <ErrorText>
-                <ErrorMessage errors={errors} name='password'>
-                  {({ message }) => <p>{message}</p>}
-                </ErrorMessage>
-              </ErrorText>
+              <ErrorMessage errors={errors} name='password' as={<ErrorText />}>
+                {({ message }) => <p>{message}</p>}
+              </ErrorMessage>
             </InputContainer>
 
-            <div className='registerContainer'>
-              <Links to='/signin'>Sign in</Links>
-            </div>
+            <InputContainer>
+              <label>Re-Type Password</label>
+              <Input
+                name='rePassword'
+                type='password'
+                placeholder='123456'
+                maxLength='10'
+                ref={register({
+                  required: 'Re-type Password.',
+                  maxLength: {
+                    value: 10,
+                    message: 'must be 10 or less letters.',
+                  },
+                  minLength: {
+                    value: 2,
+                    message: 'must be 2 or more letters.',
+                  },
+                })}
+              />
 
-            <SignInButton type='submit' value='Register' />
+              <ErrorMessage
+                errors={errors}
+                name='rePassword'
+                as={<ErrorText />}
+              >
+                {({ message }) => <p>{message}</p>}
+              </ErrorMessage>
+            </InputContainer>
+
+            <SignIn to='/signin'>Sign In</SignIn>
+
+            <Button addCSS={CustomRegisterCss} type='submit'>
+              Register
+            </Button>
           </RegisterBox>
         </form>
       </Container>
