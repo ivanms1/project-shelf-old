@@ -125,7 +125,7 @@ export const LoginDetailsError = styled.div`
   justify-content: center;
   align-items: center;
 
-  p {
+  small {
     font-weight: 600;
     font-size: 23px;
     text-align: center;

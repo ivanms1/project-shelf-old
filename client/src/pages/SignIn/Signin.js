@@ -38,7 +38,7 @@ function Signin(props) {
   if (error) {
     return (
       <LoginDetailsError>
-        <p>Login Details didn't match</p>
+        <small>Login Details didn't match</small>
         <Button
           addCSS={CustomGoBackCss}
           onClick={() => history.push('/signin')}
