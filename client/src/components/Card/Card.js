@@ -35,7 +35,7 @@ function Card({ children, user, project, ...props }) {
   return (
     <CardOuter>
       <ReactToolTip className='notActivated' id={project.id}>
-        <span>{project.isApproved ? 'Activated' : 'Not Activated'}</span>
+        <span>{project.isApproved ? 'Approved' : 'Not Approved'}</span>
       </ReactToolTip>
 
       <div data-tip data-for={project.id}>

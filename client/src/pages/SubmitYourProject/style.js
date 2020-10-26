@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import TextareaAutosize from 'react-textarea-autosize';
 
 export const Main = styled.div`
   display: flex;
@@ -11,31 +12,36 @@ export const Container = styled.div`
   flex: 1;
   max-width: 1250px;
   margin: 0 auto;
-  background-color: #f7f8fc;
 
   > p {
-    letter-spacing: 1.1px;
     text-align: center;
-    line-height: 2em;
-    padding: 40px 10px;
+    padding: 50px 20px;
 
     span {
       font-weight: 600;
-      font-size: 27px;
+      font-size: 26px;
     }
 
     span:first-child {
-      color: #000000;
+      color: #152c5b;
     }
     span:last-child {
-      color: #000000;
+      color: #152c5b;
     }
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 870px) {
     p {
       span {
-        font-size: 19px;
+        font-size: 22px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 520px) {
+    p {
+      span {
+        font-size: 18px;
       }
     }
   }
@@ -135,22 +141,20 @@ export const Description = styled.div`
 
 export const Submission = styled.form`
   width: 100%;
-  height: 100%;
-  max-width: 450px;
+  max-width: 400px;
   background-color: white;
-  border-radius: 7px;
-  box-shadow: 13px 8px 16px 0px rgb(0, 0, 0, 0.2);
-  padding: 20px 20px 20px 20px;
+  border-radius: 5px;
+  box-shadow: 10px 10px 40px 4px rgba(45, 78, 255, 0.15);
+  padding: 25px 30px 25px 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
   span {
-    color: #000000;
+    color: #152c5b;
     font-weight: 600;
-    font-size: 30px;
-    letter-spacing: 1.1px;
+    font-size: 25px;
     text-align: center;
   }
 
@@ -183,29 +187,29 @@ export const Collection = styled.div`
 
 export const InputContainer = styled.div`
   width: 100%;
-  margin-top: 15px;
 
-  label {
-    font-weight: 600;
-    font-size: 16px;
-    margin-left: 5px;
-    letter-spacing: 1.1px;
+  &:nth-child(n + 1) {
+    margin-top: 10px;
   }
 
-  @media screen and (max-width: 420px) {
-    text-align: center;
+  label {
+    font-weight: 500;
+    font-size: 15px;
+    margin-left: 5px;
   }
 `;
 
 export const Input = styled.input`
   width: 100%;
+  background-color: transparent;
   border-radius: 5px;
   border: 1.11px solid hsl(213, 1%, 84%);
-  margin: 5px;
-  padding: 15px 20px 15px 20px;
-  color: #24292e;
-  font-weight: 600;
-  font-size: 15px;
+  margin-top: 5px;
+  padding: 12px 0px 12px 20px;
+  color: hsl(210, 12%, 16%);
+  font-size: 14px;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
   letter-spacing: 1.1px;
 
   &:focus {
@@ -217,9 +221,10 @@ export const Input = styled.input`
 
   &::placeholder {
     color: #6c757d;
-    font-weight: 600;
-    font-size: 15px;
+    font-size: 14px;
     letter-spacing: 1.1px;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI',
+      Roboto, 'Helvetica Neue', Arial, sans-serif !important;
   }
 
   @media screen and (max-width: 420px) {
@@ -239,6 +244,7 @@ export const Upload = styled.label`
   font-size: 15px;
   display: inline-block;
   letter-spacing: 1.1px;
+  position: relative;
   cursor: pointer;
 
   input[type='file'] {
@@ -247,25 +253,23 @@ export const Upload = styled.label`
 `;
 
 export const ErrorText = styled.small`
-  color: red;
-  margin: 10px 0 0 15px;
-  font-size: 15px;
-  font-weight: 400;
+  color: #ff3a4c !important;
+  margin: 5px 0 0 10px;
+  font-size: 13px;
 `;
 
-export const TextArea = styled.textarea`
+export const TextArea = styled(TextareaAutosize)`
   width: 100%;
-  max-width: 465px;
+  max-width: 335px;
   max-height: 168px;
   min-height: 168px;
-  min-width: 200px;
-  border-radius: 7px;
+  min-width: 335px;
+  border-radius: 5px;
   border: 1.11px solid hsl(213, 1%, 84%);
   margin-top: 5px;
-  padding: 15px 20px 15px 30px;
-  font-weight: 400;
+  padding: 12px 20px 12px 20px;
   color: #24292e;
-  font-size: 15px;
+  font-size: 14px;
   letter-spacing: 1.1px;
 
   &:focus {
@@ -277,8 +281,30 @@ export const TextArea = styled.textarea`
 
   &::placeholder {
     color: #6c757d;
-    font-weight: 600;
-    font-size: 15px;
+    font-size: 14px;
     letter-spacing: 1.1px;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI',
+      Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  @media screen and (max-width: 435px) {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    min-height: 100%;
+    min-width: 100%;
+  }
+`;
+
+export const CustomSubmitCss = css`
+  background-color: #7057ff;
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-family: 'Poppins';
+  font-size: 18px;
+  margin-top: 10px;
+
+  @media screen and (max-width: 435px) {
+    font-size: 16px !important;
   }
 `;

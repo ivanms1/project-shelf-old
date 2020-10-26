@@ -92,6 +92,14 @@ export const StyledLink = styled(NavLink)`
     text-decoration: underline;
     transition: text-decoration 0.3s ease-in;
   }
+
+  small {
+    sub {
+      font-size: 12px !important;
+      color: #152c5b !important;
+      font-weight: 500;
+    }
+  }
 `;
 
 export const LogoutButton = styled.a`

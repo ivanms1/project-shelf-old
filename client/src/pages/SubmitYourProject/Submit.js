@@ -71,7 +71,7 @@ function Submit(props) {
   return (
     <Main>
       <Header />
-      <div style={{ backgroundColor: '#F7F8FC' }}>
+      <div style={{ backgroundColor: '#F7F8FC', flex: 1 }}>
         <Container>
           <p>
             <span>ShowCase them </span>

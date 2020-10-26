@@ -16,7 +16,7 @@ export const SearchContainer = styled.div`
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 50px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24,7 +24,7 @@ export const SearchContainer = styled.div`
   flex-wrap: wrap;
 
   > p {
-    color: #212529;
+    color: #152c5b;
     font-weight: 600;
     font-size: 25px;
   }
