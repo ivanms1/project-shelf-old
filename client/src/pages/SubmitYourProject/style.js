@@ -7,6 +7,11 @@ export const Main = styled.div`
   min-height: 100vh;
 `;
 
+export const Overlay = styled.div`
+  background-color: #f7f8fc;
+  flex: 1;
+`;
+
 export const Container = styled.div`
   width: 100%;
   flex: 1;
