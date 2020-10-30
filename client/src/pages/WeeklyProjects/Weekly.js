@@ -37,7 +37,7 @@ function Weekly(props) {
 
       <Container>
         <SearchContainer>
-          <p>4th week project : 'MERN Stack' Submission</p>
+          <p>4th week project : 'MERN Stack'</p>
 
           <select>
             <option>MERN stack</option>

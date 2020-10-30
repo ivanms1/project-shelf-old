@@ -132,6 +132,9 @@ function Header(props) {
           <li>
             <StyledLink className='logo' to='/'>
               ProjectShelf
+              <small>
+                <sub>beta</sub>
+              </small>
             </StyledLink>
           </li>
         </div>

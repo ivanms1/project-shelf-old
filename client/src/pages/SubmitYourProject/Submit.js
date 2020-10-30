@@ -7,7 +7,7 @@ import Header from '../../components/Header/Header';
 import Loader from '../../components/Loader/Loader';
 import SubmitForm from './SubmitForm';
 
-import { Main, Container } from './style';
+import { Main, Overlay, Container } from './style';
 
 //import styles from component
 import {
@@ -71,7 +71,8 @@ function Submit(props) {
   return (
     <Main>
       <Header />
-      <div style={{ backgroundColor: '#F7F8FC' }}>
+
+      <Overlay>
         <Container>
           <p>
             <span>ShowCase them </span>
@@ -80,8 +81,7 @@ function Submit(props) {
 
           {user && <SubmitForm user={user} onSubmit={onSubmit} />}
         </Container>
-      </div>
-
+      </Overlay>
       <StyledPopup
         open={open}
         closeOnDocumentClick={false}

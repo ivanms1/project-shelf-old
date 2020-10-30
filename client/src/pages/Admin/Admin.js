@@ -13,11 +13,11 @@ import { Main, Container, TabContainer } from './style';
 
 const tabs = [
   {
-    title: 'Approved',
+    title: 'Not Approved',
     path: 'approved',
   },
   {
-    title: 'Not Approved',
+    title: 'Approved',
     path: 'notapproved',
   },
   {

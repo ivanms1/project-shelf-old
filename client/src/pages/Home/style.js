@@ -36,14 +36,16 @@ export const Approval = styled.div`
 
   @media screen and (max-width: 746px) {
     display: flex;
+    padding: 50px 0px 0 0;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 
     > p {
       text-align: center;
+      padding: 0 0px;
+      max-width: 100%;
       font-size: 23px;
-      margin-bottom: 20px;
     }
 
     > div {
@@ -86,7 +88,6 @@ export const ActiveContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    display: none;
   }
 
   > div {
@@ -107,6 +108,7 @@ export const ActiveContainer = styled.div`
     .activeContainer {
       width: 100%;
       display: flex;
+      display: none;
     }
   }
 `;

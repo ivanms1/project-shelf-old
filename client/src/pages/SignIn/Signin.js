@@ -2,8 +2,11 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { loader } from 'graphql.macro';
-import { useMutation } from '@apollo/client';
+import { useMutation, NetworkStatus } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 import Header from '../../components/Header/Header';
 import {
@@ -15,10 +18,9 @@ import {
   ErrorText,
   Input,
   Register,
-  LoginDetailsError,
   CustomSignInCss,
-  CustomGoBackCss,
 } from './style';
+
 import Rocket from '../../assets/rocket.svg';
 import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
@@ -27,7 +29,12 @@ const GET_USER_QUERY = loader('./mutationLoginUser.graphql');
 
 function Signin(props) {
   const history = useHistory();
-  const { register, errors, handleSubmit } = useForm({ criteriaMode: 'all' });
+  const toastId = React.useRef(null);
+
+  const { register, errors, handleSubmit } = useForm({
+    criteriaMode: 'all',
+    shouldUnregister: true,
+  });
 
   const [reg, { loading, error }] = useMutation(GET_USER_QUERY);
 
@@ -35,18 +42,13 @@ function Signin(props) {
     return <Loader />;
   }
 
+  const notify = () =>
+    toast.error(`🚀  Can't sign in. Please check the details again.`, {
+      toastId: 1,
+    });
+
   if (error) {
-    return (
-      <LoginDetailsError>
-        <small>Login Details didn't match</small>
-        <Button
-          addCSS={CustomGoBackCss}
-          onClick={() => history.push('/signin')}
-        >
-          Return to Sign In ?
-        </Button>
-      </LoginDetailsError>
-    );
+    console.log(error.message);
   }
 
   async function onsubmit(data) {
@@ -57,13 +59,13 @@ function Signin(props) {
           password: data.password,
         },
       });
-
       localStorage.setItem('userToken', response.data.login.userId);
       // redirect with the id from the response
       history.push('/');
     } catch (error) {
-      // display error
-      console.log(error.message);
+      if (error.networkError.statusCode === 500) {
+        notify();
+      }
     }
   }
 

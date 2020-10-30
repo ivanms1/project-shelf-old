@@ -27,6 +27,7 @@ import {
   Upload,
   TextArea,
   ErrorText,
+  CustomSubmitCss,
 } from './style';
 
 import Button from '../../components/Button/Button';
@@ -106,7 +107,7 @@ function SubmitForm({ user, onSubmit }) {
     <FormContainer>
       <CardOuter>
         <ReactToolTip className='notActivated' id='notActivated'>
-          <span>Active</span>
+          <span>Approved</span>
         </ReactToolTip>
 
         <div data-tip data-for='notActivated'>
@@ -191,11 +192,9 @@ function SubmitForm({ user, onSubmit }) {
             })}
           />
 
-          <ErrorText>
-            <ErrorMessage errors={errors} name='title'>
-              {({ message }) => <p>{message}</p>}
-            </ErrorMessage>
-          </ErrorText>
+          <ErrorMessage errors={errors} name='title' as={<ErrorText />}>
+            {({ message }) => <small>{message}</small>}
+          </ErrorMessage>
         </InputContainer>
 
         <InputContainer>
@@ -213,11 +212,9 @@ function SubmitForm({ user, onSubmit }) {
             })}
           />
 
-          <ErrorText>
-            <ErrorMessage errors={errors} name='repoLink'>
-              {({ message }) => <p>{message}</p>}
-            </ErrorMessage>
-          </ErrorText>
+          <ErrorMessage errors={errors} name='repoLink' as={<ErrorText />}>
+            {({ message }) => <small>{message}</small>}
+          </ErrorMessage>
         </InputContainer>
 
         <InputContainer>
@@ -235,20 +232,20 @@ function SubmitForm({ user, onSubmit }) {
             })}
           />
 
-          <ErrorText>
-            <ErrorMessage errors={errors} name='siteLink'>
-              {({ message }) => <p>{message}</p>}
-            </ErrorMessage>
-          </ErrorText>
+          <ErrorMessage errors={errors} name='siteLink' as={<ErrorText />}>
+            {({ message }) => <small>{message}</small>}
+          </ErrorMessage>
         </InputContainer>
 
         <InputContainer>
-          <label>Description of the project in 50 words</label>
+          <label>Description</label>
           <TextArea
             name='description'
             onChange={handleChange}
-            placeholder='Used netlify for hosting in the live server.'
+            placeholder='Description of the project in 50 words.'
             maxLength='150'
+            minRows='7'
+            maxRows='10'
             ref={register({
               required: 'Description cannot be empty.',
               maxLength: {
@@ -262,14 +259,12 @@ function SubmitForm({ user, onSubmit }) {
             })}
           />
 
-          <ErrorText>
-            <ErrorMessage errors={errors} name='description'>
-              {({ message }) => <p>{message}</p>}
-            </ErrorMessage>
-          </ErrorText>
+          <ErrorMessage errors={errors} name='description' as={<ErrorText />}>
+            {({ message }) => <small>{message}</small>}
+          </ErrorMessage>
         </InputContainer>
 
-        <Button kind='edit' fontSize='big' size='big'>
+        <Button addCSS={CustomSubmitCss} type='submit'>
           Submit your Project
         </Button>
       </Submission>

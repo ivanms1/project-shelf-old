@@ -115,30 +115,3 @@ export const Register = styled(NavLink)`
     transition: 1.3s linear;
   }
 `;
-
-export const LoginDetailsError = styled.div`
-  background-color: #f7f8fc;
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  small {
-    font-weight: 600;
-    font-size: 23px;
-    text-align: center;
-    color: #152c5b;
-  }
-`;
-
-export const CustomGoBackCss = css`
-  background-color: #00cb5b;
-  font-weight: 500;
-  letter-spacing: 1px;
-  font-family: 'Poppins';
-  font-size: 18px;
-  max-width: 300px;
-  margin: 20px 0 0 0;
-`;
