@@ -54,6 +54,11 @@ function Header(props) {
         leftIcon: <Bell />,
       },
       {
+        title: 'Edit Profile',
+        onClick: () => history.push('/admin'),
+        leftIcon: <Bell />,
+      },
+      {
         title: 'Log Out',
         onClick: () => setModalIsOpen(true),
         leftIcon: <Cog />,
