@@ -24,7 +24,6 @@ import {
   Submission,
   InputContainer,
   Input,
-  Upload,
   TextArea,
   ErrorText,
   CustomSubmitCss,
@@ -32,6 +31,8 @@ import {
 
 import Button from '../../components/Button/Button';
 import Active from '../../components/Active/Active';
+
+import { Dropzone } from '../../components/DropZone/Dropzone';
 
 const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
 
@@ -55,7 +56,7 @@ function SubmitForm({ user, onSubmit }) {
       repoLink: 'repo link',
       siteLink: 'Live Link here',
       description:
-        'This was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server. A nightmare 👻 Dm for collaboration 🙏',
+        'This was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.',
     },
   });
 
@@ -65,31 +66,24 @@ function SubmitForm({ user, onSubmit }) {
 
   const [uploadImage, { loading }] = useMutation(MUTATION_UPLOAD_IMAGE);
 
-  const FILETYPE = 'jpg';
-
-  function getFileExtension(fileName) {
-    return fileName.split('.').pop();
-  }
-
   async function handleImage(event, onChange) {
-    // if (getFileExtension(event.target.files[0].name) !== FILETYPE) {
-    //   alert('invalid file type');
-    //   return false;
-    // }
-
-    if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload = async (e) => {
-        const res = await uploadImage({
-          variables: {
-            path: reader.result,
-          },
-        });
-        console.log(res?.data?.image?.url);
-        onChange(res?.data?.image?.url);
-      };
+    if (!event.length) {
+      return null;
     }
+
+    let reader = new FileReader();
+    reader.readAsDataURL(event[0]);
+    reader.onabort = () => alert('failed');
+    reader.onerror = () => console.log('error');
+    reader.onload = async (e) => {
+      const res = await uploadImage({
+        variables: {
+          path: reader.result,
+        },
+      });
+
+      onChange(res?.data?.image?.url);
+    };
   }
 
   return (
@@ -159,14 +153,10 @@ function SubmitForm({ user, onSubmit }) {
           name='preview'
           control={control}
           render={({ onChange }) => (
-            <Upload for='file-upload'>
-              <input
-                id='file-upload'
-                type='file'
-                onChange={(e) => handleImage(e, onChange)}
-              />
-              Upload
-            </Upload>
+            <Dropzone
+              accept='image/*'
+              onDrop={(e) => handleImage(e, onChange)}
+            />
           )}
         />
         <InputContainer>

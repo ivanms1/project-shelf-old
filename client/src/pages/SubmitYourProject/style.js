@@ -237,26 +237,6 @@ export const Input = styled.input`
   }
 `;
 
-export const Upload = styled.label`
-  min-width: 100%;
-  border-radius: 7px;
-  border: 1.11px solid hsl(213, 1%, 84%);
-  padding: 10px 35px 10px 35px;
-  margin-top: 15px;
-  text-align: center;
-  color: #24292e;
-  font-weight: 600;
-  font-size: 15px;
-  display: inline-block;
-  letter-spacing: 1.1px;
-  position: relative;
-  cursor: pointer;
-
-  input[type='file'] {
-    display: none;
-  }
-`;
-
 export const ErrorText = styled.small`
   color: #ff3a4c !important;
   margin: 5px 0 0 10px;
