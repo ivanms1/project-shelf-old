@@ -19,7 +19,7 @@ export const Dropzone = ({ onDrop, accept = '' }) => {
       {isDragActive ? (
         <p>Drop here</p>
       ) : (
-        <p>Drag 'n' drop, or click to select files</p>
+        <p>Drag and drop, or click to select files</p>
       )}
     </Container>
   );
