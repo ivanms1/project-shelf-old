@@ -60,9 +60,7 @@ function SubmitForm({ user, onSubmit }) {
     },
   });
 
-  const values = watch();
-
-  console.log(values);
+  const { title, preview, repoLink, siteLink, description } = watch();
 
   const [uploadImage, { loading }] = useMutation(MUTATION_UPLOAD_IMAGE);
 
@@ -101,12 +99,12 @@ function SubmitForm({ user, onSubmit }) {
 
         <CardInner>
           <HeaderCollection>
-            <span>{values.title}</span>
+            <span>{title}</span>
           </HeaderCollection>
 
           <Links>
-            <a href={values.siteLink}>Live Link</a>
-            <a href={values.repoLink}>Repo Link</a>
+            <a href={siteLink}>Live Link</a>
+            <a href={repoLink}>Repo Link</a>
             <a href={EMAIL_STRING + user.email}>Contact</a>
           </Links>
 
@@ -117,12 +115,7 @@ function SubmitForm({ user, onSubmit }) {
                   <Spinner />
                 </p>
               )) || (
-                <img
-                  alt={values.preview}
-                  src={values.preview}
-                  width='100%'
-                  height='100%'
-                />
+                <img alt={preview} src={preview} width='100%' height='100%' />
               )}
             </Zoom>
           </div>
@@ -144,7 +137,7 @@ function SubmitForm({ user, onSubmit }) {
             <span className='header'>Published Date :</span> {getCurrentDate()}
           </p>
 
-          <p className='description'>{values.description}</p>
+          <p className='description'>{description}</p>
         </CardInner>
       </CardOuter>
       <Submission onSubmit={handleSubmit(onSubmit)}>
@@ -161,21 +154,27 @@ function SubmitForm({ user, onSubmit }) {
         />
         <InputContainer>
           <label>Title of the Project</label>
-          <Input
+          <Controller
             name='title'
-            maxLength='15'
-            placeholder='Title of the Project'
-            ref={register({
-              required: 'Title cannot be empty.',
-              maxLength: {
-                value: 14,
-                message: 'Cannot exceed 14 words',
-              },
-              minLength: {
-                value: 3,
-                message: 'Cannot be less than 3 words',
-              },
-            })}
+            control={control}
+            render={() => (
+              <Input
+                name='title'
+                maxLength='15'
+                placeholder='Title of the Project'
+                ref={register({
+                  required: 'Title cannot be empty.',
+                  maxLength: {
+                    value: 14,
+                    message: 'Cannot exceed 14 words',
+                  },
+                  minLength: {
+                    value: 3,
+                    message: 'Cannot be less than 3 words',
+                  },
+                })}
+              />
+            )}
           />
 
           <ErrorMessage errors={errors} name='title' as={<ErrorText />}>
@@ -185,16 +184,22 @@ function SubmitForm({ user, onSubmit }) {
 
         <InputContainer>
           <label>Link to the repository</label>
-          <Input
+          <Controller
             name='repoLink'
-            placeholder='Link to the repository'
-            ref={register({
-              required: 'Link to the Repo Site cannot be empty.',
-              pattern: {
-                value: /https?:\/\/((?:[\w\d-]+\.)+[\w\d]{2,})/i,
-                message: 'Its not a valid link',
-              },
-            })}
+            control={control}
+            render={() => (
+              <Input
+                name='repoLink'
+                placeholder='Link to the repository'
+                ref={register({
+                  required: 'Link to the Repo Site cannot be empty.',
+                  pattern: {
+                    value: /https?:\/\/((?:[\w\d-]+\.)+[\w\d]{2,})/i,
+                    message: 'Its not a valid link',
+                  },
+                })}
+              />
+            )}
           />
 
           <ErrorMessage errors={errors} name='repoLink' as={<ErrorText />}>
@@ -204,16 +209,22 @@ function SubmitForm({ user, onSubmit }) {
 
         <InputContainer>
           <label>Link to the live site</label>
-          <Input
+          <Controller
             name='siteLink'
-            placeholder='Link to the live site'
-            ref={register({
-              required: 'Link to the Live Site cannot be empty.',
-              pattern: {
-                value: /https?:\/\/((?:[\w\d-]+\.)+[\w\d]{2,})/i,
-                message: 'Its not a valid link',
-              },
-            })}
+            control={control}
+            render={() => (
+              <Input
+                name='siteLink'
+                placeholder='Link to the live site'
+                ref={register({
+                  required: 'Link to the Live Site cannot be empty.',
+                  pattern: {
+                    value: /https?:\/\/((?:[\w\d-]+\.)+[\w\d]{2,})/i,
+                    message: 'Its not a valid link',
+                  },
+                })}
+              />
+            )}
           />
 
           <ErrorMessage errors={errors} name='siteLink' as={<ErrorText />}>
@@ -223,23 +234,29 @@ function SubmitForm({ user, onSubmit }) {
 
         <InputContainer>
           <label>Description</label>
-          <TextArea
+          <Controller
             name='description'
-            placeholder='Description of the project in 50 words.'
-            maxLength='150'
-            minRows='7'
-            maxRows='10'
-            ref={register({
-              required: 'Description cannot be empty.',
-              maxLength: {
-                value: 150,
-                message: 'Cannot exceed 150 words',
-              },
-              minLength: {
-                value: 50,
-                message: 'Cannot be less than 50 words',
-              },
-            })}
+            control={control}
+            render={() => (
+              <TextArea
+                name='description'
+                placeholder='Description of the project in 50 words.'
+                maxLength='150'
+                minRows='7'
+                maxRows='10'
+                ref={register({
+                  required: 'Description cannot be empty.',
+                  maxLength: {
+                    value: 150,
+                    message: 'Cannot exceed 150 words',
+                  },
+                  minLength: {
+                    value: 50,
+                    message: 'Cannot be less than 50 words',
+                  },
+                })}
+              />
+            )}
           />
 
           <ErrorMessage errors={errors} name='description' as={<ErrorText />}>
