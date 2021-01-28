@@ -79,7 +79,7 @@ function Submit(props) {
             <span>so that people can learn from each other.</span>
           </p>
 
-          {user && <SubmitForm user={user} onSubmit={onSubmit} />}
+          <SubmitForm user={user} onSubmit={onSubmit} />
         </Container>
       </Overlay>
       <StyledPopup

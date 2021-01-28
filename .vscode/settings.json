@@ -17,7 +17,6 @@
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
   "typescript.tsdk": "node_modules/typescript/lib",
   "gitlens.codeLens.includeSingleLineSymbols": true,
@@ -31,5 +30,7 @@
   "**/.git/objects/**": true,
   "**/.git/subtree-cache/**": true,
   "**/.hg/store/**": true
-}
+},
+"editor.formatOnSave": true,
+"editor.defaultFormatter": "esbenp.prettier-vscode"
 }
