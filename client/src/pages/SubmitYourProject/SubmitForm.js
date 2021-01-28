@@ -119,17 +119,14 @@ function SubmitForm({ user, onSubmit }) {
               )}
             </Zoom>
           </div>
-
           <Profile>
             <div className='profileContainer'>
               <img alt={Rick} src={Rick} width='100%' height='100%'></img>
             </div>
-
             <div className='profileDetails'>
               <p>
                 {user.name} {user.lastName}
               </p>
-
               <p>4th weekly project</p>
             </div>
           </Profile>
@@ -140,6 +137,7 @@ function SubmitForm({ user, onSubmit }) {
           <p className='description'>{description}</p>
         </CardInner>
       </CardOuter>
+
       <Submission onSubmit={handleSubmit(onSubmit)}>
         <span>Submit your Project</span>
         <Controller
@@ -154,27 +152,21 @@ function SubmitForm({ user, onSubmit }) {
         />
         <InputContainer>
           <label>Title of the Project</label>
-          <Controller
+          <Input
             name='title'
-            control={control}
-            render={() => (
-              <Input
-                name='title'
-                maxLength='15'
-                placeholder='Title of the Project'
-                ref={register({
-                  required: 'Title cannot be empty.',
-                  maxLength: {
-                    value: 14,
-                    message: 'Cannot exceed 14 words',
-                  },
-                  minLength: {
-                    value: 3,
-                    message: 'Cannot be less than 3 words',
-                  },
-                })}
-              />
-            )}
+            maxLength='15'
+            placeholder='Title of the Project'
+            ref={register({
+              required: 'Title cannot be empty.',
+              maxLength: {
+                value: 14,
+                message: 'Cannot exceed 14 words',
+              },
+              minLength: {
+                value: 3,
+                message: 'Cannot be less than 3 words',
+              },
+            })}
           />
 
           <ErrorMessage errors={errors} name='title' as={<ErrorText />}>
@@ -184,22 +176,16 @@ function SubmitForm({ user, onSubmit }) {
 
         <InputContainer>
           <label>Link to the repository</label>
-          <Controller
+          <Input
             name='repoLink'
-            control={control}
-            render={() => (
-              <Input
-                name='repoLink'
-                placeholder='Link to the repository'
-                ref={register({
-                  required: 'Link to the Repo Site cannot be empty.',
-                  pattern: {
-                    value: /https?:\/\/((?:[\w\d-]+\.)+[\w\d]{2,})/i,
-                    message: 'Its not a valid link',
-                  },
-                })}
-              />
-            )}
+            placeholder='Link to the repository'
+            ref={register({
+              required: 'Link to the Repo Site cannot be empty.',
+              pattern: {
+                value: /https?:\/\/((?:[\w\d-]+\.)+[\w\d]{2,})/i,
+                message: 'Its not a valid link',
+              },
+            })}
           />
 
           <ErrorMessage errors={errors} name='repoLink' as={<ErrorText />}>
@@ -209,24 +195,18 @@ function SubmitForm({ user, onSubmit }) {
 
         <InputContainer>
           <label>Link to the live site</label>
-          <Controller
-            name='siteLink'
-            control={control}
-            render={() => (
-              <Input
-                name='siteLink'
-                placeholder='Link to the live site'
-                ref={register({
-                  required: 'Link to the Live Site cannot be empty.',
-                  pattern: {
-                    value: /https?:\/\/((?:[\w\d-]+\.)+[\w\d]{2,})/i,
-                    message: 'Its not a valid link',
-                  },
-                })}
-              />
-            )}
-          />
 
+          <Input
+            name='siteLink'
+            placeholder='Link to the live site'
+            ref={register({
+              required: 'Link to the Live Site cannot be empty.',
+              pattern: {
+                value: /https?:\/\/((?:[\w\d-]+\.)+[\w\d]{2,})/i,
+                message: 'Its not a valid link',
+              },
+            })}
+          />
           <ErrorMessage errors={errors} name='siteLink' as={<ErrorText />}>
             {({ message }) => <small>{message}</small>}
           </ErrorMessage>
@@ -234,29 +214,23 @@ function SubmitForm({ user, onSubmit }) {
 
         <InputContainer>
           <label>Description</label>
-          <Controller
+          <TextArea
             name='description'
-            control={control}
-            render={() => (
-              <TextArea
-                name='description'
-                placeholder='Description of the project in 50 words.'
-                maxLength='150'
-                minRows='7'
-                maxRows='10'
-                ref={register({
-                  required: 'Description cannot be empty.',
-                  maxLength: {
-                    value: 150,
-                    message: 'Cannot exceed 150 words',
-                  },
-                  minLength: {
-                    value: 50,
-                    message: 'Cannot be less than 50 words',
-                  },
-                })}
-              />
-            )}
+            placeholder='Description of the project in 50 words.'
+            maxLength='150'
+            minRows='7'
+            maxRows='10'
+            ref={register({
+              required: 'Description cannot be empty.',
+              maxLength: {
+                value: 150,
+                message: 'Cannot exceed 150 words',
+              },
+              minLength: {
+                value: 50,
+                message: 'Cannot be less than 50 words',
+              },
+            })}
           />
 
           <ErrorMessage errors={errors} name='description' as={<ErrorText />}>
