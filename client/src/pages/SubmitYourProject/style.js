@@ -1,16 +1,16 @@
-import styled, { css } from 'styled-components'
-import TextareaAutosize from 'react-textarea-autosize'
+import styled, { css } from 'styled-components';
+import TextareaAutosize from 'react-textarea-autosize';
 
 export const Main = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-`
+`;
 
 export const Overlay = styled.div`
   background-color: #f7f8fc;
   flex: 1;
-`
+`;
 
 export const Container = styled.div`
   width: 100%;
@@ -50,7 +50,7 @@ export const Container = styled.div`
       }
     }
   }
-`
+`;
 
 export const FormContainer = styled.div`
   width: 100%;
@@ -77,7 +77,7 @@ export const FormContainer = styled.div`
       margin: 20px 0;
     }
   }
-`
+`;
 
 export const Card = styled.div`
   width: 100%;
@@ -95,7 +95,7 @@ export const Card = styled.div`
       line-height: 1.1em;
     }
   }
-`
+`;
 
 export const ImageContainer = styled.div`
   overflow: hidden;
@@ -110,7 +110,7 @@ export const ImageContainer = styled.div`
   @media screen and (max-width: 450px) {
     height: 250px;
   }
-`
+`;
 
 export const Description = styled.div`
   width: 100%;
@@ -142,7 +142,7 @@ export const Description = styled.div`
     overflow: hidden;
     word-wrap: break-word;
   }
-`
+`;
 
 export const Submission = styled.form`
   width: 100%;
@@ -168,7 +168,7 @@ export const Submission = styled.form`
       line-height: 1.1em;
     }
   }
-`
+`;
 
 export const Collection = styled.div`
   display: flex;
@@ -188,7 +188,7 @@ export const Collection = styled.div`
       max-width: 100%;
     }
   }
-`
+`;
 
 export const InputContainer = styled.div`
   width: 100%;
@@ -202,7 +202,7 @@ export const InputContainer = styled.div`
     font-size: 15px;
     margin-left: 5px;
   }
-`
+`;
 
 export const Input = styled.input`
   width: 100%;
@@ -235,13 +235,13 @@ export const Input = styled.input`
   @media screen and (max-width: 420px) {
     width: 100%;
   }
-`
+`;
 
 export const ErrorText = styled.small`
   color: #ff3a4c !important;
   margin: 5px 0 0 10px;
   font-size: 13px;
-`
+`;
 
 export const TextArea = styled(TextareaAutosize)`
   width: 100%;
@@ -279,7 +279,7 @@ export const TextArea = styled(TextareaAutosize)`
     min-height: 100%;
     min-width: 100%;
   }
-`
+`;
 
 export const CustomSubmitCss = css`
   background-color: #7057ff;
@@ -292,4 +292,4 @@ export const CustomSubmitCss = css`
   @media screen and (max-width: 435px) {
     font-size: 16px !important;
   }
-`
+`;
