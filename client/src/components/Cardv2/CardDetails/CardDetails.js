@@ -7,6 +7,8 @@ import Button from '../../Button/Button';
 import Header from '../../Header/Header';
 
 import { ReactComponent as Github } from '../../../assets/github.svg';
+import { ReactComponent as Email } from '../../../assets/email.svg';
+import { ReactComponent as Web } from '../../../assets/web.svg';
 
 import {
   Main,
@@ -85,11 +87,11 @@ export const CardDetails = ({}) => {
                   <Github /> <a href={Project.repoLink}>Github</a>
                 </span>
                 <span>
-                  <Github />
+                  <Email />
                   <a>Contact</a>
                 </span>
                 <span>
-                  <Github />
+                  <Web />
                   <a href={Project.siteLink}></a>
                   Live Site
                 </span>
