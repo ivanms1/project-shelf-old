@@ -4,6 +4,7 @@ import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
 
 import CardComponent from '../../components/Card/Card';
+import { Cardtwo } from '../../components/Cardv2/Cardtwo';
 import Header from '../../components/Header/Header';
 import Active from '../../components/Active/Active';
 import Loader from '../../components/Loader/Loader';
@@ -161,36 +162,41 @@ function Home() {
           ) : (
             <>
               {user.projects.map((project) => (
-                <CardComponent key={project.id} user={user} project={project}>
-                  <ButtonHolder>
-                    <Button
-                      type='button'
-                      maxWidth='big'
-                      fontSize='medium'
-                      kind='delete'
-                      size='medium'
-                      onClick={() => {
-                        setDeleteOpen((o) => !o);
-                        toDelete = project.id;
-                      }}
-                      addCSS={CustomDeleteButtonCSS}
-                    >
-                      Delete
-                    </Button>
-                    <Button
-                      maxWidth='big'
-                      fontSize='medium'
-                      kind='edit'
-                      size='medium'
-                      onClick={() => {
-                        setOpen((o) => !o);
-                        toEdit = project.id;
-                      }}
-                    >
-                      Edit
-                    </Button>
-                  </ButtonHolder>
-                </CardComponent>
+                <Cardtwo
+                  key={project.id}
+                  user={user}
+                  project={project}
+                ></Cardtwo>
+                // <CardComponent key={project.id} user={user} project={project}>
+                //   <ButtonHolder>
+                //     <Button
+                //       type='button'
+                //       maxWidth='big'
+                //       fontSize='medium'
+                //       kind='delete'
+                //       size='medium'
+                //       onClick={() => {
+                //         setDeleteOpen((o) => !o);
+                //         toDelete = project.id;
+                //       }}
+                //       addCSS={CustomDeleteButtonCSS}
+                //     >
+                //       Delete
+                //     </Button>
+                //     <Button
+                //       maxWidth='big'
+                //       fontSize='medium'
+                //       kind='edit'
+                //       size='medium'
+                //       onClick={() => {
+                //         setOpen((o) => !o);
+                //         toEdit = project.id;
+                //       }}
+                //     >
+                //       Edit
+                //     </Button>
+                //   </ButtonHolder>
+                // </CardComponent>
               ))}
             </>
           )}
