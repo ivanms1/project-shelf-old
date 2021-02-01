@@ -36,12 +36,12 @@ export const Cardtwo = ({ user, project, children }) => {
 
         <CardContainerInner>
           <div className='imgContainer'>
-            <img src={project.preview} />
+            <img src={project.preview} alt={project.title} />
             <div className='overlay'>
               <div className='overlayContent'>
-                <a>
+                <span>
                   <Star />
-                </a>
+                </span>
                 <ViewDetails
                   onClick={() => history.push(`/projectDetails/${project.id}`)}
                 >
@@ -54,10 +54,7 @@ export const Cardtwo = ({ user, project, children }) => {
       </CardContainerOutter>
 
       <ProjectDetails>
-        <span className='userName'>
-          {user.name || user.author.name}{' '}
-          {user.lastName || user.author.lastName}
-        </span>
+        <span className='userName'>{project.title}</span>
         <span className='submissionDate'>
           {getCurrentDate(project.createdAt)}
         </span>
