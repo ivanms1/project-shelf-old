@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import Popup from 'reactjs-popup';
 
 const colors = {
   green: 'rgba(0, 203, 91, 0.7)',
@@ -15,10 +16,36 @@ export const Container = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   width: 100%;
+
   background-color: #f7f8fc;
-  padding-top: 100px;
+
+  & .wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: -100px;
+  }
+`;
+
+export const BackButton = styled.div`
+  margin: 0 0 10px 0;
+
+  a {
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      color: rgba(237, 44, 73);
+      transition: 0.3s ease-in;
+    }
+  }
+
+  & .projectTitle {
+    color: rgba(0, 203, 91);
+    font-weight: 600;
+  }
 `;
 
 export const DetailsContainer = styled.div`
@@ -33,9 +60,6 @@ export const DetailsContainer = styled.div`
 
   & .imgUserDetails {
     width: 55%;
-  }
-
-  & .imgContainerInner {
   }
 
   img {
@@ -54,7 +78,7 @@ export const ImgContainerOuter = styled.div`
 `;
 
 export const UserDetails = styled.div`
-  margin-top: 10px;
+  margin-top: 20px;
 
   span {
     display: block;
@@ -73,7 +97,6 @@ export const UserDetails = styled.div`
 export const AllDetails = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   width: 30%;
 
   span {
@@ -120,7 +143,7 @@ export const ButtonContainer = styled.div`
 export const CustomDeleteButtonCSS = css`
   letter-spacing: 1px;
   font-weight: 500;
-  max-width: 200px;
+  max-width: 150px;
 `;
 
 export const Status = styled.div`
@@ -136,4 +159,30 @@ export const Status = styled.div`
   font-family: 'Poppins', sans-serif;
   letter-spacing: 1px;
   text-align: center;
+`;
+
+export const StyledPopup = styled(Popup)`
+  &-overlay {
+    background-color: rgba(0, 0, 0, 0.15);
+  }
+
+  &-content {
+    padding: 25px 35px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    height: 100%;
+    max-width: 500px;
+    max-height: 208px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 10px 10px 40px 4px rgba(45, 78, 255, 0.15);
+
+    @media screen and (max-width: 676px) {
+      padding: 20px 20px 40px 20px;
+    }
+  }
 `;
