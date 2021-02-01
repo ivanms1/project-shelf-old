@@ -1,5 +1,73 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Popup from 'reactjs-popup';
+import Modal from 'react-modal';
+
+export const StyledModal = styled(Modal)`
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  box-shadow: 10px 10px 40px 4px rgba(45, 78, 255, 0.15) !important;
+  border-radius: 7px;
+  background-color: white;
+  padding: 20px 20px 35px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & .header {
+    width: 100%;
+    text-align: right;
+
+    button {
+      border-radius: 50%;
+      font-size: 16px;
+      font-weight: 400;
+      color: black;
+      border: none;
+      background-color: transparent;
+
+      &:hover {
+        color: #d30320;
+        transition: 0.3s linear;
+      }
+    }
+  }
+
+  & .body {
+    padding: 15px 150px;
+    font-size: 20px;
+    margin: 10px 0 20px 0;
+    width: 100%;
+    font-weight: 600;
+    text-align: center;
+  }
+`;
+
+export const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  max-width: 370px;
+  justify-content: space-between;
+`;
+
+export const CustomNoButton = css`
+  letter-spacing: 1px;
+  font-weight: 600;
+  max-width: 120px;
+  color: #1b74e4;
+  border: 1px solid #1b74e4;
+  background-color: white;
+`;
+
+export const CustomYesButton = css`
+  letter-spacing: 1px;
+  font-weight: 500;
+  max-width: 120px;
+  background-color: #1b74e4;
+`;
 
 export const HeaderContainer = styled.div`
   width: 100%;
