@@ -11,24 +11,6 @@ const grow = keyframes`
 }
 `;
 
-export const ReactModalStyled = styled(Modal)`
-  position: absolute;
-  padding: 20px 30px;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 80%;
-  max-width: 526px;
-  border-radius: 7px;
-  border: none;
-  box-shadow: 10px 10px 40px 4px rgba(45, 78, 255, 0.15);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: ${grow} 0.3s ease-in;
-`;
-
 export const Container = styled.div`
   display: flex;
   width: 100%;
@@ -154,45 +136,4 @@ export const Sure = styled.p`
   text-align: center;
   width: 100%;
   font-size: 18px;
-`;
-
-export const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-
-  button {
-    width: 118px;
-    height: 42px;
-    border-radius: 7px;
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-  }
-
-  button:active {
-    transform: translateY(-7px);
-    transition: 0.1s ease;
-  }
-
-  button:last-child {
-    background-color: #00cb5b;
-  }
-
-  button:not(:last-child) {
-    background-color: #ed2c49;
-  }
-
-  @media screen and (max-width: 400px) {
-    margin: 10px 0 0 0;
-    display: flex;
-    flex-direction: column;
-
-    button {
-      width: 100%;
-      margin: 5px 0;
-    }
-  }
 `;

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { ReactComponent as Star } from './../../assets/Star.svg';
+import { ReactComponent as Spinner } from './../../assets/spinner.svg';
 
 import {
   Main,
@@ -20,6 +21,8 @@ const getCurrentDate = (createdDate) => {
 };
 
 export const Cardtwo = ({ user, project, children }) => {
+  const [imgLoaded, setImgLoaded] = useState(false);
+
   const history = useHistory();
 
   return (
@@ -35,20 +38,29 @@ export const Cardtwo = ({ user, project, children }) => {
         </button>
 
         <CardContainerInner>
+          {!imgLoaded ? <Spinner /> : null}
           <div className='imgContainer'>
-            <img src={project.preview} alt={project.title} />
-            <div className='overlay'>
-              <div className='overlayContent'>
-                <span>
-                  <Star />
-                </span>
-                <ViewDetails
-                  onClick={() => history.push(`/projectDetails/${project.id}`)}
-                >
-                  View Details
-                </ViewDetails>
+            <img
+              src={project.preview}
+              onLoad={() => setImgLoaded(true)}
+              alt={project.title}
+            />
+            {imgLoaded && (
+              <div className='overlay'>
+                <div className='overlayContent'>
+                  <span>
+                    <Star />
+                  </span>
+                  <ViewDetails
+                    onClick={() =>
+                      history.push(`/projectDetails/${project.id}`)
+                    }
+                  >
+                    View Details
+                  </ViewDetails>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </CardContainerInner>
       </CardContainerOutter>

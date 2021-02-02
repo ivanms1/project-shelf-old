@@ -40,6 +40,9 @@ export const CardContainerInner = styled.div`
 
   & .imgContainer {
     display: inline-block;
+    width: 100%;
+
+    text-align: center;
     position: relative;
     overflow: hidden;
   }
