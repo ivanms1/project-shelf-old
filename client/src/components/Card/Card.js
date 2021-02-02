@@ -4,6 +4,8 @@ import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 
 import Active from '../Active/Active';
+
+import { getCurrentDate } from '../../helpers/dateConverter';
 import { ReactComponent as Spinner } from './../../assets/spinner.svg';
 
 import {
@@ -18,16 +20,6 @@ import {
 import Rick from '../../assets/rick.png';
 
 const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
-
-function getCurrentDate(createdDate) {
-  const dateOptions = {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  };
-  const newDate = new Date(createdDate);
-  return newDate.toLocaleDateString('en-us', dateOptions);
-}
 
 function Card({ children, user, project, ...props }) {
   const [imgLoaded, setImgLoaded] = useState(false);

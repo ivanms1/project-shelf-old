@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import Popup from 'reactjs-popup';
 import { useHistory } from 'react-router-dom';
-import Modal from 'react-modal';
 
 import { ReactComponent as Cog } from '../../assets/cog.svg';
 import { ReactComponent as Bell } from '../../assets/bell.svg';
@@ -9,19 +8,12 @@ import { ReactComponent as Home } from '../../assets/home.svg';
 
 import useCurrentUser from '../useCurrentUser/useCurrentUser';
 
-import {
-  ReactModalStyled,
-  Container,
-  Nav,
-  StyledLink,
-  ButtonContainer,
-} from './style';
-
-import { HeaderContainer, Body } from '../PopupModal/style';
+import { Container, Nav, StyledLink } from './style';
 
 import DropDownApp from '../DropDown/DropDownApp';
 import MobileMenu from '../MobileMenu/Mobilemenu';
 import BurgerIcon from '../BurgerIcon/BurgerIcon';
+import { PopupModal } from '../PopupModal/PopupModal';
 
 import { Context } from '../../Context/AppContext';
 
@@ -121,8 +113,6 @@ function Header(props) {
     );
   });
 
-  Modal.setAppElement('#root');
-
   return (
     <Container>
       <PopUpContainer />
@@ -170,34 +160,17 @@ function Header(props) {
         )}
       </Nav>
 
-      <ReactModalStyled
+      <PopupModal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
         shouldCloseOnOverlayClick={false}
-      >
-        <HeaderContainer>
-          <span>Log Out</span>
+        onClick={() => {
+          localStorage.setItem('userToken', '');
+          setModalIsOpen(false);
+          history.push('/signin');
+        }}
+      />
 
-          <button onClick={() => setModalIsOpen(false)}>X</button>
-        </HeaderContainer>
-
-        <Body>
-          <p>Are you sure ?</p>
-        </Body>
-
-        <ButtonContainer>
-          <button onClick={() => setModalIsOpen(false)}>Cancel</button>
-          <button
-            onClick={() => {
-              localStorage.setItem('userToken', '');
-              setModalIsOpen(false);
-              history.push('/signin');
-            }}
-          >
-            Confirm
-          </button>
-        </ButtonContainer>
-      </ReactModalStyled>
       {isAuthenticated && (
         <DropDownApp list={tabs.authandDropdown}></DropDownApp>
       )}
