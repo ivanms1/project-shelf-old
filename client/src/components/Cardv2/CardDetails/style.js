@@ -74,7 +74,7 @@ export const DetailsContainer = styled.div`
 export const ImgContainerOuter = styled.div`
   border-radius: 5px;
   padding: 7px;
-  background-color: ${(props) => (props.status ? colors.green : colors.red)};
+  background-color: ${({ status }) => (status ? colors.green : colors.red)};
 `;
 
 export const UserDetails = styled.div`
@@ -153,8 +153,8 @@ export const Status = styled.div`
   border-radius: 3px;
   padding: 5px 0;
   font-size: 14px;
-  background-color: ${(props) =>
-    props.status == 'ADMIN' ? '#D1383D' : '#00CB5B'};
+  background-color: ${({ status }) =>
+    status == 'ADMIN' ? '#D1383D' : '#00CB5B'};
   color: white;
   font-family: 'Poppins', sans-serif;
   letter-spacing: 1px;

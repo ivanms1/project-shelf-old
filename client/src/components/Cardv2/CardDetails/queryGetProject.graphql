@@ -1,5 +1,5 @@
 query GetProject($id: String!) {
-  Project: getProject(id: $id) {
+  project: getProject(id: $id) {
     id
     title
     author {

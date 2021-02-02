@@ -19,8 +19,8 @@ export const CardContainerOutter = styled.div`
   box-shadow: 10px 10px 40px 4px rgba(45, 78, 255, 0.15);
   border-radius: 5px;
   margin-bottom: 10px;
-  background-color: ${(props) =>
-    props.isApproved ? colors.green : colors.red};
+  background-color: ${({ isApproved }) =>
+    isApproved ? colors.green : colors.red};
   position: relative;
 
   & .starContainer {

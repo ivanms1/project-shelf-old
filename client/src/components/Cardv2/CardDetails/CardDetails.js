@@ -8,6 +8,8 @@ import Header from '../../Header/Header';
 import Loader from '../../Loader/Loader';
 import { PopupModal } from '../../PopupModal/PopupModal';
 
+import { getCurrentDate } from '../../..//helpers/dateConverter';
+
 import { ReactComponent as Github } from '../../../assets/github.svg';
 import { ReactComponent as Email } from '../../../assets/email.svg';
 import { ReactComponent as Web } from '../../../assets/web.svg';
@@ -30,16 +32,6 @@ const GET_USER_QUERY = loader('./queryUser.graphql');
 const DELETE_USER_PROJECT = loader('./mutationDeleteProject.graphql');
 
 const userToken = localStorage.getItem('userToken');
-
-const getCurrentDate = (createdDate) => {
-  const dateOptions = {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  };
-  const newDate = new Date(createdDate);
-  return newDate.toLocaleDateString('en-us', dateOptions);
-};
 
 export const CardDetails = ({}) => {
   const [editModelIsOpen, setEditModelIsOpen] = useState(false);
@@ -105,7 +97,7 @@ export const CardDetails = ({}) => {
         projectId: projectId,
       },
     });
-    await closeDeleteModal;
+    closeDeleteModal();
     history.push('/');
   }
 
@@ -122,9 +114,7 @@ export const CardDetails = ({}) => {
     return console.log(error);
   }
 
-  const { Project } = data ?? {};
-
-  console.log(Project);
+  const { project } = data ?? {};
 
   return (
     <Main>
@@ -133,42 +123,43 @@ export const CardDetails = ({}) => {
         <div className='wrapper'>
           <BackButton>
             <a onClick={() => history.push('/')}>Home</a> /{' '}
-            <span className='projectTitle'>{Project.title}</span>
+            <span className='projectTitle'>{project.title}</span>
           </BackButton>
 
           <DetailsContainer>
             <div className='imgUserDetails'>
-              <ImgContainerOuter status={Project.isApproved}>
+              <ImgContainerOuter status={project.isApproved}>
                 <div className='imgContainerInner'>
-                  <img src={Project.preview} />
+                  <img src={project.preview} />
                 </div>
               </ImgContainerOuter>
 
               <UserDetails>
                 <span className='fullName'>
-                  {Project.author.name} {Project.author.lastName}
+                  {project.author.name} {project.author.lastName}
                 </span>
 
-                <Status status={Project.author.role}>
-                  {Project.author.role}
+                <Status status={project.author.role}>
+                  {project.author.role}
                 </Status>
               </UserDetails>
             </div>
 
             <AllDetails>
               <div>
-                <span className='fullName'>{Project.title}</span>
+                <span className='fullName'>{project.title}</span>
                 <span className='date'>
-                  {getCurrentDate(Project.createdAt)}
+                  {getCurrentDate(project.createdAt)}
                 </span>
 
                 <div className='linksContainer'>
                   <span>
                     <Github />{' '}
                     <a
-                      href={Project.repoLink}
-                      href={Project.siteLink}
+                      href={project.repoLink}
+                      href={project.siteLink}
                       target='_blank'
+                      rel='noopener noreferrer'
                     >
                       Github
                     </a>
@@ -179,13 +170,17 @@ export const CardDetails = ({}) => {
                   </span>
                   <span>
                     <Web />
-                    <a href={Project.siteLink} target='_blank'>
+                    <a
+                      href={project.siteLink}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
                       Live Site
                     </a>
                   </span>
                 </div>
 
-                <div className='description'>{Project.description}</div>
+                <div className='description'>{project.description}</div>
               </div>
 
               <ButtonContainer>
@@ -220,7 +215,7 @@ export const CardDetails = ({}) => {
         isOpen={deleteModelIsOpen}
         onRequestClose={closeDeleteModal}
         onClick={() => {
-          deleteUserProject(Project.id);
+          deleteUserProject(project.id);
         }}
       />
 
@@ -228,7 +223,7 @@ export const CardDetails = ({}) => {
         isOpen={editModelIsOpen}
         onRequestClose={closeEditModal}
         onClick={() => {
-          editUserProject(Project.id);
+          editUserProject(project.id);
         }}
       />
     </Main>

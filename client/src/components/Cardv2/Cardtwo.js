@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 import { ReactComponent as Star } from './../../assets/Star.svg';
 import { ReactComponent as Spinner } from './../../assets/spinner.svg';
 
+import { getCurrentDate } from '../../helpers/dateConverter';
+
 import {
   Main,
   CardContainerOutter,
@@ -11,14 +13,6 @@ import {
   ProjectDetails,
   ViewDetails,
 } from './style';
-
-const getCurrentDate = (createdDate) => {
-  const dateOptions = {
-    year: 'numeric',
-  };
-  const newDate = new Date(createdDate);
-  return newDate.toLocaleDateString('en-us', dateOptions);
-};
 
 export const Cardtwo = ({ user, project, children }) => {
   const [imgLoaded, setImgLoaded] = useState(false);
