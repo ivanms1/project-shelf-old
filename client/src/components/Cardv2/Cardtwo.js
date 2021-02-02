@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { loader } from 'graphql.macro';
+import { useMutation } from '@apollo/client';
+
+import useCurrentUser from '../useCurrentUser/useCurrentUser';
 
 import { ReactComponent as Star } from './../../assets/Star.svg';
 import { ReactComponent as Spinner } from './../../assets/spinner.svg';
@@ -14,8 +18,17 @@ import {
   ViewDetails,
 } from './style';
 
+const MUTATION_REACT_TO_PROJECT = loader('./mutationReactToProject.graphql');
+
 export const Cardtwo = ({ user, project, children }) => {
   const [imgLoaded, setImgLoaded] = useState(false);
+
+  const { dataU, loading, error } = useCurrentUser();
+  console.log(dataU);
+
+  const [reactToProject, { data }] = useMutation(MUTATION_REACT_TO_PROJECT, {
+    variables: {},
+  });
 
   const history = useHistory();
 
@@ -24,7 +37,7 @@ export const Cardtwo = ({ user, project, children }) => {
       <CardContainerOutter isApproved={project.isApproved}>
         <button
           onClick={() => {
-            alert('added to favourties');
+            alert('Liked');
           }}
           className='starContainer'
         >

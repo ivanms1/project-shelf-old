@@ -1,0 +1,17 @@
+mutation ReactToProject($input: ReactToProjectInput) {
+  ReactToProject(input: $input) {
+    id
+    title
+    preview
+    repoLink
+    siteLink
+    likes {
+      id
+      name
+      lastName
+    }
+    description
+    isApproved
+    createdAt
+  }
+}
