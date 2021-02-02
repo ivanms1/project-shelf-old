@@ -1,5 +1,6 @@
 query UseCurrentUser {
   currentUser: getCurrentUser {
+    id
     name
     lastName
     email

@@ -12,6 +12,11 @@ query GetUser($id: String!) {
       siteLink
       repoLink
       isApproved
+      likes {
+        id
+        name
+        lastName
+      }
     }
   }
 }
