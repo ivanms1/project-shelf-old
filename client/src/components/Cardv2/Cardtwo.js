@@ -23,25 +23,29 @@ const MUTATION_REACT_TO_PROJECT = loader('./mutationReactToProject.graphql');
 export const Cardtwo = ({ user, project, children }) => {
   const [imgLoaded, setImgLoaded] = useState(false);
 
-  const { data } = useCurrentUser();
+  const { currentUser } = useCurrentUser();
 
   const getAction = () => {
-    return project.likes.some((user) => user.id === data.currentUser.id)
+    return project.likes.some((user) => user.id === currentUser.id)
       ? 'DISLIKE'
       : 'LIKE';
   };
 
-  const [reactToProject, { data: dataReactToProject, error }] = useMutation(
-    MUTATION_REACT_TO_PROJECT,
-    {
+  const getVariables = () => {
+    return {
       variables: {
         input: {
           projectId: project.id,
-          userId: data.currentUser.id,
+          userId: currentUser.id,
           action: getAction(),
         },
       },
-    }
+    };
+  };
+
+  const [reactToProject] = useMutation(
+    MUTATION_REACT_TO_PROJECT,
+    getVariables()
   );
 
   const history = useHistory();
@@ -50,7 +54,6 @@ export const Cardtwo = ({ user, project, children }) => {
     <Main>
       <CardContainerOutter isApproved={project.isApproved}>
         <button onClick={reactToProject} className='starContainer'>
-          {/* <Star /> */}
           {getAction()}
         </button>
 

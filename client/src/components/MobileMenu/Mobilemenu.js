@@ -49,8 +49,7 @@ export default function Mobilemenu({ close }) {
   const hooks = useContext(Context);
   const { isAuthenticated } = hooks;
 
-  const { data, loading, error } = useCurrentUser();
-  const { currentUser } = data;
+  const { currentUser, loading, error } = useCurrentUser();
 
   if (loading === false && !error) {
     if (currentUser.role !== 'ADMIN') {
