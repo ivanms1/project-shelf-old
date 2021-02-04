@@ -5,7 +5,6 @@ import { useMutation } from '@apollo/client';
 
 import useCurrentUser from '../useCurrentUser/useCurrentUser';
 
-import { ReactComponent as Star } from './../../assets/Star.svg';
 import { ReactComponent as Spinner } from './../../assets/spinner.svg';
 
 import { getCurrentDate } from '../../helpers/dateConverter';
@@ -17,6 +16,8 @@ import {
   ProjectDetails,
   ViewDetails,
 } from './style';
+
+import { FavoriteBtn } from '../FavoriteBtn/FavoriteBtn';
 
 const MUTATION_REACT_TO_PROJECT = loader('./mutationReactToProject.graphql');
 
@@ -66,7 +67,7 @@ export const Cardtwo = ({ user, project, children }) => {
               <div className='overlay'>
                 <div className='overlayContent'>
                   <span>
-                    <Star />
+                    <FavoriteBtn project={project} />
                   </span>
                   <ViewDetails
                     onClick={() =>
