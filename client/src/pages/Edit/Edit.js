@@ -6,15 +6,10 @@ import { useHistory, useParams } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Loader from '../../components/Loader/Loader';
 import EditForm from './EditForm';
+import { PopupModal } from '../../components/PopupModal/PopupModal';
 
 import { Main, Container } from './style';
 
-//import styles from component
-import {
-  StyledPopup,
-  HeaderContainer,
-  Body,
-} from '../../components/PopupModal/style';
 const userToken = localStorage.getItem('userToken');
 
 const GET_USER_QUERY = loader('./queryGetUser.graphql');
@@ -85,7 +80,8 @@ function Edit(props) {
         },
       });
       img = data.preview || getProject.preview;
-      setOpen((o) => !o);
+      history.push('/');
+      // setOpen((o) => !o);
     } catch (error) {
       console.log(JSON.stringify(error, null, 2));
     }
@@ -107,25 +103,21 @@ function Edit(props) {
         </Container>
       </div>
 
-      <StyledPopup
-        open={open}
-        closeOnDocumentClick={false}
-        onClose={closeModal}
-      >
+      {/* <PopupModal open={open} closeOnDocumentClick={false} onClose={closeModal}>
         <div className='modal'>
-          <HeaderContainer>
+          <div>
             <span>Project Updated</span>
             <button onClick={closeModal}>&times;</button>
-          </HeaderContainer>
-          <Body>
+          </div>
+          <div>
             <div className='imgContainer'>
               <img src={img} alt={img}></img>
             </div>
             <p className='message'>Project have been updated !</p>
             <button onClick={() => history.push('/')}>Ok</button>
-          </Body>
+          </div>
         </div>
-      </StyledPopup>
+      </PopupModal> */}
     </Main>
   );
 }
