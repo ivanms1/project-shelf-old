@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/client';
 import useCurrentUser from '../useCurrentUser/useCurrentUser';
 
 import { ReactComponent as Star } from './../../assets/Star.svg';
+import { ReactComponent as StarFill } from './../../assets/Star-Fill.svg';
 import { ReactComponent as Spinner } from './../../assets/spinner.svg';
 
 import { getCurrentDate } from '../../helpers/dateConverter';
@@ -54,7 +55,7 @@ export const Cardtwo = ({ user, project, children }) => {
     <Main>
       <CardContainerOutter isApproved={project.isApproved}>
         <button onClick={reactToProject} className='starContainer'>
-          {getAction()}
+          {getAction() === 'LIKE' ? <Star /> : <StarFill />}
         </button>
 
         <CardContainerInner>
