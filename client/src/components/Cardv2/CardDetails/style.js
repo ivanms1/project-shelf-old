@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import Popup from 'reactjs-popup';
 
 const colors = {
   green: 'rgba(0, 203, 91, 0.7)',
@@ -19,13 +18,14 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-
+  height: 100%;
+  padding: 30px;
   background-color: #f7f8fc;
 
   & .wrapper {
     display: flex;
+    height: 100%;
     flex-direction: column;
-    margin-top: -100px;
   }
 `;
 
@@ -50,31 +50,38 @@ export const BackButton = styled.div`
 
 export const DetailsContainer = styled.div`
   width: 100%;
+  height: 100%;
   max-width: 1350px;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   flex-wrap: wrap;
-  padding: 15px;
 
   & .imgUserDetails {
-    width: 55%;
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: contain;
-    border-radius: 5px;
+    max-width: 730px;
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
   }
 `;
 
-export const ImgContainerOuter = styled.div`
+export const ImgContainerOuter = styled.figure`
   border-radius: 5px;
   padding: 7px;
+  display: flex;
+  max-height: 700px;
+  justify-content: center;
+  overflow: hidden;
   background-color: ${({ status }) => (status ? colors.green : colors.red)};
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    object-fit: cover;
+  }
 `;
 
 export const UserDetails = styled.div`
@@ -159,30 +166,4 @@ export const Status = styled.div`
   font-family: 'Poppins', sans-serif;
   letter-spacing: 1px;
   text-align: center;
-`;
-
-export const StyledPopup = styled(Popup)`
-  &-overlay {
-    background-color: rgba(0, 0, 0, 0.15);
-  }
-
-  &-content {
-    padding: 25px 35px;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    width: 80%;
-    height: 100%;
-    max-width: 500px;
-    max-height: 208px;
-    border-radius: 10px;
-    border: none;
-    box-shadow: 10px 10px 40px 4px rgba(45, 78, 255, 0.15);
-
-    @media screen and (max-width: 676px) {
-      padding: 20px 20px 40px 20px;
-    }
-  }
 `;

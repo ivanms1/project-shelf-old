@@ -129,9 +129,7 @@ export const CardDetails = ({}) => {
           <DetailsContainer>
             <div className='imgUserDetails'>
               <ImgContainerOuter status={project.isApproved}>
-                <div className='imgContainerInner'>
-                  <img src={project.preview} />
-                </div>
+                <img src={project.preview} alt={project.preview} />
               </ImgContainerOuter>
 
               <UserDetails>

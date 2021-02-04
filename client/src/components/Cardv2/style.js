@@ -34,16 +34,14 @@ export const CardContainerOutter = styled.div`
 `;
 
 export const CardContainerInner = styled.div`
-  width: 381px;
-  height: 216px;
+  width: 100%;
+  height: 100%;
   border-radius: 7px;
 
   & .imgContainer {
-    display: inline-block;
-    width: 100%;
-
-    text-align: center;
     position: relative;
+    max-width: 350px;
+    max-height: 195px;
     overflow: hidden;
   }
 
@@ -53,10 +51,11 @@ export const CardContainerInner = styled.div`
 
   img {
     border-radius: 5px;
+    width: 100%;
+    height: 100%;
     backface-visibility: hidden;
     display: block;
     object-fit: cover;
-    width: 100%;
   }
 
   & .overlay {
