@@ -67,8 +67,7 @@ function Header(props) {
   const hooks = useContext(Context);
   const { isAuthenticated } = hooks;
 
-  const { data, loading, error } = useCurrentUser();
-  const { currentUser } = data;
+  const { currentUser, loading, error } = useCurrentUser();
 
   if (!isAuthenticated) {
     return null;
