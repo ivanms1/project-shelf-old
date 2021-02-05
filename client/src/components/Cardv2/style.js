@@ -6,7 +6,20 @@ const colors = {
 };
 
 export const Main = styled.div`
-  margin-bottom: 20px;
+  border-radius: 5px;
+  margin-bottom: 25px;
+  background-color: transparent !important;
+  position: relative;
+
+  & .starContainer {
+    border: none;
+    outline: none;
+    z-index: 99;
+    background-color: transparent;
+    position: absolute;
+    right: -17px;
+    top: -15px;
+  }
 
   button::-moz-focus-inner {
     padding: 0 !important;
@@ -14,48 +27,36 @@ export const Main = styled.div`
   }
 `;
 
-export const CardContainerOutter = styled.div`
-  padding: 7px;
-  box-shadow: 10px 10px 40px 4px rgba(45, 78, 255, 0.15);
-  border-radius: 5px;
-  margin-bottom: 10px;
-  background-color: ${({ isApproved }) =>
-    isApproved ? colors.green : colors.red};
-  position: relative;
-
-  & .starContainer {
-    border: none;
-    outline: none;
-    background-color: transparent;
-    position: absolute;
-    right: -17px;
-    top: -15px;
-  }
-`;
-
 export const CardContainerInner = styled.div`
   width: 100%;
   height: 100%;
+  min-width: 250px;
+  min-height: 200px;
+  max-width: 370px;
+  max-height: 214px;
+  box-shadow: 10px 10px 40px 4px rgba(45, 78, 255, 0.15);
+  border: 7px solid
+    ${({ isApproved }) => (isApproved ? colors.green : colors.red)};
   border-radius: 7px;
 
   & .imgContainer {
     position: relative;
-    max-width: 350px;
-    max-height: 195px;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
     overflow: hidden;
   }
 
-  & .imgContainer:hover .overlay {
+  &:hover .overlay {
     opacity: 1;
   }
 
   img {
-    border-radius: 5px;
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
     display: block;
-    object-fit: cover;
+    object-fit: scale-down;
   }
 
   & .overlay {
@@ -82,11 +83,10 @@ export const CardContainerInner = styled.div`
 `;
 
 export const ProjectDetails = styled.div`
-  padding: 0px 0px 0px 20px;
+  padding: 10px 0px 0px 20px;
 
   & .userName {
     display: block;
-
     font-size: 16px;
     font-weight: 600;
     text-transform: capitalize;

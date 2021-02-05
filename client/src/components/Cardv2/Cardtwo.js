@@ -11,13 +11,7 @@ import { ReactComponent as Spinner } from './../../assets/spinner.svg';
 
 import { getCurrentDate } from '../../helpers/dateConverter';
 
-import {
-  Main,
-  CardContainerOutter,
-  CardContainerInner,
-  ProjectDetails,
-  ViewDetails,
-} from './style';
+import { Main, CardContainerInner, ProjectDetails, ViewDetails } from './style';
 
 const MUTATION_REACT_TO_PROJECT = loader('./mutationReactToProject.graphql');
 
@@ -53,38 +47,33 @@ export const Cardtwo = ({ user, project, children }) => {
 
   return (
     <Main>
-      <CardContainerOutter isApproved={project.isApproved}>
-        <button onClick={reactToProject} className='starContainer'>
-          {getAction(project, currentUser) === 'LIKE' ? <Star /> : <StarFill />}
-        </button>
+      <button onClick={reactToProject} className='starContainer'>
+        {getAction(project, currentUser) === 'LIKE' ? <Star /> : <StarFill />}
+      </button>
 
-        <CardContainerInner>
+      <CardContainerInner isApproved={project.isApproved}>
+        <div className='imgContainer'>
           {!imgLoaded ? <Spinner /> : null}
-          <div className='imgContainer'>
-            <img
-              src={project.preview}
-              onLoad={() => setImgLoaded(true)}
-              alt={project.title}
-            />
-            {imgLoaded && (
-              <div className='overlay'>
-                <div className='overlayContent'>
-                  <span>
-                    <Star />
-                  </span>
-                  <ViewDetails
-                    onClick={() =>
-                      history.push(`/projectDetails/${project.id}`)
-                    }
-                  >
-                    View Details
-                  </ViewDetails>
-                </div>
-              </div>
-            )}
+          <img
+            src={project.preview}
+            alt={project.preview}
+            loading='lazy'
+            onLoad={() => setImgLoaded(true)}
+          />
+          <div className='overlay'>
+            <div className='overlayContent'>
+              <span>
+                <Star />
+              </span>
+              <ViewDetails
+                onClick={() => history.push(`/projectDetails/${project.id}`)}
+              >
+                View Details
+              </ViewDetails>
+            </div>
           </div>
-        </CardContainerInner>
-      </CardContainerOutter>
+        </div>
+      </CardContainerInner>
 
       <ProjectDetails>
         <span className='userName'>{project.title}</span>
