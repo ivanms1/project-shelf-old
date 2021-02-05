@@ -5,6 +5,8 @@ import { useMutation } from '@apollo/client';
 
 import useCurrentUser from '../useCurrentUser/useCurrentUser';
 
+import { ReactComponent as Star } from './../../assets/Star.svg';
+import { ReactComponent as StarFill } from './../../assets/Star-Fill.svg';
 import { ReactComponent as Spinner } from './../../assets/spinner.svg';
 
 import { getCurrentDate } from '../../helpers/dateConverter';
@@ -21,38 +23,41 @@ import { FavoriteBtn } from '../FavoriteBtn/FavoriteBtn';
 
 const MUTATION_REACT_TO_PROJECT = loader('./mutationReactToProject.graphql');
 
+const getAction = (project, currentUser) => {
+  return project.likes.some((user) => user.id === currentUser.id)
+    ? 'DISLIKE'
+    : 'LIKE';
+};
+
 export const Cardtwo = ({ user, project, children }) => {
   const [imgLoaded, setImgLoaded] = useState(false);
 
-  const { data } = useCurrentUser();
+  const history = useHistory();
 
-  const getAction = () => {
-    return project.likes.some((user) => user.id === data.currentUser.id)
-      ? 'DISLIKE'
-      : 'LIKE';
-  };
+  const { currentUser } = useCurrentUser();
 
-  const [reactToProject, { data: dataReactToProject, error }] = useMutation(
-    MUTATION_REACT_TO_PROJECT,
-    {
+  const getVariables = () => {
+    return {
       variables: {
         input: {
           projectId: project.id,
-          userId: data.currentUser.id,
-          action: getAction(),
+          userId: currentUser.id,
+          action: getAction(project, currentUser),
         },
       },
-    }
-  );
+    };
+  };
 
-  const history = useHistory();
+  const [reactToProject] = useMutation(
+    MUTATION_REACT_TO_PROJECT,
+    getVariables()
+  );
 
   return (
     <Main>
       <CardContainerOutter isApproved={project.isApproved}>
         <button onClick={reactToProject} className='starContainer'>
-          {/* <Star /> */}
-          {getAction()}
+          {getAction(project, currentUser) === 'LIKE' ? <Star /> : <StarFill />}
         </button>
 
         <CardContainerInner>

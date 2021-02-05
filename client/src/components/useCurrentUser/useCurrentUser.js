@@ -8,7 +8,6 @@ function useCurrentUser() {
 
   return {
     loading,
-    data,
     error,
     currentUser: data.currentUser || {},
   };
