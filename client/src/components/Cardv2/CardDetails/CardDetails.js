@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 
 import Button from '../../Button/Button';
 import Header from '../../Header/Header';
@@ -120,16 +122,24 @@ export const CardDetails = ({}) => {
     <Main>
       <Header />
       <Container>
-        <div className='wrapper'>
-          <BackButton>
-            <a onClick={() => history.push('/')}>Home</a> /{' '}
-            <span className='projectTitle'>{project.title}</span>
-          </BackButton>
+        <BackButton>
+          <a onClick={() => history.push('/')}>Home</a> /{' '}
+          <span className='projectTitle'>{project.title}</span>
+        </BackButton>
 
+        <div className='wrapper'>
           <DetailsContainer>
             <div className='imgUserDetails'>
               <ImgContainerOuter status={project.isApproved}>
-                <img src={project.preview} alt={project.preview} />
+                <Zoom wrapStyle={{ display: 'inline-block' }} zoomZindex='10px'>
+                  <img
+                    src={project.preview}
+                    alt={project.preview}
+                    width='100%'
+                    height='100%'
+                    style={{ objectFit: 'contain' }}
+                  />
+                </Zoom>
               </ImgContainerOuter>
 
               <UserDetails>

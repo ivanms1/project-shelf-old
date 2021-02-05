@@ -15,7 +15,6 @@ export const Container = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
@@ -23,14 +22,19 @@ export const Container = styled.div`
   background-color: #f7f8fc;
 
   & .wrapper {
-    display: flex;
+    flex: 1;
     height: 100%;
+    display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
   }
 `;
 
 export const BackButton = styled.div`
-  margin: 0 0 10px 0;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 0 25px 0;
 
   a {
     font-weight: 600;
@@ -59,7 +63,6 @@ export const DetailsContainer = styled.div`
   flex-wrap: wrap;
 
   & .imgUserDetails {
-    max-width: 730px;
     overflow: hidden;
     position: relative;
     display: inline-block;
@@ -68,19 +71,19 @@ export const DetailsContainer = styled.div`
 
 export const ImgContainerOuter = styled.figure`
   border-radius: 5px;
-  padding: 7px;
   display: flex;
-  max-height: 700px;
+  max-width: 650px;
+  max-height: 650px;
+  min-width: 350px;
+  min-height: 250px;
   justify-content: center;
   overflow: hidden;
-  background-color: ${({ status }) => (status ? colors.green : colors.red)};
+  border: 7px solid ${({ status }) => (status ? colors.green : colors.red)};
 
   img {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 5px;
-    object-fit: cover;
   }
 `;
 
