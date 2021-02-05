@@ -16,6 +16,12 @@ const ProjectActions = schema.enumType({
   description: 'Actions available to the user',
 });
 
+const FavoriteActions = schema.enumType({
+  name: 'FavoriteAction',
+  members: ['FAVORITE', 'UNDO'],
+  description: 'Favorite actions',
+});
+
 schema.inputObjectType({
   name: 'CreateProjectInput',
   definition(t) {
@@ -64,6 +70,18 @@ schema.inputObjectType({
   },
 });
 
+schema.inputObjectType({
+  name: 'FavoriteProjectInput',
+  definition(t) {
+    t.string('projectId', { required: true });
+    t.string('userId', { required: true });
+    t.field('action', {
+      type: FavoriteActions,
+      required: true,
+    });
+  },
+});
+
 schema.objectType({
   name: 'User',
   definition(t) {
@@ -76,6 +94,7 @@ schema.objectType({
     t.model.role();
     t.model.projects();
     t.model.projectsLiked();
+    t.model.favoriteProjects();
   },
 });
 
@@ -199,6 +218,10 @@ schema.mutationType({
         input: 'UpdateUsertInput',
       },
       async resolve(_root, args, ctx) {
+        if (!args) {
+          throw new Error('Data not found');
+        }
+
         const user = await ctx.db.user.update({
           where: {
             id: args.userId,
@@ -316,6 +339,40 @@ schema.mutationType({
           include: {
             likes: true,
             author: true,
+          },
+        });
+      },
+    });
+    t.field('favoriteProject', {
+      type: 'User',
+      args: {
+        input: 'FavoriteProjectInput',
+      },
+      resolve(_root, { input }, ctx) {
+        if (!input) {
+          throw new Error('Invalid action');
+        }
+
+        if (!input.projectId) {
+          throw new Error('Missing project dd');
+        }
+        let action;
+        if (input.action === 'FAVORITE') {
+          action = 'connect';
+        } else {
+          action = 'disconnect';
+        }
+
+        return ctx.db.user.update({
+          where: {
+            id: input.userId,
+          },
+          data: {
+            favoriteProjects: {
+              [action]: {
+                id: input.projectId,
+              },
+            },
           },
         });
       },
