@@ -15,5 +15,19 @@ query UseCurrentUser {
       isApproved
       createdAt
     }
+    favoriteProjects {
+      id
+      title
+      preview
+      likes {
+        id
+      }
+      createdAt
+      author {
+        id
+        name
+        lastName
+      }
+    }
   }
 }

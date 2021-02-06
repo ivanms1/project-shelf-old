@@ -19,14 +19,21 @@ import {
   ViewDetails,
 } from './style';
 
-import { FavoriteBtn } from '../FavoriteBtn/FavoriteBtn';
-
 const MUTATION_REACT_TO_PROJECT = loader('./mutationReactToProject.graphql');
+const MUTATION_FAVORITE_PROJECT = loader('./mutationFavoriteProject.graphql');
 
-const getAction = (project, currentUser) => {
+const getActionLikes = (project, currentUser) => {
   return project.likes.some((user) => user.id === currentUser.id)
     ? 'DISLIKE'
     : 'LIKE';
+};
+
+const getActionFavorite = (project, currentUser) => {
+  return currentUser.favoriteProjects.some(
+    (favProject) => favProject.id === project.id
+  )
+    ? 'UNDO'
+    : 'FAVORITE';
 };
 
 export const Cardtwo = ({ user, project, children }) => {
@@ -36,13 +43,25 @@ export const Cardtwo = ({ user, project, children }) => {
 
   const { currentUser } = useCurrentUser();
 
-  const getVariables = () => {
+  const getVariablesLikes = () => {
     return {
       variables: {
         input: {
           projectId: project.id,
           userId: currentUser.id,
-          action: getAction(project, currentUser),
+          action: getActionLikes(project, currentUser),
+        },
+      },
+    };
+  };
+
+  const getVariablesFavorite = () => {
+    return {
+      variables: {
+        input: {
+          projectId: project.id,
+          userId: currentUser.id,
+          action: getActionFavorite(project, currentUser),
         },
       },
     };
@@ -50,14 +69,23 @@ export const Cardtwo = ({ user, project, children }) => {
 
   const [reactToProject] = useMutation(
     MUTATION_REACT_TO_PROJECT,
-    getVariables()
+    getVariablesLikes()
+  );
+
+  const [favoriteProject] = useMutation(
+    MUTATION_FAVORITE_PROJECT,
+    getVariablesFavorite()
   );
 
   return (
     <Main>
       <CardContainerOutter isApproved={project.isApproved}>
         <button onClick={reactToProject} className='starContainer'>
-          {getAction(project, currentUser) === 'LIKE' ? <Star /> : <StarFill />}
+          {getActionLikes(project, currentUser) === 'LIKE' ? (
+            <Star />
+          ) : (
+            <StarFill />
+          )}
         </button>
 
         <CardContainerInner>
@@ -71,8 +99,12 @@ export const Cardtwo = ({ user, project, children }) => {
             {imgLoaded && (
               <div className='overlay'>
                 <div className='overlayContent'>
-                  <span>
-                    <FavoriteBtn project={project} />
+                  <span onClick={favoriteProject}>
+                    {getActionFavorite(project, currentUser) === 'FAVORITE' ? (
+                      <Star />
+                    ) : (
+                      <StarFill />
+                    )}
                   </span>
                   <ViewDetails
                     onClick={() =>
