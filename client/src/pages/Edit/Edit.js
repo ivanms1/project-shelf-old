@@ -81,7 +81,6 @@ function Edit(props) {
       });
       img = data.preview || getProject.preview;
       history.push('/');
-      // setOpen((o) => !o);
     } catch (error) {
       console.log(JSON.stringify(error, null, 2));
     }
@@ -103,7 +102,7 @@ function Edit(props) {
         </Container>
       </div>
 
-      {/* <PopupModal open={open} closeOnDocumentClick={false} onClose={closeModal}>
+      <PopupModal open={open} closeOnDocumentClick={false} onClose={closeModal}>
         <div className='modal'>
           <div>
             <span>Project Updated</span>
@@ -117,7 +116,7 @@ function Edit(props) {
             <button onClick={() => history.push('/')}>Ok</button>
           </div>
         </div>
-      </PopupModal> */}
+      </PopupModal>
     </Main>
   );
 }

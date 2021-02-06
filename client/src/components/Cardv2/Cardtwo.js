@@ -65,9 +65,7 @@ export const Cardtwo = ({ user, project, children }) => {
               <span>
                 <Star />
               </span>
-              <ViewDetails
-                onClick={() => history.push(`/projectDetails/${project.id}`)}
-              >
+              <ViewDetails to={`/projectDetails/${project.id}`}>
                 View Details
               </ViewDetails>
             </div>

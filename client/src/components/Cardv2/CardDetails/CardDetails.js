@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useParams, useHistory } from 'react-router-dom';
 import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
@@ -123,7 +124,7 @@ export const CardDetails = ({}) => {
       <Header />
       <Container>
         <BackButton>
-          <a onClick={() => history.push('/')}>Home</a> /{' '}
+          <Link to='/'>Home</Link> /{' '}
           <span className='projectTitle'>{project.title}</span>
         </BackButton>
 

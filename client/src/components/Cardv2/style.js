@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const colors = {
   green: 'rgba(0, 203, 91, 0.7)',
@@ -99,7 +100,7 @@ export const ProjectDetails = styled.div`
   }
 `;
 
-export const ViewDetails = styled.button`
+export const ViewDetails = styled(Link)`
   padding: 10px 17px;
   font-size: 12px;
   color: black;
