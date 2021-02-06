@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { loader } from 'graphql.macro';
 import { useMutation } from '@apollo/client';
+import toast, { Toaster } from 'react-hot-toast';
 
 import useCurrentUser from '../useCurrentUser/useCurrentUser';
 
@@ -77,8 +78,24 @@ export const Cardtwo = ({ user, project, children }) => {
     getVariablesFavorite()
   );
 
+  const favoriteClickHandler = () => {
+    const action = getActionFavorite(project, currentUser);
+    const msg =
+      action === 'FAVORITE'
+        ? `Added ${project.title} to favorites`
+        : `Removed ${project.title} from favorites`;
+
+    const promise = favoriteProject();
+
+    toast.promise(promise, {
+      success: msg,
+      error: 'Please press slowly',
+    });
+  };
+
   return (
     <Main>
+      <Toaster position='bottom-center' reverseOrder={true} />
       <CardContainerOutter isApproved={project.isApproved}>
         <button onClick={reactToProject} className='starContainer'>
           {getActionLikes(project, currentUser) === 'LIKE' ? (
@@ -99,7 +116,7 @@ export const Cardtwo = ({ user, project, children }) => {
             {imgLoaded && (
               <div className='overlay'>
                 <div className='overlayContent'>
-                  <span onClick={favoriteProject}>
+                  <span onClick={favoriteClickHandler}>
                     {getActionFavorite(project, currentUser) === 'FAVORITE' ? (
                       <Star />
                     ) : (

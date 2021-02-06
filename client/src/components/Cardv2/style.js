@@ -7,11 +7,6 @@ const colors = {
 
 export const Main = styled.div`
   margin-bottom: 20px;
-
-  button::-moz-focus-inner {
-    padding: 0 !important;
-    border: 0;
-  }
 `;
 
 export const CardContainerOutter = styled.div`
