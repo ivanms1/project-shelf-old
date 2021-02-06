@@ -29,7 +29,7 @@ const getActionLikes = (project, currentUser) => {
 };
 
 const getActionFavorite = (project, currentUser) => {
-  return currentUser.favoriteProjects.some(
+  return currentUser?.favoriteProjects?.some(
     (favProject) => favProject.id === project.id
   )
     ? 'UNDO'
