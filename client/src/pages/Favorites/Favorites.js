@@ -23,7 +23,10 @@ function Favorites() {
       <Header />
       <Container>
         <Approval>
-          <p>Favorite Projects</p>
+          <p>
+            Favorite Projects{' '}
+            <span>({currentUser.favoriteProjects.length})</span>
+          </p>
         </Approval>
         <CardContainer>
           {!currentUser.favoriteProjects.length ? (

@@ -62,7 +62,7 @@ export const CardContainerInner = styled.div`
     height: 100%;
     backface-visibility: hidden;
     display: block;
-    object-fit: scale-down;
+    object-fit: cover;
   }
 
   & .overlay {

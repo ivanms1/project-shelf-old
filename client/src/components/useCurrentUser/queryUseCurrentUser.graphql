@@ -28,6 +28,7 @@ query UseCurrentUser {
         name
         lastName
       }
+      isApproved
     }
   }
 }
