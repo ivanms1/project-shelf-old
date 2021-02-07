@@ -3,28 +3,28 @@ import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
+import { PopupModal } from '../../components/PopupModal/PopupModal';
 import Header from '../../components/Header/Header';
 import Loader from '../../components/Loader/Loader';
+import Button from '../../components/Button/Button';
 import SubmitForm from './SubmitForm';
 
-import { Main, Overlay, Container } from './style';
+import IMG_Social from '../../assets/social.png';
 
-//import styles from component
-import {
-  StyledPopup,
-  HeaderContainer,
-  Body,
-} from '../../components/PopupModal/style';
+import { Main, Overlay, Container } from './style';
+import { CustomYesButton } from '../../components/PopupModal/style';
+
 const userToken = localStorage.getItem('userToken');
 
 const GET_USER_QUERY = loader('./queryGetUser.graphql');
 const CREATE_PROJECT_MUTATION = loader('./mutationCreateProject.graphql');
 
-let img = '';
+let img = IMG_Social;
 
 function Submit(props) {
-  const [open, setOpen] = useState(false);
-  const closeModal = () => setOpen(false);
+  const [afterSubmitModelIsOpen, setAfterSubmitModelIsOpen] = useState(false);
+  const openAfterSubmitModelIsOpen = () => setAfterSubmitModelIsOpen(true);
+  const closeAfterSubmitModelIsOpen = () => setAfterSubmitModelIsOpen(false);
 
   const { loading, data } = useQuery(GET_USER_QUERY, {
     variables: {
@@ -46,7 +46,6 @@ function Submit(props) {
 
   const { user } = data;
 
-  //creating projects
   async function onSubmit(data) {
     try {
       await sendInputs({
@@ -62,7 +61,7 @@ function Submit(props) {
         },
       });
       img = data.preview;
-      setOpen((o) => !o);
+      openAfterSubmitModelIsOpen();
     } catch (error) {
       console.log(JSON.stringify(error, null, 2));
     }
@@ -82,25 +81,23 @@ function Submit(props) {
           <SubmitForm user={user} onSubmit={onSubmit} />
         </Container>
       </Overlay>
-      <StyledPopup
-        open={open}
-        closeOnDocumentClick={false}
-        onClose={closeModal}
+
+      <PopupModal
+        isOpen={afterSubmitModelIsOpen}
+        onRequestClose={closeAfterSubmitModelIsOpen}
+        onClick={() => {
+          alert('sad');
+        }}
+        title='Project Submitted'
       >
-        <div className='modal'>
-          <HeaderContainer>
-            <span>Project Submission</span>
-            <button onClick={closeModal}>&times;</button>
-          </HeaderContainer>
-          <Body>
-            <div className='imgContainer'>
-              <img src={img} alt={img}></img>
-            </div>
-            <p className='message'>Project have been submitted !</p>
-            <button onClick={() => history.push('/')}>Ok</button>
-          </Body>
+        <div className='imgContainer'>
+          <img src={img} alt={img}></img>
         </div>
-      </StyledPopup>
+
+        <Button addCSS={CustomYesButton} onClick={() => history.push('/')}>
+          Ok
+        </Button>
+      </PopupModal>
     </Main>
   );
 }

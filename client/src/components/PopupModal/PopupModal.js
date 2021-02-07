@@ -16,6 +16,7 @@ export const PopupModal = ({
   children,
   isOpen,
   onRequestClose,
+  title = 'Are you sure ?',
   onClick = () => {},
 }) => {
   return (
@@ -24,20 +25,26 @@ export const PopupModal = ({
       onRequestClose={onRequestClose}
       shouldCloseOnOverlayClick={false}
     >
-      <div className='header'>
-        <button onClick={onRequestClose}>X</button>
-      </div>
+      {children ? null : (
+        <div className='header'>
+          <button onClick={onRequestClose}>X</button>
+        </div>
+      )}
 
-      <p className='body'>Are you sure ?</p>
+      <p className='body'>{title}</p>
 
-      <ButtonContainer>
-        <Button addCSS={CustomNoButton} onClick={onRequestClose}>
-          No
-        </Button>
-        <Button addCSS={CustomYesButton} onClick={onClick}>
-          Yes
-        </Button>
-      </ButtonContainer>
+      {children ? (
+        children
+      ) : (
+        <ButtonContainer>
+          <Button addCSS={CustomNoButton} onClick={onRequestClose}>
+            No
+          </Button>
+          <Button addCSS={CustomYesButton} onClick={onClick}>
+            Yes
+          </Button>
+        </ButtonContainer>
+      )}
     </StyledModal>
   );
 };

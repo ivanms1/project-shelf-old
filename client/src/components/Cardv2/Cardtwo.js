@@ -12,13 +12,7 @@ import { ReactComponent as Spinner } from './../../assets/spinner.svg';
 
 import { getCurrentDate } from '../../helpers/dateConverter';
 
-import {
-  Main,
-  CardContainerOutter,
-  CardContainerInner,
-  ProjectDetails,
-  ViewDetails,
-} from './style';
+import { Main, CardContainerInner, ProjectDetails, ViewDetails } from './style';
 
 const MUTATION_REACT_TO_PROJECT = loader('./mutationReactToProject.graphql');
 const MUTATION_FAVORITE_PROJECT = loader('./mutationFavoriteProject.graphql');
@@ -95,7 +89,6 @@ export const Cardtwo = ({ user, project, children }) => {
 
   return (
     <Main>
-      <Toaster position='bottom-center' reverseOrder={true} />
       <CardContainerOutter isApproved={project.isApproved}>
         <button onClick={reactToProject} className='starContainer'>
           {getActionLikes(project, currentUser) === 'LIKE' ? (
@@ -105,38 +98,40 @@ export const Cardtwo = ({ user, project, children }) => {
           )}
         </button>
 
-        <CardContainerInner>
-          {!imgLoaded ? <Spinner /> : null}
+        <CardContainerInner isApproved={project.isApproved}>
           <div className='imgContainer'>
-            <img
-              src={project.preview}
-              onLoad={() => setImgLoaded(true)}
-              alt={project.title}
-            />
-            {imgLoaded && (
-              <div className='overlay'>
-                <div className='overlayContent'>
-                  <span onClick={favoriteClickHandler}>
-                    {getActionFavorite(project, currentUser) === 'FAVORITE' ? (
-                      <Star />
-                    ) : (
-                      <StarFill />
-                    )}
-                  </span>
-                  <ViewDetails
-                    onClick={() =>
-                      history.push(`/projectDetails/${project.id}`)
-                    }
-                  >
-                    View Details
-                  </ViewDetails>
+            {!imgLoaded ? <Spinner /> : null}
+            <div className='imgContainer'>
+              <img
+                src={project.preview}
+                onLoad={() => setImgLoaded(true)}
+                alt={project.title}
+              />
+              {imgLoaded && (
+                <div className='overlay'>
+                  <div className='overlayContent'>
+                    <span onClick={favoriteClickHandler}>
+                      {getActionFavorite(project, currentUser) ===
+                      'FAVORITE' ? (
+                        <Star />
+                      ) : (
+                        <StarFill />
+                      )}
+                    </span>
+                    <ViewDetails
+                      onClick={() =>
+                        history.push(`/projectDetails/${project.id}`)
+                      }
+                    >
+                      View Details
+                    </ViewDetails>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </CardContainerInner>
       </CardContainerOutter>
-
       <ProjectDetails>
         <span className='userName'>{project.title}</span>
         <span className='submissionDate'>
