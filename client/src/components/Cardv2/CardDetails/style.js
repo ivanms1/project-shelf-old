@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import Popup from 'reactjs-popup';
 
 const colors = {
   green: 'rgba(0, 203, 91, 0.7)',
@@ -16,21 +15,26 @@ export const Container = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 100%;
-
+  height: 100%;
+  padding: 30px;
   background-color: #f7f8fc;
 
   & .wrapper {
+    flex: 1;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    margin-top: -100px;
+    justify-content: flex-start;
+    align-items: center;
   }
 `;
 
 export const BackButton = styled.div`
-  margin: 0 0 10px 0;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 0 25px 0;
 
   a {
     font-weight: 600;
@@ -50,31 +54,37 @@ export const BackButton = styled.div`
 
 export const DetailsContainer = styled.div`
   width: 100%;
+  height: 100%;
   max-width: 1350px;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   flex-wrap: wrap;
-  padding: 15px;
 
   & .imgUserDetails {
-    width: 55%;
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: contain;
-    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
   }
 `;
 
-export const ImgContainerOuter = styled.div`
+export const ImgContainerOuter = styled.figure`
   border-radius: 5px;
-  padding: 7px;
-  background-color: ${({ status }) => (status ? colors.green : colors.red)};
+  display: flex;
+  max-width: 650px;
+  max-height: 650px;
+  min-width: 350px;
+  min-height: 250px;
+  justify-content: center;
+  overflow: hidden;
+  border: 7px solid ${({ status }) => (status ? colors.green : colors.red)};
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
 `;
 
 export const UserDetails = styled.div`
@@ -159,30 +169,4 @@ export const Status = styled.div`
   font-family: 'Poppins', sans-serif;
   letter-spacing: 1px;
   text-align: center;
-`;
-
-export const StyledPopup = styled(Popup)`
-  &-overlay {
-    background-color: rgba(0, 0, 0, 0.15);
-  }
-
-  &-content {
-    padding: 25px 35px;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    width: 80%;
-    height: 100%;
-    max-width: 500px;
-    max-height: 208px;
-    border-radius: 10px;
-    border: none;
-    box-shadow: 10px 10px 40px 4px rgba(45, 78, 255, 0.15);
-
-    @media screen and (max-width: 676px) {
-      padding: 20px 20px 40px 20px;
-    }
-  }
 `;
