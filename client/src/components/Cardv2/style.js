@@ -26,6 +26,11 @@ export const Main = styled.div`
     padding: 0 !important;
     border: 0;
   }
+
+  button {
+    background-color: transparent;
+    border: none;
+  }
 `;
 
 export const CardContainerInner = styled.div`

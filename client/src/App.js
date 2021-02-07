@@ -13,7 +13,7 @@ function App() {
       <Globalstyles />
       <Routes />
       <StyledToastContainer />
-      <Toaster position='bottom-center' />
+      <Toaster position='bottom-center' toastOptions={{ duration: 1500 }} />
     </BrowserRouter>
   );
 }
