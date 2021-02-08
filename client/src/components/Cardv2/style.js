@@ -22,11 +22,6 @@ export const Main = styled.div`
     top: -15px;
   }
 
-  button::-moz-focus-inner {
-    padding: 0 !important;
-    border: 0;
-  }
-
   button {
     background-color: transparent;
     border: none;
