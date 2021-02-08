@@ -22,9 +22,9 @@ export const Main = styled.div`
     top: -15px;
   }
 
-  button::-moz-focus-inner {
-    padding: 0 !important;
-    border: 0;
+  button {
+    background-color: transparent;
+    border: none;
   }
 `;
 
@@ -57,7 +57,7 @@ export const CardContainerInner = styled.div`
     height: 100%;
     backface-visibility: hidden;
     display: block;
-    object-fit: scale-down;
+    object-fit: cover;
   }
 
   & .overlay {

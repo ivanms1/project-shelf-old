@@ -59,7 +59,7 @@ function Home() {
             </div>
 
             <div className='activeContainer'>
-              <Active active={true} />
+              <Active active />
               <span className='text'>Approved</span>
             </div>
           </ActiveContainer>

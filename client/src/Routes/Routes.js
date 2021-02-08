@@ -8,6 +8,7 @@ import SignIn from '../pages/SignIn/Signin';
 import Logout from '../pages/Logout/Logout';
 import Submitproject from '../pages/SubmitYourProject/Submit';
 import Weekly from '../pages/WeeklyProjects/Weekly';
+import Favorites from '../pages/Favorites/Favorites';
 import { CardDetails } from '../components/Cardv2/CardDetails/CardDetails';
 import Error from '../pages/Error/error';
 
@@ -37,6 +38,7 @@ function Routes(props) {
       <PrivateRoutes path='/edit/:projectId' component={Edit} />
       <PrivateRoutes path='/submit' component={Submitproject} />
       <PrivateRoutes path='/weekly' component={Weekly} />
+      <PrivateRoutes path='/favorites' component={Favorites} />
       <PrivateRoutes
         path='/projectDetails/:projectId'
         component={CardDetails}

@@ -23,6 +23,7 @@ model User {
   discord       String?
   projects      Project[]
   projectsLiked Project[] @relation("ProjectstLiked")
+  favoriteProjects Project[] @relation("FavoriteProjects")
 }
 
 model Project {

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { loader } from 'graphql.macro';
 import { useMutation } from '@apollo/client';
+import toast from 'react-hot-toast';
 
 import useCurrentUser from '../useCurrentUser/useCurrentUser';
 
@@ -14,11 +15,20 @@ import { getCurrentDate } from '../../helpers/dateConverter';
 import { Main, CardContainerInner, ProjectDetails, ViewDetails } from './style';
 
 const MUTATION_REACT_TO_PROJECT = loader('./mutationReactToProject.graphql');
+const MUTATION_FAVORITE_PROJECT = loader('./mutationFavoriteProject.graphql');
 
-const getAction = (project, currentUser) => {
+const getActionLikes = (project, currentUser) => {
   return project.likes.some((user) => user.id === currentUser.id)
     ? 'DISLIKE'
     : 'LIKE';
+};
+
+const getActionFavorite = (project, currentUser) => {
+  return currentUser?.favoriteProjects?.some(
+    (favProject) => favProject.id === project.id
+  )
+    ? 'UNDO'
+    : 'FAVORITE';
 };
 
 export const Cardtwo = ({ user, project, children }) => {
@@ -28,13 +38,25 @@ export const Cardtwo = ({ user, project, children }) => {
 
   const { currentUser } = useCurrentUser();
 
-  const getVariables = () => {
+  const getVariablesLikes = () => {
     return {
       variables: {
         input: {
           projectId: project.id,
           userId: currentUser.id,
-          action: getAction(project, currentUser),
+          action: getActionLikes(project, currentUser),
+        },
+      },
+    };
+  };
+
+  const getVariablesFavorite = () => {
+    return {
+      variables: {
+        input: {
+          projectId: project.id,
+          userId: currentUser.id,
+          action: getActionFavorite(project, currentUser),
         },
       },
     };
@@ -42,37 +64,70 @@ export const Cardtwo = ({ user, project, children }) => {
 
   const [reactToProject] = useMutation(
     MUTATION_REACT_TO_PROJECT,
-    getVariables()
+    getVariablesLikes()
   );
+
+  const [favoriteProject, { loading }] = useMutation(
+    MUTATION_FAVORITE_PROJECT,
+    getVariablesFavorite()
+  );
+
+  const favoriteClickHandler = async () => {
+    try {
+      const action = getActionFavorite(project, currentUser);
+      const msg =
+        action === 'FAVORITE'
+          ? `Added ${project.title} to favorites`
+          : `Removed ${project.title} from favorites`;
+      await favoriteProject();
+      toast.success(msg);
+    } catch (error) {
+      toast.error('Oops, too fast');
+    }
+  };
 
   return (
     <Main>
       <button onClick={reactToProject} className='starContainer'>
-        {getAction(project, currentUser) === 'LIKE' ? <Star /> : <StarFill />}
+        {getActionLikes(project, currentUser) === 'LIKE' ? (
+          <Star />
+        ) : (
+          <StarFill />
+        )}
       </button>
 
       <CardContainerInner isApproved={project.isApproved}>
         <div className='imgContainer'>
           {!imgLoaded ? <Spinner /> : null}
-          <img
-            src={project.preview}
-            alt={project.preview}
-            loading='lazy'
-            onLoad={() => setImgLoaded(true)}
-          />
-          <div className='overlay'>
-            <div className='overlayContent'>
-              <span>
-                <Star />
-              </span>
-              <ViewDetails to={`/projectDetails/${project.id}`}>
-                View Details
-              </ViewDetails>
-            </div>
+          <div className='imgContainer'>
+            <img
+              src={project.preview}
+              onLoad={() => setImgLoaded(true)}
+              alt={project.title}
+            />
+            {imgLoaded && (
+              <div className='overlay'>
+                <div className='overlayContent'>
+                  <button disabled={loading} onClick={favoriteClickHandler}>
+                    {getActionFavorite(project, currentUser) === 'FAVORITE' ? (
+                      <Star />
+                    ) : (
+                      <StarFill />
+                    )}
+                  </button>
+                  <ViewDetails
+                    onClick={() =>
+                      history.push(`/projectDetails/${project.id}`)
+                    }
+                  >
+                    View Details
+                  </ViewDetails>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </CardContainerInner>
-
       <ProjectDetails>
         <span className='userName'>{project.title}</span>
         <span className='submissionDate'>

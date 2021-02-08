@@ -38,6 +38,11 @@ function Header(props) {
         to: `/submit`,
         exact: true,
       },
+      {
+        title: 'Favorites',
+        to: `/favorites`,
+        exact: true,
+      },
     ],
     authandDropdown: [
       {
