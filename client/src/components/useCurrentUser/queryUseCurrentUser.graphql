@@ -13,6 +13,9 @@ query UseCurrentUser {
       siteLink
       repoLink
       isApproved
+      likes {
+        id
+      }
       createdAt
     }
     favoriteProjects {
