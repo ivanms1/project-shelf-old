@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { ErrorMessage } from '@hookform/error-message';
 import { loader } from 'graphql.macro';
-import { useMutation, NetworkStatus } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { useMutation } from '@apollo/client';
 
-import 'react-toastify/dist/ReactToastify.css';
+import { Context } from '../../Context/AppContext';
 
 import Header from '../../components/Header/Header';
 import {
@@ -29,45 +29,39 @@ const GET_USER_QUERY = loader('./mutationLoginUser.graphql');
 
 function Signin(props) {
   const history = useHistory();
-  const toastId = React.useRef(null);
+  const { setIsAuthenticated } = useContext(Context);
 
-  const { register, errors, handleSubmit } = useForm({
-    criteriaMode: 'all',
-    shouldUnregister: true,
-  });
+  const notify = () => toast.error(`Please try again.`);
 
-  const [reg, { loading, error }] = useMutation(GET_USER_QUERY);
+  const { register, errors, handleSubmit } = useForm();
+
+  const [signInUser, { loading, error }] = useMutation(GET_USER_QUERY);
 
   if (loading) {
     return <Loader />;
   }
 
-  const notify = () =>
-    toast.error(`🚀  Can't sign in. Please check the details again.`, {
-      toastId: 1,
-    });
-
   if (error) {
     console.log(error.message);
   }
 
-  async function onsubmit(data) {
+  const submitUserDetails = async (data) => {
     try {
-      const response = await reg({
+      const response = await signInUser({
         variables: {
           email: data.email,
           password: data.password,
         },
       });
-      localStorage.setItem('userToken', response.data.login.userId);
-      // redirect with the id from the response
+      localStorage.setItem('userToken', response?.data?.login?.userId);
+      setIsAuthenticated(true);
       history.push('/');
     } catch (error) {
-      if (error.networkError.statusCode === 500) {
+      if (error) {
         notify();
       }
     }
-  }
+  };
 
   return (
     <Container>
@@ -77,7 +71,7 @@ function Signin(props) {
         <img alt='rocket' src={Rocket}></img>
 
         <SignInBox>
-          <Form onSubmit={handleSubmit(onsubmit)}>
+          <Form onSubmit={handleSubmit(submitUserDetails)}>
             <span>Sign In</span>
 
             <InputContainer>
