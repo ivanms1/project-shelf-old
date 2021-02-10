@@ -1,12 +1,11 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { loader } from 'graphql.macro';
-import { useQuery } from '@apollo/client';
 
 import { Cardtwo } from '../../components/Cardv2/Cardtwo';
 import Header from '../../components/Header/Header';
 import Active from '../../components/Active/Active';
 import Loader from '../../components/Loader/Loader';
+import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
 
 import {
   Main,
@@ -16,19 +15,10 @@ import {
   ActiveContainer,
 } from './style';
 
-const GET_USER_QUERY = loader('./queryUser.graphql');
-
 function Home() {
-  const userToken = localStorage.getItem('userToken');
+  const { currentUser: user, loading, error } = useCurrentUser();
 
-  const { data, loading, error } = useQuery(GET_USER_QUERY, {
-    variables: {
-      id: userToken,
-      skip: !userToken,
-    },
-  });
-
-  if (!userToken) {
+  if (!user) {
     return <Redirect to='register' />;
   }
 
@@ -39,8 +29,6 @@ function Home() {
   if (error) {
     return <p>Please try again later</p>;
   }
-
-  const { user } = data;
 
   return (
     <Main>
