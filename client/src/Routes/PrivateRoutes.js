@@ -6,11 +6,9 @@ import { Context } from '../Context/AppContext';
 import useCurrentUser from '../components/useCurrentUser/useCurrentUser';
 
 function PrivateRoutes({ path, isForAdmin, children, ...props }) {
-  const hooks = useContext(Context);
+  const { isAuthenticated } = useContext(Context);
 
   const { currentUser } = useCurrentUser();
-
-  const { isAuthenticated } = hooks;
 
   if (isForAdmin && currentUser.role === 'USER') {
     return <Redirect to='/' />;
@@ -23,7 +21,7 @@ function PrivateRoutes({ path, isForAdmin, children, ...props }) {
   }
 
   if (!isAuthenticated) {
-    return <Redirect to='signin' />;
+    return <Redirect to='/signin' />;
   }
 
   return (
