@@ -33,6 +33,7 @@ import Button from '../../components/Button/Button';
 import Active from '../../components/Active/Active';
 
 import { Dropzone } from '../../components/DropZone/Dropzone';
+import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
 
 const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
 
@@ -48,7 +49,7 @@ function getCurrentDate() {
   return newDate.toLocaleDateString('en-us', dateOptions);
 }
 
-function SubmitForm({ user, onSubmit }) {
+function SubmitForm({ onSubmit }) {
   const { register, handleSubmit, control, errors, watch } = useForm({
     defaultValues: {
       title: 'Recipe App',
@@ -59,6 +60,8 @@ function SubmitForm({ user, onSubmit }) {
         'This was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.',
     },
   });
+
+  const { currentUser: user } = useCurrentUser();
 
   const { title, preview, repoLink, siteLink, description } = watch();
 
