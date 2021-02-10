@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { loader } from 'graphql.macro';
-import { useQuery, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import { PopupModal } from '../../components/PopupModal/PopupModal';
@@ -16,7 +16,6 @@ import { CustomYesButton } from '../../components/PopupModal/style';
 
 const userToken = localStorage.getItem('userToken');
 
-const GET_USER_QUERY = loader('./queryGetUser.graphql');
 const CREATE_PROJECT_MUTATION = loader('./mutationCreateProject.graphql');
 
 let img = IMG_Social;
@@ -26,29 +25,17 @@ function Submit(props) {
   const openAfterSubmitModelIsOpen = () => setAfterSubmitModelIsOpen(true);
   const closeAfterSubmitModelIsOpen = () => setAfterSubmitModelIsOpen(false);
 
-  const { loading, data } = useQuery(GET_USER_QUERY, {
-    variables: {
-      id: userToken,
-    },
-  });
-
   const history = useHistory();
 
   const [sendInputs, { error }] = useMutation(CREATE_PROJECT_MUTATION);
 
-  if (loading) {
+  if (error) {
     return <Loader />;
   }
-
-  if (error || !data) {
-    return <Loader />;
-  }
-
-  const { user } = data;
 
   async function onSubmit(data) {
     try {
-      await sendInputs({
+      const res = await sendInputs({
         variables: {
           input: {
             authorId: userToken,
@@ -60,6 +47,7 @@ function Submit(props) {
           },
         },
       });
+      console.log(res);
       img = data.preview;
       openAfterSubmitModelIsOpen();
     } catch (error) {
@@ -78,7 +66,7 @@ function Submit(props) {
             <span>so that people can learn from each other.</span>
           </p>
 
-          <SubmitForm user={user} onSubmit={onSubmit} />
+          <SubmitForm onSubmit={onSubmit} />
         </Container>
       </Overlay>
 
