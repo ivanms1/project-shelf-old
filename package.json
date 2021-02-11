@@ -14,7 +14,7 @@
   },
   "scripts": {
     "dev:backend": "nexus dev",
-    "dev:client": "cd client && npm start ",
+    "dev:client": "cd client && yarn start ",
     "dev": "concurrently --names 'SERVER,FRONTEND' \"npm run dev:backend\" \"npm run dev:client\"",
     "build": "nexus build",
     "start": "node .nexus/build/api",
