@@ -12,7 +12,7 @@ import {
 
 Modal.setAppElement('#root');
 
-export const PopupModal = ({
+const PopupModal = ({
   children,
   isOpen,
   onRequestClose,
@@ -48,3 +48,5 @@ export const PopupModal = ({
     </StyledModal>
   );
 };
+
+export default PopupModal;

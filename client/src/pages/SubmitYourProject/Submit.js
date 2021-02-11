@@ -3,7 +3,7 @@ import { loader } from 'graphql.macro';
 import { useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
-import { PopupModal } from '../../components/PopupModal/PopupModal';
+import PopupModal from '../../components/PopupModal/PopupModal';
 import Header from '../../components/Header/Header';
 import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';

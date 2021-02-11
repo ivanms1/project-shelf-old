@@ -13,7 +13,7 @@ import { Container, Nav, StyledLink } from './style';
 import DropDownApp from '../DropDown/DropDownApp';
 import MobileMenu from '../MobileMenu/Mobilemenu';
 import BurgerIcon from '../BurgerIcon/BurgerIcon';
-import { PopupModal } from '../PopupModal/PopupModal';
+import PopupModal from '../PopupModal/PopupModal';
 
 import { Context } from '../../Context/AppContext';
 

@@ -31,7 +31,7 @@ const getActionFavorite = (project, currentUser) => {
     : 'FAVORITE';
 };
 
-export const Cardtwo = ({ user, project, children }) => {
+const Cardtwo = ({ user, project, children }) => {
   const [imgLoaded, setImgLoaded] = useState(false);
 
   const history = useHistory();
@@ -76,9 +76,7 @@ export const Cardtwo = ({ user, project, children }) => {
     try {
       const action = getActionFavorite(project, currentUser);
       const msg =
-        action === 'FAVORITE'
-          ? `Added ${project.title} to favorites`
-          : `Removed ${project.title} from favorites`;
+        action === 'FAVORITE' ? `Added to favorites` : `Removed from favorites`;
       await favoriteProject();
       toast.success(msg);
     } catch (error) {
@@ -137,3 +135,5 @@ export const Cardtwo = ({ user, project, children }) => {
     </Main>
   );
 };
+
+export default Cardtwo;

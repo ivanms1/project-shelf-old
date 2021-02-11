@@ -9,7 +9,7 @@ import 'react-medium-image-zoom/dist/styles.css';
 import Button from '../../Button/Button';
 import Header from '../../Header/Header';
 import Loader from '../../Loader/Loader';
-import { PopupModal } from '../../PopupModal/PopupModal';
+import PopupModal from '../../PopupModal/PopupModal';
 
 import { getCurrentDate } from '../../..//helpers/dateConverter';
 
@@ -36,7 +36,7 @@ const DELETE_USER_PROJECT = loader('./mutationDeleteProject.graphql');
 
 const userToken = localStorage.getItem('userToken');
 
-export const CardDetails = ({}) => {
+const CardDetails = () => {
   const [editModelIsOpen, setEditModelIsOpen] = useState(false);
   const openEditModal = () => setEditModelIsOpen(true);
   const closeEditModal = () => setEditModelIsOpen(false);
@@ -238,3 +238,5 @@ export const CardDetails = ({}) => {
     </Main>
   );
 };
+
+export default CardDetails;

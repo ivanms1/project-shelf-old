@@ -6,7 +6,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Loader from '../../components/Loader/Loader';
 import EditForm from './EditForm';
-import { PopupModal } from '../../components/PopupModal/PopupModal';
+import PopupModal from '../../components/PopupModal/PopupModal';
 
 import { Main, Container } from './style';
 
