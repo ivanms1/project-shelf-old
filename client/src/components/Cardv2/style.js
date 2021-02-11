@@ -15,7 +15,6 @@ export const Main = styled.div`
   & .starContainer {
     border: none;
     outline: none;
-    z-index: 99;
     background-color: transparent;
     position: absolute;
     right: -17px;

@@ -29,13 +29,6 @@ export const SearchContainer = styled.div`
     font-size: 25px;
   }
 
-  select {
-    padding: 7px 20px 7px 10px;
-    border-radius: 5px;
-    color: #212529;
-    font-weight: 600;
-  }
-
   @media screen and (max-width: 820px) {
     display: flex;
     flex-direction: column;

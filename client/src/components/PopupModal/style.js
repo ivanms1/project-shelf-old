@@ -15,6 +15,7 @@ export const StyledModal = styled(Modal)`
   max-width: 730px;
   max-height: 80%;
   flex-direction: column;
+  z-index: 999 !important;
   align-items: center;
 
   & .header {

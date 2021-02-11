@@ -8,6 +8,9 @@ query GetAllProjects {
       lastName
       email
     }
+    likes {
+      id
+    }
     preview
     repoLink
     siteLink
