@@ -51,7 +51,6 @@ function getCurrentDate() {
 }
 
 function SubmitForm({ user, onSubmit }) {
-  const [tags, setTags] = useState([]);
   const { register, handleSubmit, control, errors, watch } = useForm({
     defaultValues: {
       title: 'Recipe App',
@@ -214,7 +213,6 @@ function SubmitForm({ user, onSubmit }) {
 
         <InputContainer>
           <label>Tags</label>
-
           <Controller
             name='tags'
             control={control}

@@ -48,7 +48,6 @@ function Submit(props) {
 
   async function onSubmit(data) {
     try {
-      console.log(data.tags.map((e) => e.value));
       await sendInputs({
         variables: {
           input: {
