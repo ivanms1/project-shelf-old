@@ -249,6 +249,9 @@ schema.mutationType({
         return ctx.db.project.create({
           data: {
             ...rest,
+            tags: {
+              set: rest.tags,
+            },
             author: {
               connect: {
                 id: authorId,
