@@ -48,6 +48,7 @@ function Submit(props) {
 
   async function onSubmit(data) {
     try {
+      console.log(data.tags.map((e) => e.value));
       await sendInputs({
         variables: {
           input: {
@@ -57,6 +58,7 @@ function Submit(props) {
             siteLink: data.siteLink,
             repoLink: data.repoLink,
             description: data.description,
+            tags: data.tags.map((e) => e.value),
           },
         },
       });

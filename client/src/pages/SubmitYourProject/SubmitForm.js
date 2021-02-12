@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactToolTip from 'react-tooltip';
 import Zoom from 'react-medium-image-zoom';
 import { useMutation } from '@apollo/client';
 import { loader } from 'graphql.macro';
 import { useForm, Controller } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+import Select from 'react-select';
 
 import IMG_Social from '../../assets/social.png';
 import Rick from '../../assets/rick.png';
@@ -33,6 +34,7 @@ import Button from '../../components/Button/Button';
 import Active from '../../components/Active/Active';
 
 import { Dropzone } from '../../components/DropZone/Dropzone';
+import { options } from './options';
 
 const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
 
@@ -49,12 +51,11 @@ function getCurrentDate() {
 }
 
 function SubmitForm({ user, onSubmit }) {
+  const [tags, setTags] = useState([]);
   const { register, handleSubmit, control, errors, watch } = useForm({
     defaultValues: {
       title: 'Recipe App',
       preview: IMG_Social,
-      repoLink: 'repo link',
-      siteLink: 'Live Link here',
       description:
         'This was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.',
     },
@@ -63,7 +64,6 @@ function SubmitForm({ user, onSubmit }) {
   const { title, preview, repoLink, siteLink, description } = watch();
 
   const [uploadImage, { loading }] = useMutation(MUTATION_UPLOAD_IMAGE);
-
   async function handleImage(event, onChange) {
     if (!event.length) {
       return null;
@@ -210,6 +210,24 @@ function SubmitForm({ user, onSubmit }) {
           <ErrorMessage errors={errors} name='siteLink' as={<ErrorText />}>
             {({ message }) => <small>{message}</small>}
           </ErrorMessage>
+        </InputContainer>
+
+        <InputContainer>
+          <label>Tags</label>
+
+          <Controller
+            name='tags'
+            control={control}
+            render={({ onChange }) => (
+              <Select
+                isMulti
+                name='tags'
+                onChange={onChange}
+                options={options}
+              />
+            )}
+            rules={{ required: true }}
+          />
         </InputContainer>
 
         <InputContainer>
