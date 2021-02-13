@@ -18,7 +18,7 @@ const MUTATION_REACT_TO_PROJECT = loader('./mutationReactToProject.graphql');
 const MUTATION_FAVORITE_PROJECT = loader('./mutationFavoriteProject.graphql');
 
 const getActionLikes = (project, currentUser) => {
-  return project.likes.some((user) => user.id === currentUser.id)
+  return project?.likes.some((user) => user?.id === currentUser?.id)
     ? 'DISLIKE'
     : 'LIKE';
 };
@@ -31,7 +31,7 @@ const getActionFavorite = (project, currentUser) => {
     : 'FAVORITE';
 };
 
-const Cardtwo = ({ user, project, children }) => {
+const Cardtwo = ({ project }) => {
   const [imgLoaded, setImgLoaded] = useState(false);
 
   const history = useHistory();
@@ -42,8 +42,8 @@ const Cardtwo = ({ user, project, children }) => {
     return {
       variables: {
         input: {
-          projectId: project.id,
-          userId: currentUser.id,
+          projectId: project?.id,
+          userId: currentUser?.id,
           action: getActionLikes(project, currentUser),
         },
       },
@@ -54,8 +54,8 @@ const Cardtwo = ({ user, project, children }) => {
     return {
       variables: {
         input: {
-          projectId: project.id,
-          userId: currentUser.id,
+          projectId: project?.id,
+          userId: currentUser?.id,
           action: getActionFavorite(project, currentUser),
         },
       },
