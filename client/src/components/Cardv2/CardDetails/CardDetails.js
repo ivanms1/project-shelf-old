@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
 import Zoom from 'react-medium-image-zoom';
-import 'react-medium-image-zoom/dist/styles.css';
 
 import Button from '../../Button/Button';
 import Header from '../../Header/Header';
 import Loader from '../../Loader/Loader';
 import PopupModal from '../../PopupModal/PopupModal';
+
+import useCurrentUser from '../../useCurrentUser/useCurrentUser';
 
 import { getCurrentDate } from '../../..//helpers/dateConverter';
 
@@ -30,11 +30,10 @@ import {
   CustomDeleteButtonCSS,
 } from './style';
 
-const GET_PROJECT_QUERY = loader('./queryGetProject.graphql');
-const GET_USER_QUERY = loader('./queryUser.graphql');
-const DELETE_USER_PROJECT = loader('./mutationDeleteProject.graphql');
+import 'react-medium-image-zoom/dist/styles.css';
 
-const userToken = localStorage.getItem('userToken');
+const GET_PROJECT_QUERY = loader('./queryGetProject.graphql');
+const DELETE_USER_PROJECT = loader('./mutationDeleteProject.graphql');
 
 const CardDetails = () => {
   const [editModelIsOpen, setEditModelIsOpen] = useState(false);
@@ -46,6 +45,7 @@ const CardDetails = () => {
   const closeDeleteModal = () => setDeleteModelIsOpen(false);
 
   const { projectId } = useParams();
+
   const history = useHistory();
 
   const { data, loading, error } = useQuery(GET_PROJECT_QUERY, {
@@ -54,40 +54,17 @@ const CardDetails = () => {
     },
   });
 
-  const { data: data1, loading: loading1 } = useQuery(GET_USER_QUERY, {
-    variables: {
-      id: userToken,
-      skip: !userToken,
-    },
-  });
+  const { currentUser } = useCurrentUser();
 
-  const [
-    deleteProject,
-    //eslint-disable-next-line
-    { data: dataR, error: errorR, loading: loadingR },
-  ] = useMutation(DELETE_USER_PROJECT, {
+  const [deleteProject] = useMutation(DELETE_USER_PROJECT, {
     update(cache, { data: { deleteProject } }) {
-      const cachedata = cache.read({
-        query: GET_USER_QUERY,
-        variables: {
-          id: userToken,
-          skip: !userToken,
-        },
-      });
-
-      cache.writeQuery({
-        query: GET_USER_QUERY,
-        variables: {
-          id: userToken,
-          skip: !userToken,
-        },
-        data: {
-          ...cachedata,
-          user: {
-            ...cachedata.user,
-            projects: cachedata.user.projects.filter(
-              (project) => project.id !== deleteProject
-            ),
+      cache.modify({
+        id: cache.identify(currentUser),
+        fields: {
+          projects(existingProjects, { readField }) {
+            return existingProjects.filter(
+              (p) => readField('id', p) !== deleteProject
+            );
           },
         },
       });
@@ -114,7 +91,7 @@ const CardDetails = () => {
   }
 
   if (error) {
-    return console.log(error);
+    return <p>Sorry, an error happened</p>;
   }
 
   const { project } = data ?? {};

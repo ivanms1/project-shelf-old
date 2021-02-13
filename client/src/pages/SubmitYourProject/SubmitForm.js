@@ -37,6 +37,8 @@ import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
 
 const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
 
+const CREATE_PROJECT_MUTATION = loader('./mutationCreateProject.graphql');
+
 const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
 
 function getCurrentDate() {
@@ -49,7 +51,7 @@ function getCurrentDate() {
   return newDate.toLocaleDateString('en-us', dateOptions);
 }
 
-function SubmitForm({ onSubmit }) {
+function SubmitForm({ onSuccess }) {
   const { register, handleSubmit, control, errors, watch } = useForm({
     defaultValues: {
       title: 'Recipe App',
@@ -66,6 +68,40 @@ function SubmitForm({ onSubmit }) {
   const { title, preview, repoLink, siteLink, description } = watch();
 
   const [uploadImage, { loading }] = useMutation(MUTATION_UPLOAD_IMAGE);
+
+  const [createProject] = useMutation(CREATE_PROJECT_MUTATION, {
+    update(cache, { data: { createProject } }) {
+      cache.modify({
+        id: cache.identify(user),
+        fields: {
+          projects(existingProjects = []) {
+            return [...existingProjects, createProject];
+          },
+        },
+      });
+    },
+  });
+
+  async function onSubmit(data) {
+    try {
+      const res = await createProject({
+        variables: {
+          input: {
+            authorId: user.id,
+            preview: data.preview,
+            title: data.title,
+            siteLink: data.siteLink,
+            repoLink: data.repoLink,
+            description: data.description,
+          },
+        },
+      });
+
+      onSuccess();
+    } catch (error) {
+      console.log(JSON.stringify(error, null, 2));
+    }
+  }
 
   async function handleImage(event, onChange) {
     if (!event.length) {
