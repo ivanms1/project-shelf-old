@@ -123,6 +123,29 @@ export const AllDetails = styled.div`
     font-size: 20px;
   }
 
+  & .tagsContainer {
+    display: flex;
+    margin-top: 7px;
+    flex-direction: row;
+
+    .tagsList {
+      display: inline-block;
+      width: 100%;
+    }
+
+    & .tag {
+      display: inline-block;
+      margin: 5px 5px;
+      padding: 5px 15px;
+      border-radius: 5px;
+      font-size: 14px;
+      letter-spacing: 1.1px;
+      background-color: #5b7793;
+      color: white;
+      font-weight: 500;
+    }
+  }
+
   & .linksContainer {
     display: flex;
     flex-direction: row;

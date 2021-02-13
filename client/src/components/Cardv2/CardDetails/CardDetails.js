@@ -118,6 +118,11 @@ export const CardDetails = ({}) => {
   }
 
   const { project } = data ?? {};
+  console.log(project);
+
+  const generateTags = (tags) => {
+    return tags.map((tag) => <span className='tag'>{tag}</span>);
+  };
 
   return (
     <Main>
@@ -160,6 +165,12 @@ export const CardDetails = ({}) => {
                 <span className='date'>
                   {getCurrentDate(project.createdAt)}
                 </span>
+
+                <div className='tagsContainer'>
+                  <span className='tagsList'>
+                    Tags : {generateTags(project.tags)}
+                  </span>
+                </div>
 
                 <div className='linksContainer'>
                   <span>
