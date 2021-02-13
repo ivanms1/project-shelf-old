@@ -36,9 +36,15 @@ function Weekly(props) {
         </SearchContainer>
 
         <CardContainer>
-          {projects.length &&
-            projects.map((project) => <Cardtwo project={project} />)}
-          {!projects.length && <p>no projects</p>}
+          {!projects.length ? (
+            <p className='noproject'>You dont have any projects to ShowCase.</p>
+          ) : (
+            <>
+              {projects.map((project) => (
+                <Cardtwo key={project.id} project={project} />
+              ))}
+            </>
+          )}
         </CardContainer>
       </Container>
     </Main>

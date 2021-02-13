@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Main = styled.div`
-  min-height: 100vh;
   display: flex;
+  min-height: 100vh;
   flex-direction: column;
 `;
 
@@ -47,12 +47,11 @@ export const SearchContainer = styled.div`
 
 export const CardContainer = styled.div`
   width: 100%;
-  max-width: 1400px;
+  max-width: 1350px;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items: flex-start;
   flex-wrap: wrap;
   padding: 15px;
 
