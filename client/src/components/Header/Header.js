@@ -7,6 +7,7 @@ import { ReactComponent as Bell } from '../../assets/bell.svg';
 import { ReactComponent as Home } from '../../assets/home.svg';
 
 import useCurrentUser from '../useCurrentUser/useCurrentUser';
+import { useApolloClient } from '@apollo/client';
 
 import { Container, Nav, StyledLink } from './style';
 
@@ -17,9 +18,15 @@ import PopupModal from '../PopupModal/PopupModal';
 
 import { Context } from '../../Context/AppContext';
 
-function Header(props) {
+function Header() {
   const history = useHistory();
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const client = useApolloClient();
+
+  const { isAuthenticated, setIsAuthenticated } = useContext(Context);
+
+  const { currentUser, loading, error } = useCurrentUser();
 
   const tabs = {
     auth: [
@@ -69,10 +76,6 @@ function Header(props) {
       },
     ],
   };
-  const hooks = useContext(Context);
-  const { isAuthenticated } = hooks;
-
-  const { currentUser, loading, error } = useCurrentUser();
 
   if (!isAuthenticated) {
     return null;
@@ -169,15 +172,14 @@ function Header(props) {
         onRequestClose={() => setModalIsOpen(false)}
         shouldCloseOnOverlayClick={false}
         onClick={() => {
+          client.cache.reset();
           localStorage.setItem('userToken', '');
-          setModalIsOpen(false);
+          setIsAuthenticated(false);
           history.push('/signin');
         }}
       />
 
-      {isAuthenticated && (
-        <DropDownApp list={tabs.authandDropdown}></DropDownApp>
-      )}
+      {isAuthenticated && <DropDownApp list={tabs.authandDropdown} />}
     </Container>
   );
 }

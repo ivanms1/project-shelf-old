@@ -8,20 +8,18 @@ import useCurrentUser from '../components/useCurrentUser/useCurrentUser';
 function PrivateRoutes({ path, isForAdmin, children, ...props }) {
   const { isAuthenticated } = useContext(Context);
 
-  const { currentUser } = useCurrentUser();
+  const { currentUser, loading } = useCurrentUser();
+
+  if ((!isAuthenticated || !currentUser) && !loading) {
+    return <Redirect to='/signin' />;
+  }
 
   if (isForAdmin && currentUser.role === 'USER') {
     return <Redirect to='/' />;
   }
 
-  if (isAuthenticated || !currentUser) {
-    if (path === '/register' || path === '/signin') {
-      return <Redirect to='/' />;
-    }
-  }
-
-  if (!isAuthenticated) {
-    return <Redirect to='/signin' />;
+  if (path === '/register' || path === '/signin') {
+    return <Redirect to='/' />;
   }
 
   return (

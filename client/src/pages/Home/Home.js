@@ -16,18 +16,10 @@ import {
 } from './style';
 
 function Home() {
-  const { currentUser: user, loading, error } = useCurrentUser();
-
-  if (!user) {
-    return <Redirect to='register' />;
-  }
+  const { currentUser: user, loading } = useCurrentUser();
 
   if (loading) {
     return <Loader />;
-  }
-
-  if (error) {
-    return <p>Please try again later</p>;
   }
 
   return (

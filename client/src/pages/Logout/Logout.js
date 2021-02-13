@@ -8,7 +8,7 @@ function Logout({ modalStatus = true }) {
   const history = useHistory();
   history.push('/signin');
 
-  return <Container></Container>;
+  return <Container />;
 }
 
 export default Logout;
