@@ -118,10 +118,13 @@ export const CardDetails = ({}) => {
   }
 
   const { project } = data ?? {};
-  console.log(project);
 
-  const generateTags = (tags) => {
-    return tags.map((tag) => <span className='tag'>{tag}</span>);
+  const generateTags = (tags, id) => {
+    return tags.map((tag) => (
+      <span key={id} className='tag'>
+        {tag}
+      </span>
+    ));
   };
 
   return (
