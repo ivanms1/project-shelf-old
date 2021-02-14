@@ -37,6 +37,7 @@ import {
   Links,
   Profile,
 } from '../../components/Card/style';
+import Loader from '../../components/Loader/Loader';
 
 const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
 
@@ -67,11 +68,11 @@ function SubmitForm() {
     },
   });
 
-  const { currentUser: user } = useCurrentUser();
+  const { currentUser: user, loading } = useCurrentUser();
 
   const { title, preview, repoLink, siteLink, description } = watch();
 
-  const [uploadImage, { loading }] = useMutation(MUTATION_UPLOAD_IMAGE);
+  const [uploadImage, { loadingImg }] = useMutation(MUTATION_UPLOAD_IMAGE);
 
   const [createProject, { data }] = useMutation(CREATE_PROJECT_MUTATION, {
     update(cache, { data: { createProject } }) {
@@ -127,6 +128,10 @@ function SubmitForm() {
     };
   }
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <FormContainer>
       <CardOuter>
@@ -148,12 +153,12 @@ function SubmitForm() {
           <Links>
             <a href={siteLink}>Live Link</a>
             <a href={repoLink}>Repo Link</a>
-            <a href={EMAIL_STRING + user?.email}>Contact</a>
+            <a href={EMAIL_STRING + user.email}>Contact</a>
           </Links>
 
           <div className='imgContainer'>
             <Zoom wrapStyle={{ display: 'block' }}>
-              {(loading && (
+              {(loadingImg && (
                 <p className='loading'>
                   <Spinner />
                 </p>
@@ -168,7 +173,7 @@ function SubmitForm() {
             </div>
             <div className='profileDetails'>
               <p>
-                {user?.name} {user?.lastName}
+                {user.name} {user.lastName}
               </p>
               <p>4th weekly project</p>
             </div>
