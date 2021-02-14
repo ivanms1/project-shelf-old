@@ -172,8 +172,12 @@ function SubmitForm({ user, onSubmit }) {
             render={({ onChange }) => (
               <SelectTags name='tags' onChange={onChange} options={options} />
             )}
-            rules={{ required: true }}
+            rules={{ required: 'Tags cannot be Empty' }}
+            defaultValue=''
           />
+          <ErrorMessage errors={errors} name='tags' as={<ErrorText />}>
+            {(errors) => <small>{console.log(errors)}</small>}
+          </ErrorMessage>
         </InputContainer>
 
         <InputContainer>
