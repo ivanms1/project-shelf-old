@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { loader } from 'graphql.macro';
 import { useMutation } from '@apollo/client';
 import toast from 'react-hot-toast';
@@ -32,9 +31,7 @@ const getActionFavorite = (project, currentUser) => {
 };
 
 const Cardtwo = ({ project }) => {
-  const [imgLoaded, setImgLoaded] = useState(false);
-
-  const history = useHistory();
+  const [imgLoaded, setImgLoaded] = useState(true);
 
   const { currentUser } = useCurrentUser();
 
@@ -96,33 +93,30 @@ const Cardtwo = ({ project }) => {
 
       <CardContainerInner isApproved={project.isApproved}>
         <div className='imgContainer'>
-          {!imgLoaded ? <Spinner /> : null}
-          <div className='imgContainer'>
+          {!imgLoaded ? (
+            <Spinner />
+          ) : (
             <img
               src={project.preview}
               onLoad={() => setImgLoaded(true)}
+              onError={() => setImgLoaded(false)}
               alt={project.title}
             />
-            {imgLoaded && (
-              <div className='overlay'>
-                <div className='overlayContent'>
-                  <button disabled={loading} onClick={favoriteClickHandler}>
-                    {getActionFavorite(project, currentUser) === 'FAVORITE' ? (
-                      <Star />
-                    ) : (
-                      <StarFill />
-                    )}
-                  </button>
-                  <ViewDetails
-                    onClick={() =>
-                      history.push(`/projectDetails/${project.id}`)
-                    }
-                  >
-                    View Details
-                  </ViewDetails>
-                </div>
-              </div>
-            )}
+          )}
+
+          <div className='overlay'>
+            <div className='overlayContent'>
+              <button disabled={loading} onClick={favoriteClickHandler}>
+                {getActionFavorite(project, currentUser) === 'FAVORITE' ? (
+                  <Star />
+                ) : (
+                  <StarFill />
+                )}
+              </button>
+              <ViewDetails to={`/projectDetails/${project.id}`}>
+                View Details
+              </ViewDetails>
+            </div>
           </div>
         </div>
       </CardContainerInner>
