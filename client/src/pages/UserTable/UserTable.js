@@ -41,7 +41,7 @@ function UserTable({
         accessor: (d) => (
           <div className='profile'>
             <div className='imgContainer'>
-              <img src={ProfilePic}></img>
+              <img src={ProfilePic} alt={ProfilePic} />
             </div>
             <div>
               <div className='name'>
@@ -55,7 +55,7 @@ function UserTable({
       {
         Header: 'Projects',
         accessor: (d) => {
-          if (d.projects.length == 0) {
+          if (d.projects.length === 0) {
             return <span>0</span>;
           } else {
             return <span>{d.projects.length}</span>;
@@ -91,11 +91,11 @@ function UserTable({
         Cell: ({ cell }) => (
           <div className='buttonHolder'>
             <button>
-              <img className='edit' src={EditPic}></img>
+              <img className='edit' src={EditPic} alt='edit-button' />
             </button>
 
             <button>
-              <img className='trash' src={TrashPic}></img>
+              <img className='trash' src={TrashPic} alt='delete-button' />
             </button>
           </div>
         ),

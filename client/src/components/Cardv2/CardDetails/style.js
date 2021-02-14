@@ -165,7 +165,7 @@ export const Status = styled.div`
   padding: 5px 0;
   font-size: 14px;
   background-color: ${({ status }) =>
-    status == 'ADMIN' ? '#D1383D' : '#00CB5B'};
+    status === 'ADMIN' ? '#D1383D' : '#00CB5B'};
   color: white;
   font-family: 'Poppins', sans-serif;
   letter-spacing: 1px;

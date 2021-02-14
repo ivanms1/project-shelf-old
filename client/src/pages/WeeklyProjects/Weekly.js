@@ -25,7 +25,6 @@ function Weekly(props) {
   }
 
   const { projects } = data;
-  console.log(projects.map((a) => a.isApproved));
 
   return (
     <Main>

@@ -1,15 +1,5 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import Modal from 'react-modal';
-
-const grow = keyframes`
-0%{
-    opacity:0;
-}
-100%{
-    opacity:1;
-}
-`;
 
 export const Container = styled.div`
   display: flex;

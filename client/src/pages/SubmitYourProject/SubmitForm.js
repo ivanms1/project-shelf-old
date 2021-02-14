@@ -296,10 +296,7 @@ function SubmitForm() {
         title='Project Submitted'
       >
         <div className='imgContainer'>
-          <img
-            src={data?.createProject?.preview}
-            alt={data?.createProject?.title}
-          ></img>
+          <img src={data?.createProject?.preview} alt='project'></img>
         </div>
         <Link to='/'>
           <Button addCSS={CustomYesButton}>Ok</Button>

@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 
 import { Menu, NavLinks } from './style';
 
@@ -7,8 +6,6 @@ import useCurrentUser from '../useCurrentUser/useCurrentUser';
 import { Context } from '../../Context/AppContext';
 
 export default function Mobilemenu({ close }) {
-  const history = useHistory();
-
   const tabs = {
     auth: [
       {

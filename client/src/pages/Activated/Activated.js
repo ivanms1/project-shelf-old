@@ -20,15 +20,12 @@ const MUTATION_UPDATE_PROJECT_STATUS = loader(
   './mutationUpdateProjectStatus.graphql'
 );
 
-const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
-
 function Activated(props) {
   const { data, loading, error } = useQuery(QUERY_GET_ALL_PROJECTS);
 
-  const [
-    updateStatus,
-    { data: dataR, error: errorR, loading: loadingR },
-  ] = useMutation(MUTATION_UPDATE_PROJECT_STATUS);
+  const [updateStatus, { error: errorR }] = useMutation(
+    MUTATION_UPDATE_PROJECT_STATUS
+  );
 
   if (loading) {
     return <Loader />;
@@ -38,9 +35,13 @@ function Activated(props) {
     return JSON.stringify(error, null, 2);
   }
 
+  if (errorR) {
+    return console.log(errorR);
+  }
+
   async function updateProjectStatus(projectId) {
     try {
-      const response = await updateStatus({
+      await updateStatus({
         variables: {
           projectId: projectId,
           isApproved: false,
@@ -51,7 +52,6 @@ function Activated(props) {
     }
   }
 
-  //data takes time to load so destruct might give error when its not loaded
   const { projects } = data;
 
   return (
@@ -62,7 +62,7 @@ function Activated(props) {
 
           <ProjectCollection>
             <ProjectCollection>
-              {projects.length > 0 ? (
+              {projects &&
                 projects.map(
                   (project) =>
                     project.isApproved === true && (
@@ -83,10 +83,7 @@ function Activated(props) {
                         </Button>
                       </CardComponent>
                     )
-                )
-              ) : (
-                <p>No projects</p>
-              )}
+                )}
             </ProjectCollection>
           </ProjectCollection>
         </main>

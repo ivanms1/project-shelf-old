@@ -18,15 +18,12 @@ const MUTATION_UPDATE_PROJECT_STATUS = loader(
   './mutationUpdateProjectStatus.graphql'
 );
 
-const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
-
 function Notactivated(props) {
   const { data, loading, error } = useQuery(QUERY_GET_ALL_PROJECTS);
 
-  const [
-    updateStatus,
-    { data: dataR, error: errorR, loading: loadingR },
-  ] = useMutation(MUTATION_UPDATE_PROJECT_STATUS);
+  const [updateStatus, { error: errorR }] = useMutation(
+    MUTATION_UPDATE_PROJECT_STATUS
+  );
 
   if (data) {
   }
@@ -38,10 +35,13 @@ function Notactivated(props) {
   if (error) {
     return JSON.stringify(error, null, 2);
   }
+  if (errorR) {
+    console.log(errorR);
+  }
 
   async function updateProjectStatus(projectId) {
     try {
-      const response = await updateStatus({
+      await updateStatus({
         variables: {
           projectId: projectId,
           isApproved: true,

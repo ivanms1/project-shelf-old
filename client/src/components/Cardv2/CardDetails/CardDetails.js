@@ -95,7 +95,6 @@ const CardDetails = () => {
     return <Loader />;
   }
 
-  console.log(data);
   const { project } = data;
 
   return (
@@ -122,7 +121,7 @@ const CardDetails = () => {
                       >
                         <img
                           src={project?.preview}
-                          alt={project?.preview}
+                          alt={project.preview}
                           onLoad={() => setImgLoaded(true)}
                           onError={() => setImgLoaded(false)}
                           width='100%'
@@ -155,7 +154,7 @@ const CardDetails = () => {
                       <span>
                         <Github />{' '}
                         <a
-                          href={project?.repoLink}
+                          href={project.repoLink}
                           target='_blank'
                           rel='noopener noreferrer'
                         >
@@ -169,7 +168,7 @@ const CardDetails = () => {
                       <span>
                         <Web />
                         <a
-                          href={project?.siteLink}
+                          href={project.siteLink}
                           target='_blank'
                           rel='noopener noreferrer'
                         >

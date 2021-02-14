@@ -37,7 +37,9 @@ function Admin(props) {
     return <Loader />;
   }
 
-  const { user } = data;
+  if (error) {
+    return console.log(error);
+  }
 
   return (
     <Main>
@@ -49,10 +51,10 @@ function Admin(props) {
               <li key={index}>
                 <button
                   style={{
-                    backgroundColor: page == tab.path ? '#20c997' : 'white',
-                    color: page == tab.path ? 'white' : '#152c5b',
-                    border: page == tab.path ? '1px solid #20c997' : '',
-                    fontWeight: page == tab.path ? '600' : '',
+                    backgroundColor: page === tab.path ? '#20c997' : 'white',
+                    color: page === tab.path ? 'white' : '#152c5b',
+                    border: page === tab.path ? '1px solid #20c997' : '',
+                    fontWeight: page === tab.path ? '600' : '',
                   }}
                   onClick={() => {
                     setPage(tab.path);
@@ -65,9 +67,9 @@ function Admin(props) {
           </ul>
         </TabContainer>
 
-        {page == 'approved' && <NotActivated />}
-        {page == 'notapproved' && <Activated />}
-        {page == 'allusers' && <JsonData />}
+        {page === 'approved' && <NotActivated />}
+        {page === 'notapproved' && <Activated />}
+        {page === 'allusers' && <JsonData />}
       </Container>
     </Main>
   );
