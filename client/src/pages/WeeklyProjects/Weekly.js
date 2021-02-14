@@ -25,6 +25,7 @@ function Weekly(props) {
   }
 
   const { projects } = data;
+  console.log(projects.map((a) => a.isApproved));
 
   return (
     <Main>
@@ -40,9 +41,12 @@ function Weekly(props) {
             <p className='noproject'>You dont have any projects to ShowCase.</p>
           ) : (
             <>
-              {projects.map((project) => (
-                <Cardtwo key={project.id} project={project} />
-              ))}
+              {projects.map(
+                (project) =>
+                  project?.isApproved && (
+                    <Cardtwo key={project.id} project={project} />
+                  )
+              )}
             </>
           )}
         </CardContainer>
