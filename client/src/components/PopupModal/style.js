@@ -81,5 +81,6 @@ export const CustomYesButton = css`
   letter-spacing: 1px;
   font-weight: 500;
   max-width: 120px;
+  min-width: 60px;
   background-color: #1b74e4;
 `;
