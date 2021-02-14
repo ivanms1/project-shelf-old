@@ -213,7 +213,7 @@ const CardDetails = () => {
           </>
         )}
 
-        {!project && <p>Project doesn't exist.</p>}
+        {!project && <p>Project does not exist.</p>}
       </Container>
 
       <PopupModal
