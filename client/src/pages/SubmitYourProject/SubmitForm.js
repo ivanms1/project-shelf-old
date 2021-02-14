@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReactToolTip from 'react-tooltip';
+import toast from 'react-hot-toast';
 import Zoom from 'react-medium-image-zoom';
 import { useMutation } from '@apollo/client';
 import { loader } from 'graphql.macro';
@@ -7,6 +8,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { Link } from 'react-router-dom';
 
+import Loader from '../../components/Loader/Loader';
 import PopupModal from '../../components/PopupModal/PopupModal';
 import Button from '../../components/Button/Button';
 import Active from '../../components/Active/Active';
@@ -37,7 +39,6 @@ import {
   Links,
   Profile,
 } from '../../components/Card/style';
-import Loader from '../../components/Loader/Loader';
 
 const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
 
@@ -68,7 +69,7 @@ function SubmitForm() {
     },
   });
 
-  const { currentUser: user, loading } = useCurrentUser();
+  const { currentUser: user, loading: currentUserLoading } = useCurrentUser();
 
   const { title, preview, repoLink, siteLink, description } = watch();
 
@@ -89,7 +90,7 @@ function SubmitForm() {
 
   async function onSubmit(data) {
     try {
-      const res = await createProject({
+      await createProject({
         variables: {
           input: {
             authorId: user.id,
@@ -104,7 +105,7 @@ function SubmitForm() {
 
       setSuccessModal(true);
     } catch (error) {
-      console.log(JSON.stringify(error, null, 2));
+      toast.error("Couldn't create project");
     }
   }
 
@@ -128,7 +129,7 @@ function SubmitForm() {
     };
   }
 
-  if (loading) {
+  if (currentUserLoading) {
     return <Loader />;
   }
 
