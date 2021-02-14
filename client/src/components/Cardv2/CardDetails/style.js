@@ -77,6 +77,7 @@ export const ImgContainerOuter = styled.figure`
   min-width: 350px;
   min-height: 250px;
   justify-content: center;
+  align-items: center;
   overflow: hidden;
   border: 7px solid ${({ status }) => (status ? colors.green : colors.red)};
 
