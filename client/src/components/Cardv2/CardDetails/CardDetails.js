@@ -95,7 +95,7 @@ const CardDetails = () => {
   }
 
   const { project } = data ?? {};
-
+  console.log(currentUser, project);
   return (
     <Main>
       <Header />
@@ -170,16 +170,19 @@ const CardDetails = () => {
               </div>
 
               <ButtonContainer>
-                <Button
-                  maxWidth='big'
-                  fontSize='medium'
-                  kind='delete'
-                  size='medium'
-                  onClick={openDeleteModal}
-                  addCSS={CustomDeleteButtonCSS}
-                >
-                  Delete
-                </Button>
+                {(currentUser?.email === project.author.email ||
+                  currentUser?.role === 'ADMIN') && (
+                  <Button
+                    maxWidth='big'
+                    fontSize='medium'
+                    kind='delete'
+                    size='medium'
+                    onClick={openDeleteModal}
+                    addCSS={CustomDeleteButtonCSS}
+                  >
+                    Delete
+                  </Button>
+                )}
 
                 <Button
                   maxWidth='small'
