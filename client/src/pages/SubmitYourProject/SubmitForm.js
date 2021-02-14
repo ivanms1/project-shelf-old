@@ -1,23 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactToolTip from 'react-tooltip';
 import Zoom from 'react-medium-image-zoom';
 import { useMutation } from '@apollo/client';
 import { loader } from 'graphql.macro';
 import { useForm, Controller } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+import { Link } from 'react-router-dom';
 
-import IMG_Social from '../../assets/social.png';
+import PopupModal from '../../components/PopupModal/PopupModal';
+import Button from '../../components/Button/Button';
+import Active from '../../components/Active/Active';
+import { Dropzone } from '../../components/DropZone/Dropzone';
+
+import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
+
 import Rick from '../../assets/rick.png';
-
+import IMG_Social from '../../assets/social.png';
 import { ReactComponent as Spinner } from '../../assets/spinner.svg';
-
-import {
-  CardOuter,
-  CardInner,
-  HeaderCollection,
-  Links,
-  Profile,
-} from '../../components/Card/style';
 
 import {
   FormContainer,
@@ -29,11 +28,15 @@ import {
   CustomSubmitCss,
 } from './style';
 
-import Button from '../../components/Button/Button';
-import Active from '../../components/Active/Active';
+import { CustomYesButton } from '../../components/PopupModal/style';
 
-import { Dropzone } from '../../components/DropZone/Dropzone';
-import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
+import {
+  CardOuter,
+  CardInner,
+  HeaderCollection,
+  Links,
+  Profile,
+} from '../../components/Card/style';
 
 const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
 
@@ -51,7 +54,8 @@ function getCurrentDate() {
   return newDate.toLocaleDateString('en-us', dateOptions);
 }
 
-function SubmitForm({ onSuccess }) {
+function SubmitForm() {
+  const [successModal, setSuccessModal] = useState(false);
   const { register, handleSubmit, control, errors, watch } = useForm({
     defaultValues: {
       title: 'Recipe App',
@@ -69,7 +73,7 @@ function SubmitForm({ onSuccess }) {
 
   const [uploadImage, { loading }] = useMutation(MUTATION_UPLOAD_IMAGE);
 
-  const [createProject] = useMutation(CREATE_PROJECT_MUTATION, {
+  const [createProject, { data }] = useMutation(CREATE_PROJECT_MUTATION, {
     update(cache, { data: { createProject } }) {
       cache.modify({
         id: cache.identify(user),
@@ -97,7 +101,7 @@ function SubmitForm({ onSuccess }) {
         },
       });
 
-      onSuccess();
+      setSuccessModal(true);
     } catch (error) {
       console.log(JSON.stringify(error, null, 2));
     }
@@ -144,7 +148,7 @@ function SubmitForm({ onSuccess }) {
           <Links>
             <a href={siteLink}>Live Link</a>
             <a href={repoLink}>Repo Link</a>
-            <a href={EMAIL_STRING + user.email}>Contact</a>
+            <a href={EMAIL_STRING + user?.email}>Contact</a>
           </Links>
 
           <div className='imgContainer'>
@@ -164,7 +168,7 @@ function SubmitForm({ onSuccess }) {
             </div>
             <div className='profileDetails'>
               <p>
-                {user.name} {user.lastName}
+                {user?.name} {user?.lastName}
               </p>
               <p>4th weekly project</p>
             </div>
@@ -234,7 +238,6 @@ function SubmitForm({ onSuccess }) {
 
         <InputContainer>
           <label>Link to the live site</label>
-
           <Input
             name='siteLink'
             placeholder='Link to the live site'
@@ -281,6 +284,21 @@ function SubmitForm({ onSuccess }) {
           Submit your Project
         </Button>
       </Submission>
+      <PopupModal
+        isOpen={successModal}
+        onRequestClose={() => setSuccessModal(false)}
+        title='Project Submitted'
+      >
+        <div className='imgContainer'>
+          <img
+            src={data?.createProject?.preview}
+            alt={data?.createProject?.title}
+          ></img>
+        </div>
+        <Link to='/'>
+          <Button addCSS={CustomYesButton}>Ok</Button>
+        </Link>
+      </PopupModal>
     </FormContainer>
   );
 }
