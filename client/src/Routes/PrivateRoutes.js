@@ -10,6 +10,10 @@ function PrivateRoutes({ path, isForAdmin, children, ...props }) {
 
   const { currentUser, loading } = useCurrentUser();
 
+  if (loading) {
+    return <p>loading...</p>;
+  }
+
   if ((!isAuthenticated || !currentUser) && !loading) {
     return <Redirect to='/signin' />;
   }
