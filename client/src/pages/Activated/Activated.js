@@ -1,10 +1,8 @@
 import React from 'react';
-
 import { useQuery, useMutation } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
 import CardComponent from '../../components/Card/Card';
-
 import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
 
@@ -20,7 +18,7 @@ const MUTATION_UPDATE_PROJECT_STATUS = loader(
   './mutationUpdateProjectStatus.graphql'
 );
 
-function Activated(props) {
+function Activated() {
   const { data, loading, error } = useQuery(QUERY_GET_ALL_PROJECTS);
 
   const [updateStatus, { error: errorR }] = useMutation(

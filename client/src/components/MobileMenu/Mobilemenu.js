@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 
-import { Menu, NavLinks } from './style';
-
-import useCurrentUser from '../useCurrentUser/useCurrentUser';
 import { Context } from '../../Context/AppContext';
 
-export default function Mobilemenu({ close }) {
+import useCurrentUser from '../useCurrentUser/useCurrentUser';
+
+import { Menu, NavLinks } from './style';
+
+function Mobilemenu({ close }) {
   const tabs = {
     auth: [
       {
@@ -100,3 +101,5 @@ export default function Mobilemenu({ close }) {
     </Menu>
   );
 }
+
+export default Mobilemenu;

@@ -28,10 +28,10 @@ const tabs = [
 
 const GET_ALL_USER_QUERY = loader('../UserTable/queryGetAllUsers.graphql');
 
-function Admin(props) {
+function Admin() {
   const [page, setPage] = useState('approved');
 
-  const { data = {}, loading, error } = useQuery(GET_ALL_USER_QUERY);
+  const { loading, error } = useQuery(GET_ALL_USER_QUERY);
 
   if (loading) {
     return <Loader />;

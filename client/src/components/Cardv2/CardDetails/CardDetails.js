@@ -30,13 +30,12 @@ import {
   ButtonContainer,
   CustomDeleteButtonCSS,
 } from './style';
-
 import 'react-medium-image-zoom/dist/styles.css';
 
 const GET_PROJECT_QUERY = loader('./queryGetProject.graphql');
 const DELETE_USER_PROJECT = loader('./mutationDeleteProject.graphql');
 
-const CardDetails = () => {
+function CardDetails() {
   const [imgLoaded, setImgLoaded] = useState(true);
 
   const [editModelIsOpen, setEditModelIsOpen] = useState(false);
@@ -232,6 +231,6 @@ const CardDetails = () => {
       />
     </Main>
   );
-};
+}
 
 export default CardDetails;

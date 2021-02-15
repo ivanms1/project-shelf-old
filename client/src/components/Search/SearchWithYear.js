@@ -57,7 +57,7 @@ const titleStyle = {
   fontWeight: 500,
 };
 
-const SearchWithYear = ({ options, onChange, title = 'Year' }) => {
+function SearchWithYear({ options, onChange, title = 'Year' }) {
   return (
     <div>
       <span style={titleStyle}>{title}</span>
@@ -69,6 +69,6 @@ const SearchWithYear = ({ options, onChange, title = 'Year' }) => {
       />
     </div>
   );
-};
+}
 
 export default SearchWithYear;

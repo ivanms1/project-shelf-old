@@ -13,8 +13,9 @@ import PopupModal from '../../components/PopupModal/PopupModal';
 import Button from '../../components/Button/Button';
 import Active from '../../components/Active/Active';
 import { Dropzone } from '../../components/DropZone/Dropzone';
-
 import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
+
+import { getCurrentDate } from '../../helpers/dateConverter';
 
 import Rick from '../../assets/rick.png';
 import IMG_Social from '../../assets/social.png';
@@ -29,9 +30,7 @@ import {
   ErrorText,
   CustomSubmitCss,
 } from './style';
-
 import { CustomYesButton } from '../../components/PopupModal/style';
-
 import {
   CardOuter,
   CardInner,
@@ -41,20 +40,9 @@ import {
 } from '../../components/Card/style';
 
 const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
-
 const CREATE_PROJECT_MUTATION = loader('./mutationCreateProject.graphql');
 
 const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
-
-function getCurrentDate() {
-  const dateOptions = {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  };
-  const newDate = new Date();
-  return newDate.toLocaleDateString('en-us', dateOptions);
-}
 
 function SubmitForm() {
   const [successModal, setSuccessModal] = useState(false);
@@ -73,7 +61,9 @@ function SubmitForm() {
 
   const { title, preview, repoLink, siteLink, description } = watch();
 
-  const [uploadImage, { loadingImg }] = useMutation(MUTATION_UPLOAD_IMAGE);
+  const [uploadImage, { loading: loadingImg }] = useMutation(
+    MUTATION_UPLOAD_IMAGE
+  );
 
   const [createProject, { data }] = useMutation(CREATE_PROJECT_MUTATION, {
     update(cache, { data: { createProject } }) {
@@ -118,7 +108,7 @@ function SubmitForm() {
     reader.readAsDataURL(event[0]);
     reader.onabort = () => alert('failed');
     reader.onerror = () => console.log('error');
-    reader.onload = async (e) => {
+    reader.onload = async () => {
       const res = await uploadImage({
         variables: {
           path: reader.result,
@@ -132,7 +122,7 @@ function SubmitForm() {
   if (currentUserLoading) {
     return <Loader />;
   }
-
+  console.log(loadingImg);
   return (
     <FormContainer>
       <CardOuter>
@@ -161,6 +151,7 @@ function SubmitForm() {
             <Zoom wrapStyle={{ display: 'block' }}>
               {(loadingImg && (
                 <p className='loading'>
+                  {console.log('Loading')}
                   <Spinner />
                 </p>
               )) || (

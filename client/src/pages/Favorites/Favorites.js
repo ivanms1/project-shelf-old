@@ -1,6 +1,6 @@
 import React from 'react';
-import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
 
+import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
 import Cardtwo from '../../components/Cardv2/Cardtwo';
 import Header from '../../components/Header/Header';
 import Loader from '../../components/Loader/Loader';

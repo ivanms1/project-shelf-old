@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { CustomButton } from './style';
-
 import Loader from '../Loader/Loader';
+
+import { CustomButton } from './style';
 
 function Button({
   kind,

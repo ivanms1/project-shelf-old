@@ -10,15 +10,15 @@ import PopupModal from '../../components/PopupModal/PopupModal';
 
 import { Main, Container } from './style';
 
-const userToken = localStorage.getItem('userToken');
-
 const GET_USER_QUERY = loader('./queryGetUser.graphql');
 const CREATE_PROJECT_MUTATION = loader('./mutationUpdateProject.graphql');
 const QUERY_GET_PROJECT_DATA = loader('./queryGetProject.graphql');
 
+const userToken = localStorage.getItem('userToken');
+
 let img = '';
 
-function Edit(props) {
+function Edit() {
   const history = useHistory();
   const { projectId } = useParams();
 

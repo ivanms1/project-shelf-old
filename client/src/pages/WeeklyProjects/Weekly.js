@@ -1,19 +1,17 @@
 import React from 'react';
-
 import { useQuery } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
 import Cardtwo from '../../components/Cardv2/Cardtwo';
 import Header from '../../components/Header/Header';
 import Search from '../../components/Search/Search';
+import Loader from '../../components/Loader/Loader';
 
 import { Main, Container, SearchContainer, CardContainer } from './style';
 
-import Loader from '../../components/Loader/Loader';
-
 const QUERY_WEEKLY_PROJECTS = loader('./queryGetProjects.graphql');
 
-function Weekly(props) {
+function Weekly() {
   const { data, loading, error } = useQuery(QUERY_WEEKLY_PROJECTS);
 
   if (loading) {

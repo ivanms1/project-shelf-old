@@ -1,15 +1,7 @@
 import React, { useContext, useState } from 'react';
 import Popup from 'reactjs-popup';
 import { useHistory } from 'react-router-dom';
-
-import { ReactComponent as Cog } from '../../assets/cog.svg';
-import { ReactComponent as Bell } from '../../assets/bell.svg';
-import { ReactComponent as Home } from '../../assets/home.svg';
-
-import useCurrentUser from '../useCurrentUser/useCurrentUser';
 import { useApolloClient } from '@apollo/client';
-
-import { Container, Nav, StyledLink } from './style';
 
 import DropDownApp from '../DropDown/DropDownApp';
 import MobileMenu from '../MobileMenu/Mobilemenu';
@@ -17,6 +9,14 @@ import BurgerIcon from '../BurgerIcon/BurgerIcon';
 import PopupModal from '../PopupModal/PopupModal';
 
 import { Context } from '../../Context/AppContext';
+
+import useCurrentUser from '../useCurrentUser/useCurrentUser';
+
+import { ReactComponent as Cog } from '../../assets/cog.svg';
+import { ReactComponent as Bell } from '../../assets/bell.svg';
+import { ReactComponent as Home } from '../../assets/home.svg';
+
+import { Container, Nav, StyledLink } from './style';
 
 function Header() {
   const history = useHistory();

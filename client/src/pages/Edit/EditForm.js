@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-
 import ReactToolTip from 'react-tooltip';
 import Zoom from 'react-medium-image-zoom';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { loader } from 'graphql.macro';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
-import IMG_Social from '../../assets/social.png';
-import Rick from '../../assets/rick.png';
+import Button from '../../components/Button/Button';
+import Active from '../../components/Active/Active';
 
+import Rick from '../../assets/rick.png';
 import { ReactComponent as Spinner } from '../../assets/spinner.svg';
 
 import {
@@ -29,9 +29,6 @@ import {
   TextArea,
   ErrorText,
 } from './style';
-
-import Button from '../../components/Button/Button';
-import Active from '../../components/Active/Active';
 
 const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
 
@@ -61,7 +58,7 @@ function EditForm({ user, onSubmit, project }) {
     description: project.description,
   });
 
-  const [uploadImage, { data, loading }] = useMutation(MUTATION_UPLOAD_IMAGE);
+  const [uploadImage, { loading }] = useMutation(MUTATION_UPLOAD_IMAGE);
 
   function handleChange(e) {
     const values =

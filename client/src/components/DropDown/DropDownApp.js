@@ -37,7 +37,7 @@ function useOutsideAlerter(ref, stateRef) {
       // Unbind the event listener on clean up
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [ref]);
+  }, [ref, stateRef]);
 }
 
 function NavItem(props) {
@@ -48,9 +48,9 @@ function NavItem(props) {
 
   return (
     <li ref={navItemRef} className={styles.navItem}>
-      <a href='#' className={styles.iconButton} onClick={() => setOpen(!open)}>
+      <button className={styles.iconButton} onClick={() => setOpen(!open)}>
         <User />
-      </a>
+      </button>
 
       {open && props.children}
     </li>
@@ -67,8 +67,8 @@ export function DropdownItem({ props }) {
   );
 }
 
-function DropdownMenu({ children, data }) {
-  const [activeMenu, _setActiveMenu] = useState('main');
+function DropdownMenu({ data }) {
+  const [activeMenu] = useState('main');
   const [menuHeight, setMenuHeight] = useState(null);
   const dropdownRef = useRef(null);
 

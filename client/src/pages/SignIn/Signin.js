@@ -7,8 +7,12 @@ import { loader } from 'graphql.macro';
 import { useMutation } from '@apollo/client';
 
 import { Context } from '../../Context/AppContext';
-
+import Loader from '../../components/Loader/Loader';
+import Button from '../../components/Button/Button';
 import Header from '../../components/Header/Header';
+
+import Rocket from '../../assets/rocket.svg';
+
 import {
   Container,
   Main,
@@ -21,13 +25,9 @@ import {
   CustomSignInCss,
 } from './style';
 
-import Rocket from '../../assets/rocket.svg';
-import Loader from '../../components/Loader/Loader';
-import Button from '../../components/Button/Button';
-
 const GET_USER_QUERY = loader('./mutationLoginUser.graphql');
 
-function Signin(props) {
+function Signin() {
   const history = useHistory();
   const { setIsAuthenticated } = useContext(Context);
 

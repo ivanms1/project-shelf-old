@@ -18,7 +18,7 @@ const MUTATION_UPDATE_PROJECT_STATUS = loader(
   './mutationUpdateProjectStatus.graphql'
 );
 
-function Notactivated(props) {
+function Notactivated() {
   const { data, loading, error } = useQuery(QUERY_GET_ALL_PROJECTS);
 
   const [updateStatus, { error: errorR }] = useMutation(

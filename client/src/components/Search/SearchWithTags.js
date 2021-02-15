@@ -56,7 +56,7 @@ const colourStyles = {
       color: 'white',
     },
   }),
-  multiValue: (styles, { data }) => {
+  multiValue: (styles) => {
     return {
       ...styles,
       backgroundColor: '#3db4f2',
@@ -65,7 +65,7 @@ const colourStyles = {
       paddingLeft: '5px',
     };
   },
-  multiValueLabel: (styles, { data }) => ({
+  multiValueLabel: (styles) => ({
     ...styles,
     color: 'white',
     fontWeight: 400,
@@ -103,7 +103,7 @@ const formatGroupLabel = (data) => (
   </div>
 );
 
-const SearchWithTags = ({ options, onChange, title }) => {
+function SearchWithTags({ options, onChange, title }) {
   return (
     <div>
       <span style={titleStyle}>{title}</span>
@@ -118,6 +118,6 @@ const SearchWithTags = ({ options, onChange, title }) => {
       />
     </div>
   );
-};
+}
 
 export default SearchWithTags;

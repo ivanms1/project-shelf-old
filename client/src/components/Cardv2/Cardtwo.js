@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { loader } from 'graphql.macro';
-import { useMutation } from '@apollo/client';
 import toast from 'react-hot-toast';
+import { useMutation } from '@apollo/client';
+import { loader } from 'graphql.macro';
 
 import useCurrentUser from '../useCurrentUser/useCurrentUser';
+
+import { getCurrentDate } from '../../helpers/dateConverter';
 
 import { ReactComponent as Star } from './../../assets/Star.svg';
 import { ReactComponent as StarFill } from './../../assets/Star-Fill.svg';
 import { ReactComponent as Spinner } from './../../assets/spinner.svg';
-
-import { getCurrentDate } from '../../helpers/dateConverter';
 
 import { Main, CardContainerInner, ProjectDetails, ViewDetails } from './style';
 
@@ -30,7 +30,7 @@ const getActionFavorite = (project, currentUser) => {
     : 'FAVORITE';
 };
 
-const Cardtwo = ({ project }) => {
+function Cardtwo({ project }) {
   const [imgLoaded, setImgLoaded] = useState(true);
 
   const { currentUser } = useCurrentUser();
@@ -128,6 +128,6 @@ const Cardtwo = ({ project }) => {
       </ProjectDetails>
     </Main>
   );
-};
+}
 
 export default Cardtwo;

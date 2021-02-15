@@ -12,13 +12,13 @@ import {
 
 Modal.setAppElement('#root');
 
-const PopupModal = ({
+function PopupModal({
   children,
   isOpen,
   onRequestClose,
   title = 'Are you sure ?',
   onClick = () => {},
-}) => {
+}) {
   return (
     <StyledModal
       isOpen={isOpen}
@@ -47,6 +47,6 @@ const PopupModal = ({
       )}
     </StyledModal>
   );
-};
+}
 
 export default PopupModal;

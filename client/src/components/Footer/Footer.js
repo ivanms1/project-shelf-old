@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 
-import { Container, Links, StyledLink } from './style';
-
 import { Context } from '../../Context/AppContext';
 
-function Footer(props) {
+import { Container, Links, StyledLink } from './style';
+
+function Footer() {
   const hooks = useContext(Context);
   const { isAuthenticated } = hooks;
 

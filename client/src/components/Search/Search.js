@@ -51,13 +51,13 @@ const groupedOptions = [
   },
 ];
 
-const Search = () => {
+function Search() {
   return (
     <Container>
       <SearchWithTags options={groupedOptions} title='Tags' />
       <SearchWithYear options={yearOptions} title='Year' />
     </Container>
   );
-};
+}
 
 export default Search;

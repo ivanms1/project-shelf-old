@@ -1,6 +1,11 @@
 import React from 'react';
+
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
+import Button from '../../components/Button/Button';
+
+import Kathmandu from '../../assets/kathmandu.svg';
+
 import {
   Container,
   TextContainer,
@@ -12,10 +17,8 @@ import {
   Discord,
   TextArea,
 } from './style';
-import Kathmandu from '../../assets/kathmandu.svg';
-import Button from '../../components/Button/Button';
 
-function Contact(props) {
+function Contact() {
   return (
     <div>
       <Header />
