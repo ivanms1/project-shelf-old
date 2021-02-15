@@ -176,7 +176,7 @@ function SubmitForm({ user, onSubmit }) {
             defaultValue=''
           />
           <ErrorMessage errors={errors} name='tags' as={<ErrorText />}>
-            {(errors) => <small>{console.log(errors)}</small>}
+            {({ message }) => <small>{message}</small>}
           </ErrorMessage>
         </InputContainer>
 
