@@ -54,37 +54,40 @@ function Activated(props) {
 
   const { projects } = data;
 
+  const approvedProjects = projects.filter((project) => project.isApproved);
+
   return (
     <Container>
       <ActivatedContainer>
         <main>
-          <p>Approved Projects</p>
+          <h1>Approved Projects</h1>
 
           <ProjectCollection>
-            <ProjectCollection>
-              {projects &&
-                projects.map(
-                  (project) =>
-                    project.isApproved === true && (
-                      <CardComponent
-                        key={project.id}
-                        user={project.author}
-                        project={project}
-                        descVisible={false}
+            {approvedProjects.length ? (
+              approvedProjects.map(
+                (project) =>
+                  project.isApproved === true && (
+                    <CardComponent
+                      key={project.id}
+                      user={project.author}
+                      project={project}
+                      descVisible={false}
+                    >
+                      <Button
+                        kind='disapprove'
+                        maxWidth='big'
+                        fontSize='medium'
+                        addCSS={customCss}
+                        onClick={() => updateProjectStatus(project.id)}
                       >
-                        <Button
-                          kind='disapprove'
-                          maxWidth='big'
-                          fontSize='medium'
-                          addCSS={customCss}
-                          onClick={() => updateProjectStatus(project.id)}
-                        >
-                          Disapprove
-                        </Button>
-                      </CardComponent>
-                    )
-                )}
-            </ProjectCollection>
+                        Disapprove
+                      </Button>
+                    </CardComponent>
+                  )
+              )
+            ) : (
+              <p className='noproject'>No Approved Projects.</p>
+            )}
           </ProjectCollection>
         </main>
       </ActivatedContainer>

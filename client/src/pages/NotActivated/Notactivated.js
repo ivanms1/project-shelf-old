@@ -25,9 +25,6 @@ function Notactivated(props) {
     MUTATION_UPDATE_PROJECT_STATUS
   );
 
-  if (data) {
-  }
-
   if (loading) {
     return <Loader />;
   }
@@ -55,15 +52,19 @@ function Notactivated(props) {
   //data takes time to load so destruct might give error when its not loaded
   const { projects } = data;
 
+  const unapprovedProjects = projects.filter(
+    (project) => project.isApproved === false
+  );
+
   return (
     <Container>
       <ActivatedContainer>
         <main>
-          <p>Not Approved Projects</p>
+          <h1>Not Approved Projects</h1>
 
           <ProjectCollection>
-            {projects.length > 0 ? (
-              projects.map(
+            {unapprovedProjects.length ? (
+              unapprovedProjects.map(
                 (project) =>
                   project.isApproved === false && (
                     <CardComponent
@@ -85,7 +86,7 @@ function Notactivated(props) {
                   )
               )
             ) : (
-              <p>No projects</p>
+              <p className='noproject'>No Unapproved Projects.</p>
             )}
           </ProjectCollection>
         </main>
