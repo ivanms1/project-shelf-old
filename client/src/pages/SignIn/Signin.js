@@ -35,14 +35,10 @@ function Signin(props) {
 
   const { register, errors, handleSubmit } = useForm();
 
-  const [signInUser, { loading, error }] = useMutation(GET_USER_QUERY);
+  const [signInUser, { loading }] = useMutation(GET_USER_QUERY);
 
   if (loading) {
     return <Loader />;
-  }
-
-  if (error) {
-    console.log(error.message);
   }
 
   const submitUserDetails = async (data) => {
@@ -57,9 +53,7 @@ function Signin(props) {
       setIsAuthenticated(true);
       history.push('/');
     } catch (error) {
-      if (error) {
-        notify();
-      }
+      notify();
     }
   };
 

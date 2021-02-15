@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { loader } from 'graphql.macro';
 import { useQuery } from '@apollo/client';
 
@@ -38,7 +38,7 @@ function Admin(props) {
   }
 
   if (error) {
-    return console.log(error);
+    return toast.error('Oops something went wrong.');
   }
 
   return (
