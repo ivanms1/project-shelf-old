@@ -6,14 +6,21 @@ export const CustomButton = styled.button`
 
   background-color: ${({ kind }) => {
     switch (kind) {
-      case 'delete':
-        return '#D1383D';
-      case 'edit':
-        return '#7057FF';
+      // case 'delete':
+      //   return '#D1383D';
+      // case 'edit':
+      //   return '#7057FF';
       case 'approve':
         return '#20c997';
       case 'disapprove':
         return '#d70330';
+      //for modal
+      case 'logout':
+        return '#1B74E4';
+      case 'delete':
+        return '#F53803';
+      case 'edit':
+        return '#2ECC71';
       default:
         return '';
     }
@@ -57,7 +64,19 @@ export const CustomButton = styled.button`
         return '18px';
     }
   }};
-  border: none;
+  border: ${({ border }) => {
+    switch (border) {
+      case 'logout':
+        return '1px solid #1B74E4';
+      case 'delete':
+        return '1px solid #F53803';
+      case 'edit':
+        return '1px solid #2ECC71';
+
+      default:
+        return 'none';
+    }
+  }};
   outline: none;
 
   :hover {
