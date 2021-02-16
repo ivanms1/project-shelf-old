@@ -15,5 +15,6 @@ query GetProject($id: String!) {
     description
     isApproved
     createdAt
+    tags
   }
 }

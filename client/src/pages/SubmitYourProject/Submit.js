@@ -57,6 +57,7 @@ function Submit(props) {
             siteLink: data.siteLink,
             repoLink: data.repoLink,
             description: data.description,
+            tags: data.tags.map((e) => e.value),
           },
         },
       });

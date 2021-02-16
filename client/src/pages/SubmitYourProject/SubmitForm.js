@@ -6,6 +6,7 @@ import { loader } from 'graphql.macro';
 import { useForm, Controller } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
+import SelectTags from './SelectTags/SelectTags';
 import IMG_Social from '../../assets/social.png';
 import Rick from '../../assets/rick.png';
 
@@ -33,28 +34,18 @@ import Button from '../../components/Button/Button';
 import Active from '../../components/Active/Active';
 
 import { Dropzone } from '../../components/DropZone/Dropzone';
+import { options } from './SelectOptions/options';
+import { getCurrentDate } from './../../helpers/dateConverter';
 
 const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
 
 const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
-
-function getCurrentDate() {
-  const dateOptions = {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  };
-  const newDate = new Date();
-  return newDate.toLocaleDateString('en-us', dateOptions);
-}
 
 function SubmitForm({ user, onSubmit }) {
   const { register, handleSubmit, control, errors, watch } = useForm({
     defaultValues: {
       title: 'Recipe App',
       preview: IMG_Social,
-      repoLink: 'repo link',
-      siteLink: 'Live Link here',
       description:
         'This was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.',
     },
@@ -63,7 +54,6 @@ function SubmitForm({ user, onSubmit }) {
   const { title, preview, repoLink, siteLink, description } = watch();
 
   const [uploadImage, { loading }] = useMutation(MUTATION_UPLOAD_IMAGE);
-
   async function handleImage(event, onChange) {
     if (!event.length) {
       return null;
@@ -170,6 +160,22 @@ function SubmitForm({ user, onSubmit }) {
           />
 
           <ErrorMessage errors={errors} name='title' as={<ErrorText />}>
+            {({ message }) => <small>{message}</small>}
+          </ErrorMessage>
+        </InputContainer>
+
+        <InputContainer>
+          <label>Tags</label>
+          <Controller
+            name='tags'
+            control={control}
+            render={({ onChange }) => (
+              <SelectTags name='tags' onChange={onChange} options={options} />
+            )}
+            rules={{ required: 'Tags cannot be Empty' }}
+            defaultValue=''
+          />
+          <ErrorMessage errors={errors} name='tags' as={<ErrorText />}>
             {({ message }) => <small>{message}</small>}
           </ErrorMessage>
         </InputContainer>
