@@ -38,4 +38,5 @@ model Project {
   likes       User[]   @relation(name: "ProjectstLiked")
   isApproved  Boolean  @default(false)
   createdAt   DateTime @default(now())
+  tags        String[]
 }

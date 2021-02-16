@@ -10,16 +10,17 @@ import { Link } from 'react-router-dom';
 
 import Loader from '../../components/Loader/Loader';
 import PopupModal from '../../components/PopupModal/PopupModal';
+import { Dropzone } from '../../components/DropZone/Dropzone';
+import SelectTags from './SelectTags/SelectTags';
 import Button from '../../components/Button/Button';
 import Active from '../../components/Active/Active';
-import { Dropzone } from '../../components/DropZone/Dropzone';
+
 import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
 
-import { getCurrentDate } from '../../helpers/dateConverter';
+import { ReactComponent as Spinner } from '../../assets/spinner.svg';
 
 import Rick from '../../assets/rick.png';
 import IMG_Social from '../../assets/social.png';
-import { ReactComponent as Spinner } from '../../assets/spinner.svg';
 
 import {
   FormContainer,
@@ -30,7 +31,6 @@ import {
   ErrorText,
   CustomSubmitCss,
 } from './style';
-import { CustomYesButton } from '../../components/PopupModal/style';
 import {
   CardOuter,
   CardInner,
@@ -38,6 +38,10 @@ import {
   Links,
   Profile,
 } from '../../components/Card/style';
+import { CustomYesButton } from '../../components/PopupModal/style';
+
+import { options } from './SelectOptions/options';
+import { getCurrentDate } from './../../helpers/dateConverter';
 
 const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
 const CREATE_PROJECT_MUTATION = loader('./mutationCreateProject.graphql');
@@ -50,8 +54,6 @@ function SubmitForm() {
     defaultValues: {
       title: 'Recipe App',
       preview: IMG_Social,
-      repoLink: 'repo link',
-      siteLink: 'Live Link here',
       description:
         'This was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.',
     },
@@ -89,6 +91,7 @@ function SubmitForm() {
             siteLink: data.siteLink,
             repoLink: data.repoLink,
             description: data.description,
+            tags: data.tags.map((e) => e.value),
           },
         },
       });
@@ -210,6 +213,22 @@ function SubmitForm() {
           />
 
           <ErrorMessage errors={errors} name='title' as={<ErrorText />}>
+            {({ message }) => <small>{message}</small>}
+          </ErrorMessage>
+        </InputContainer>
+
+        <InputContainer>
+          <label>Tags</label>
+          <Controller
+            name='tags'
+            control={control}
+            render={({ onChange }) => (
+              <SelectTags name='tags' onChange={onChange} options={options} />
+            )}
+            rules={{ required: 'Tags cannot be Empty' }}
+            defaultValue=''
+          />
+          <ErrorMessage errors={errors} name='tags' as={<ErrorText />}>
             {({ message }) => <small>{message}</small>}
           </ErrorMessage>
         </InputContainer>

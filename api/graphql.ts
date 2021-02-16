@@ -31,6 +31,7 @@ schema.inputObjectType({
     t.string('repoLink', { required: true });
     t.string('siteLink', { required: true });
     t.string('description', { required: true });
+    t.list.string('tags');
   },
 });
 
@@ -42,6 +43,7 @@ schema.inputObjectType({
     t.string('repoLink');
     t.string('siteLink');
     t.string('description');
+    t.list.string('tags');
   },
 });
 
@@ -111,6 +113,7 @@ schema.objectType({
     t.model.description();
     t.model.isApproved();
     t.model.createdAt();
+    t.model.tags();
   },
 });
 
@@ -246,6 +249,9 @@ schema.mutationType({
         return ctx.db.project.create({
           data: {
             ...rest,
+            tags: {
+              set: rest.tags,
+            },
             author: {
               connect: {
                 id: authorId,
@@ -272,7 +278,12 @@ schema.mutationType({
 
         return ctx.db.project.update({
           where: { id: projectId },
-          data: input,
+          data: {
+            ...input,
+            tags: {
+              set: input.tags,
+            },
+          },
         });
       },
     });

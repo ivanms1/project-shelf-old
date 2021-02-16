@@ -8,6 +8,7 @@ input CreateProjectInput {
   preview: String!
   repoLink: String!
   siteLink: String!
+  tags: [String!]
   title: String!
 }
 
@@ -59,6 +60,7 @@ type Project {
   preview: String!
   repoLink: String!
   siteLink: String!
+  tags: [String!]!
   title: String!
 }
 
@@ -96,6 +98,7 @@ input UpdateProjectInput {
   preview: String
   repoLink: String
   siteLink: String
+  tags: [String!]
   title: String
 }
 

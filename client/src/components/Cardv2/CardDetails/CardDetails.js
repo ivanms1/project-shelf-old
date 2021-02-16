@@ -96,6 +96,14 @@ function CardDetails() {
 
   const { project } = data;
 
+  const generateTags = (tags, id) => {
+    return tags.map((tag) => (
+      <span key={id} className='tag'>
+        {tag}
+      </span>
+    ));
+  };
+
   return (
     <Main>
       <Header />
@@ -148,7 +156,11 @@ function CardDetails() {
                     <span className='date'>
                       {getCurrentDate(project?.createdAt)}
                     </span>
-
+                    <div className='tagsContainer'>
+                      <span className='tagsList'>
+                        Tags : {generateTags(project.tags)}
+                      </span>
+                    </div>
                     <div className='linksContainer'>
                       <span>
                         <Github />{' '}
