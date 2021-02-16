@@ -17,6 +17,9 @@ import Active from '../../components/Active/Active';
 
 import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
 
+import { options } from './SelectOptions/options';
+import { getCurrentDate } from './../../helpers/dateConverter';
+
 import { ReactComponent as Spinner } from '../../assets/spinner.svg';
 
 import Rick from '../../assets/rick.png';
@@ -39,9 +42,6 @@ import {
   Profile,
 } from '../../components/Card/style';
 import { CustomYesButton } from '../../components/PopupModal/style';
-
-import { options } from './SelectOptions/options';
-import { getCurrentDate } from './../../helpers/dateConverter';
 
 const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
 const CREATE_PROJECT_MUTATION = loader('./mutationCreateProject.graphql');
@@ -125,7 +125,7 @@ function SubmitForm() {
   if (currentUserLoading) {
     return <Loader />;
   }
-  console.log(loadingImg);
+
   return (
     <FormContainer>
       <CardOuter>

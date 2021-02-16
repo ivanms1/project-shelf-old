@@ -9,6 +9,8 @@ import { ErrorMessage } from '@hookform/error-message';
 import Button from '../../components/Button/Button';
 import Active from '../../components/Active/Active';
 
+import { getCurrentDate } from '../../helpers/dateConverter';
+
 import Rick from '../../assets/rick.png';
 import { ReactComponent as Spinner } from '../../assets/spinner.svg';
 
@@ -33,16 +35,6 @@ import {
 const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
 
 const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
-
-function getCurrentDate() {
-  const dateOptions = {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  };
-  const newDate = new Date();
-  return newDate.toLocaleDateString('en-us', dateOptions);
-}
 
 function EditForm({ user, onSubmit, project }) {
   const { register, handleSubmit, setValue: setFormValue, errors } = useForm();
