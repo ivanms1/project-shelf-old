@@ -7,7 +7,7 @@ import Zoom from 'react-medium-image-zoom';
 import Button from '../../Button/Button';
 import Header from '../../Header/Header';
 import Loader from '../../Loader/Loader';
-import PopupModal from '../../PopupModal/PopupModal';
+import Modal from '../../PopupModal/Modal';
 
 import useCurrentUser from '../../useCurrentUser/useCurrentUser';
 
@@ -226,7 +226,8 @@ function CardDetails() {
         {!project && <p>Project does not exist.</p>}
       </Container>
 
-      <PopupModal
+      <Modal
+        type='delete'
         isOpen={deleteModelIsOpen}
         onRequestClose={closeDeleteModal}
         onClick={() => {
@@ -234,7 +235,8 @@ function CardDetails() {
         }}
       />
 
-      <PopupModal
+      <Modal
+        type='edit'
         isOpen={editModelIsOpen}
         onRequestClose={closeEditModal}
         onClick={() => {
