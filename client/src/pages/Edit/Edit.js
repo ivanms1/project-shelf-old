@@ -6,7 +6,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Loader from '../../components/Loader/Loader';
 import EditForm from './EditForm';
-import PopupModal from '../../components/PopupModal/PopupModal';
+import Modal from '../../components/PopupModal/Modal';
 
 import { Main, Container } from './style';
 
@@ -102,7 +102,7 @@ function Edit() {
         </Container>
       </div>
 
-      <PopupModal open={open} closeOnDocumentClick={false} onClose={closeModal}>
+      <Modal open={open} closeOnDocumentClick={false} onClose={closeModal}>
         <div className='modal'>
           <div>
             <span>Project Updated</span>
@@ -116,7 +116,7 @@ function Edit() {
             <button onClick={() => history.push('/')}>Ok</button>
           </div>
         </div>
-      </PopupModal>
+      </Modal>
     </Main>
   );
 }

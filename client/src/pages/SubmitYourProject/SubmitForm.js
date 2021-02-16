@@ -9,7 +9,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import { Link } from 'react-router-dom';
 
 import Loader from '../../components/Loader/Loader';
-import PopupModal from '../../components/PopupModal/PopupModal';
+import Modal from '../../components/PopupModal/Modal';
 import { Dropzone } from '../../components/DropZone/Dropzone';
 import SelectTags from './SelectTags/SelectTags';
 import Button from '../../components/Button/Button';
@@ -41,7 +41,6 @@ import {
   Links,
   Profile,
 } from '../../components/Card/style';
-import { CustomYesButton } from '../../components/PopupModal/style';
 
 const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
 const CREATE_PROJECT_MUTATION = loader('./mutationCreateProject.graphql');
@@ -300,7 +299,7 @@ function SubmitForm() {
           Submit your Project
         </Button>
       </Submission>
-      <PopupModal
+      {/* <Modal
         isOpen={successModal}
         onRequestClose={() => setSuccessModal(false)}
         title='Project Submitted'
@@ -309,9 +308,9 @@ function SubmitForm() {
           <img src={data?.createProject?.preview} alt='project'></img>
         </div>
         <Link to='/'>
-          <Button addCSS={CustomYesButton}>Ok</Button>
+          <Button>Ok</Button>
         </Link>
-      </PopupModal>
+      </Modal> */}
     </FormContainer>
   );
 }
