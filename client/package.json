@@ -22,7 +22,7 @@
     "react-select": "^4.1.0",
     "react-table": "^7.6.0",
     "react-textarea-autosize": "^8.2.0",
-    "react-toastify": "^6.0.9",
+    "react-toastify": "^7.0.3",
     "react-tooltip": "^4.2.7",
     "react-transition-group": "^4.4.1",
     "reactjs-popup": "^2.0.3",
