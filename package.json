@@ -10,7 +10,7 @@
     "cors": "^2.8.5",
     "graphql-upload": "^11.0.0",
     "nexus": "^0.24.2",
-    "nexus-plugin-prisma": "^0.16.1"
+    "nexus-plugin-prisma": "^0.19.0"
   },
   "scripts": {
     "dev:backend": "nexus dev",
