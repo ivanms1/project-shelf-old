@@ -15,7 +15,6 @@ export const Main = styled.div`
   & .starContainer {
     border: none;
     outline: none;
-    z-index: 99;
     background-color: transparent;
     position: absolute;
     right: -17px;
@@ -44,11 +43,13 @@ export const CardContainerInner = styled.div`
     position: relative;
     width: 100%;
     height: 100%;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
   }
 
-  &:hover .overlay {
+  :hover .overlay {
     opacity: 1;
   }
 
@@ -96,7 +97,7 @@ export const ProjectDetails = styled.div`
   & .submissionDate {
     display: block;
     font-size: 13px;
-    font-weight: 200;
+    font-weight: 400;
   }
 `;
 

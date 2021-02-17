@@ -18,30 +18,27 @@ const MUTATION_UPDATE_PROJECT_STATUS = loader(
   './mutationUpdateProjectStatus.graphql'
 );
 
-const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
-
-function Notactivated(props) {
+function Notactivated() {
   const { data, loading, error } = useQuery(QUERY_GET_ALL_PROJECTS);
 
-  const [
-    updateStatus,
-    { data: dataR, error: errorR, loading: loadingR },
-  ] = useMutation(MUTATION_UPDATE_PROJECT_STATUS);
-
-  if (data) {
-  }
+  const [updateStatus, { error: errorR }] = useMutation(
+    MUTATION_UPDATE_PROJECT_STATUS
+  );
 
   if (loading) {
     return <Loader />;
   }
 
   if (error) {
-    return JSON.stringify(error, null, 2);
+    return <p>Sorry, something went wrong.</p>;
+  }
+  if (errorR) {
+    return <p>Sorry, something went wrong.</p>;
   }
 
   async function updateProjectStatus(projectId) {
     try {
-      const response = await updateStatus({
+      await updateStatus({
         variables: {
           projectId: projectId,
           isApproved: true,
@@ -55,37 +52,36 @@ function Notactivated(props) {
   //data takes time to load so destruct might give error when its not loaded
   const { projects } = data;
 
+  const unapprovedProjects = projects.filter((project) => !project.isApproved);
+
   return (
     <Container>
       <ActivatedContainer>
         <main>
-          <p>Not Approved Projects</p>
+          <h1>Not Approved Projects</h1>
 
           <ProjectCollection>
-            {projects.length > 0 ? (
-              projects.map(
-                (project) =>
-                  project.isApproved === false && (
-                    <CardComponent
-                      key={project.id}
-                      user={project.author}
-                      project={project}
-                      descVisible={false}
-                    >
-                      <Button
-                        maxWidth='big'
-                        kind='approve'
-                        fontSize='medium'
-                        onClick={() => updateProjectStatus(project.id)}
-                        addCSS={customCss}
-                      >
-                        Approve
-                      </Button>
-                    </CardComponent>
-                  )
-              )
+            {unapprovedProjects.length ? (
+              unapprovedProjects.map((project) => (
+                <CardComponent
+                  key={project.id}
+                  user={project.author}
+                  project={project}
+                  descVisible={false}
+                >
+                  <Button
+                    maxWidth='big'
+                    kind='approve'
+                    fontSize='medium'
+                    onClick={() => updateProjectStatus(project.id)}
+                    addCSS={customCss}
+                  >
+                    Approve
+                  </Button>
+                </CardComponent>
+              ))
             ) : (
-              <p>No projects</p>
+              <p className='noproject'>No Unapproved Projects.</p>
             )}
           </ProjectCollection>
         </main>

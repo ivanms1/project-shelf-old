@@ -71,6 +71,7 @@ a {
   align-items: center;
   justify-content: center;
   transition: filter 300ms;
+  border: none;
 }
 
 .iconButton:hover {

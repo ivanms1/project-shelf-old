@@ -4,9 +4,12 @@ mutation CreateUserProject($input: CreateProjectInput) {
     title
     preview
     description
-    repoLink
+    createdAt
     siteLink
-    author {
+    repoLink
+    isApproved
+    likes {
+      id
       name
       lastName
     }

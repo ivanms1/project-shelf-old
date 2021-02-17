@@ -1,24 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
-import CardComponent from '../../components/Card/Card';
+import Cardtwo from '../../components/Cardv2/Cardtwo';
 import Header from '../../components/Header/Header';
+import Search from '../../components/Search/Search';
+import Loader from '../../components/Loader/Loader';
 
 import { Main, Container, SearchContainer, CardContainer } from './style';
 
-import Loader from '../../components/Loader/Loader';
-
 const QUERY_WEEKLY_PROJECTS = loader('./queryGetProjects.graphql');
 
-//eslint-disable-next-line
-function redirect(path) {
-  return (window.location.href = path);
-}
-
-function Weekly(props) {
-  //eslint-disable-next-line
-  const [loadingState, setLoadingState] = useState(false);
+function Weekly() {
   const { data, loading, error } = useQuery(QUERY_WEEKLY_PROJECTS);
 
   if (loading) {
@@ -26,7 +19,7 @@ function Weekly(props) {
   }
 
   if (error) {
-    return JSON.stringify(error, null, 2);
+    return <p>Sorry, something went wrong.</p>;
   }
 
   const { projects } = data;
@@ -37,28 +30,21 @@ function Weekly(props) {
 
       <Container>
         <SearchContainer>
-          <p>4th week project : 'MERN Stack'</p>
-
-          <select>
-            <option>MERN stack</option>
-            <option>API</option>
-            <option>Quiz App</option>
-          </select>
+          <Search />
         </SearchContainer>
 
         <CardContainer>
-          {projects.length > 0 ? (
-            <>
-              {projects.map((project) => (
-                <CardComponent
-                  key={project.id}
-                  user={project}
-                  project={project}
-                ></CardComponent>
-              ))}
-            </>
+          {!projects.length ? (
+            <p className='noproject'>You dont have any projects to ShowCase.</p>
           ) : (
-            <p className='noproject'>no one has ever posted a project yet.</p>
+            <>
+              {projects.map(
+                (project) =>
+                  project?.isApproved && (
+                    <Cardtwo key={project.id} project={project} />
+                  )
+              )}
+            </>
           )}
         </CardContainer>
       </Container>

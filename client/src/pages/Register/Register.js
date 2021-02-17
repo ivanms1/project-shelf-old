@@ -8,6 +8,9 @@ import { Redirect } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
+
+import Light from '../../assets/light.svg';
+
 import {
   Main,
   Container,
@@ -18,11 +21,10 @@ import {
   ErrorText,
   CustomRegisterCss,
 } from './style';
-import Light from '../../assets/light.svg';
 
 const MUTATION_REGISTER_USER = loader('./mutationRegisterUser.graphql');
 
-function Register(props) {
+function Register() {
   const [redirect, setRedirect] = useState(false);
 
   const { register, handleSubmit, errors } = useForm();

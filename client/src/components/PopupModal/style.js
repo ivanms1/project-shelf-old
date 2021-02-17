@@ -15,6 +15,7 @@ export const StyledModal = styled(Modal)`
   max-width: 730px;
   max-height: 80%;
   flex-direction: column;
+  z-index: 999 !important;
   align-items: center;
 
   & .header {
@@ -80,5 +81,6 @@ export const CustomYesButton = css`
   letter-spacing: 1px;
   font-weight: 500;
   max-width: 120px;
+  min-width: 60px;
   background-color: #1b74e4;
 `;

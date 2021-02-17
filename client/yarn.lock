@@ -2,22 +2,22 @@
 # yarn lockfile v1
 
 
-"@apollo/client@^3.0.2":
-  version "3.3.9"
-  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.3.9.tgz#f3ad07fd3f3ef4aaf9a25e3b5f99e5cca6440322"
-  integrity sha512-4koVaCKcztuNZCiKP/nyghCVon1Y0+EoIpBytTDTvn7L+QkEQpgKZiWcRGnuJjdvL8QlKiiV7zhdJOiDhIoiUw==
+"@apollo/client@3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.3.0.tgz#f4f62645c0a40fce7d4957d93c655851a34c77ef"
+  integrity sha512-kD5TQKe+CYb+0mtHN/zRsaaA5HP149FeC3L2e3VZrdCC+7wjvuNtihw/+oo71T7yFSvQKdWb3+fj6qQl8oRuog==
   dependencies:
     "@graphql-typed-document-node/core" "^3.0.0"
     "@types/zen-observable" "^0.8.0"
     "@wry/context" "^0.5.2"
     "@wry/equality" "^0.3.0"
     fast-json-stable-stringify "^2.0.0"
-    graphql-tag "^2.12.0"
+    graphql-tag "^2.11.0"
     hoist-non-react-statics "^3.3.2"
-    optimism "^0.14.0"
+    optimism "^0.13.1"
     prop-types "^15.7.2"
     symbol-observable "^2.0.0"
-    ts-invariant "^0.6.0"
+    ts-invariant "^0.5.1"
     tslib "^1.10.0"
     zen-observable "^0.8.14"
 
@@ -1818,11 +1818,6 @@
     "@types/testing-library__dom" "*"
     pretty-format "^25.1.0"
 
-"@types/ungap__global-this@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@types/ungap__global-this/-/ungap__global-this-0.3.1.tgz#18ce9f657da556037a29d50604335614ce703f4c"
-  integrity sha512-+/DsiV4CxXl6ZWefwHZDXSe1Slitz21tom38qPCaG0DYCS1NnDPIQDTKcmQ/tvK/edJUKkmuIDBJbmKDiB0r/g==
-
 "@types/unist@*", "@types/unist@^2.0.0", "@types/unist@^2.0.2":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.3.tgz#9c088679876f374eb5983f150d4787aa6fb32d7e"
@@ -1894,11 +1889,6 @@
     lodash "^4.17.15"
     semver "^7.3.2"
     tsutils "^3.17.1"
-
-"@ungap/global-this@^0.4.2":
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/@ungap/global-this/-/global-this-0.4.4.tgz#8a1b2cfcd3e26e079a847daba879308c924dd695"
-  integrity sha512-mHkm6FvepJECMNthFuIgpAEFmPOk71UyXuIxYfjytvFTnSDBIz7jmViO+LfHI/AjrazWije0PnSP3+/NlwzqtA==
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
@@ -2057,13 +2047,6 @@
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/@wry/equality/-/equality-0.3.2.tgz#566a8d05225f1e559fc6589c8b50fa085413c6be"
   integrity sha512-yi0VRqw+ygqM/WVZUze5meAhe2evOHBFXqK8onNVdNNB+Tyn8/07FZpeDklECBHeT9KN9DY2JpCVGNQY6RCRDg==
-  dependencies:
-    tslib "^1.14.1"
-
-"@wry/trie@^0.2.1":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@wry/trie/-/trie-0.2.2.tgz#99f20f0fcbbcda17006069b155c826cbabfc402f"
-  integrity sha512-OxqBB39x6MfHaa2HpMiRMfhuUnQTddD32Ko020eBeJXq87ivX6xnSSnzKHVbA21p7iqBASz8n/07b6W5wW1BVQ==
   dependencies:
     tslib "^1.14.1"
 
@@ -3291,11 +3274,6 @@ clone-regexp@^2.1.0:
   integrity sha512-beMpP7BOtTipFuW8hrJvREQ2DrRu3BE7by0ZpibtfBA+qfHYvMGTc2Yb1JMYPKg/JUw0CHYvpg796aNTSW9z7Q==
   dependencies:
     is-regexp "^2.0.0"
-
-clsx@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.1.1.tgz#98b3134f9abbdf23b2663491ace13c5c03a73188"
-  integrity sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==
 
 co@^4.6.0:
   version "4.6.0"
@@ -5445,17 +5423,10 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.6.tgz#ff040b2b0853b23c3d31027523706f1885d76bee"
   integrity sha512-nTnJ528pbqxYanhpDYsi4Rd8MAeaBA67+RZ10CM1m3bTAVFEDcd5AuA4a6W5YkGZ1iNXHzZz8T6TBKLeBuNriQ==
 
-graphql-tag@^2.10.1:
+graphql-tag@^2.10.1, graphql-tag@^2.11.0:
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.11.0.tgz#1deb53a01c46a7eb401d6cb59dec86fa1cccbffd"
   integrity sha512-VmsD5pJqWJnQZMUeRwrDhfgoyqcfwEkvtpANqcoUG8/tOLkwNgU9mzub/Mc78OJMhHjx7gfAMTxzdG43VGg3bA==
-
-graphql-tag@^2.12.0:
-  version "2.12.0"
-  resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.12.0.tgz#1f0fe5b1e303b64c76db70838b23c4c58c7a4fd5"
-  integrity sha512-iK040pFYpQpHfqF5UJOlYu2XEw6wx56aiyKJP1zqhxabGssqfbTIqz6U++cBwx/Izad0JNq6IsWvrL+p6d1GOA==
-  dependencies:
-    tslib "^1.14.1"
 
 graphql.macro@^1.4.2:
   version "1.4.2"
@@ -8084,13 +8055,12 @@ opn@^5.5.0:
   dependencies:
     is-wsl "^1.1.0"
 
-optimism@^0.14.0:
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/optimism/-/optimism-0.14.0.tgz#256fb079a3428585b40a3a8462f907e0abd2fc49"
-  integrity sha512-ygbNt8n4DOCVpkwiLF+IrKKeNHOjtr9aXLWGP9HNJGoblSGsnVbJLstcH6/nE9Xy5ZQtlkSioFQNnthmENW6FQ==
+optimism@^0.13.1:
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/optimism/-/optimism-0.13.2.tgz#002a438b69652bfe8f8754a4493ed35c2e9d9821"
+  integrity sha512-kJkpDUEs/Rp8HsAYYlDzyvQHlT6YZa95P+2GGNR8p/VvsIkt6NilAk7oeTvMRKCq7BeclB7+bmdIexog2859GQ==
   dependencies:
     "@wry/context" "^0.5.2"
-    "@wry/trie" "^0.2.1"
 
 optimize-css-assets-webpack-plugin@5.0.3:
   version "5.0.3"
@@ -9713,15 +9683,6 @@ react-textarea-autosize@^8.2.0:
     "@babel/runtime" "^7.10.2"
     use-composed-ref "^1.0.0"
     use-latest "^1.0.0"
-
-react-toastify@^6.0.9:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-6.2.0.tgz#f2d76747c70b9de91f71f253d9feae6b53dc836c"
-  integrity sha512-XpjFrcBhQ0/nBOL4syqgP/TywFnOyxmstYLWgSQWcj39qpp+WU4vPt3C/ayIDx7RFyxRWfzWTdR2qOcDGo7G0w==
-  dependencies:
-    clsx "^1.1.1"
-    prop-types "^15.7.2"
-    react-transition-group "^4.4.1"
 
 react-tooltip@^4.2.7:
   version "4.2.13"
@@ -11462,13 +11423,11 @@ ts-essentials@^2.0.3:
   resolved "https://registry.yarnpkg.com/ts-essentials/-/ts-essentials-2.0.12.tgz#c9303f3d74f75fa7528c3d49b80e089ab09d8745"
   integrity sha512-3IVX4nI6B5cc31/GFFE+i8ey/N2eA0CZDbo6n0yrz0zDX8ZJ8djmU1p+XRz7G3is0F3bB3pu2pAroFdAWQKU3w==
 
-ts-invariant@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/ts-invariant/-/ts-invariant-0.6.0.tgz#44066ecfeb7a806ff1c3b0b283408a337a885412"
-  integrity sha512-caoafsfgb8QxdrKzFfjKt627m4i8KTtfAiji0DYJfWI4A/S9ORNNpzYuD9br64kyKFgxn9UNaLLbSupam84mCA==
+ts-invariant@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/ts-invariant/-/ts-invariant-0.5.1.tgz#4171fdb85f72a40381c147afd97c12154ada2abc"
+  integrity sha512-k3UpDNrBZpqJFnAAkAHNmSHtNuCxcU6xLiziPgalHRKZHme6T6jnKC8CcXDmk1zbHLQM8pc+rNC1Q6FvXMAl+g==
   dependencies:
-    "@types/ungap__global-this" "^0.3.1"
-    "@ungap/global-this" "^0.4.2"
     tslib "^1.9.3"
 
 ts-pnp@1.1.6:

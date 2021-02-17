@@ -293,6 +293,25 @@ schema.mutationType({
         projectId: schema.stringArg({ required: true }),
       },
       async resolve(_root, { projectId }, ctx) {
+        const projectToDelete = await ctx.db.project.findOne({
+          where: {
+            id: projectId,
+          },
+        });
+
+        const userDeleting = await ctx.db.user.findOne({
+          where: {
+            id: ctx.currentUserId,
+          },
+        });
+
+        if (
+          projectToDelete?.authorId !== userDeleting?.id &&
+          userDeleting?.role !== 'ADMIN'
+        ) {
+          throw Error('Not Authorized');
+        }
+
         await ctx.db.project.delete({ where: { id: projectId } });
 
         return projectId;

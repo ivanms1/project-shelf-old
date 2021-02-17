@@ -1,24 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactToolTip from 'react-tooltip';
+import toast from 'react-hot-toast';
 import Zoom from 'react-medium-image-zoom';
 import { useMutation } from '@apollo/client';
 import { loader } from 'graphql.macro';
 import { useForm, Controller } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+import { Link } from 'react-router-dom';
 
+import Loader from '../../components/Loader/Loader';
+import PopupModal from '../../components/PopupModal/PopupModal';
+import { Dropzone } from '../../components/DropZone/Dropzone';
 import SelectTags from './SelectTags/SelectTags';
-import IMG_Social from '../../assets/social.png';
-import Rick from '../../assets/rick.png';
+import Button from '../../components/Button/Button';
+import Active from '../../components/Active/Active';
+
+import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
+
+import { options } from './SelectOptions/options';
+import { getCurrentDate } from './../../helpers/dateConverter';
 
 import { ReactComponent as Spinner } from '../../assets/spinner.svg';
 
-import {
-  CardOuter,
-  CardInner,
-  HeaderCollection,
-  Links,
-  Profile,
-} from '../../components/Card/style';
+import Rick from '../../assets/rick.png';
+import IMG_Social from '../../assets/social.png';
 
 import {
   FormContainer,
@@ -29,19 +34,22 @@ import {
   ErrorText,
   CustomSubmitCss,
 } from './style';
-
-import Button from '../../components/Button/Button';
-import Active from '../../components/Active/Active';
-
-import { Dropzone } from '../../components/DropZone/Dropzone';
-import { options } from './SelectOptions/options';
-import { getCurrentDate } from './../../helpers/dateConverter';
+import {
+  CardOuter,
+  CardInner,
+  HeaderCollection,
+  Links,
+  Profile,
+} from '../../components/Card/style';
+import { CustomYesButton } from '../../components/PopupModal/style';
 
 const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
+const CREATE_PROJECT_MUTATION = loader('./mutationCreateProject.graphql');
 
 const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
 
-function SubmitForm({ user, onSubmit }) {
+function SubmitForm() {
+  const [successModal, setSuccessModal] = useState(false);
   const { register, handleSubmit, control, errors, watch } = useForm({
     defaultValues: {
       title: 'Recipe App',
@@ -51,9 +59,49 @@ function SubmitForm({ user, onSubmit }) {
     },
   });
 
+  const { currentUser: user, loading: currentUserLoading } = useCurrentUser();
+
   const { title, preview, repoLink, siteLink, description } = watch();
 
-  const [uploadImage, { loading }] = useMutation(MUTATION_UPLOAD_IMAGE);
+  const [uploadImage, { loading: loadingImg }] = useMutation(
+    MUTATION_UPLOAD_IMAGE
+  );
+
+  const [createProject, { data }] = useMutation(CREATE_PROJECT_MUTATION, {
+    update(cache, { data: { createProject } }) {
+      cache.modify({
+        id: cache.identify(user),
+        fields: {
+          projects(existingProjects = []) {
+            return [...existingProjects, createProject];
+          },
+        },
+      });
+    },
+  });
+
+  async function onSubmit(data) {
+    try {
+      await createProject({
+        variables: {
+          input: {
+            authorId: user.id,
+            preview: data.preview,
+            title: data.title,
+            siteLink: data.siteLink,
+            repoLink: data.repoLink,
+            description: data.description,
+            tags: data.tags.map((e) => e.value),
+          },
+        },
+      });
+
+      setSuccessModal(true);
+    } catch (error) {
+      toast.error("Couldn't create project");
+    }
+  }
+
   async function handleImage(event, onChange) {
     if (!event.length) {
       return null;
@@ -63,7 +111,7 @@ function SubmitForm({ user, onSubmit }) {
     reader.readAsDataURL(event[0]);
     reader.onabort = () => alert('failed');
     reader.onerror = () => console.log('error');
-    reader.onload = async (e) => {
+    reader.onload = async () => {
       const res = await uploadImage({
         variables: {
           path: reader.result,
@@ -72,6 +120,10 @@ function SubmitForm({ user, onSubmit }) {
 
       onChange(res?.data?.image?.url);
     };
+  }
+
+  if (currentUserLoading) {
+    return <Loader />;
   }
 
   return (
@@ -100,7 +152,7 @@ function SubmitForm({ user, onSubmit }) {
 
           <div className='imgContainer'>
             <Zoom wrapStyle={{ display: 'block' }}>
-              {(loading && (
+              {(loadingImg && (
                 <p className='loading'>
                   <Spinner />
                 </p>
@@ -201,7 +253,6 @@ function SubmitForm({ user, onSubmit }) {
 
         <InputContainer>
           <label>Link to the live site</label>
-
           <Input
             name='siteLink'
             placeholder='Link to the live site'
@@ -248,6 +299,18 @@ function SubmitForm({ user, onSubmit }) {
           Submit your Project
         </Button>
       </Submission>
+      <PopupModal
+        isOpen={successModal}
+        onRequestClose={() => setSuccessModal(false)}
+        title='Project Submitted'
+      >
+        <div className='imgContainer'>
+          <img src={data?.createProject?.preview} alt='project'></img>
+        </div>
+        <Link to='/'>
+          <Button addCSS={CustomYesButton}>Ok</Button>
+        </Link>
+      </PopupModal>
     </FormContainer>
   );
 }

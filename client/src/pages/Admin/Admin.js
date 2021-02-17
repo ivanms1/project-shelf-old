@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { loader } from 'graphql.macro';
 import { useQuery } from '@apollo/client';
 
@@ -28,16 +28,18 @@ const tabs = [
 
 const GET_ALL_USER_QUERY = loader('../UserTable/queryGetAllUsers.graphql');
 
-function Admin(props) {
+function Admin() {
   const [page, setPage] = useState('approved');
 
-  const { data = {}, loading, error } = useQuery(GET_ALL_USER_QUERY);
+  const { loading, error } = useQuery(GET_ALL_USER_QUERY);
 
   if (loading) {
     return <Loader />;
   }
 
-  const { user } = data;
+  if (error) {
+    return toast.error('Oops something went wrong.');
+  }
 
   return (
     <Main>
@@ -49,10 +51,10 @@ function Admin(props) {
               <li key={index}>
                 <button
                   style={{
-                    backgroundColor: page == tab.path ? '#20c997' : 'white',
-                    color: page == tab.path ? 'white' : '#152c5b',
-                    border: page == tab.path ? '1px solid #20c997' : '',
-                    fontWeight: page == tab.path ? '600' : '',
+                    backgroundColor: page === tab.path ? '#20c997' : 'white',
+                    color: page === tab.path ? 'white' : '#152c5b',
+                    border: page === tab.path ? '1px solid #20c997' : '',
+                    fontWeight: page === tab.path ? '600' : '',
                   }}
                   onClick={() => {
                     setPage(tab.path);
@@ -65,9 +67,9 @@ function Admin(props) {
           </ul>
         </TabContainer>
 
-        {page == 'approved' && <NotActivated />}
-        {page == 'notapproved' && <Activated />}
-        {page == 'allusers' && <JsonData />}
+        {page === 'approved' && <NotActivated />}
+        {page === 'notapproved' && <Activated />}
+        {page === 'allusers' && <JsonData />}
       </Container>
     </Main>
   );

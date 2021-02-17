@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from 'react';
+import React, { useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 import { Context } from '../Context/AppContext';
@@ -6,24 +6,24 @@ import { Context } from '../Context/AppContext';
 import useCurrentUser from '../components/useCurrentUser/useCurrentUser';
 
 function PrivateRoutes({ path, isForAdmin, children, ...props }) {
-  const hooks = useContext(Context);
+  const { isAuthenticated } = useContext(Context);
 
-  const { currentUser } = useCurrentUser();
+  const { currentUser, loading } = useCurrentUser();
 
-  const { isAuthenticated } = hooks;
+  if (loading) {
+    return <p>loading...</p>;
+  }
+
+  if ((!isAuthenticated || !currentUser) && !loading) {
+    return <Redirect to='/signin' />;
+  }
 
   if (isForAdmin && currentUser.role === 'USER') {
     return <Redirect to='/' />;
   }
 
-  if (isAuthenticated || !currentUser) {
-    if (path === '/register' || path === '/signin') {
-      return <Redirect to='/' />;
-    }
-  }
-
-  if (!isAuthenticated) {
-    return <Redirect to='signin' />;
+  if (path === '/register' || path === '/signin') {
+    return <Redirect to='/' />;
   }
 
   return (

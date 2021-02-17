@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDropzone } from 'react-dropzone';
+
 import { Container } from './style';
 
 export const Dropzone = ({ onDrop, accept = '' }) => {

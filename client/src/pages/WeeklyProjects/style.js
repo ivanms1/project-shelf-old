@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Main = styled.div`
-  min-height: 100vh;
   display: flex;
+  min-height: 100vh;
   flex-direction: column;
 `;
 
@@ -29,13 +29,6 @@ export const SearchContainer = styled.div`
     font-size: 25px;
   }
 
-  select {
-    padding: 7px 20px 7px 10px;
-    border-radius: 5px;
-    color: #212529;
-    font-weight: 600;
-  }
-
   @media screen and (max-width: 820px) {
     display: flex;
     flex-direction: column;
@@ -54,12 +47,11 @@ export const SearchContainer = styled.div`
 
 export const CardContainer = styled.div`
   width: 100%;
-  max-width: 1400px;
+  max-width: 1350px;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items: flex-start;
   flex-wrap: wrap;
   padding: 15px;
 

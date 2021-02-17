@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { useTable, usePagination } from 'react-table';
 import { loader } from 'graphql.macro';
 import { useMutation } from '@apollo/client';
@@ -16,17 +16,14 @@ const UPDATE_USER_ROLE = loader('./mutationUpdateUser.graphql');
 function UserTable({
   data,
   fetchData,
-  loading,
   pageCount: controlledPageCount,
   getPages,
 }) {
-  const [s, setS] = useState(getPages);
-
   const columns = useMemo(
     () => [
       {
         Header: <input type='checkbox'></input>,
-        Footer: (info) => `Count: ${Number(getPages)}`,
+        Footer: () => `Count: ${Number(getPages)}`,
         accessor: 'check',
       },
       {
@@ -41,7 +38,7 @@ function UserTable({
         accessor: (d) => (
           <div className='profile'>
             <div className='imgContainer'>
-              <img src={ProfilePic}></img>
+              <img src={ProfilePic} alt={ProfilePic} />
             </div>
             <div>
               <div className='name'>
@@ -55,7 +52,7 @@ function UserTable({
       {
         Header: 'Projects',
         accessor: (d) => {
-          if (d.projects.length == 0) {
+          if (d.projects.length === 0) {
             return <span>0</span>;
           } else {
             return <span>{d.projects.length}</span>;
@@ -65,7 +62,7 @@ function UserTable({
       {
         Header: 'Role',
         accessor: 'role',
-        Cell: (props, { cell }) =>
+        Cell: (props) =>
           props.value === 'USER' ? (
             <button
               className='user'
@@ -91,17 +88,17 @@ function UserTable({
         Cell: ({ cell }) => (
           <div className='buttonHolder'>
             <button>
-              <img className='edit' src={EditPic}></img>
+              <img className='edit' src={EditPic} alt='edit-button' />
             </button>
 
             <button>
-              <img className='trash' src={TrashPic}></img>
+              <img className='trash' src={TrashPic} alt='delete-button' />
             </button>
           </div>
         ),
       },
     ],
-    []
+    [deleteuser, getPages]
   );
 
   const {
@@ -112,7 +109,6 @@ function UserTable({
     prepareRow,
     //pagination
     footerGroups,
-    page,
     canPreviousPage,
     canNextPage,
     pageOptions,

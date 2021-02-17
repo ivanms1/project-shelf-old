@@ -23,15 +23,21 @@ export const ActivatedContainer = styled.div`
     width: 100%;
     margin: 0px 35px;
 
-    p {
+    h1 {
       font-size: 27px;
       font-weight: 600;
       color: #152c5b;
       letter-spacing: 1px;
     }
 
+    .noproject {
+      margin: 20vh auto;
+      font-size: 20px;
+      text-align: center;
+    }
+
     @media screen and (max-width: 500px) {
-      p {
+      h1 {
         text-align: center;
         font-size: 24px;
       }

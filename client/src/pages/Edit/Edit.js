@@ -6,19 +6,19 @@ import { useHistory, useParams } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Loader from '../../components/Loader/Loader';
 import EditForm from './EditForm';
-import { PopupModal } from '../../components/PopupModal/PopupModal';
+import PopupModal from '../../components/PopupModal/PopupModal';
 
 import { Main, Container } from './style';
-
-const userToken = localStorage.getItem('userToken');
 
 const GET_USER_QUERY = loader('./queryGetUser.graphql');
 const CREATE_PROJECT_MUTATION = loader('./mutationUpdateProject.graphql');
 const QUERY_GET_PROJECT_DATA = loader('./queryGetProject.graphql');
 
+const userToken = localStorage.getItem('userToken');
+
 let img = '';
 
-function Edit(props) {
+function Edit() {
   const history = useHistory();
   const { projectId } = useParams();
 
@@ -57,7 +57,7 @@ function Edit(props) {
   }
 
   if (GetProjecterror) {
-    return console.log(GetProjecterror);
+    return <p>Sorry, something went wrong.</p>;
   }
 
   const { getProject } = GetProjectData;

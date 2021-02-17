@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import ReactToolTip from 'react-tooltip';
 import Zoom from 'react-medium-image-zoom';
-import 'react-medium-image-zoom/dist/styles.css';
 
 import Active from '../Active/Active';
 
 import { getCurrentDate } from '../../helpers/dateConverter';
+
 import { ReactComponent as Spinner } from './../../assets/spinner.svg';
+import Rick from '../../assets/rick.png';
 
 import {
   CardOuter,
@@ -16,12 +17,11 @@ import {
   Profile,
   ImgLoading,
 } from './style';
-
-import Rick from '../../assets/rick.png';
+import 'react-medium-image-zoom/dist/styles.css';
 
 const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
 
-function Card({ children, user, project, ...props }) {
+function Card({ children, user, project }) {
   const [imgLoaded, setImgLoaded] = useState(false);
 
   return (
