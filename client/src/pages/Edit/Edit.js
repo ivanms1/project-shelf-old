@@ -57,7 +57,7 @@ function Edit() {
   }
 
   if (GetProjecterror) {
-    return JSON.stringify(error, null, 2);
+    return <p>Sorry, something went wrong.</p>;
   }
 
   const { getProject } = GetProjectData;

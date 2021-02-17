@@ -30,10 +30,10 @@ function Notactivated() {
   }
 
   if (error) {
-    return JSON.stringify(error, null, 2);
+    return <p>Sorry, something went wrong.</p>;
   }
   if (errorR) {
-    return JSON.stringify(errorR, null, 2);
+    return <p>Sorry, something went wrong.</p>;
   }
 
   async function updateProjectStatus(projectId) {
