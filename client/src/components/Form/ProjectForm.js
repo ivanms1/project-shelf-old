@@ -2,23 +2,21 @@ import React, { useState } from 'react';
 import ReactToolTip from 'react-tooltip';
 import toast from 'react-hot-toast';
 import Zoom from 'react-medium-image-zoom';
-import { useMutation } from '@apollo/client';
-import { loader } from 'graphql.macro';
 import { useForm, Controller } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { Link } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
+import { loader } from 'graphql.macro';
 
-import Loader from '../../components/Loader/Loader';
-import PopupModal from '../../components/PopupModal/PopupModal';
-import { Dropzone } from '../../components/DropZone/Dropzone';
+import Loader from '../Loader/Loader';
+import PopupModal from '../PopupModal/PopupModal';
+import { Dropzone } from '../DropZone/Dropzone';
 import SelectTags from './SelectTags/SelectTags';
-import Button from '../../components/Button/Button';
-import Active from '../../components/Active/Active';
-
-import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
+import Button from '../Button/Button';
+import Active from '../Active/Active';
 
 import { options } from './SelectOptions/options';
-import { getCurrentDate } from './../../helpers/dateConverter';
+import { getCurrentDate } from '../../helpers/dateConverter';
 
 import { ReactComponent as Spinner } from '../../assets/spinner.svg';
 
@@ -33,22 +31,21 @@ import {
   TextArea,
   ErrorText,
   CustomSubmitCss,
-} from './style';
+} from '../../pages/SubmitYourProject/style';
 import {
   CardOuter,
   CardInner,
   HeaderCollection,
   Links,
   Profile,
-} from '../../components/Card/style';
-import { CustomYesButton } from '../../components/PopupModal/style';
+} from '../Card/style';
+import { CustomYesButton } from '../PopupModal/style';
 
 const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
-const CREATE_PROJECT_MUTATION = loader('./mutationCreateProject.graphql');
 
 const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
 
-function SubmitForm() {
+function ProjectForm({ user, mutation, project, data }) {
   const [successModal, setSuccessModal] = useState(false);
   const { register, handleSubmit, control, errors, watch } = useForm({
     defaultValues: {
@@ -59,30 +56,16 @@ function SubmitForm() {
     },
   });
 
-  const { currentUser: user, loading: currentUserLoading } = useCurrentUser();
-
   const { title, preview, repoLink, siteLink, description } = watch();
 
   const [uploadImage, { loading: loadingImg }] = useMutation(
     MUTATION_UPLOAD_IMAGE
   );
 
-  const [createProject, { data }] = useMutation(CREATE_PROJECT_MUTATION, {
-    update(cache, { data: { createProject } }) {
-      cache.modify({
-        id: cache.identify(user),
-        fields: {
-          projects(existingProjects = []) {
-            return [...existingProjects, createProject];
-          },
-        },
-      });
-    },
-  });
-
+  let image;
   async function onSubmit(data) {
     try {
-      await createProject({
+      await mutation({
         variables: {
           input: {
             authorId: user.id,
@@ -95,7 +78,7 @@ function SubmitForm() {
           },
         },
       });
-
+      image = data.preview;
       setSuccessModal(true);
     } catch (error) {
       toast.error("Couldn't create project");
@@ -120,10 +103,6 @@ function SubmitForm() {
 
       onChange(res?.data?.image?.url);
     };
-  }
-
-  if (currentUserLoading) {
-    return <Loader />;
   }
 
   return (
@@ -181,7 +160,7 @@ function SubmitForm() {
       </CardOuter>
 
       <Submission onSubmit={handleSubmit(onSubmit)}>
-        <span>Submit your Project</span>
+        <span>{project ? 'Edit your' : 'Submit your'} Project</span>
         <Controller
           name='preview'
           control={control}
@@ -305,7 +284,7 @@ function SubmitForm() {
         title='Project Submitted'
       >
         <div className='imgContainer'>
-          <img src={data?.createProject?.preview} alt='project'></img>
+          <img src={image} alt='project'></img>
         </div>
         <Link to='/'>
           <Button addCSS={CustomYesButton}>Ok</Button>
@@ -315,4 +294,4 @@ function SubmitForm() {
   );
 }
 
-export default SubmitForm;
+export default ProjectForm;
