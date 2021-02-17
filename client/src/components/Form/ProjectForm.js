@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
-import Loader from '../Loader/Loader';
 import PopupModal from '../PopupModal/PopupModal';
 import { Dropzone } from '../DropZone/Dropzone';
 import SelectTags from './SelectTags/SelectTags';
@@ -45,7 +44,8 @@ const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
 
 const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
 
-function ProjectForm({ user, mutation, project, data }) {
+function ProjectForm({ user, mutation, project }) {
+  const [image, setImage] = useState('');
   const [successModal, setSuccessModal] = useState(false);
   const { register, handleSubmit, control, errors, watch } = useForm({
     defaultValues: {
@@ -62,7 +62,6 @@ function ProjectForm({ user, mutation, project, data }) {
     MUTATION_UPLOAD_IMAGE
   );
 
-  let image;
   async function onSubmit(data) {
     try {
       await mutation({
@@ -78,7 +77,7 @@ function ProjectForm({ user, mutation, project, data }) {
           },
         },
       });
-      image = data.preview;
+      setImage(data.preview);
       setSuccessModal(true);
     } catch (error) {
       toast.error("Couldn't create project");
