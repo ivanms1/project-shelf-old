@@ -6,5 +6,6 @@ query GetProject($id: String!) {
     siteLink
     description
     createdAt
+    tags
   }
 }

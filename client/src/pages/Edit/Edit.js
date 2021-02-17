@@ -1,59 +1,46 @@
 import React, { useState } from 'react';
 import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import Header from '../../components/Header/Header';
 import Loader from '../../components/Loader/Loader';
-import EditForm from './EditForm';
-import PopupModal from '../../components/PopupModal/PopupModal';
+import ProjectForm from '../../components/Form/ProjectForm';
 
-import { Main, Container } from './style';
+import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
 
-const GET_USER_QUERY = loader('./queryGetUser.graphql');
-const CREATE_PROJECT_MUTATION = loader('./mutationUpdateProject.graphql');
-const QUERY_GET_PROJECT_DATA = loader('./queryGetProject.graphql');
+import { Main, Overlay, Container } from './style';
 
-const userToken = localStorage.getItem('userToken');
-
-let img = '';
+const MUTATION_UPDATE_PROJECT = loader('./mutationUpdateProject.graphql');
+const QUERY_GET_PROJECT = loader('./queryGetProject.graphql');
 
 function Edit() {
-  const history = useHistory();
+  const { currentUser: user, loading, error: errorUser } = useCurrentUser();
+
   const { projectId } = useParams();
-
-  const [open, setOpen] = useState(false);
-  const closeModal = () => setOpen(false);
-
-  const { loading, data } = useQuery(GET_USER_QUERY, {
-    variables: {
-      id: userToken,
-      skip: !userToken,
-    },
-  });
 
   const {
     data: GetProjectData = {},
     loading: GetProjectLoading,
     error: GetProjecterror,
-  } = useQuery(QUERY_GET_PROJECT_DATA, {
+  } = useQuery(QUERY_GET_PROJECT, {
     variables: {
       id: projectId,
     },
   });
 
-  const [sendInputs, { error }] = useMutation(CREATE_PROJECT_MUTATION);
+  const [sendInputs, { error }] = useMutation(MUTATION_UPDATE_PROJECT);
 
   if (loading || GetProjectLoading) {
     return <Loader />;
   }
 
-  if (error || !data) {
-    return <Loader />;
+  if (errorUser) {
+    return <p>Sorry, something went wrong.</p>;
   }
 
-  if (error || !GetProjectData) {
-    return <Loader />;
+  if (error) {
+    return <p>Sorry, something went wrong.</p>;
   }
 
   if (GetProjecterror) {
@@ -62,61 +49,18 @@ function Edit() {
 
   const { getProject } = GetProjectData;
 
-  const { user } = data;
-
-  //creating projects
-  async function onSubmit(data) {
-    try {
-      await sendInputs({
-        variables: {
-          projectId: projectId,
-          input: {
-            preview: data.preview,
-            title: data.title,
-            siteLink: data.siteLink,
-            repoLink: data.repoLink,
-            description: data.description,
-          },
-        },
-      });
-      img = data.preview || getProject.preview;
-      history.push('/');
-    } catch (error) {
-      console.log(JSON.stringify(error, null, 2));
-    }
-  }
-
   return (
     <Main>
       <Header />
-      <div style={{ backgroundColor: '#F7F8FC' }}>
+      <Overlay>
         <Container>
           <p>
             <span>ShowCase them </span>
             <span>so that people can learn from each other.</span>
           </p>
-
-          {user && (
-            <EditForm user={user} onSubmit={onSubmit} project={getProject} />
-          )}
+          <ProjectForm user={user} project={getProject} mutation={sendInputs} />
         </Container>
-      </div>
-
-      <PopupModal open={open} closeOnDocumentClick={false} onClose={closeModal}>
-        <div className='modal'>
-          <div>
-            <span>Project Updated</span>
-            <button onClick={closeModal}>&times;</button>
-          </div>
-          <div>
-            <div className='imgContainer'>
-              <img src={img} alt={img}></img>
-            </div>
-            <p className='message'>Project have been updated !</p>
-            <button onClick={() => history.push('/')}>Ok</button>
-          </div>
-        </div>
-      </PopupModal>
+      </Overlay>
     </Main>
   );
 }

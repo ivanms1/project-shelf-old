@@ -47,13 +47,23 @@ const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
 function ProjectForm({ user, mutation, project }) {
   const [image, setImage] = useState('');
   const [successModal, setSuccessModal] = useState(false);
+
+  const defaultValues = project
+    ? {
+        title: project.title,
+        preview: project.preview,
+        repoLink: project.repoLink,
+        siteLink: project.siteLink,
+        description: project.description,
+      }
+    : {
+        title: 'Recipe App',
+        preview: IMG_Social,
+        description:
+          'This was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.',
+      };
   const { register, handleSubmit, control, errors, watch } = useForm({
-    defaultValues: {
-      title: 'Recipe App',
-      preview: IMG_Social,
-      description:
-        'This was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.',
-    },
+    defaultValues: defaultValues,
   });
 
   const { title, preview, repoLink, siteLink, description } = watch();
@@ -203,7 +213,6 @@ function ProjectForm({ user, mutation, project }) {
               <SelectTags name='tags' onChange={onChange} options={options} />
             )}
             rules={{ required: 'Tags cannot be Empty' }}
-            defaultValue=''
           />
           <ErrorMessage errors={errors} name='tags' as={<ErrorText />}>
             {({ message }) => <small>{message}</small>}
