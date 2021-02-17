@@ -25,7 +25,7 @@ import {
   CustomSignInCss,
 } from './style';
 
-const GET_USER_QUERY = loader('./mutationLoginUser.graphql');
+const MUTATION_LOGIN_USER = loader('./mutationLoginUser.graphql');
 
 function Signin() {
   const history = useHistory();
@@ -35,7 +35,7 @@ function Signin() {
 
   const { register, errors, handleSubmit } = useForm();
 
-  const [signInUser, { loading }] = useMutation(GET_USER_QUERY);
+  const [signInUser, { loading }] = useMutation(MUTATION_LOGIN_USER);
 
   if (loading) {
     return <Loader />;

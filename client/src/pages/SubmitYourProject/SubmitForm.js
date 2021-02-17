@@ -153,7 +153,6 @@ function SubmitForm() {
             <Zoom wrapStyle={{ display: 'block' }}>
               {(loadingImg && (
                 <p className='loading'>
-                  {console.log('Loading')}
                   <Spinner />
                 </p>
               )) || (
