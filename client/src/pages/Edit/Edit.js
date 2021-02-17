@@ -57,7 +57,7 @@ function Edit() {
   }
 
   if (GetProjecterror) {
-    return console.log(GetProjecterror);
+    return JSON.stringify(error, null, 2);
   }
 
   const { getProject } = GetProjectData;

@@ -34,7 +34,7 @@ function Activated() {
   }
 
   if (errorR) {
-    return console.log(errorR);
+    return JSON.stringify(errorR, null, 2);
   }
 
   async function updateProjectStatus(projectId) {
@@ -62,27 +62,24 @@ function Activated() {
 
           <ProjectCollection>
             {approvedProjects.length ? (
-              approvedProjects.map(
-                (project) =>
-                  project.isApproved === true && (
-                    <CardComponent
-                      key={project.id}
-                      user={project.author}
-                      project={project}
-                      descVisible={false}
-                    >
-                      <Button
-                        kind='disapprove'
-                        maxWidth='big'
-                        fontSize='medium'
-                        addCSS={customCss}
-                        onClick={() => updateProjectStatus(project.id)}
-                      >
-                        Disapprove
-                      </Button>
-                    </CardComponent>
-                  )
-              )
+              approvedProjects.map((project) => (
+                <CardComponent
+                  key={project.id}
+                  user={project.author}
+                  project={project}
+                  descVisible={false}
+                >
+                  <Button
+                    kind='disapprove'
+                    maxWidth='big'
+                    fontSize='medium'
+                    addCSS={customCss}
+                    onClick={() => updateProjectStatus(project.id)}
+                  >
+                    Disapprove
+                  </Button>
+                </CardComponent>
+              ))
             ) : (
               <p className='noproject'>No Approved Projects.</p>
             )}
