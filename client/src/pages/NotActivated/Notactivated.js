@@ -30,10 +30,10 @@ function Notactivated() {
   }
 
   if (error) {
-    return JSON.stringify(error, null, 2);
+    return <p>Sorry, something went wrong.</p>;
   }
   if (errorR) {
-    console.log(errorR);
+    return <p>Sorry, something went wrong.</p>;
   }
 
   async function updateProjectStatus(projectId) {
@@ -52,9 +52,7 @@ function Notactivated() {
   //data takes time to load so destruct might give error when its not loaded
   const { projects } = data;
 
-  const unapprovedProjects = projects.filter(
-    (project) => project.isApproved === false
-  );
+  const unapprovedProjects = projects.filter((project) => !project.isApproved);
 
   return (
     <Container>
@@ -64,27 +62,24 @@ function Notactivated() {
 
           <ProjectCollection>
             {unapprovedProjects.length ? (
-              unapprovedProjects.map(
-                (project) =>
-                  project.isApproved === false && (
-                    <CardComponent
-                      key={project.id}
-                      user={project.author}
-                      project={project}
-                      descVisible={false}
-                    >
-                      <Button
-                        maxWidth='big'
-                        kind='approve'
-                        fontSize='medium'
-                        onClick={() => updateProjectStatus(project.id)}
-                        addCSS={customCss}
-                      >
-                        Approve
-                      </Button>
-                    </CardComponent>
-                  )
-              )
+              unapprovedProjects.map((project) => (
+                <CardComponent
+                  key={project.id}
+                  user={project.author}
+                  project={project}
+                  descVisible={false}
+                >
+                  <Button
+                    maxWidth='big'
+                    kind='approve'
+                    fontSize='medium'
+                    onClick={() => updateProjectStatus(project.id)}
+                    addCSS={customCss}
+                  >
+                    Approve
+                  </Button>
+                </CardComponent>
+              ))
             ) : (
               <p className='noproject'>No Unapproved Projects.</p>
             )}

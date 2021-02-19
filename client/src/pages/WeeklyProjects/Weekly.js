@@ -19,7 +19,7 @@ function Weekly() {
   }
 
   if (error) {
-    return JSON.stringify(error, null, 2);
+    return <p>Sorry, something went wrong.</p>;
   }
 
   const { projects } = data;

@@ -57,7 +57,7 @@ function Edit() {
   }
 
   if (GetProjecterror) {
-    return console.log(GetProjecterror);
+    return <p>Sorry, something went wrong.</p>;
   }
 
   const { getProject } = GetProjectData;
