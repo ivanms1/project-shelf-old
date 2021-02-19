@@ -29,6 +29,11 @@ export const StyledModal = styled(Modal)`
     display: block;
     object-fit: cover;
   }
+
+  @media screen and (max-width: 450px) {
+    max-width: 330px;
+    max-height: 440px;
+  }
 `;
 
 export const ButtonContainer = styled.div`

@@ -13,9 +13,14 @@ export const StyledModal = styled(Modal)`
   padding: 25px 30px 25px 30px;
   width: 100%;
   max-width: 415px;
-  max-height: 397px;
+  max-height: 440px;
   font-family: 'Poppins';
   z-index: 999 !important;
+
+  @media screen and (max-width: 450px) {
+    max-width: 330px;
+    max-height: 440px;
+  }
 `;
 
 export const Body = styled.div`
