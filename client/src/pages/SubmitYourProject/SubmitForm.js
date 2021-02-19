@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import ReactToolTip from 'react-tooltip';
 import toast from 'react-hot-toast';
 import Zoom from 'react-medium-image-zoom';
@@ -6,12 +7,11 @@ import { useMutation } from '@apollo/client';
 import { loader } from 'graphql.macro';
 import { useForm, Controller } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { Link } from 'react-router-dom';
 
 import Loader from '../../components/Loader/Loader';
-import Modal from '../../components/PopupModal/Modal';
 import { Dropzone } from '../../components/DropZone/Dropzone';
 import SelectTags from './SelectTags/SelectTags';
+import SubmissionModal from './SubmissionModal/SubmissionModal';
 import Button from '../../components/Button/Button';
 import Active from '../../components/Active/Active';
 
@@ -48,6 +48,7 @@ const CREATE_PROJECT_MUTATION = loader('./mutationCreateProject.graphql');
 const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
 
 function SubmitForm() {
+  const history = useHistory();
   const [successModal, setSuccessModal] = useState(false);
   const { register, handleSubmit, control, errors, watch } = useForm({
     defaultValues: {
@@ -299,18 +300,14 @@ function SubmitForm() {
           Submit your Project
         </Button>
       </Submission>
-      {/* <Modal
+
+      <SubmissionModal
         isOpen={successModal}
-        onRequestClose={() => setSuccessModal(false)}
-        title='Project Submitted'
-      >
-        <div className='imgContainer'>
-          <img src={data?.createProject?.preview} alt='project'></img>
-        </div>
-        <Link to='/'>
-          <Button>Ok</Button>
-        </Link>
-      </Modal> */}
+        onRequestClose={() => {
+          setSuccessModal(false);
+          history.push('/');
+        }}
+      />
     </FormContainer>
   );
 }
