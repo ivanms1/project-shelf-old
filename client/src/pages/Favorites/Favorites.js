@@ -1,9 +1,10 @@
 import React from 'react';
 
-import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
 import Cardtwo from '../../components/Cardv2/Cardtwo';
 import Header from '../../components/Header/Header';
 import Loader from '../../components/Loader/Loader';
+
+import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
 
 import { Main, Container, Approval, CardContainer } from './style';
 
@@ -25,17 +26,17 @@ function Favorites() {
         <Approval>
           <p>
             Favorite Projects{' '}
-            <span>({currentUser.favoriteProjects.length})</span>
+            <span>({currentUser?.favoriteProjects?.length})</span>
           </p>
         </Approval>
         <CardContainer>
-          {!currentUser.favoriteProjects.length ? (
+          {!currentUser?.favoriteProjects?.length ? (
             <p className='noproject'>
               You dont have any favorite projects yet.
             </p>
           ) : (
             <>
-              {currentUser.favoriteProjects.map((project) => (
+              {currentUser?.favoriteProjects?.map((project) => (
                 <Cardtwo
                   key={project.id}
                   user={currentUser}
