@@ -3,7 +3,7 @@
   "license": "UNLICENSED",
   "version": "0.0.0",
   "dependencies": {
-    "@types/cors": "^2.8.6",
+    "@types/cors": "^2.8.10",
     "body-parser": "^1.19.0",
     "cloudinary": "^1.22.0",
     "concurrently": "^5.2.0",
