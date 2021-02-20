@@ -11,6 +11,9 @@ query GetAllProjects {
     likes {
       id
     }
+    favorites {
+      id
+    }
     preview
     repoLink
     siteLink

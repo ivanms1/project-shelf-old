@@ -73,7 +73,7 @@ function SubmitForm() {
         id: cache.identify(user),
         fields: {
           projects(existingProjects = []) {
-            return [...existingProjects, createProject];
+            return [createProject, ...existingProjects];
           },
         },
       });
