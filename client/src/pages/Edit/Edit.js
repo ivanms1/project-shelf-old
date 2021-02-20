@@ -53,7 +53,7 @@ function Edit() {
   }
 
   if (!projectData?.project) {
-    return <p>Sorry, this project doesn't exist.</p>;
+    return <p>Sorry, this project does not exist.</p>;
   }
 
   const { project } = projectData;
