@@ -5,6 +5,7 @@
   "dependencies": {
     "@apollo/client": "3.3.11",
     "@hookform/error-message": "0.0.5",
+    "@szhsin/react-menu": "^1.6.1",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^12.7.1",
