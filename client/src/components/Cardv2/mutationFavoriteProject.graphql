@@ -1,10 +1,18 @@
 mutation FavoriteProjectMutation($input: FavoriteProjectInput) {
   favoriteProject(input: $input) {
     id
+    title
+    preview
+    description
+    siteLink
+    repoLink
+    isApproved
+    likes {
+      id
+    }
     favorites {
       id
-      name
-      lastName
     }
+    createdAt
   }
 }

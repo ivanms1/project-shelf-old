@@ -33,9 +33,9 @@ function Edit() {
   });
 
   const {
-    data: GetProjectData = {},
-    loading: GetProjectLoading,
-    error: GetProjecterror,
+    data: projectData = {},
+    loading: projectLoading,
+    error: projectError,
   } = useQuery(QUERY_GET_PROJECT_DATA, {
     variables: {
       id: projectId,
@@ -44,23 +44,19 @@ function Edit() {
 
   const [sendInputs, { error }] = useMutation(CREATE_PROJECT_MUTATION);
 
-  if (loading || GetProjectLoading) {
+  if (loading || projectLoading) {
     return <Loader />;
   }
 
-  if (error || !data) {
-    return <Loader />;
-  }
-
-  if (error || !GetProjectData) {
-    return <Loader />;
-  }
-
-  if (GetProjecterror) {
+  if (projectError || error) {
     return <p>Sorry, something went wrong.</p>;
   }
 
-  const { getProject } = GetProjectData;
+  if (!projectData?.project) {
+    return <p>Sorry, this project doesn't exist.</p>;
+  }
+
+  const { project } = projectData;
 
   const { user } = data;
 
@@ -79,7 +75,7 @@ function Edit() {
           },
         },
       });
-      img = data.preview || getProject.preview;
+      img = data.preview || project.preview;
       history.push('/');
     } catch (error) {
       console.log(JSON.stringify(error, null, 2));
@@ -97,7 +93,7 @@ function Edit() {
           </p>
 
           {user && (
-            <EditForm user={user} onSubmit={onSubmit} project={getProject} />
+            <EditForm user={user} onSubmit={onSubmit} project={project} />
           )}
         </Container>
       </div>
