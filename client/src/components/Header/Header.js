@@ -3,7 +3,7 @@ import Popup from 'reactjs-popup';
 import { useHistory } from 'react-router-dom';
 import { useApolloClient } from '@apollo/client';
 
-import DropDownApp from '../DropDown/DropDownApp';
+import DropDown from '../DropDown/DropDown';
 import MobileMenu from '../MobileMenu/Mobilemenu';
 import BurgerIcon from '../BurgerIcon/BurgerIcon';
 import PopupModal from '../PopupModal/PopupModal';
@@ -179,7 +179,7 @@ function Header() {
         }}
       />
 
-      {isAuthenticated && <DropDownApp list={tabs.authandDropdown} />}
+      {isAuthenticated && <DropDown list={tabs.authandDropdown} />}
     </Container>
   );
 }
