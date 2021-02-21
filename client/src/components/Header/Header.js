@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useApolloClient } from '@apollo/client';
 
 import DropDown from '../DropDown/DropDown';
+import DropDownPopper from '../DropDown/DropDownPopper';
 import MobileMenu from '../MobileMenu/Mobilemenu';
 import BurgerIcon from '../BurgerIcon/BurgerIcon';
 import PopupModal from '../PopupModal/PopupModal';
@@ -179,7 +180,8 @@ function Header() {
         }}
       />
 
-      {isAuthenticated && <DropDown list={tabs.authandDropdown} />}
+      {/* {isAuthenticated && <DropDown list={tabs.authandDropdown} />} */}
+      {isAuthenticated && <DropDownPopper menuList={tabs.authandDropdown} />}
     </Container>
   );
 }
