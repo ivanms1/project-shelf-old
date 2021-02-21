@@ -1,17 +1,20 @@
 query GetAllProjects {
-  projects: getProjects {
-    id
-    title
-    author {
-      name
-      lastName
-      email
+  projects: getProjects(onlyApproved: false) {
+    nextCursor
+    results {
+      id
+      title
+      author {
+        name
+        lastName
+        email
+      }
+      preview
+      repoLink
+      siteLink
+      createdAt
+      description
+      isApproved
     }
-    preview
-    repoLink
-    siteLink
-    createdAt
-    description
-    isApproved
   }
 }

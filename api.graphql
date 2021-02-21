@@ -71,6 +71,12 @@ enum ProjectAction {
   LIKE
 }
 
+type ProjectsResponse {
+  nextCursor: String
+  prevCursor: String
+  results: [Project!]
+}
+
 input ProjectWhereUniqueInput {
   id: String
 }
@@ -78,7 +84,9 @@ input ProjectWhereUniqueInput {
 type Query {
   getCurrentUser: User
   getProject(id: String!): Project
-  getProjects: [Project!]
+
+  """Get all approved projects"""
+  getProjects(cursor: String!, onlyApproved: Boolean! = true): ProjectsResponse
   getUser(id: String!): User
   getUsers: [User!]
 }

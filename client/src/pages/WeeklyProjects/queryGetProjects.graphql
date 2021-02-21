@@ -1,23 +1,26 @@
 query GetAllProjects {
   projects: getProjects {
-    id
-    title
-    createdAt
-    author {
-      name
-      lastName
-      email
-    }
-    likes {
+    nextCursor
+    results {
       id
+      title
+      createdAt
+      author {
+        name
+        lastName
+        email
+      }
+      likes {
+        id
+      }
+      favorites {
+        id
+      }
+      preview
+      repoLink
+      siteLink
+      description
+      isApproved
     }
-    favorites {
-      id
-    }
-    preview
-    repoLink
-    siteLink
-    description
-    isApproved
   }
 }

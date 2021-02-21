@@ -29,10 +29,7 @@ function Notactivated() {
     return <Loader />;
   }
 
-  if (error) {
-    return <p>Sorry, something went wrong.</p>;
-  }
-  if (errorR) {
+  if (error || errorR) {
     return <p>Sorry, something went wrong.</p>;
   }
 
@@ -50,9 +47,9 @@ function Notactivated() {
   }
 
   //data takes time to load so destruct might give error when its not loaded
-  const { projects } = data;
-
-  const unapprovedProjects = projects.filter((project) => !project.isApproved);
+  const {
+    projects: { results },
+  } = data;
 
   return (
     <Container>
@@ -61,8 +58,8 @@ function Notactivated() {
           <h1>Not Approved Projects</h1>
 
           <ProjectCollection>
-            {unapprovedProjects.length ? (
-              unapprovedProjects.map((project) => (
+            {results.length ? (
+              results.map((project) => (
                 <CardComponent
                   key={project.id}
                   user={project.author}

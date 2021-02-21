@@ -22,7 +22,11 @@ function Weekly() {
     return <p>Sorry, something went wrong.</p>;
   }
 
-  const { projects } = data;
+  const {
+    projects: { results },
+  } = data;
+
+  console.log(data);
 
   return (
     <Main>
@@ -34,16 +38,13 @@ function Weekly() {
         </SearchContainer>
 
         <CardContainer>
-          {!projects.length ? (
-            <p className='noproject'>You dont have any projects to ShowCase.</p>
+          {!results.length ? (
+            <p className='noproject'>No projects are currently live :(</p>
           ) : (
             <>
-              {projects.map(
-                (project) =>
-                  project?.isApproved && (
-                    <Cardtwo key={project.id} project={project} />
-                  )
-              )}
+              {results.map((project) => (
+                <Cardtwo key={project.id} project={project} />
+              ))}
             </>
           )}
         </CardContainer>

@@ -1,5 +1,4 @@
 import { schema } from 'nexus';
-import fs from 'fs';
 import * as cloudinary from 'cloudinary';
 
 const imageUploader = cloudinary.v2;
@@ -20,6 +19,15 @@ const FavoriteActions = schema.enumType({
   name: 'FavoriteAction',
   members: ['FAVORITE', 'UNDO'],
   description: 'Favorite actions',
+});
+
+const projectsResponse = schema.objectType({
+  name: 'ProjectsResponse',
+  definition(t) {
+    t.string('nextCursor');
+    t.string('prevCursor');
+    t.field('results', { type: 'Project', list: true });
+  },
 });
 
 schema.inputObjectType({
@@ -163,10 +171,34 @@ schema.queryType({
       },
     });
     t.field('getProjects', {
-      type: 'Project',
-      list: true,
-      resolve(_root, _, ctx) {
-        return ctx.db.project.findMany();
+      type: 'ProjectsResponse',
+      description: 'Get all approved projects',
+      args: {
+        onlyApproved: schema.booleanArg({ default: true, nullable: false }),
+        cursor: schema.stringArg({ default: undefined, nullable: false }),
+      },
+      async resolve(_root, args, ctx) {
+        const results = await ctx.db.project.findMany({
+          take: 9,
+          cursor: {
+            id: args.cursor,
+          },
+          where: {
+            isApproved: args?.onlyApproved,
+          },
+        });
+
+        const lastResult = results[8];
+        const cursor = lastResult?.id;
+
+        console.log('lastResult', lastResult);
+        console.log('cursor', cursor);
+
+        return {
+          prevCursor: args.cursor,
+          nextCursor: cursor,
+          results,
+        };
       },
     });
   },
