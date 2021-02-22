@@ -5,6 +5,10 @@ export const MenuButton = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  @media screen and (max-width: 849px) {
+    display: none;
+  }
 `;
 
 export const Container = styled.div`
