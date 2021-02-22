@@ -3,7 +3,6 @@ import Popup from 'reactjs-popup';
 import { useHistory } from 'react-router-dom';
 import { useApolloClient } from '@apollo/client';
 
-import DropDown from '../DropDown/DropDown';
 import DropDownPopper from '../DropDown/DropDownPopper';
 import MobileMenu from '../MobileMenu/Mobilemenu';
 import BurgerIcon from '../BurgerIcon/BurgerIcon';
@@ -167,6 +166,7 @@ function Header() {
           </ul>
         )}
       </Nav>
+      {isAuthenticated && <DropDownPopper menuList={tabs.authandDropdown} />}
 
       <PopupModal
         isOpen={modalIsOpen}
@@ -179,9 +179,6 @@ function Header() {
           history.push('/signin');
         }}
       />
-
-      {/* {isAuthenticated && <DropDown list={tabs.authandDropdown} />} */}
-      {isAuthenticated && <DropDownPopper menuList={tabs.authandDropdown} />}
     </Container>
   );
 }

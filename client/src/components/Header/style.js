@@ -7,6 +7,7 @@ export const Container = styled.div`
   justify-content: center;
   border-bottom: 1px solid #e6e6e6;
   align-items: center;
+  padding-right: 20px;
 `;
 
 export const Nav = styled.nav`
