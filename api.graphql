@@ -40,7 +40,7 @@ type Mutation {
   createProject(input: CreateProjectInput): Project
   deleteManyProjects(projectIds: [String!]!): Json
   deleteProject(projectId: String!): String
-  favoriteProject(input: FavoriteProjectInput): User
+  favoriteProject(input: FavoriteProjectInput): Project
   login(email: String!, password: String!): Json
   reactToProject(input: ReactToProjectInput): Project
   signUp(email: String!, lastName: String!, name: String!, password: String!): Json
@@ -54,6 +54,7 @@ type Project {
   author: User!
   createdAt: DateTime!
   description: String!
+  favorites(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
   id: String!
   isApproved: Boolean!
   likes(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!

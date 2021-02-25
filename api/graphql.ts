@@ -110,6 +110,7 @@ schema.objectType({
     t.model.repoLink();
     t.model.siteLink();
     t.model.likes();
+    t.model.favorites();
     t.model.description();
     t.model.isApproved();
     t.model.createdAt();
@@ -280,6 +281,7 @@ schema.mutationType({
           where: { id: projectId },
           data: {
             ...input,
+            isApproved: false,
             tags: {
               set: input.tags,
             },
@@ -374,7 +376,7 @@ schema.mutationType({
       },
     });
     t.field('favoriteProject', {
-      type: 'User',
+      type: 'Project',
       args: {
         input: 'FavoriteProjectInput',
       },
@@ -393,16 +395,20 @@ schema.mutationType({
           action = 'disconnect';
         }
 
-        return ctx.db.user.update({
+        return ctx.db.project.update({
           where: {
-            id: input.userId,
+            id: input.projectId,
           },
           data: {
-            favoriteProjects: {
+            favorites: {
               [action]: {
-                id: input.projectId,
+                id: input.userId,
               },
             },
+          },
+          include: {
+            favorites: true,
+            author: true,
           },
         });
       },

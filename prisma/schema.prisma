@@ -36,6 +36,7 @@ model Project {
   authorId    String
   description String
   likes       User[]   @relation(name: "ProjectstLiked")
+  favorites   User[]   @relation(name: "FavoriteProjects")
   isApproved  Boolean  @default(false)
   createdAt   DateTime @default(now())
   tags        String[]
