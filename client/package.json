@@ -6,7 +6,7 @@
     "@apollo/client": "3.3.11",
     "@hookform/error-message": "0.0.5",
     "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/react": "^9.3.2",
+    "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.1",
     "graphql": "^15.3.0",
     "graphql.macro": "^1.4.2",
