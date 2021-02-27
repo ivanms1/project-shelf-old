@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { usePopper } from 'react-popper';
+
+import useOnClickOutside from '../../helpers/useOnClickOutside';
 
 import { ReactComponent as User } from '../../assets/user.svg';
 
@@ -35,27 +37,11 @@ function DropDownPopper({ menuList = [] }) {
     }
   );
 
-  useEffect(() => {
-    document.addEventListener('click', handleDocumentClick);
-    return () => {
-      document.removeEventListener('click', handleDocumentClick);
-    };
-  }, []);
-
-  function handleDocumentClick(event) {
-    if (referenceRef.current.contains(event.target)) {
-      return;
-    }
-    setVisibility(false);
-  }
-
-  function handleDropdownClick(event) {
-    setVisibility(!visible);
-  }
+  useOnClickOutside(referenceRef, setVisibility);
 
   return (
     <React.Fragment>
-      <MenuButton ref={referenceRef} onClick={handleDropdownClick}>
+      <MenuButton ref={referenceRef} onClick={() => setVisibility(!visible)}>
         <Icon>
           <User />
         </Icon>

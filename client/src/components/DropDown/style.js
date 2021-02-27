@@ -22,6 +22,10 @@ export const DropdownContainer = styled.div`
   border-radius: 4px;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.14);
   padding: 5px;
+
+  @media screen and (max-width: 849px) {
+    display: none;
+  }
 `;
 
 export const DropdownItem = styled.button`
