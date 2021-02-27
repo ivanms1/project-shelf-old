@@ -14,6 +14,8 @@ import SelectTags from './SelectTags/SelectTags';
 import Button from '../Button/Button';
 import Active from '../Active/Active';
 
+import useCurrentUser from '../useCurrentUser/useCurrentUser';
+
 import { options } from './SelectOptions/options';
 import { getCurrentDate } from '../../helpers/dateConverter';
 
@@ -44,17 +46,20 @@ const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
 
 const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
 
-function ProjectForm({ user, mutation, project }) {
+function ProjectForm({ onSubmit, project }) {
   const [image, setImage] = useState('');
   const [successModal, setSuccessModal] = useState(false);
 
-  const defaultValues = project
+  const { currentUser: user } = useCurrentUser();
+
+  const defaultValues = !!project
     ? {
         title: project.title,
         preview: project.preview,
         repoLink: project.repoLink,
         siteLink: project.siteLink,
         description: project.description,
+        tags: project.tags.map((tag) => ({ value: tag, label: tag })),
       }
     : {
         title: 'Recipe App',
@@ -63,7 +68,7 @@ function ProjectForm({ user, mutation, project }) {
           'This was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.',
       };
   const { register, handleSubmit, control, errors, watch } = useForm({
-    defaultValues: defaultValues,
+    defaultValues,
   });
 
   const { title, preview, repoLink, siteLink, description } = watch();
@@ -72,22 +77,10 @@ function ProjectForm({ user, mutation, project }) {
     MUTATION_UPLOAD_IMAGE
   );
 
-  async function onSubmit(data) {
+  async function submit(values) {
     try {
-      await mutation({
-        variables: {
-          input: {
-            authorId: user.id,
-            preview: data.preview,
-            title: data.title,
-            siteLink: data.siteLink,
-            repoLink: data.repoLink,
-            description: data.description,
-            tags: data.tags.map((e) => e.value),
-          },
-        },
-      });
-      setImage(data.preview);
+      await onSubmit(values);
+      setImage(values.preview);
       setSuccessModal(true);
     } catch (error) {
       toast.error("Couldn't create project");
@@ -168,7 +161,7 @@ function ProjectForm({ user, mutation, project }) {
         </CardInner>
       </CardOuter>
 
-      <Submission onSubmit={handleSubmit(onSubmit)}>
+      <Submission onSubmit={handleSubmit(submit)}>
         <span>{project ? 'Edit your' : 'Submit your'} Project</span>
         <Controller
           name='preview'
@@ -209,8 +202,20 @@ function ProjectForm({ user, mutation, project }) {
           <Controller
             name='tags'
             control={control}
-            render={({ onChange }) => (
-              <SelectTags name='tags' onChange={onChange} options={options} />
+            render={({ onChange, value }) => (
+              <SelectTags
+                name='tags'
+                value={value}
+                options={options}
+                placeholder='Tags'
+                isMulti
+                menuPosition='absolute'
+                isSearchable
+                onChange={(value) => {
+                  console.log(value);
+                  onChange(value);
+                }}
+              />
             )}
             rules={{ required: 'Tags cannot be Empty' }}
           />

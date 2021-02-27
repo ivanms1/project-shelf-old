@@ -23,9 +23,7 @@ const getActionLikes = (project, currentUser) => {
 };
 
 const getActionFavorite = (project, currentUser) => {
-  return currentUser?.favoriteProjects?.some(
-    (favProject) => favProject.id === project.id
-  )
+  return project?.favorites.some((user) => user?.id === currentUser?.id)
     ? 'UNDO'
     : 'FAVORITE';
 };
@@ -66,7 +64,25 @@ function Cardtwo({ project }) {
 
   const [favoriteProject, { loading }] = useMutation(
     MUTATION_FAVORITE_PROJECT,
-    getVariablesFavorite()
+    {
+      ...getVariablesFavorite(),
+      update(cache, { data: { favoriteProject } }) {
+        cache.modify({
+          id: cache.identify(currentUser),
+          fields: {
+            favoriteProjects(existingProjects, { readField }) {
+              if (getActionFavorite(project, currentUser) === 'FAVORITE') {
+                return [...existingProjects, favoriteProject];
+              }
+
+              return existingProjects.filter(
+                (p) => readField('id', p) !== favoriteProject.id
+              );
+            },
+          },
+        });
+      },
+    }
   );
 
   const favoriteClickHandler = async () => {

@@ -1,5 +1,6 @@
 query GetProject($id: String!) {
-  getProject(id: $id) {
+  project: getProject(id: $id) {
+    id
     title
     preview
     repoLink

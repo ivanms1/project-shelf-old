@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
 import { useParams } from 'react-router-dom';
@@ -20,34 +20,31 @@ function Edit() {
   const { projectId } = useParams();
 
   const {
-    data: GetProjectData = {},
-    loading: GetProjectLoading,
-    error: GetProjecterror,
+    data: projectData = {},
+    loading: projectLoading,
+    error: projectError,
   } = useQuery(QUERY_GET_PROJECT, {
     variables: {
       id: projectId,
     },
+    fetchPolicy: 'cache-and-network',
   });
 
-  const [sendInputs, { error }] = useMutation(MUTATION_UPDATE_PROJECT);
+  const [editProject, { error }] = useMutation(MUTATION_UPDATE_PROJECT);
 
-  if (loading || GetProjectLoading) {
+  if (loading || projectLoading) {
     return <Loader />;
   }
 
-  if (errorUser) {
+  if (projectError || error || errorUser) {
     return <p>Sorry, something went wrong.</p>;
   }
 
-  if (error) {
-    return <p>Sorry, something went wrong.</p>;
+  if (!projectData?.project) {
+    return <p>Sorry, this project does not exist.</p>;
   }
 
-  if (GetProjecterror) {
-    return <p>Sorry, something went wrong.</p>;
-  }
-
-  const { getProject } = GetProjectData;
+  const { project } = projectData;
 
   return (
     <Main>
@@ -58,7 +55,24 @@ function Edit() {
             <span>ShowCase them </span>
             <span>so that people can learn from each other.</span>
           </p>
-          <ProjectForm user={user} project={getProject} mutation={sendInputs} />
+          <ProjectForm
+            project={project}
+            onSubmit={(values) =>
+              editProject({
+                variables: {
+                  projectId: project.id,
+                  input: {
+                    preview: values.preview,
+                    title: values.title,
+                    siteLink: values.siteLink,
+                    repoLink: values.repoLink,
+                    description: values.description,
+                    tags: values.tags.map((e) => e.value),
+                  },
+                },
+              })
+            }
+          />
         </Container>
       </Overlay>
     </Main>

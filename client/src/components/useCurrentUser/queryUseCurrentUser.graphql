@@ -16,22 +16,26 @@ query UseCurrentUser {
       likes {
         id
       }
+      favorites {
+        id
+      }
       createdAt
     }
     favoriteProjects {
       id
       title
       preview
+      description
+      siteLink
+      repoLink
+      isApproved
       likes {
         id
       }
-      createdAt
-      author {
+      favorites {
         id
-        name
-        lastName
       }
-      isApproved
+      createdAt
     }
   }
 }

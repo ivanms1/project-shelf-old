@@ -66,6 +66,11 @@ function CardDetails() {
               (p) => readField('id', p) !== deleteProject
             );
           },
+          favoriteProjects(existingProjects, { readField }) {
+            return existingProjects.filter(
+              (p) => readField('id', p) !== deleteProject
+            );
+          },
         },
       });
     },

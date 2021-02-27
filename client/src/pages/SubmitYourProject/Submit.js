@@ -39,7 +39,23 @@ function Submit() {
             <span>ShowCase them </span>
             <span>so that people can learn from each other.</span>
           </p>
-          <ProjectForm user={user} mutation={createProject} />
+          <ProjectForm
+            onSubmit={(values) =>
+              createProject({
+                variables: {
+                  input: {
+                    authorId: user.id,
+                    preview: values.preview,
+                    title: values.title,
+                    siteLink: values.siteLink,
+                    repoLink: values.repoLink,
+                    description: values.description,
+                    tags: values.tags.map((e) => e.value),
+                  },
+                },
+              })
+            }
+          />
         </Container>
       </Overlay>
     </Main>
