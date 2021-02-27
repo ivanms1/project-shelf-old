@@ -1,10 +1,18 @@
 mutation ReactToProject($input: ReactToProjectInput) {
   reactToProject(input: $input) {
     id
+    title
+    preview
+    description
+    siteLink
+    repoLink
+    isApproved
     likes {
       id
-      name
-      lastName
     }
+    favorites {
+      id
+    }
+    createdAt
   }
 }
