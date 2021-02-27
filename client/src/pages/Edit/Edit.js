@@ -7,44 +7,39 @@ import Header from '../../components/Header/Header';
 import Loader from '../../components/Loader/Loader';
 import ProjectForm from '../../components/Form/ProjectForm';
 
-import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
-
 import { Main, Overlay, Container } from './style';
 
 const MUTATION_UPDATE_PROJECT = loader('./mutationUpdateProject.graphql');
 const QUERY_GET_PROJECT = loader('./queryGetProject.graphql');
 
 function Edit() {
-  const { currentUser: user, loading, error: errorUser } = useCurrentUser();
-
   const { projectId } = useParams();
 
-  const {
-    data: projectData = {},
-    loading: projectLoading,
-    error: projectError,
-  } = useQuery(QUERY_GET_PROJECT, {
-    variables: {
-      id: projectId,
-    },
-    fetchPolicy: 'cache-and-network',
-  });
+  const { data = {}, loading, error: projectError } = useQuery(
+    QUERY_GET_PROJECT,
+    {
+      variables: {
+        id: projectId,
+      },
+      fetchPolicy: 'cache-and-network',
+    }
+  );
 
   const [editProject, { error }] = useMutation(MUTATION_UPDATE_PROJECT);
 
-  if (loading || projectLoading) {
+  if (loading) {
     return <Loader />;
   }
 
-  if (projectError || error || errorUser) {
+  if (projectError || error) {
     return <p>Sorry, something went wrong.</p>;
   }
 
-  if (!projectData?.project) {
+  if (!data?.project) {
     return <p>Sorry, this project does not exist.</p>;
   }
 
-  const { project } = projectData;
+  const { project } = data;
 
   return (
     <Main>
