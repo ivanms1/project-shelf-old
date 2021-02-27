@@ -48,15 +48,17 @@ function DropDownPopper({ menuList = [] }) {
       </MenuButton>
 
       <Container ref={popperRef} style={styles.popper} {...attributes.popper}>
-        <DropdownContainer style={styles.offset} visible={visible}>
-          {menuList.map((menu) => (
-            <DropdownItem key={menu.title} onClick={menu.onClick}>
-              <Icon>{menu.leftIcon}</Icon>
+        {visible && (
+          <DropdownContainer style={styles.offset} visible={visible}>
+            {menuList.map((menu) => (
+              <DropdownItem key={menu.title} onClick={menu.onClick}>
+                <Icon>{menu.leftIcon}</Icon>
 
-              <DropDownText>{menu.title}</DropDownText>
-            </DropdownItem>
-          ))}
-        </DropdownContainer>
+                <DropDownText>{menu.title}</DropDownText>
+              </DropdownItem>
+            ))}
+          </DropdownContainer>
+        )}
       </Container>
     </React.Fragment>
   );

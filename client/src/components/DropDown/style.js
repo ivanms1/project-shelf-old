@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const MenuButton = styled.div`
+export const MenuButton = styled.button`
+  border: none;
+  padding: 0;
+  border-radius: 50%;
+  background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
