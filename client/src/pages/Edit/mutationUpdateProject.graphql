@@ -4,12 +4,10 @@ mutation UpdateUserProject($projectId: String!, $input: UpdateProjectInput) {
     title
     preview
     description
-    siteLink
     repoLink
+    siteLink
     isApproved
-    likes {
-      id
-    }
     createdAt
+    tags
   }
 }

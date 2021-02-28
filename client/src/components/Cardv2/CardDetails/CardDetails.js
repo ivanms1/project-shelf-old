@@ -103,7 +103,7 @@ function CardDetails() {
 
   const generateTags = (tags, id) => {
     return tags.map((tag) => (
-      <span key={id} className='tag'>
+      <span key={tag} className='tag'>
         {tag}
       </span>
     ));
