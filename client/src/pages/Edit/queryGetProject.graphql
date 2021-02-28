@@ -1,10 +1,13 @@
 query GetProject($id: String!) {
   project: getProject(id: $id) {
+    id
     title
     preview
+    description
     repoLink
     siteLink
-    description
+    isApproved
     createdAt
+    tags
   }
 }

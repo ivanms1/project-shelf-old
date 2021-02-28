@@ -2,23 +2,22 @@ import React, { useState } from 'react';
 import ReactToolTip from 'react-tooltip';
 import toast from 'react-hot-toast';
 import Zoom from 'react-medium-image-zoom';
-import { useMutation } from '@apollo/client';
-import { loader } from 'graphql.macro';
 import { useForm, Controller } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { Link } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
+import { loader } from 'graphql.macro';
 
-import Loader from '../../components/Loader/Loader';
-import PopupModal from '../../components/PopupModal/PopupModal';
-import { Dropzone } from '../../components/DropZone/Dropzone';
+import PopupModal from '../PopupModal/PopupModal';
+import { Dropzone } from '../DropZone/Dropzone';
 import SelectTags from './SelectTags/SelectTags';
-import Button from '../../components/Button/Button';
-import Active from '../../components/Active/Active';
+import Button from '../Button/Button';
+import Active from '../Active/Active';
 
-import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
+import useCurrentUser from '../useCurrentUser/useCurrentUser';
 
 import { options } from './SelectOptions/options';
-import { getCurrentDate } from './../../helpers/dateConverter';
+import { getCurrentDate } from '../../helpers/dateConverter';
 
 import { ReactComponent as Spinner } from '../../assets/spinner.svg';
 
@@ -33,33 +32,44 @@ import {
   TextArea,
   ErrorText,
   CustomSubmitCss,
-} from './style';
+} from '../../pages/SubmitYourProject/style';
 import {
   CardOuter,
   CardInner,
   HeaderCollection,
   Links,
   Profile,
-} from '../../components/Card/style';
-import { CustomYesButton } from '../../components/PopupModal/style';
+} from '../Card/style';
+import { CustomYesButton } from '../PopupModal/style';
 
 const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
-const CREATE_PROJECT_MUTATION = loader('./mutationCreateProject.graphql');
 
 const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
 
-function SubmitForm() {
+function ProjectForm({ onSubmit, project }) {
+  const [image, setImage] = useState('');
   const [successModal, setSuccessModal] = useState(false);
-  const { register, handleSubmit, control, errors, watch } = useForm({
-    defaultValues: {
-      title: 'Recipe App',
-      preview: IMG_Social,
-      description:
-        'This was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.',
-    },
-  });
 
-  const { currentUser: user, loading: currentUserLoading } = useCurrentUser();
+  const { currentUser: user } = useCurrentUser();
+
+  const defaultValues = !!project
+    ? {
+        title: project.title,
+        preview: project.preview,
+        repoLink: project.repoLink,
+        siteLink: project.siteLink,
+        description: project.description,
+        tags: project.tags.map((tag) => ({ value: tag, label: tag })),
+      }
+    : {
+        title: 'Recipe App',
+        preview: IMG_Social,
+        description:
+          'This was built using MERN stacks. Used cloudaniary for image hosting. Used netlify for hosting in the live server.',
+      };
+  const { register, handleSubmit, control, errors, watch } = useForm({
+    defaultValues,
+  });
 
   const { title, preview, repoLink, siteLink, description } = watch();
 
@@ -67,35 +77,10 @@ function SubmitForm() {
     MUTATION_UPLOAD_IMAGE
   );
 
-  const [createProject, { data }] = useMutation(CREATE_PROJECT_MUTATION, {
-    update(cache, { data: { createProject } }) {
-      cache.modify({
-        id: cache.identify(user),
-        fields: {
-          projects(existingProjects = []) {
-            return [createProject, ...existingProjects];
-          },
-        },
-      });
-    },
-  });
-
-  async function onSubmit(data) {
+  async function submit(values) {
     try {
-      await createProject({
-        variables: {
-          input: {
-            authorId: user.id,
-            preview: data.preview,
-            title: data.title,
-            siteLink: data.siteLink,
-            repoLink: data.repoLink,
-            description: data.description,
-            tags: data.tags.map((e) => e.value),
-          },
-        },
-      });
-
+      await onSubmit(values);
+      setImage(values.preview);
       setSuccessModal(true);
     } catch (error) {
       toast.error("Couldn't create project");
@@ -120,10 +105,6 @@ function SubmitForm() {
 
       onChange(res?.data?.image?.url);
     };
-  }
-
-  if (currentUserLoading) {
-    return <Loader />;
   }
 
   return (
@@ -180,8 +161,8 @@ function SubmitForm() {
         </CardInner>
       </CardOuter>
 
-      <Submission onSubmit={handleSubmit(onSubmit)}>
-        <span>Submit your Project</span>
+      <Submission onSubmit={handleSubmit(submit)}>
+        <span>{project ? 'Edit your' : 'Submit your'} Project</span>
         <Controller
           name='preview'
           control={control}
@@ -221,11 +202,22 @@ function SubmitForm() {
           <Controller
             name='tags'
             control={control}
-            render={({ onChange }) => (
-              <SelectTags name='tags' onChange={onChange} options={options} />
+            render={({ onChange, value }) => (
+              <SelectTags
+                name='tags'
+                value={value}
+                options={options}
+                placeholder='Tags'
+                isMulti
+                menuPosition='absolute'
+                isSearchable
+                onChange={(value) => {
+                  console.log(value);
+                  onChange(value);
+                }}
+              />
             )}
             rules={{ required: 'Tags cannot be Empty' }}
-            defaultValue=''
           />
           <ErrorMessage errors={errors} name='tags' as={<ErrorText />}>
             {({ message }) => <small>{message}</small>}
@@ -305,7 +297,7 @@ function SubmitForm() {
         title='Project Submitted'
       >
         <div className='imgContainer'>
-          <img src={data?.createProject?.preview} alt='project'></img>
+          <img src={image} alt='project'></img>
         </div>
         <Link to='/'>
           <Button addCSS={CustomYesButton}>Ok</Button>
@@ -315,4 +307,4 @@ function SubmitForm() {
   );
 }
 
-export default SubmitForm;
+export default ProjectForm;
