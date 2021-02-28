@@ -4,8 +4,11 @@ import * as cloudinary from 'cloudinary';
 const imageUploader = cloudinary.v2;
 
 schema.addToContext((req) => {
+  const currentUserId = !Array.isArray(req?.headers?.['current-user-id'])
+    ? req?.headers?.['current-user-id']
+    : undefined;
   return {
-    currentUserId: req.headers['current-user-id'],
+    currentUserId,
   };
 });
 
@@ -175,24 +178,34 @@ schema.queryType({
       description: 'Get all approved projects',
       args: {
         onlyApproved: schema.booleanArg({ default: true, nullable: false }),
-        cursor: schema.stringArg({ default: undefined, nullable: false }),
+        cursor: schema.stringArg(),
       },
       async resolve(_root, args, ctx) {
-        const results = await ctx.db.project.findMany({
-          take: 9,
-          cursor: {
-            id: args.cursor,
-          },
-          where: {
-            isApproved: args?.onlyApproved,
-          },
-        });
+        const incomingCursor = args?.cursor;
+        let results;
+
+        if (incomingCursor) {
+          results = await ctx.db.project.findMany({
+            take: 9,
+            skip: 1,
+            cursor: {
+              id: incomingCursor,
+            },
+            where: {
+              isApproved: args?.onlyApproved,
+            },
+          });
+        } else {
+          results = await ctx.db.project.findMany({
+            take: 9,
+            where: {
+              isApproved: args?.onlyApproved,
+            },
+          });
+        }
 
         const lastResult = results[8];
         const cursor = lastResult?.id;
-
-        console.log('lastResult', lastResult);
-        console.log('cursor', cursor);
 
         return {
           prevCursor: args.cursor,

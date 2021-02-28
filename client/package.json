@@ -24,6 +24,7 @@
     "react-textarea-autosize": "^8.2.0",
     "react-tooltip": "^4.2.15",
     "react-transition-group": "^4.4.1",
+    "react-waypoint": "^9.0.3",
     "reactjs-popup": "^2.0.3",
     "styled-components": "^5.1.1"
   },

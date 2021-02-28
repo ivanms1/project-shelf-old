@@ -211,6 +211,7 @@ function ProjectForm({ onSubmit, project }) {
                 isMulti
                 menuPosition='absolute'
                 isSearchable
+                closeMenuOnSelect={false}
                 onChange={(value) => {
                   console.log(value);
                   onChange(value);

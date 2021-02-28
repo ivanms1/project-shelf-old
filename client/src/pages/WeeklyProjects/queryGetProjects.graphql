@@ -1,6 +1,7 @@
-query GetAllProjects {
-  projects: getProjects {
+query GetAllProjects($cursor: String = null) {
+  projects: getProjects(cursor: $cursor) {
     nextCursor
+    prevCursor
     results {
       id
       title

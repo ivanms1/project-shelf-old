@@ -86,7 +86,7 @@ type Query {
   getProject(id: String!): Project
 
   """Get all approved projects"""
-  getProjects(cursor: String!, onlyApproved: Boolean! = true): ProjectsResponse
+  getProjects(cursor: String, onlyApproved: Boolean! = true): ProjectsResponse
   getUser(id: String!): User
   getUsers: [User!]
 }
