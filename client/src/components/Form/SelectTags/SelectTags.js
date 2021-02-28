@@ -40,16 +40,12 @@ const colourStyles = {
   }),
   menu: ({ width, ...css }) => ({
     ...css,
-    width: '270px',
-    cursor: 'pointer',
-    right: 0,
+    width: '100%',
   }),
   option: (css) => ({
     ...css,
-    margin: '5px',
     padding: '4px 12px',
     cursor: 'pointer',
-    maxWidth: '230px',
     borderRadius: '5px',
     fontSize: '15px',
     color: '#7d889f',
@@ -111,18 +107,13 @@ const formatGroupLabel = (data) => (
   </div>
 );
 
-const SelectTags = ({ options, onChange }) => {
+const SelectTags = ({ ...props }) => {
   return (
     <div style={{ marginTop: '5px' }}>
       <Select
         styles={colourStyles}
-        placeholder='Any'
-        options={options}
-        onChange={onChange}
-        isMulti={true}
-        menuPosition='absolute'
         formatGroupLabel={formatGroupLabel}
-        isSearchable
+        {...props}
       />
     </div>
   );
