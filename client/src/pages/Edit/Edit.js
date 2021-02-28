@@ -21,7 +21,6 @@ function Edit() {
       variables: {
         id: projectId,
       },
-      fetchPolicy: 'cache-and-network',
     }
   );
 

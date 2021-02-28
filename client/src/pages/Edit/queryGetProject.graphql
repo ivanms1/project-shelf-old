@@ -3,9 +3,10 @@ query GetProject($id: String!) {
     id
     title
     preview
+    description
     repoLink
     siteLink
-    description
+    isApproved
     createdAt
     tags
   }
