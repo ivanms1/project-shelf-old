@@ -15,6 +15,9 @@ import { Main, CardContainerInner, ProjectDetails, ViewDetails } from './style';
 
 const MUTATION_REACT_TO_PROJECT = loader('./mutationReactToProject.graphql');
 const MUTATION_FAVORITE_PROJECT = loader('./mutationFavoriteProject.graphql');
+const QUERY_GET_MY_FAVORITE_PROJECTS = loader(
+  '../../pages/Favorites/queryGetMyFavoriteProjects.graphql'
+);
 
 const getActionLikes = (project, currentUser) => {
   return project?.likes.some((user) => user?.id === currentUser?.id)
@@ -66,6 +69,7 @@ function Cardtwo({ project }) {
     MUTATION_FAVORITE_PROJECT,
     {
       ...getVariablesFavorite(),
+      refetchQueries: [{ query: QUERY_GET_MY_FAVORITE_PROJECTS }],
     }
   );
 

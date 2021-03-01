@@ -1,17 +1,7 @@
+#import "../../graphql/projectFragment.graphql"
+
 query GetAllProjects {
   projects: getProjects {
-    id
-    title
-    author {
-      name
-      lastName
-      email
-    }
-    preview
-    repoLink
-    siteLink
-    createdAt
-    description
-    isApproved
+    ...ProjectsResponseFragment
   }
 }
