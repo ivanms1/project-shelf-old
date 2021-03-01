@@ -76,7 +76,7 @@ function Home() {
           networkStatus === NetworkStatus.refetch ||
           !data?.projects?.results?.length ? (
             <p className='noproject'>
-              You don't have any projects to showcase.(
+              You "don't" have any projects to showcase.
             </p>
           ) : (
             <>

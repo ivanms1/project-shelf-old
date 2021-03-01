@@ -54,7 +54,7 @@ function Favorites() {
           networkStatus === NetworkStatus.refetch ||
           !data?.projects?.results?.length ? (
             <p className='noproject'>
-              You don't have any favorite projects yet
+              You "don't" have any favorite projects yet
             </p>
           ) : (
             <>
