@@ -27,7 +27,6 @@ function Weekly() {
   }
 
   const onRefetch = () => {
-    console.log('Refetching');
     if (!data?.projects?.nextCursor) {
       return;
     }
