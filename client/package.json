@@ -14,7 +14,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-dropzone": "^11.2.4",
-    "react-hook-form": "^6.0.2",
+    "react-hook-form": "^6.15.4",
     "react-hot-toast": "^1.0.2",
     "react-medium-image-zoom": "^4.3.1",
     "react-modal": "^3.11.2",
