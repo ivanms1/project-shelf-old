@@ -20,6 +20,7 @@ import { ReactComponent as Web } from '../../../assets/web.svg';
 
 import {
   Main,
+  HomeLink,
   Container,
   BackButton,
   ImgContainerOuter,
@@ -101,7 +102,7 @@ function CardDetails() {
 
   const { project } = data;
 
-  const generateTags = (tags, id) => {
+  const generateTags = (tags) => {
     return tags.map((tag) => (
       <span key={tag} className='tag'>
         {tag}
@@ -116,7 +117,7 @@ function CardDetails() {
         {project && (
           <>
             <BackButton>
-              <Link to='/'>Home</Link> /{' '}
+              <HomeLink to='/'>Home</HomeLink> /{' '}
               <span className='projectTitle'>{project?.title}</span>
             </BackButton>
 

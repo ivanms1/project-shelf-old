@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const colors = {
   green: 'rgba(0, 203, 91, 0.7)',
@@ -9,6 +10,13 @@ export const Main = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+`;
+
+export const HomeLink = styled(Link)`
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
 `;
 
 export const Container = styled.div`
@@ -35,16 +43,6 @@ export const BackButton = styled.div`
   width: 100%;
   max-width: 1400px;
   margin: 0 0 25px 0;
-
-  a {
-    font-weight: 600;
-    cursor: pointer;
-
-    &:hover {
-      color: rgba(237, 44, 73);
-      transition: 0.3s ease-in;
-    }
-  }
 
   & .projectTitle {
     color: rgba(0, 203, 91);
@@ -159,6 +157,8 @@ export const AllDetails = styled.div`
 
       a {
         margin-left: 10px;
+        text-decoration: none;
+        color: #000;
       }
     }
   }
