@@ -110,7 +110,7 @@ export const DropdownItem = styled.button`
   background-color: transparent;
   padding: 8px 12px;
   border: none;
-
+  width: 100%;
   &:hover {
     border-radius: 5px;
     background-color: #f2f2f2;
