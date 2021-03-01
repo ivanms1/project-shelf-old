@@ -1,9 +1,10 @@
 import React from 'react';
+import { loader } from 'graphql.macro';
 
 import Cardtwo from '../../components/Cardv2/Cardtwo';
 import Header from '../../components/Header/Header';
 import Active from '../../components/Active/Active';
-import Loader from '../../components/Loader/Loader';
+
 import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
 
 import {
@@ -13,13 +14,14 @@ import {
   CardContainer,
   ActiveContainer,
 } from './style';
+import { useQuery } from '@apollo/client';
+
+const QUERY_GET_MY_PROJECTS = loader('./queryGetMyProjects.graphql');
 
 function Home() {
-  const { currentUser: user, loading } = useCurrentUser();
+  const { currentUser: user } = useCurrentUser();
 
-  if (loading) {
-    return <Loader />;
-  }
+  const { data } = useQuery(QUERY_GET_MY_PROJECTS);
 
   return (
     <Main>
@@ -28,7 +30,7 @@ function Home() {
       <Container>
         <Approval>
           <p>
-            Welcome {user.name} {user.lastName}
+            Welcome {user?.name} {user?.lastName}
           </p>
 
           <ActiveContainer>
@@ -45,11 +47,11 @@ function Home() {
         </Approval>
 
         <CardContainer>
-          {user.projects.length === 0 ? (
+          {data?.projects?.results?.length === 0 ? (
             <p className='noproject'>You dont have any projects to ShowCase.</p>
           ) : (
             <>
-              {user.projects.map((project) => (
+              {data?.projects?.results?.map((project) => (
                 <Cardtwo key={project.id} user={user} project={project} />
               ))}
             </>

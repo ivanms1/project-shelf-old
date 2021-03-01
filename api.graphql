@@ -83,6 +83,12 @@ input ProjectWhereUniqueInput {
 
 type Query {
   getCurrentUser: User
+
+  """Get my favorite projects"""
+  getMyFavoriteProjects(cursor: String): ProjectsResponse
+
+  """Get all my projects"""
+  getMyProjects(cursor: String): ProjectsResponse
   getProject(id: String!): Project
 
   """Get all approved projects"""

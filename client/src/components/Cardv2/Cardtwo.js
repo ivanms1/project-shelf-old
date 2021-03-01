@@ -66,22 +66,6 @@ function Cardtwo({ project }) {
     MUTATION_FAVORITE_PROJECT,
     {
       ...getVariablesFavorite(),
-      update(cache, { data: { favoriteProject } }) {
-        cache.modify({
-          id: cache.identify(currentUser),
-          fields: {
-            favoriteProjects(existingProjects, { readField }) {
-              if (getActionFavorite(project, currentUser) === 'FAVORITE') {
-                return [...existingProjects, favoriteProject];
-              }
-
-              return existingProjects.filter(
-                (p) => readField('id', p) !== favoriteProject.id
-              );
-            },
-          },
-        });
-      },
     }
   );
 

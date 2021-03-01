@@ -214,6 +214,98 @@ schema.queryType({
         };
       },
     });
+    t.field('getMyProjects', {
+      type: 'ProjectsResponse',
+      description: 'Get all my projects',
+      args: {
+        cursor: schema.stringArg(),
+      },
+      async resolve(_root, args, ctx) {
+        const incomingCursor = args?.cursor;
+        let results;
+
+        if (incomingCursor) {
+          results = await ctx.db.project.findMany({
+            take: 9,
+            skip: 1,
+            cursor: {
+              id: incomingCursor,
+            },
+            where: {
+              authorId: ctx.currentUserId,
+            },
+          });
+        } else {
+          results = await ctx.db.project.findMany({
+            take: 9,
+            where: {
+              authorId: ctx.currentUserId,
+            },
+          });
+        }
+
+        const lastResult = results[8];
+        const cursor = lastResult?.id;
+
+        return {
+          prevCursor: args.cursor,
+          nextCursor: cursor,
+          results,
+        };
+      },
+    });
+    t.field('getMyFavoriteProjects', {
+      type: 'ProjectsResponse',
+      description: 'Get my favorite projects',
+      args: {
+        cursor: schema.stringArg(),
+      },
+      async resolve(_root, args, ctx) {
+        const incomingCursor = args?.cursor;
+        let results;
+
+        if (incomingCursor) {
+          results = await ctx.db.project.findMany({
+            take: 9,
+            skip: 1,
+            cursor: {
+              id: incomingCursor,
+            },
+            where: {
+              favorites: {
+                some: {
+                  id: {
+                    equals: ctx.currentUserId,
+                  },
+                },
+              },
+            },
+          });
+        } else {
+          results = await ctx.db.project.findMany({
+            take: 9,
+            where: {
+              favorites: {
+                some: {
+                  id: {
+                    equals: ctx.currentUserId,
+                  },
+                },
+              },
+            },
+          });
+        }
+
+        const lastResult = results[8];
+        const cursor = lastResult?.id;
+
+        return {
+          prevCursor: args.cursor,
+          nextCursor: cursor,
+          results,
+        };
+      },
+    });
   },
 });
 
