@@ -7,6 +7,7 @@ export const Container = styled.div`
   justify-content: center;
   border-bottom: 1px solid #e6e6e6;
   align-items: center;
+  padding-right: 20px;
 `;
 
 export const Nav = styled.nav`
@@ -74,56 +75,62 @@ export const StyledLink = styled(NavLink)`
   }
 `;
 
-export const LogoutButton = styled.a`
-  text-decoration: none;
-  color: #152c5b;
-  font-size: 18px;
-  cursor: pointer;
-  margin: 0 0px 0 0px;
-
-  &:focus {
-    color: #7057ff;
-    transition: 0.3s linear;
-  }
-
-  &:hover {
-    text-decoration: underline;
-    transition: 0.3s linear;
-  }
-`;
-
-export const HeaderContainer = styled.div`
+export const MenuButton = styled.button`
+  border: none;
+  padding: 0;
+  border-radius: 50%;
+  background-color: transparent;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: 100%;
+  cursor: pointer;
 
-  span {
-    font-weight: 600;
-    font-size: 20px;
-  }
-
-  button {
-    border-radius: 50%;
-    font-size: 18px;
-    font-weight: 600;
-    color: black;
-    border: none;
-    background-color: transparent;
-
-    &:hover {
-      color: #d30320;
-      transition: 0.3s linear;
-    }
-  }
-
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 849px) {
     display: none;
   }
 `;
 
-export const Sure = styled.p`
-  text-align: center;
-  width: 100%;
-  font-size: 18px;
+export const DropdownContainer = styled.div`
+  flex-direction: column;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.14);
+  padding: 5px;
+
+  @media screen and (max-width: 849px) {
+    display: none;
+  }
+`;
+
+export const DropdownItem = styled.button`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: transparent;
+  padding: 8px 12px;
+  border: none;
+
+  &:hover {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+  }
+`;
+
+export const DropDownText = styled.span`
+  margin-left: 15px;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Poppins';
+`;
+
+export const Icon = styled.span`
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 7px;
+  border-radius: 50%;
+  background-color: #e4e6eb;
 `;

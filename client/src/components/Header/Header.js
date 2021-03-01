@@ -3,7 +3,7 @@ import Popup from 'reactjs-popup';
 import { useHistory } from 'react-router-dom';
 import { useApolloClient } from '@apollo/client';
 
-import DropDownApp from '../DropDown/DropDownApp';
+import Popper from '../Popper/Popper';
 import MobileMenu from '../MobileMenu/Mobilemenu';
 import BurgerIcon from '../BurgerIcon/BurgerIcon';
 import PopupModal from '../PopupModal/PopupModal';
@@ -15,8 +15,31 @@ import useCurrentUser from '../useCurrentUser/useCurrentUser';
 import { ReactComponent as Cog } from '../../assets/cog.svg';
 import { ReactComponent as Bell } from '../../assets/bell.svg';
 import { ReactComponent as Home } from '../../assets/home.svg';
+import { ReactComponent as User } from '../../assets/user.svg';
 
-import { Container, Nav, StyledLink } from './style';
+import {
+  Container,
+  Nav,
+  StyledLink,
+  DropdownContainer,
+  DropdownItem,
+  Icon,
+  DropDownText,
+  MenuButton,
+} from './style';
+
+const popperOptions = {
+  placement: 'bottom',
+  modifiers: [
+    {
+      name: 'offset',
+      enabled: true,
+      options: {
+        offset: [-85, 30],
+      },
+    },
+  ],
+};
 
 function Header() {
   const history = useHistory();
@@ -166,6 +189,28 @@ function Header() {
           </ul>
         )}
       </Nav>
+      {isAuthenticated && (
+        <Popper
+          reference={(ref, handleClick) => (
+            <MenuButton ref={ref} onClick={handleClick}>
+              <Icon>
+                <User />
+              </Icon>
+            </MenuButton>
+          )}
+          options={popperOptions}
+        >
+          <DropdownContainer>
+            {tabs.authandDropdown.map((menu) => (
+              <DropdownItem key={menu.title} onClick={menu.onClick}>
+                <Icon>{menu.leftIcon}</Icon>
+
+                <DropDownText>{menu.title}</DropDownText>
+              </DropdownItem>
+            ))}
+          </DropdownContainer>
+        </Popper>
+      )}
 
       <PopupModal
         isOpen={modalIsOpen}
@@ -178,8 +223,6 @@ function Header() {
           history.push('/signin');
         }}
       />
-
-      {isAuthenticated && <DropDownApp list={tabs.authandDropdown} />}
     </Container>
   );
 }
