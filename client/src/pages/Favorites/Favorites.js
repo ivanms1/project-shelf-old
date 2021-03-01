@@ -1,26 +1,44 @@
 import React from 'react';
 import { loader } from 'graphql.macro';
+import { useQuery, NetworkStatus } from '@apollo/client';
+import { Waypoint } from 'react-waypoint';
 
 import Cardtwo from '../../components/Cardv2/Cardtwo';
 import Header from '../../components/Header/Header';
 
-import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
-
 import { Main, Container, Approval, CardContainer } from './style';
-import { useQuery } from '@apollo/client';
 
 const QUERY_GET_MY_FAVORITE_PROJECTS = loader(
   './queryGetMyFavoriteProjects.graphql'
 );
 
 function Favorites() {
-  const { currentUser, error } = useCurrentUser();
-
-  const { data, loading } = useQuery(QUERY_GET_MY_FAVORITE_PROJECTS);
+  const { data, loading, error, fetchMore, networkStatus } = useQuery(
+    QUERY_GET_MY_FAVORITE_PROJECTS,
+    {
+      variables: {
+        cursor: undefined,
+      },
+      notifyOnNetworkStatusChange: true,
+    }
+  );
 
   if (error) {
-    return <p>Please try again later</p>;
+    return <p>Sorry, something went wrong.</p>;
   }
+
+  const onRefetch = () => {
+    console.log('Refetching');
+    if (!data?.projects?.nextCursor) {
+      return;
+    }
+
+    fetchMore({
+      variables: {
+        cursor: data?.projects?.nextCursor,
+      },
+    });
+  };
 
   return (
     <Main>
@@ -32,22 +50,23 @@ function Favorites() {
           </p>
         </Approval>
         <CardContainer>
-          {!data?.projects?.results?.length ? (
+          {networkStatus === NetworkStatus.setVariables ||
+          networkStatus === NetworkStatus.refetch ||
+          !data?.projects?.results?.length ? (
             <p className='noproject'>
-              You dont have any favorite projects yet.
+              You don 't have any favorite projects yet
             </p>
           ) : (
             <>
-              {data?.projects?.results?.map((project) => (
-                <Cardtwo
-                  key={project.id}
-                  user={currentUser}
-                  project={project}
-                />
+              {data?.projects?.results.map((project) => (
+                <Cardtwo key={project.id} project={project} />
               ))}
             </>
           )}
         </CardContainer>
+        {!loading && data?.projects?.nextCursor && (
+          <Waypoint onEnter={onRefetch} bottomOffset='-20%' />
+        )}
       </Container>
     </Main>
   );

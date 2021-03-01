@@ -37,7 +37,6 @@ function Home() {
   }
 
   const onRefetch = () => {
-    console.log('Refetching');
     if (!data?.projects?.nextCursor) {
       return;
     }
@@ -48,6 +47,7 @@ function Home() {
       },
     });
   };
+
   return (
     <Main>
       <Header />
