@@ -31,26 +31,30 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+const projectsMergeConfig = {
+  keyArgs: false,
+  merge(existing = [], incoming) {
+    if (!existing) {
+      return incoming;
+    }
+
+    const existingResults = existing?.results ?? [];
+    return {
+      ...incoming,
+      results: [...existingResults, ...incoming.results],
+    };
+  },
+};
+
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache({
     typePolicies: {
       Query: {
         fields: {
-          getProjects: {
-            keyArgs: false,
-            merge(existing = [], incoming) {
-              if (!existing) {
-                return incoming;
-              }
-
-              const existingResults = existing?.results ?? [];
-              return {
-                ...incoming,
-                results: [...existingResults, ...incoming.results],
-              };
-            },
-          },
+          getProjects: projectsMergeConfig,
+          getMyProjects: projectsMergeConfig,
+          getMyFavoriteProjects: projectsMergeConfig,
         },
       },
     },

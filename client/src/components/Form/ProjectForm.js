@@ -177,13 +177,13 @@ function ProjectForm({ onSubmit, project }) {
           <label>Title of the Project</label>
           <Input
             name='title'
-            maxLength='15'
+            maxLength='25'
             placeholder='Title of the Project'
             ref={register({
               required: 'Title cannot be empty.',
               maxLength: {
-                value: 14,
-                message: 'Cannot exceed 14 words',
+                value: 25,
+                message: 'Cannot exceed 25 words',
               },
               minLength: {
                 value: 3,
@@ -213,7 +213,6 @@ function ProjectForm({ onSubmit, project }) {
                 isSearchable
                 closeMenuOnSelect={false}
                 onChange={(value) => {
-                  console.log(value);
                   onChange(value);
                 }}
               />
