@@ -3,7 +3,6 @@ import { useQuery, useMutation } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
 import CardComponent from '../../components/Card/Card';
-import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
 
 import {
