@@ -13,13 +13,18 @@ import {
   customCss,
 } from './style';
 
-const QUERY_GET_ALL_PROJECTS = loader('./queryGetProjects.graphql');
+const QUERY_GET_ALL_PROJECTS = loader(
+  './queryGetAllDissaprovedProjects.graphql'
+);
 const MUTATION_UPDATE_PROJECT_STATUS = loader(
   './mutationUpdateProjectStatus.graphql'
 );
 
 function Notactivated() {
-  const { data, loading, error } = useQuery(QUERY_GET_ALL_PROJECTS);
+  const { data, loading, error } = useQuery(QUERY_GET_ALL_PROJECTS, {
+    notifyOnNetworkStatusChange: true,
+    fetchPolicy: 'cache-and-network',
+  });
 
   const [updateStatus, { error: errorR }] = useMutation(
     MUTATION_UPDATE_PROJECT_STATUS

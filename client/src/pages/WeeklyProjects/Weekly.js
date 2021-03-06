@@ -19,6 +19,7 @@ function Weekly() {
         cursor: undefined,
       },
       notifyOnNetworkStatusChange: true,
+      fetchPolicy: 'cache-and-network',
     }
   );
 

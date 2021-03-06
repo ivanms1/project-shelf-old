@@ -20,6 +20,7 @@ function Favorites() {
         cursor: undefined,
       },
       notifyOnNetworkStatusChange: true,
+      fetchPolicy: 'cache-and-network',
     }
   );
 
@@ -28,7 +29,6 @@ function Favorites() {
   }
 
   const onRefetch = () => {
-    console.log('Refetching');
     if (!data?.projects?.nextCursor) {
       return;
     }

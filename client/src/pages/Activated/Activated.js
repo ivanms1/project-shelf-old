@@ -3,7 +3,6 @@ import { useQuery, useMutation } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
 import CardComponent from '../../components/Card/Card';
-import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
 
 import {
@@ -13,29 +12,20 @@ import {
   customCss,
 } from './style';
 
-const QUERY_GET_ALL_PROJECTS = loader('./queryGetProjects.graphql');
+const QUERY_GET_ALL_PROJECTS = loader('./queryGetAllApprovedProjects.graphql');
 const MUTATION_UPDATE_PROJECT_STATUS = loader(
   './mutationUpdateProjectStatus.graphql'
 );
 
 function Activated() {
-  const { data, loading, error } = useQuery(QUERY_GET_ALL_PROJECTS);
+  const { data, error } = useQuery(QUERY_GET_ALL_PROJECTS, {
+    notifyOnNetworkStatusChange: true,
+    fetchPolicy: 'cache-and-network',
+  });
 
   const [updateStatus, { error: errorR }] = useMutation(
     MUTATION_UPDATE_PROJECT_STATUS
   );
-
-  if (loading) {
-    return <Loader />;
-  }
-
-  if (error) {
-    return <p>Sorry, something went wrong.</p>;
-  }
-
-  if (errorR) {
-    return <p>Sorry, something went wrong.</p>;
-  }
 
   async function updateProjectStatus(projectId) {
     try {
@@ -50,9 +40,13 @@ function Activated() {
     }
   }
 
-  const { projects } = data;
+  if (error || errorR) {
+    return <p>Sorry, something went wrong.</p>;
+  }
 
-  const approvedProjects = projects.filter((project) => project.isApproved);
+  const {
+    projects: { results },
+  } = data;
 
   return (
     <Container>
@@ -61,8 +55,8 @@ function Activated() {
           <h1>Approved Projects</h1>
 
           <ProjectCollection>
-            {approvedProjects.length ? (
-              approvedProjects.map((project) => (
+            {results.length ? (
+              results.map((project) => (
                 <CardComponent
                   key={project.id}
                   user={project.author}

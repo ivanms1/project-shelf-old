@@ -1,6 +1,6 @@
 #import "../../graphql/projectFragment.graphql"
 
-query GetAllProjects {
+query GetAllApprovedProjects {
   projects: getProjects {
     ...ProjectsResponseFragment
   }

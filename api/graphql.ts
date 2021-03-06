@@ -194,12 +194,18 @@ schema.queryType({
             where: {
               isApproved: args?.onlyApproved,
             },
+            orderBy: {
+              createdAt: 'desc',
+            },
           });
         } else {
           results = await ctx.db.project.findMany({
             take: 9,
             where: {
               isApproved: args?.onlyApproved,
+            },
+            orderBy: {
+              createdAt: 'desc',
             },
           });
         }
@@ -234,12 +240,18 @@ schema.queryType({
             where: {
               authorId: ctx.currentUserId,
             },
+            orderBy: {
+              createdAt: 'desc',
+            },
           });
         } else {
           results = await ctx.db.project.findMany({
             take: 9,
             where: {
               authorId: ctx.currentUserId,
+            },
+            orderBy: {
+              createdAt: 'desc',
             },
           });
         }
@@ -280,6 +292,9 @@ schema.queryType({
                 },
               },
             },
+            orderBy: {
+              createdAt: 'desc',
+            },
           });
         } else {
           results = await ctx.db.project.findMany({
@@ -292,6 +307,9 @@ schema.queryType({
                   },
                 },
               },
+            },
+            orderBy: {
+              createdAt: 'desc',
             },
           });
         }

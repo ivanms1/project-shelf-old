@@ -38,6 +38,14 @@ const projectsMergeConfig = {
       return incoming;
     }
 
+    if (!incoming.prevCursor) {
+      return incoming;
+    }
+
+    if (existing.nextCursor === incoming.nextCursor) {
+      return existing;
+    }
+
     const existingResults = existing?.results ?? [];
     return {
       ...incoming,

@@ -29,6 +29,7 @@ function Home() {
         cursor: undefined,
       },
       notifyOnNetworkStatusChange: true,
+      fetchPolicy: 'cache-and-network',
     }
   );
 
