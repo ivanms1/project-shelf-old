@@ -21,7 +21,7 @@ const MUTATION_UPDATE_PROJECT_STATUS = loader(
 );
 
 function Notactivated() {
-  const { data, loading, error } = useQuery(QUERY_GET_ALL_PROJECTS, {
+  const { data, error } = useQuery(QUERY_GET_ALL_PROJECTS, {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'cache-and-network',
   });
@@ -29,10 +29,6 @@ function Notactivated() {
   const [updateStatus, { error: errorR }] = useMutation(
     MUTATION_UPDATE_PROJECT_STATUS
   );
-
-  if (loading) {
-    return <Loader />;
-  }
 
   if (error || errorR) {
     return <p>Sorry, something went wrong.</p>;
