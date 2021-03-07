@@ -1,9 +1,11 @@
 import React from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation, NetworkStatus } from '@apollo/client';
+import { Waypoint } from 'react-waypoint';
 import { loader } from 'graphql.macro';
 
-import CardComponent from '../../components/Card/Card';
+import Cardtwo from '../../components/Cardv2/Cardtwo';
 import Button from '../../components/Button/Button';
+import { ReactComponent as Spinner } from '../../assets/spinner.svg';
 
 import {
   Container,
@@ -18,10 +20,16 @@ const MUTATION_UPDATE_PROJECT_STATUS = loader(
 );
 
 function Activated() {
-  const { data, error } = useQuery(QUERY_GET_ALL_PROJECTS, {
-    notifyOnNetworkStatusChange: true,
-    fetchPolicy: 'cache-and-network',
-  });
+  const { data, loading, error, fetchMore, networkStatus } = useQuery(
+    QUERY_GET_ALL_PROJECTS,
+    {
+      variables: {
+        cursor: undefined,
+      },
+      notifyOnNetworkStatusChange: true,
+      fetchPolicy: 'cache-and-network',
+    }
+  );
 
   const [updateStatus, { error: errorR }] = useMutation(
     MUTATION_UPDATE_PROJECT_STATUS
@@ -44,9 +52,19 @@ function Activated() {
     return <p>Sorry, something went wrong.</p>;
   }
 
-  const {
-    projects: { results },
-  } = data;
+  const onRefetch = async () => {
+    if (!data?.projects?.nextCursor) {
+      return;
+    }
+
+    try {
+      await fetchMore({
+        variables: {
+          cursor: data?.projects?.nextCursor,
+        },
+      });
+    } catch (error) {}
+  };
 
   return (
     <Container>
@@ -55,29 +73,46 @@ function Activated() {
           <h1>Approved Projects</h1>
 
           <ProjectCollection>
-            {results.length ? (
-              results.map((project) => (
-                <CardComponent
-                  key={project.id}
-                  user={project.author}
-                  project={project}
-                  descVisible={false}
-                >
-                  <Button
-                    kind='disapprove'
-                    maxWidth='big'
-                    fontSize='medium'
-                    addCSS={customCss}
-                    onClick={() => updateProjectStatus(project.id)}
-                  >
-                    Disapprove
-                  </Button>
-                </CardComponent>
-              ))
+            {networkStatus === NetworkStatus.setVariables ||
+            networkStatus === NetworkStatus.refetch ||
+            !data?.projects?.results?.length ? (
+              <p className='noproject'>
+                You do not have any projects to showcase.
+              </p>
             ) : (
-              <p className='noproject'>No Approved Projects.</p>
+              <>
+                {data?.projects?.results.map((project) => (
+                  <Cardtwo key={project.id} project={project}>
+                    <Button
+                      maxWidth='big'
+                      kind='disapprove'
+                      fontSize='medium'
+                      onClick={() => updateProjectStatus(project.id)}
+                      addCSS={customCss}
+                    >
+                      Disapprove
+                    </Button>
+                  </Cardtwo>
+                ))}
+              </>
             )}
           </ProjectCollection>
+          {!loading && data?.projects?.nextCursor && (
+            <Waypoint onEnter={onRefetch} bottomOffset='-10%' />
+          )}
+          {loading && data?.projects?.nextCursor && (
+            <div
+              style={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: '20px 0',
+              }}
+            >
+              <Spinner />
+            </div>
+          )}
         </main>
       </ActivatedContainer>
     </Container>
