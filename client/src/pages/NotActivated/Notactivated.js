@@ -3,6 +3,7 @@ import { useQuery, useMutation, NetworkStatus } from '@apollo/client';
 import { Waypoint } from 'react-waypoint';
 import { loader } from 'graphql.macro';
 
+import Cardtwo from '../../components/Cardv2/Cardtwo';
 import Button from '../../components/Button/Button';
 import { ReactComponent as Spinner } from '../../assets/spinner.svg';
 
@@ -12,7 +13,6 @@ import {
   ProjectCollection,
   customCss,
 } from './style';
-import Cardtwo from '../../components/Cardv2/Cardtwo';
 
 const QUERY_GET_ALL_PROJECTS = loader(
   './queryGetAllDissaprovedProjects.graphql'
