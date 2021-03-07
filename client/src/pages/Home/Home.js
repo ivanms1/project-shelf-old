@@ -6,6 +6,7 @@ import { useQuery, NetworkStatus } from '@apollo/client';
 import Cardtwo from '../../components/Cardv2/Cardtwo';
 import Header from '../../components/Header/Header';
 import Active from '../../components/Active/Active';
+import { ReactComponent as Spinner } from '../../assets/spinner.svg';
 
 import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
 
@@ -89,6 +90,19 @@ function Home() {
         </CardContainer>
         {!loading && data?.projects?.nextCursor && (
           <Waypoint onEnter={onRefetch} bottomOffset='-20%' />
+        )}
+        {loading && data?.projects?.nextCursor && (
+          <div
+            style={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: '20px 0',
+            }}
+          >
+            <Spinner />
+          </div>
         )}
       </Container>
     </Main>
