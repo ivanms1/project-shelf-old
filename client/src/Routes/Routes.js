@@ -10,8 +10,8 @@ import Submitproject from '../pages/SubmitYourProject/Submit';
 import Weekly from '../pages/WeeklyProjects/Weekly';
 import Favorites from '../pages/Favorites/Favorites';
 import Error from '../pages/Error/error';
-import Activated from '../pages/Activated/Activated';
-import NotActivated from '../pages/NotActivated/Notactivated';
+import Approved from '../pages/Admin/Approved/Approved';
+import NotApproved from '../pages/Admin/NotApproved/NotApproved';
 import Admin from '../pages/Admin/Admin';
 import Edit from '../pages/Edit/Edit';
 import CardDetails from '../components/Cardv2/CardDetails/CardDetails';
@@ -26,8 +26,8 @@ function Routes() {
       <PrivateRoutes path='/contact' component={Contact} />
       <PublicRoutes path='/register' component={Register} />
       <PublicRoutes path='/signin' component={SignIn} />
-      <PrivateRoutes path='/activated' component={Activated} />
-      <PrivateRoutes path='/notactivated' component={NotActivated} />
+      <PrivateRoutes path='/approved' component={Approved} />
+      <PrivateRoutes path='/not-approved' component={NotApproved} />
       <PrivateRoutes isForAdmin='true' path='/admin' component={Admin} />
       <PrivateRoutes path='/logout' component={Logout} />
       <PrivateRoutes path='/edit/:projectId' component={Edit} />

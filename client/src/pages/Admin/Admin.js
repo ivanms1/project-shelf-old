@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
-import toast from 'react-hot-toast';
-import { loader } from 'graphql.macro';
-import { useQuery } from '@apollo/client';
 
 import Header from '../../components/Header/Header';
-import Activated from '../Activated/Activated';
-import NotActivated from '../NotActivated/Notactivated';
-import JsonData from '../UserTable/JsonData';
-import Loader from '../../components/Loader/Loader';
+import Approved from './Approved/Approved';
+import NotApproved from './NotApproved/NotApproved';
+import JsonData from './UserTable/JsonData';
 
 import { Main, Container, TabContainer } from './style';
 
@@ -26,20 +22,8 @@ const tabs = [
   },
 ];
 
-const GET_ALL_USER_QUERY = loader('../UserTable/queryGetAllUsers.graphql');
-
 function Admin() {
   const [page, setPage] = useState('approved');
-
-  const { loading, error } = useQuery(GET_ALL_USER_QUERY);
-
-  if (loading) {
-    return <Loader />;
-  }
-
-  if (error) {
-    return toast.error('Oops something went wrong.');
-  }
 
   return (
     <Main>
@@ -67,8 +51,8 @@ function Admin() {
           </ul>
         </TabContainer>
 
-        {page === 'approved' && <NotActivated />}
-        {page === 'notapproved' && <Activated />}
+        {page === 'approved' && <NotApproved />}
+        {page === 'notapproved' && <Approved />}
         {page === 'allusers' && <JsonData />}
       </Container>
     </Main>

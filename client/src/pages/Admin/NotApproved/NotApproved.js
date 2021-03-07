@@ -3,9 +3,9 @@ import { useQuery, useMutation, NetworkStatus } from '@apollo/client';
 import { Waypoint } from 'react-waypoint';
 import { loader } from 'graphql.macro';
 
-import Cardtwo from '../../components/Cardv2/Cardtwo';
-import Button from '../../components/Button/Button';
-import { ReactComponent as Spinner } from '../../assets/spinner.svg';
+import Cardtwo from '../../../components/Cardv2/Cardtwo';
+import Button from '../../../components/Button/Button';
+import { ReactComponent as Spinner } from '../../../assets/spinner.svg';
 
 import {
   Container,
@@ -14,12 +14,14 @@ import {
   customCss,
 } from './style';
 
-const QUERY_GET_ALL_PROJECTS = loader('./queryGetAllApprovedProjects.graphql');
+const QUERY_GET_ALL_PROJECTS = loader(
+  './queryGetAllDissaprovedProjects.graphql'
+);
 const MUTATION_UPDATE_PROJECT_STATUS = loader(
   './mutationUpdateProjectStatus.graphql'
 );
 
-function Activated() {
+function Notactivated() {
   const { data, loading, error, fetchMore, networkStatus } = useQuery(
     QUERY_GET_ALL_PROJECTS,
     {
@@ -34,19 +36,6 @@ function Activated() {
   const [updateStatus, { error: errorR }] = useMutation(
     MUTATION_UPDATE_PROJECT_STATUS
   );
-
-  async function updateProjectStatus(projectId) {
-    try {
-      await updateStatus({
-        variables: {
-          projectId: projectId,
-          isApproved: false,
-        },
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
 
   if (error || errorR) {
     return <p>Sorry, something went wrong.</p>;
@@ -66,12 +55,24 @@ function Activated() {
     } catch (error) {}
   };
 
+  async function updateProjectStatus(projectId) {
+    try {
+      await updateStatus({
+        variables: {
+          projectId: projectId,
+          isApproved: true,
+        },
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   return (
     <Container>
       <ActivatedContainer>
         <main>
-          <h1>Approved Projects</h1>
-
+          <h1>Not Approved Projects</h1>
           <ProjectCollection>
             {networkStatus === NetworkStatus.setVariables ||
             networkStatus === NetworkStatus.refetch ||
@@ -85,12 +86,12 @@ function Activated() {
                   <Cardtwo key={project.id} project={project}>
                     <Button
                       maxWidth='big'
-                      kind='disapprove'
+                      kind='approve'
                       fontSize='medium'
                       onClick={() => updateProjectStatus(project.id)}
                       addCSS={customCss}
                     >
-                      Disapprove
+                      Approve
                     </Button>
                   </Cardtwo>
                 ))}
@@ -119,4 +120,4 @@ function Activated() {
   );
 }
 
-export default Activated;
+export default Notactivated;

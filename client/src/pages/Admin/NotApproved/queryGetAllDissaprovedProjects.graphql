@@ -1,4 +1,4 @@
-#import "../../graphql/projectFragment.graphql"
+#import "../../../graphql/projectFragment.graphql"
 
 query GetAllDissaprovedPojects($cursor: String = null) {
   projects: getProjects(cursor: $cursor, onlyApproved: false) {
