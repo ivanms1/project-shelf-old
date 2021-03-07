@@ -3,7 +3,6 @@ import { useQuery, useMutation, NetworkStatus } from '@apollo/client';
 import { Waypoint } from 'react-waypoint';
 import { loader } from 'graphql.macro';
 
-import CardComponent from '../../components/Card/Card';
 import Button from '../../components/Button/Button';
 import { ReactComponent as Spinner } from '../../assets/spinner.svg';
 
@@ -35,10 +34,7 @@ function Notactivated() {
   );
 
   const [updateStatus, { error: errorR }] = useMutation(
-    MUTATION_UPDATE_PROJECT_STATUS,
-    {
-      notifyOnNetworkStatusChange: true,
-    }
+    MUTATION_UPDATE_PROJECT_STATUS
   );
 
   if (error || errorR) {
@@ -51,7 +47,7 @@ function Notactivated() {
     }
 
     try {
-      const res = await fetchMore({
+      await fetchMore({
         variables: {
           cursor: data?.projects?.nextCursor,
         },
@@ -72,33 +68,12 @@ function Notactivated() {
     }
   }
 
-  const { projects } = data ?? [];
-
   return (
     <Container>
       <ActivatedContainer>
         <main>
           <h1>Not Approved Projects</h1>
-
           <ProjectCollection>
-            {/* {results.length ? (
-              results.map((project) => (
-                <CardComponent
-                  key={project.id}
-                  user={project.author}
-                  project={project}
-                  descVisible={false}
-                >
-                  <Button
-                    maxWidth='big'
-                    kind='approve'
-                    fontSize='medium'
-                    onClick={() => updateProjectStatus(project.id)}
-                    addCSS={customCss}
-                  >
-                    Approve
-                  </Button>
-                </CardComponent> */}
             {networkStatus === NetworkStatus.setVariables ||
             networkStatus === NetworkStatus.refetch ||
             !data?.projects?.results?.length ? (
