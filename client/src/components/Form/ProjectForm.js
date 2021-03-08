@@ -13,13 +13,12 @@ import { Dropzone } from '../DropZone/Dropzone';
 import SelectTags from './SelectTags/SelectTags';
 import Button from '../Button/Button';
 import Active from '../Active/Active';
+import Spinner from '../../components/Spinner/Spinner';
 
 import useCurrentUser from '../useCurrentUser/useCurrentUser';
 
 import { options } from './SelectOptions/options';
 import { getCurrentDate } from '../../helpers/dateConverter';
-
-import { ReactComponent as Spinner } from '../../assets/spinner.svg';
 
 import Rick from '../../assets/rick.png';
 import IMG_Social from '../../assets/social.png';

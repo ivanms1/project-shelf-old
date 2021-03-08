@@ -5,6 +5,7 @@ import { Waypoint } from 'react-waypoint';
 
 import Cardtwo from '../../components/Cardv2/Cardtwo';
 import Header from '../../components/Header/Header';
+import Spinner from '../../components/Spinner/Spinner';
 
 import { Main, Container, Approval, CardContainer } from './style';
 
@@ -67,6 +68,7 @@ function Favorites() {
         {!loading && data?.projects?.nextCursor && (
           <Waypoint onEnter={onRefetch} bottomOffset='-20%' />
         )}
+        {loading && data?.projects?.nextCursor && <Spinner />}
       </Container>
     </Main>
   );

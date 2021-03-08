@@ -5,7 +5,7 @@ import { loader } from 'graphql.macro';
 
 import Cardtwo from '../../../components/Cardv2/Cardtwo';
 import Button from '../../../components/Button/Button';
-import { ReactComponent as Spinner } from '../../../assets/spinner.svg';
+import Spinner from '../../../components/Spinner/Spinner';
 
 import {
   Container,
@@ -100,19 +100,7 @@ function Activated() {
           {!loading && data?.projects?.nextCursor && (
             <Waypoint onEnter={onRefetch} bottomOffset='-10%' />
           )}
-          {loading && data?.projects?.nextCursor && (
-            <div
-              style={{
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: '20px 0',
-              }}
-            >
-              <Spinner />
-            </div>
-          )}
+          {loading && data?.projects?.nextCursor && <Spinner />}
         </main>
       </ActivatedContainer>
     </Container>

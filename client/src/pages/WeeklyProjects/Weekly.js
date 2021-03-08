@@ -6,7 +6,7 @@ import { Waypoint } from 'react-waypoint';
 import Cardtwo from '../../components/Cardv2/Cardtwo';
 import Header from '../../components/Header/Header';
 import Search from '../../components/Search/Search';
-import { ReactComponent as Spinner } from '../../assets/spinner.svg';
+import Spinner from '../../components/Spinner/Spinner';
 
 import { Main, Container, SearchContainer, CardContainer } from './style';
 
@@ -63,19 +63,7 @@ function Weekly() {
         {!loading && data?.projects?.nextCursor && (
           <Waypoint onEnter={onRefetch} bottomOffset='-20%' />
         )}
-        {loading && data?.projects?.nextCursor && (
-          <div
-            style={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              padding: '20px 0',
-            }}
-          >
-            <Spinner />
-          </div>
-        )}
+        {loading && data?.projects?.nextCursor && <Spinner />}
       </Container>
     </Main>
   );
