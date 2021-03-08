@@ -67,7 +67,6 @@ function Notactivated() {
       console.log(error.message);
     }
   }
-
   return (
     <Container>
       <ActivatedContainer>

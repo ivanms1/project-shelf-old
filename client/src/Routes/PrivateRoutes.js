@@ -25,7 +25,9 @@ function PrivateRoutes({ path, isForAdmin, children, ...props }) {
   if (path === '/register' || path === '/signin') {
     return <Redirect to='/' />;
   }
-
+  console.log(path);
+  console.log(children);
+  console.log(props);
   return (
     <Route path={path} {...props}>
       {children}

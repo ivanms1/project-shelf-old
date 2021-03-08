@@ -6,12 +6,12 @@ import Contact from '../pages/Contact/Contact';
 import Register from '../pages/Register/Register';
 import SignIn from '../pages/SignIn/Signin';
 import Logout from '../pages/Logout/Logout';
+import Approved from '../pages/Admin/Approved/Approved';
+import NotApproved from '../pages/Admin/NotApproved/NotApproved';
 import Submitproject from '../pages/SubmitYourProject/Submit';
 import Weekly from '../pages/WeeklyProjects/Weekly';
 import Favorites from '../pages/Favorites/Favorites';
 import Error from '../pages/Error/error';
-import Approved from '../pages/Admin/Approved/Approved';
-import NotApproved from '../pages/Admin/NotApproved/NotApproved';
 import Admin from '../pages/Admin/Admin';
 import Edit from '../pages/Edit/Edit';
 import CardDetails from '../components/Cardv2/CardDetails/CardDetails';
@@ -26,9 +26,14 @@ function Routes() {
       <PrivateRoutes path='/contact' component={Contact} />
       <PublicRoutes path='/register' component={Register} />
       <PublicRoutes path='/signin' component={SignIn} />
-      <PrivateRoutes path='/approved' component={Approved} />
-      <PrivateRoutes path='/not-approved' component={NotApproved} />
-      <PrivateRoutes isForAdmin='true' path='/admin' component={Admin} />
+      <PrivateRoutes isForAdmin='true' path='/admin'>
+        <Admin>
+          <Switch>
+            <PrivateRoutes path='/admin/approved' component={Approved} />
+            <PrivateRoutes path='/admin/not-approved' component={NotApproved} />
+          </Switch>
+        </Admin>
+      </PrivateRoutes>
       <PrivateRoutes path='/logout' component={Logout} />
       <PrivateRoutes path='/edit/:projectId' component={Edit} />
       <PrivateRoutes path='/submit' component={Submitproject} />

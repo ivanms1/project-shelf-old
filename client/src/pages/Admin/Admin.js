@@ -1,30 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Header from '../../components/Header/Header';
-import Approved from './Approved/Approved';
-import NotApproved from './NotApproved/NotApproved';
-import JsonData from './UserTable/JsonData';
 
-import { Main, Container, TabContainer } from './style';
+import { Main, Container, TabContainer, StyledNavLink } from './style';
 
 const tabs = [
   {
     title: 'Not Approved',
-    path: 'approved',
+    path: '/admin/not-approved',
   },
   {
     title: 'Approved',
-    path: 'notapproved',
+    path: '/admin/approved',
   },
   {
     title: 'All Users',
-    path: 'allusers',
+    path: '/admin/allusers',
   },
 ];
 
-function Admin() {
-  const [page, setPage] = useState('approved');
-
+function Admin({ children }) {
   return (
     <Main>
       <Header />
@@ -33,27 +28,14 @@ function Admin() {
           <ul>
             {tabs.map((tab, index) => (
               <li key={index}>
-                <button
-                  style={{
-                    backgroundColor: page === tab.path ? '#20c997' : 'white',
-                    color: page === tab.path ? 'white' : '#152c5b',
-                    border: page === tab.path ? '1px solid #20c997' : '',
-                    fontWeight: page === tab.path ? '600' : '',
-                  }}
-                  onClick={() => {
-                    setPage(tab.path);
-                  }}
-                >
+                <StyledNavLink to={tab.path} activeClassName='current'>
                   {tab.title}
-                </button>
+                </StyledNavLink>
               </li>
             ))}
           </ul>
         </TabContainer>
-
-        {page === 'approved' && <NotApproved />}
-        {page === 'notapproved' && <Approved />}
-        {page === 'allusers' && <JsonData />}
+        {children}
       </Container>
     </Main>
   );

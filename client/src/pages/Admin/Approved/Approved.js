@@ -32,7 +32,10 @@ function Activated() {
   );
 
   const [updateStatus, { error: errorR }] = useMutation(
-    MUTATION_UPDATE_PROJECT_STATUS
+    MUTATION_UPDATE_PROJECT_STATUS,
+    {
+      notifyOnNetworkStatusChange: true,
+    }
   );
 
   async function updateProjectStatus(projectId) {
@@ -66,6 +69,7 @@ function Activated() {
     } catch (error) {}
   };
 
+  console.log('alsdfjlas');
   return (
     <Container>
       <ActivatedContainer>
