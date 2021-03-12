@@ -71,6 +71,7 @@ function Notactivated() {
       console.log(error.message);
     }
   }
+
   return (
     <Container>
       <ActivatedContainer>
@@ -80,9 +81,7 @@ function Notactivated() {
             {networkStatus === NetworkStatus.setVariables ||
             networkStatus === NetworkStatus.refetch ||
             !data?.projects?.results?.length ? (
-              <p className='noproject'>
-                You do not have any projects to showcase.
-              </p>
+              <p className='noproject'>All project have been approved</p>
             ) : (
               <>
                 {data?.projects?.results.map((project) => (

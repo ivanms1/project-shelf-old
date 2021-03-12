@@ -6,8 +6,6 @@ import Contact from '../pages/Contact/Contact';
 import Register from '../pages/Register/Register';
 import SignIn from '../pages/SignIn/Signin';
 import Logout from '../pages/Logout/Logout';
-import Approved from '../pages/Admin/Approved/Approved';
-import NotApproved from '../pages/Admin/NotApproved/NotApproved';
 import Submitproject from '../pages/SubmitYourProject/Submit';
 import Weekly from '../pages/WeeklyProjects/Weekly';
 import Favorites from '../pages/Favorites/Favorites';

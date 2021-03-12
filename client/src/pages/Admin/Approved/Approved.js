@@ -75,7 +75,6 @@ function Activated() {
     } catch (error) {}
   };
 
-  console.log('alsdfjlas');
   return (
     <Container>
       <ActivatedContainer>
@@ -86,9 +85,7 @@ function Activated() {
             {networkStatus === NetworkStatus.setVariables ||
             networkStatus === NetworkStatus.refetch ||
             !data?.projects?.results?.length ? (
-              <p className='noproject'>
-                You do not have any projects to showcase.
-              </p>
+              <p className='noproject'>There are no approved projects</p>
             ) : (
               <>
                 {data?.projects?.results.map((project) => (
