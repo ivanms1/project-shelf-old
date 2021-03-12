@@ -63,6 +63,7 @@ const client = new ApolloClient({
           getProjects: projectsMergeConfig,
           getMyProjects: projectsMergeConfig,
           getMyFavoriteProjects: projectsMergeConfig,
+          adminGetNotApprovedProjects: projectsMergeConfig,
         },
       },
     },

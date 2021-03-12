@@ -30,6 +30,7 @@ const projectsResponse = schema.objectType({
     t.string('nextCursor');
     t.string('prevCursor');
     t.field('results', { type: 'Project', list: true });
+    t.int('totalCount');
   },
 });
 
@@ -183,6 +184,12 @@ schema.queryType({
         const incomingCursor = args?.cursor;
         let results;
 
+        const totalCount = await ctx.db.project.count({
+          where: {
+            isApproved: true,
+          },
+        });
+
         if (incomingCursor) {
           results = await ctx.db.project.findMany({
             take: 9,
@@ -216,6 +223,7 @@ schema.queryType({
           prevCursor: args.cursor,
           nextCursor: cursor,
           results,
+          totalCount,
         };
       },
     });
@@ -229,6 +237,12 @@ schema.queryType({
         const incomingCursor = args?.cursor;
         let results;
 
+        const totalCount = await ctx.db.project.count({
+          where: {
+            authorId: ctx.currentUserId,
+          },
+        });
+
         if (incomingCursor) {
           results = await ctx.db.project.findMany({
             take: 9,
@@ -262,6 +276,7 @@ schema.queryType({
           prevCursor: args.cursor,
           nextCursor: cursor,
           results,
+          totalCount,
         };
       },
     });
@@ -275,6 +290,18 @@ schema.queryType({
         const incomingCursor = args?.cursor;
         let results;
 
+        const totalCount = await ctx.db.project.count({
+          where: {
+            favorites: {
+              some: {
+                id: {
+                  equals: ctx.currentUserId,
+                },
+              },
+            },
+          },
+        });
+
         if (incomingCursor) {
           results = await ctx.db.project.findMany({
             take: 9,
@@ -320,6 +347,7 @@ schema.queryType({
           prevCursor: args.cursor,
           nextCursor: cursor,
           results,
+          totalCount,
         };
       },
     });
@@ -333,6 +361,12 @@ schema.queryType({
         const incomingCursor = args?.cursor;
         let results;
 
+        const totalCount = await ctx.db.project.count({
+          where: {
+            isApproved: false,
+          },
+        });
+
         if (incomingCursor) {
           results = await ctx.db.project.findMany({
             take: 9,
@@ -366,6 +400,7 @@ schema.queryType({
           prevCursor: args.cursor,
           nextCursor: cursor,
           results,
+          totalCount,
         };
       },
     });
@@ -422,7 +457,7 @@ schema.mutationType({
         input: 'UpdateUsertInput',
       },
       async resolve(_root, args, ctx) {
-        if (!args) {
+        if (!args?.input) {
           throw new Error('Data not found');
         }
 

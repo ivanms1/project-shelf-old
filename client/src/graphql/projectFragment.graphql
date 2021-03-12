@@ -1,6 +1,7 @@
 fragment ProjectsResponseFragment on ProjectsResponse {
   nextCursor
   prevCursor
+  totalCount
   results {
     id
     title

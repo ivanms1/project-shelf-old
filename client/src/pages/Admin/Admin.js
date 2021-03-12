@@ -1,6 +1,10 @@
 import React from 'react';
+import { Switch } from 'react-router-dom';
 
 import Header from '../../components/Header/Header';
+import PrivateRoute from '../../Routes/PrivateRoute';
+import Approved from './Approved/Approved';
+import NotApproved from './NotApproved/NotApproved';
 
 import { Main, Container, TabContainer, StyledNavLink } from './style';
 
@@ -19,7 +23,7 @@ const tabs = [
   },
 ];
 
-function Admin({ children }) {
+function Admin() {
   return (
     <Main>
       <Header />
@@ -35,7 +39,10 @@ function Admin({ children }) {
             ))}
           </ul>
         </TabContainer>
-        {children}
+        <Switch>
+          <PrivateRoute path='/admin/approved' component={Approved} />
+          <PrivateRoute path='/admin/not-approved' component={NotApproved} />
+        </Switch>
       </Container>
     </Main>
   );

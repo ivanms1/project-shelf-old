@@ -16,34 +16,48 @@ import Admin from '../pages/Admin/Admin';
 import Edit from '../pages/Edit/Edit';
 import CardDetails from '../components/Cardv2/CardDetails/CardDetails';
 
-import PublicRoutes from './PublicRoutes';
-import PrivateRoutes from './PrivateRoutes';
+import PublicRoute from './PublicRoute';
+import PrivateRoute from './PrivateRoute';
 
 function Routes() {
   return (
     <Switch>
-      <PrivateRoutes exact path='/' component={Home} />
-      <PrivateRoutes path='/contact' component={Contact} />
-      <PublicRoutes path='/register' component={Register} />
-      <PublicRoutes path='/signin' component={SignIn} />
-      <PrivateRoutes isForAdmin='true' path='/admin'>
-        <Admin>
-          <Switch>
-            <PrivateRoutes path='/admin/approved' component={Approved} />
-            <PrivateRoutes path='/admin/not-approved' component={NotApproved} />
-          </Switch>
-        </Admin>
-      </PrivateRoutes>
-      <PrivateRoutes path='/logout' component={Logout} />
-      <PrivateRoutes path='/edit/:projectId' component={Edit} />
-      <PrivateRoutes path='/submit' component={Submitproject} />
-      <PrivateRoutes path='/weekly' component={Weekly} />
-      <PrivateRoutes path='/favorites' component={Favorites} />
-      <PrivateRoutes
-        path='/projectDetails/:projectId'
-        component={CardDetails}
-      />
-      <PublicRoutes component={Error} />
+      <PrivateRoute exact path='/'>
+        <Home />
+      </PrivateRoute>
+      <PrivateRoute path='/contact'>
+        <Contact />
+      </PrivateRoute>
+      <PublicRoute path='/register'>
+        <Register />
+      </PublicRoute>
+      <PublicRoute path='/signin'>
+        <SignIn />
+      </PublicRoute>
+      <PrivateRoute isForAdmin='true' path='/admin'>
+        <Admin />
+      </PrivateRoute>
+      <PrivateRoute path='/logout'>
+        <Logout />
+      </PrivateRoute>
+      <PrivateRoute path='/edit/:projectId'>
+        <Edit />
+      </PrivateRoute>
+      <PrivateRoute path='/submit'>
+        <Submitproject />
+      </PrivateRoute>
+      <PrivateRoute path='/weekly'>
+        <Weekly />
+      </PrivateRoute>
+      <PrivateRoute path='/favorites'>
+        <Favorites />
+      </PrivateRoute>
+      <PrivateRoute path='/projectDetails/:projectId'>
+        <CardDetails />
+      </PrivateRoute>
+      <PublicRoute>
+        <Error />
+      </PublicRoute>
     </Switch>
   );
 }

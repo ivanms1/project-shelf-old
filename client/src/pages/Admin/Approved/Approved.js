@@ -62,6 +62,10 @@ function Activated() {
       return;
     }
 
+    if (data?.projects?.results?.length === data?.projects?.totalCount) {
+      return;
+    }
+
     try {
       await fetchMore({
         variables: {

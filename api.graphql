@@ -75,6 +75,7 @@ type ProjectsResponse {
   nextCursor: String
   prevCursor: String
   results: [Project!]
+  totalCount: Int
 }
 
 input ProjectWhereUniqueInput {
