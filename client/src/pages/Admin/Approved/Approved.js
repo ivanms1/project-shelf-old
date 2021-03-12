@@ -14,14 +14,16 @@ import {
   customCss,
 } from './style';
 
-const QUERY_GET_ALL_PROJECTS = loader('./queryGetAllApprovedProjects.graphql');
+const QUERY_GET_ALL_APPROVED_PROJECTS = loader(
+  './queryGetAllApprovedProjects.graphql'
+);
 const MUTATION_UPDATE_PROJECT_STATUS = loader(
   './mutationUpdateProjectStatus.graphql'
 );
 
 function Activated() {
   const { data, loading, error, fetchMore, networkStatus } = useQuery(
-    QUERY_GET_ALL_PROJECTS,
+    QUERY_GET_ALL_APPROVED_PROJECTS,
     {
       variables: {
         cursor: undefined,

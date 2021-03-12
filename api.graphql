@@ -82,6 +82,8 @@ input ProjectWhereUniqueInput {
 }
 
 type Query {
+  """Get all approved projects"""
+  adminGetNotApprovedProjects(cursor: String): ProjectsResponse
   getCurrentUser: User
 
   """Get my favorite projects"""
@@ -92,7 +94,7 @@ type Query {
   getProject(id: String!): Project
 
   """Get all approved projects"""
-  getProjects(cursor: String, onlyApproved: Boolean! = true): ProjectsResponse
+  getProjects(cursor: String): ProjectsResponse
   getUser(id: String!): User
   getUsers: [User!]
 }

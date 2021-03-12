@@ -14,8 +14,8 @@ import {
   customCss,
 } from './style';
 
-const QUERY_GET_ALL_PROJECTS = loader(
-  './queryGetAllDissaprovedProjects.graphql'
+const QUERY_GET_ALL_NOT_APPROVED_PROJECTS = loader(
+  './queryGetAllNotApprovedProjects.graphql'
 );
 const MUTATION_UPDATE_PROJECT_STATUS = loader(
   './mutationUpdateProjectStatus.graphql'
@@ -23,7 +23,7 @@ const MUTATION_UPDATE_PROJECT_STATUS = loader(
 
 function Notactivated() {
   const { data, loading, error, fetchMore, networkStatus } = useQuery(
-    QUERY_GET_ALL_PROJECTS,
+    QUERY_GET_ALL_NOT_APPROVED_PROJECTS,
     {
       variables: {
         cursor: undefined,

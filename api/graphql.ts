@@ -177,7 +177,6 @@ schema.queryType({
       type: 'ProjectsResponse',
       description: 'Get all approved projects',
       args: {
-        onlyApproved: schema.booleanArg({ default: true, nullable: false }),
         cursor: schema.stringArg(),
       },
       async resolve(_root, args, ctx) {
@@ -192,7 +191,7 @@ schema.queryType({
               id: incomingCursor,
             },
             where: {
-              isApproved: args?.onlyApproved,
+              isApproved: true,
             },
             orderBy: {
               createdAt: 'desc',
@@ -202,7 +201,7 @@ schema.queryType({
           results = await ctx.db.project.findMany({
             take: 9,
             where: {
-              isApproved: args?.onlyApproved,
+              isApproved: true,
             },
             orderBy: {
               createdAt: 'desc',
@@ -307,6 +306,52 @@ schema.queryType({
                   },
                 },
               },
+            },
+            orderBy: {
+              createdAt: 'desc',
+            },
+          });
+        }
+
+        const lastResult = results[8];
+        const cursor = lastResult?.id;
+
+        return {
+          prevCursor: args.cursor,
+          nextCursor: cursor,
+          results,
+        };
+      },
+    });
+    t.field('adminGetNotApprovedProjects', {
+      type: 'ProjectsResponse',
+      description: 'Get all approved projects',
+      args: {
+        cursor: schema.stringArg(),
+      },
+      async resolve(_root, args, ctx) {
+        const incomingCursor = args?.cursor;
+        let results;
+
+        if (incomingCursor) {
+          results = await ctx.db.project.findMany({
+            take: 9,
+            skip: 1,
+            cursor: {
+              id: incomingCursor,
+            },
+            where: {
+              isApproved: false,
+            },
+            orderBy: {
+              createdAt: 'desc',
+            },
+          });
+        } else {
+          results = await ctx.db.project.findMany({
+            take: 9,
+            where: {
+              isApproved: false,
             },
             orderBy: {
               createdAt: 'desc',
