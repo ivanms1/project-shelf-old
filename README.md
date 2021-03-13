@@ -4,7 +4,7 @@
 
 ### Description
 
-This project is intended to be a resource based website for a community of developers who are looking to learn from each other. The idea is to allow people who are learining new tech to host their project publically to showcase them and for other people to see and learn from what has been done and what they can learn from it.
+This project is intended to be a resource based website for a community of developers who are looking to learn from each other. The idea is to allow people who are learning new tech to host their project publically to showcase them and for other people to see and learn from what has been done and what they can learn from it.
 
 ### First time running the app
 
