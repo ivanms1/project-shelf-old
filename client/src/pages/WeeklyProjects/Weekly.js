@@ -7,6 +7,7 @@ import Cardtwo from '../../components/Cardv2/Cardtwo';
 import Header from '../../components/Header/Header';
 import Search from '../../components/Search/Search';
 import Spinner from '../../components/Spinner/Spinner';
+import Loader from '../../components/Loader/Loader';
 
 import { Main, Container, SearchContainer, CardContainer } from './style';
 
@@ -23,6 +24,10 @@ function Weekly() {
       fetchPolicy: 'cache-and-network',
     }
   );
+
+  if (loading && !data) {
+    return <Loader />;
+  }
 
   if (error) {
     return <p>Sorry, something went wrong.</p>;

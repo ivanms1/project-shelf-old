@@ -7,6 +7,7 @@ import Cardtwo from '../../components/Cardv2/Cardtwo';
 import Header from '../../components/Header/Header';
 import Active from '../../components/Active/Active';
 import Spinner from '../../components/Spinner/Spinner';
+import Loader from '../../components/Loader/Loader';
 
 import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
 
@@ -33,6 +34,10 @@ function Home() {
       fetchPolicy: 'cache-and-network',
     }
   );
+
+  if (loading && !data) {
+    return <Loader />;
+  }
 
   if (error) {
     return <p>Sorry, something went wrong.</p>;

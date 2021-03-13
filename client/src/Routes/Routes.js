@@ -4,6 +4,8 @@ import { Switch } from 'react-router-dom';
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
 
+import Loader from '../components/Loader/Loader';
+
 const Home = lazy(() => import('../pages/Home/Home'));
 const Register = lazy(() => import('../pages/Register/Register'));
 const Contact = lazy(() => import('../pages/Contact/Contact'));
@@ -21,7 +23,7 @@ const CardDetails = lazy(() =>
 
 function Routes() {
   return (
-    <Suspense fallback={<span>Loading...</span>}>
+    <Suspense fallback={<Loader />}>
       <Switch>
         <PrivateRoute exact path='/'>
           <Home />

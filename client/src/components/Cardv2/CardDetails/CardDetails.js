@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, useHistory, Link } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
 import Zoom from 'react-medium-image-zoom';

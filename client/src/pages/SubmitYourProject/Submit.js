@@ -30,6 +30,7 @@ function Submit() {
   if (currentUserLoading) {
     return <Loader />;
   }
+
   return (
     <Main>
       <Header />
