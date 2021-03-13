@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useMutation } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
 import useCurrentUser from '../useCurrentUser/useCurrentUser';
@@ -15,9 +15,6 @@ import { Main, CardContainerInner, ProjectDetails, ViewDetails } from './style';
 
 const MUTATION_REACT_TO_PROJECT = loader('./mutationReactToProject.graphql');
 const MUTATION_FAVORITE_PROJECT = loader('./mutationFavoriteProject.graphql');
-const QUERY_GET_MY_FAVORITE_PROJECTS = loader(
-  '../../pages/Favorites/queryGetMyFavoriteProjects.graphql'
-);
 
 const getActionLikes = (project, currentUser) => {
   return project?.likes.some((user) => user?.id === currentUser?.id)
@@ -69,7 +66,52 @@ function Cardtwo({ project, children }) {
     MUTATION_FAVORITE_PROJECT,
     {
       ...getVariablesFavorite(),
-      refetchQueries: [{ query: QUERY_GET_MY_FAVORITE_PROJECTS }],
+      update(cache, { data: { favoriteProject } }) {
+        cache.modify({
+          fields: {
+            getMyFavoriteProjects(existing = {}, { readField }) {
+              if (getActionFavorite(project, currentUser) === 'FAVORITE') {
+                const projectFavorited = cache.writeFragment({
+                  data: favoriteProject,
+                  fragment: gql`
+                    fragment NewProject on Project {
+                      id
+                      title
+                      preview
+                      description
+                      siteLink
+                      repoLink
+                      isApproved
+                      likes {
+                        id
+                      }
+                      favorites {
+                        id
+                      }
+                      createdAt
+                    }
+                  `,
+                });
+                return {
+                  ...existing,
+                  results: [...existing.results, projectFavorited].sort(
+                    (a, b) =>
+                      new Date(readField('createdAt', b)) -
+                      new Date(readField('createdAt', a))
+                  ),
+                };
+              }
+
+              return {
+                ...existing,
+                results: existing.results.filter(
+                  (p) => readField('id', p) !== favoriteProject.id
+                ),
+              };
+            },
+          },
+        });
+      },
     }
   );
 
