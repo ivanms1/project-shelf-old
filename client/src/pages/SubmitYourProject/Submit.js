@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMutation } from '@apollo/client';
+import { useMutation, gql } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
 import Header from '../../components/Header/Header';
@@ -17,10 +17,33 @@ function Submit() {
   const [createProject] = useMutation(CREATE_PROJECT_MUTATION, {
     update(cache, { data: { createProject } }) {
       cache.modify({
-        id: cache.identify(user),
         fields: {
-          projects(existingProjects = []) {
-            return [...existingProjects, createProject];
+          getMyProjects(existing = {}) {
+            const projectCreated = cache.writeFragment({
+              data: createProject,
+              fragment: gql`
+                fragment NewProject on Project {
+                  id
+                  title
+                  preview
+                  description
+                  siteLink
+                  repoLink
+                  isApproved
+                  likes {
+                    id
+                  }
+                  favorites {
+                    id
+                  }
+                  createdAt
+                }
+              `,
+            });
+            return {
+              ...existing,
+              results: [projectCreated, ...existing.results],
+            };
           },
         },
       });
