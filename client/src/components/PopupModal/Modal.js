@@ -19,7 +19,7 @@ import {
 
 Modal.setAppElement('#root');
 
-const Modal_Messages = {
+const MODAL_MESSAGES = {
   logout: {
     title: 'Logging Out ?',
     message: 'Are you sure you want to Logout ?',
@@ -57,7 +57,7 @@ function ModalStyle({
   isOpen,
   onRequestClose,
   type = 'logout',
-  onClick = () => {},
+  onClick = null,
 }) {
   return (
     <StyledModal
@@ -71,8 +71,8 @@ function ModalStyle({
         </CloseButton>
         {getSvg(type)}
         <Description>
-          <span>{Modal_Messages[type].title}</span>
-          <span>{Modal_Messages[type].message}</span>
+          <span>{MODAL_MESSAGES[type].title}</span>
+          <span>{MODAL_MESSAGES[type].message}</span>
         </Description>
 
         <ButtonContainer>
@@ -81,11 +81,15 @@ function ModalStyle({
             addCSS={CustomNoButton}
             onClick={onRequestClose}
           >
-            {Modal_Messages[type].button_text_NO}
+            {MODAL_MESSAGES[type].button_text_NO}
           </Button>
 
-          <Button kind={type} addCSS={CustomYesButton} onClick={onClick}>
-            {Modal_Messages[type].button_text_YES}
+          <Button
+            kind={type}
+            addCSS={CustomYesButton}
+            onClick={() => onClick && onClick()}
+          >
+            {MODAL_MESSAGES[type].button_text_YES}
           </Button>
         </ButtonContainer>
       </Body>
