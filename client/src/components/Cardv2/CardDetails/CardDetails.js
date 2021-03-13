@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, useHistory, Link } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
 import Zoom from 'react-medium-image-zoom';
@@ -20,6 +20,7 @@ import { ReactComponent as Web } from '../../../assets/web.svg';
 
 import {
   Main,
+  HomeLink,
   Container,
   BackButton,
   ImgContainerOuter,
@@ -34,6 +35,13 @@ import 'react-medium-image-zoom/dist/styles.css';
 
 const GET_PROJECT_QUERY = loader('./queryGetProject.graphql');
 const DELETE_USER_PROJECT = loader('./mutationDeleteProject.graphql');
+
+function updateQueryCache(existing, readField, deleteId) {
+  return {
+    ...existing,
+    results: existing.results.filter((p) => readField('id', p) !== deleteId),
+  };
+}
 
 function CardDetails() {
   const [imgLoaded, setImgLoaded] = useState(true);
@@ -59,18 +67,13 @@ function CardDetails() {
   const [deleteProject] = useMutation(DELETE_USER_PROJECT, {
     update(cache, { data: { deleteProject } }) {
       cache.modify({
-        id: cache.identify(currentUser),
         fields: {
-          projects(existingProjects, { readField }) {
-            return existingProjects.filter(
-              (p) => readField('id', p) !== deleteProject
-            );
-          },
-          favoriteProjects(existingProjects, { readField }) {
-            return existingProjects.filter(
-              (p) => readField('id', p) !== deleteProject
-            );
-          },
+          getProjects: (existing = {}, { readField }) =>
+            updateQueryCache(existing, readField, deleteProject),
+          getMyProjects: (existing = {}, { readField }) =>
+            updateQueryCache(existing, readField, deleteProject),
+          getMyFavoriteProjects: (existing = {}, { readField }) =>
+            updateQueryCache(existing, readField, deleteProject),
         },
       });
     },
@@ -101,9 +104,9 @@ function CardDetails() {
 
   const { project } = data;
 
-  const generateTags = (tags, id) => {
+  const generateTags = (tags) => {
     return tags.map((tag) => (
-      <span key={id} className='tag'>
+      <span key={tag} className='tag'>
         {tag}
       </span>
     ));
@@ -116,7 +119,7 @@ function CardDetails() {
         {project && (
           <>
             <BackButton>
-              <Link to='/'>Home</Link> /{' '}
+              <HomeLink to='/'>Home</HomeLink> /{' '}
               <span className='projectTitle'>{project?.title}</span>
             </BackButton>
 

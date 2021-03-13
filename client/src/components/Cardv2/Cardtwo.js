@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useMutation } from '@apollo/client';
+import { useMutation, gql } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
 import useCurrentUser from '../useCurrentUser/useCurrentUser';
@@ -28,7 +28,7 @@ const getActionFavorite = (project, currentUser) => {
     : 'FAVORITE';
 };
 
-function Cardtwo({ project }) {
+function Cardtwo({ project, children }) {
   const [imgLoaded, setImgLoaded] = useState(true);
 
   const { currentUser } = useCurrentUser();
@@ -68,16 +68,46 @@ function Cardtwo({ project }) {
       ...getVariablesFavorite(),
       update(cache, { data: { favoriteProject } }) {
         cache.modify({
-          id: cache.identify(currentUser),
           fields: {
-            favoriteProjects(existingProjects, { readField }) {
+            getMyFavoriteProjects(existing = {}, { readField }) {
               if (getActionFavorite(project, currentUser) === 'FAVORITE') {
-                return [...existingProjects, favoriteProject];
+                const projectFavorited = cache.writeFragment({
+                  data: favoriteProject,
+                  fragment: gql`
+                    fragment NewProject on Project {
+                      id
+                      title
+                      preview
+                      description
+                      siteLink
+                      repoLink
+                      isApproved
+                      likes {
+                        id
+                      }
+                      favorites {
+                        id
+                      }
+                      createdAt
+                    }
+                  `,
+                });
+                return {
+                  ...existing,
+                  results: [...existing.results, projectFavorited].sort(
+                    (a, b) =>
+                      new Date(readField('createdAt', b)) -
+                      new Date(readField('createdAt', a))
+                  ),
+                };
               }
 
-              return existingProjects.filter(
-                (p) => readField('id', p) !== favoriteProject.id
-              );
+              return {
+                ...existing,
+                results: existing.results.filter(
+                  (p) => readField('id', p) !== favoriteProject.id
+                ),
+              };
             },
           },
         });
@@ -142,6 +172,7 @@ function Cardtwo({ project }) {
           {getCurrentDate(project.createdAt)}
         </span>
       </ProjectDetails>
+      {children}
     </Main>
   );
 }

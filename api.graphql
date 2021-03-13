@@ -71,14 +71,31 @@ enum ProjectAction {
   LIKE
 }
 
+type ProjectsResponse {
+  nextCursor: String
+  prevCursor: String
+  results: [Project!]
+  totalCount: Int
+}
+
 input ProjectWhereUniqueInput {
   id: String
 }
 
 type Query {
+  """Get all approved projects"""
+  adminGetNotApprovedProjects(cursor: String): ProjectsResponse
   getCurrentUser: User
+
+  """Get my favorite projects"""
+  getMyFavoriteProjects(cursor: String): ProjectsResponse
+
+  """Get all my projects"""
+  getMyProjects(cursor: String): ProjectsResponse
   getProject(id: String!): Project
-  getProjects: [Project!]
+
+  """Get all approved projects"""
+  getProjects(cursor: String): ProjectsResponse
   getUser(id: String!): User
   getUsers: [User!]
 }

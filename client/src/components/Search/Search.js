@@ -3,7 +3,7 @@ import React from 'react';
 import SearchWithYear from './SearchWithYear';
 import SearchWithTags from './SearchWithTags';
 
-import { Container } from './SearchContianerStyle';
+import { Container } from './SearchContainerStyle';
 
 const yearOptions = [
   { value: '2021', label: '2021' },

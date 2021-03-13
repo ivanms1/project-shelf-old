@@ -3,11 +3,11 @@ import { useTable, usePagination } from 'react-table';
 import { loader } from 'graphql.macro';
 import { useMutation } from '@apollo/client';
 
-import Loader from '../../components/Loader/Loader';
+import Loader from '../../../components/Loader/Loader';
 
-import ProfilePic from '../../assets/rick.png';
-import EditPic from '../../assets/edit.png';
-import TrashPic from '../../assets/trash.png';
+import ProfilePic from '../../../assets/rick.png';
+import EditPic from '../../../assets/edit.png';
+import TrashPic from '../../../assets/trash.png';
 
 import { Styles } from './style';
 

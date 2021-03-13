@@ -1,23 +1,7 @@
-query GetAllProjects {
-  projects: getProjects {
-    id
-    title
-    createdAt
-    author {
-      name
-      lastName
-      email
-    }
-    likes {
-      id
-    }
-    favorites {
-      id
-    }
-    preview
-    repoLink
-    siteLink
-    description
-    isApproved
+#import "../../graphql/projectFragment.graphql"
+
+query GetAllProjects($cursor: String = null) {
+  projects: getProjects(cursor: $cursor) {
+    ...ProjectsResponseFragment
   }
 }

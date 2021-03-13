@@ -31,9 +31,43 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+const projectsMergeConfig = {
+  keyArgs: false,
+  merge(existing = [], incoming) {
+    if (!existing || !Object.keys(existing).length) {
+      return incoming;
+    }
+
+    if (!incoming.prevCursor) {
+      return existing;
+    }
+
+    if (existing.nextCursor === incoming.nextCursor) {
+      return existing;
+    }
+
+    const existingResults = existing?.results ?? [];
+    return {
+      ...incoming,
+      results: [...existingResults, ...incoming.results],
+    };
+  },
+};
+
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          getProjects: projectsMergeConfig,
+          getMyProjects: projectsMergeConfig,
+          getMyFavoriteProjects: projectsMergeConfig,
+          adminGetNotApprovedProjects: projectsMergeConfig,
+        },
+      },
+    },
+  }),
 });
 
 ReactDOM.render(
