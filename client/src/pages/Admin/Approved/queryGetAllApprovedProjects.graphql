@@ -1,0 +1,7 @@
+#import "../../../graphql/projectFragment.graphql"
+
+query GetAllApprovedProjects($cursor: String = null) {
+  projects: getProjects(cursor: $cursor) {
+    ...ProjectsResponseFragment
+  }
+}

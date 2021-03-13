@@ -13,13 +13,12 @@ import { Dropzone } from '../DropZone/Dropzone';
 import SelectTags from './SelectTags/SelectTags';
 import Button from '../Button/Button';
 import Active from '../Active/Active';
+import Spinner from '../../components/Spinner/Spinner';
 
 import useCurrentUser from '../useCurrentUser/useCurrentUser';
 
 import { options } from './SelectOptions/options';
 import { getCurrentDate } from '../../helpers/dateConverter';
-
-import { ReactComponent as Spinner } from '../../assets/spinner.svg';
 
 import Rick from '../../assets/rick.png';
 import IMG_Social from '../../assets/social.png';
@@ -177,13 +176,13 @@ function ProjectForm({ onSubmit, project }) {
           <label>Title of the Project</label>
           <Input
             name='title'
-            maxLength='15'
+            maxLength='25'
             placeholder='Title of the Project'
             ref={register({
               required: 'Title cannot be empty.',
               maxLength: {
-                value: 14,
-                message: 'Cannot exceed 14 words',
+                value: 25,
+                message: 'Cannot exceed 25 words',
               },
               minLength: {
                 value: 3,
@@ -211,8 +210,8 @@ function ProjectForm({ onSubmit, project }) {
                 isMulti
                 menuPosition='absolute'
                 isSearchable
+                closeMenuOnSelect={false}
                 onChange={(value) => {
-                  console.log(value);
                   onChange(value);
                 }}
               />

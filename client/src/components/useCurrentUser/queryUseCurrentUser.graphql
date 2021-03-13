@@ -5,37 +5,5 @@ query UseCurrentUser {
     lastName
     email
     role
-    projects {
-      id
-      title
-      preview
-      description
-      siteLink
-      repoLink
-      isApproved
-      likes {
-        id
-      }
-      favorites {
-        id
-      }
-      createdAt
-    }
-    favoriteProjects {
-      id
-      title
-      preview
-      description
-      siteLink
-      repoLink
-      isApproved
-      likes {
-        id
-      }
-      favorites {
-        id
-      }
-      createdAt
-    }
   }
 }

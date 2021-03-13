@@ -77,7 +77,7 @@ function Header() {
     authandDropdown: [
       {
         title: 'ADMIN',
-        onClick: () => history.push('/admin'),
+        onClick: () => history.push('/admin/not-approved'),
         leftIcon: <Bell />,
       },
       {

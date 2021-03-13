@@ -1,46 +1,29 @@
-import React, { useState } from 'react';
-import toast from 'react-hot-toast';
-import { loader } from 'graphql.macro';
-import { useQuery } from '@apollo/client';
+import React from 'react';
+import { Switch } from 'react-router-dom';
 
 import Header from '../../components/Header/Header';
-import Activated from '../Activated/Activated';
-import NotActivated from '../NotActivated/Notactivated';
-import JsonData from '../UserTable/JsonData';
-import Loader from '../../components/Loader/Loader';
+import PrivateRoute from '../../Routes/PrivateRoute';
+import Approved from './Approved/Approved';
+import NotApproved from './NotApproved/NotApproved';
 
-import { Main, Container, TabContainer } from './style';
+import { Main, Container, TabContainer, StyledNavLink } from './style';
 
 const tabs = [
   {
     title: 'Not Approved',
-    path: 'approved',
+    path: '/admin/not-approved',
   },
   {
     title: 'Approved',
-    path: 'notapproved',
+    path: '/admin/approved',
   },
   {
     title: 'All Users',
-    path: 'allusers',
+    path: '/admin/allusers',
   },
 ];
 
-const GET_ALL_USER_QUERY = loader('../UserTable/queryGetAllUsers.graphql');
-
 function Admin() {
-  const [page, setPage] = useState('approved');
-
-  const { loading, error } = useQuery(GET_ALL_USER_QUERY);
-
-  if (loading) {
-    return <Loader />;
-  }
-
-  if (error) {
-    return toast.error('Oops something went wrong.');
-  }
-
   return (
     <Main>
       <Header />
@@ -49,27 +32,17 @@ function Admin() {
           <ul>
             {tabs.map((tab, index) => (
               <li key={index}>
-                <button
-                  style={{
-                    backgroundColor: page === tab.path ? '#20c997' : 'white',
-                    color: page === tab.path ? 'white' : '#152c5b',
-                    border: page === tab.path ? '1px solid #20c997' : '',
-                    fontWeight: page === tab.path ? '600' : '',
-                  }}
-                  onClick={() => {
-                    setPage(tab.path);
-                  }}
-                >
+                <StyledNavLink to={tab.path} activeClassName='current'>
                   {tab.title}
-                </button>
+                </StyledNavLink>
               </li>
             ))}
           </ul>
         </TabContainer>
-
-        {page === 'approved' && <NotActivated />}
-        {page === 'notapproved' && <Activated />}
-        {page === 'allusers' && <JsonData />}
+        <Switch>
+          <PrivateRoute path='/admin/approved' component={Approved} />
+          <PrivateRoute path='/admin/not-approved' component={NotApproved} />
+        </Switch>
       </Container>
     </Main>
   );

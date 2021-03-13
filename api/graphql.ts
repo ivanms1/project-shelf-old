@@ -1,12 +1,14 @@
 import { schema } from 'nexus';
-import fs from 'fs';
 import * as cloudinary from 'cloudinary';
 
 const imageUploader = cloudinary.v2;
 
 schema.addToContext((req) => {
+  const currentUserId = !Array.isArray(req?.headers?.['current-user-id'])
+    ? req?.headers?.['current-user-id']
+    : undefined;
   return {
-    currentUserId: req.headers['current-user-id'],
+    currentUserId,
   };
 });
 
@@ -20,6 +22,16 @@ const FavoriteActions = schema.enumType({
   name: 'FavoriteAction',
   members: ['FAVORITE', 'UNDO'],
   description: 'Favorite actions',
+});
+
+const projectsResponse = schema.objectType({
+  name: 'ProjectsResponse',
+  definition(t) {
+    t.string('nextCursor');
+    t.string('prevCursor');
+    t.field('results', { type: 'Project', list: true });
+    t.int('totalCount');
+  },
 });
 
 schema.inputObjectType({
@@ -163,10 +175,233 @@ schema.queryType({
       },
     });
     t.field('getProjects', {
-      type: 'Project',
-      list: true,
-      resolve(_root, _, ctx) {
-        return ctx.db.project.findMany();
+      type: 'ProjectsResponse',
+      description: 'Get all approved projects',
+      args: {
+        cursor: schema.stringArg(),
+      },
+      async resolve(_root, args, ctx) {
+        const incomingCursor = args?.cursor;
+        let results;
+
+        const totalCount = await ctx.db.project.count({
+          where: {
+            isApproved: true,
+          },
+        });
+
+        if (incomingCursor) {
+          results = await ctx.db.project.findMany({
+            take: 9,
+            skip: 1,
+            cursor: {
+              id: incomingCursor,
+            },
+            where: {
+              isApproved: true,
+            },
+            orderBy: {
+              createdAt: 'desc',
+            },
+          });
+        } else {
+          results = await ctx.db.project.findMany({
+            take: 9,
+            where: {
+              isApproved: true,
+            },
+            orderBy: {
+              createdAt: 'desc',
+            },
+          });
+        }
+
+        const lastResult = results[8];
+        const cursor = lastResult?.id;
+
+        return {
+          prevCursor: args.cursor,
+          nextCursor: cursor,
+          results,
+          totalCount,
+        };
+      },
+    });
+    t.field('getMyProjects', {
+      type: 'ProjectsResponse',
+      description: 'Get all my projects',
+      args: {
+        cursor: schema.stringArg(),
+      },
+      async resolve(_root, args, ctx) {
+        const incomingCursor = args?.cursor;
+        let results;
+
+        const totalCount = await ctx.db.project.count({
+          where: {
+            authorId: ctx.currentUserId,
+          },
+        });
+
+        if (incomingCursor) {
+          results = await ctx.db.project.findMany({
+            take: 9,
+            skip: 1,
+            cursor: {
+              id: incomingCursor,
+            },
+            where: {
+              authorId: ctx.currentUserId,
+            },
+            orderBy: {
+              createdAt: 'desc',
+            },
+          });
+        } else {
+          results = await ctx.db.project.findMany({
+            take: 9,
+            where: {
+              authorId: ctx.currentUserId,
+            },
+            orderBy: {
+              createdAt: 'desc',
+            },
+          });
+        }
+
+        const lastResult = results[8];
+        const cursor = lastResult?.id;
+
+        return {
+          prevCursor: args.cursor,
+          nextCursor: cursor,
+          results,
+          totalCount,
+        };
+      },
+    });
+    t.field('getMyFavoriteProjects', {
+      type: 'ProjectsResponse',
+      description: 'Get my favorite projects',
+      args: {
+        cursor: schema.stringArg(),
+      },
+      async resolve(_root, args, ctx) {
+        const incomingCursor = args?.cursor;
+        let results;
+
+        const totalCount = await ctx.db.project.count({
+          where: {
+            favorites: {
+              some: {
+                id: {
+                  equals: ctx.currentUserId,
+                },
+              },
+            },
+          },
+        });
+
+        if (incomingCursor) {
+          results = await ctx.db.project.findMany({
+            take: 9,
+            skip: 1,
+            cursor: {
+              id: incomingCursor,
+            },
+            where: {
+              favorites: {
+                some: {
+                  id: {
+                    equals: ctx.currentUserId,
+                  },
+                },
+              },
+            },
+            orderBy: {
+              createdAt: 'desc',
+            },
+          });
+        } else {
+          results = await ctx.db.project.findMany({
+            take: 9,
+            where: {
+              favorites: {
+                some: {
+                  id: {
+                    equals: ctx.currentUserId,
+                  },
+                },
+              },
+            },
+            orderBy: {
+              createdAt: 'desc',
+            },
+          });
+        }
+
+        const lastResult = results[8];
+        const cursor = lastResult?.id;
+
+        return {
+          prevCursor: args.cursor,
+          nextCursor: cursor,
+          results,
+          totalCount,
+        };
+      },
+    });
+    t.field('adminGetNotApprovedProjects', {
+      type: 'ProjectsResponse',
+      description: 'Get all approved projects',
+      args: {
+        cursor: schema.stringArg(),
+      },
+      async resolve(_root, args, ctx) {
+        const incomingCursor = args?.cursor;
+        let results;
+
+        const totalCount = await ctx.db.project.count({
+          where: {
+            isApproved: false,
+          },
+        });
+
+        if (incomingCursor) {
+          results = await ctx.db.project.findMany({
+            take: 9,
+            skip: 1,
+            cursor: {
+              id: incomingCursor,
+            },
+            where: {
+              isApproved: false,
+            },
+            orderBy: {
+              createdAt: 'desc',
+            },
+          });
+        } else {
+          results = await ctx.db.project.findMany({
+            take: 9,
+            where: {
+              isApproved: false,
+            },
+            orderBy: {
+              createdAt: 'desc',
+            },
+          });
+        }
+
+        const lastResult = results[8];
+        const cursor = lastResult?.id;
+
+        return {
+          prevCursor: args.cursor,
+          nextCursor: cursor,
+          results,
+          totalCount,
+        };
       },
     });
   },
@@ -222,7 +457,7 @@ schema.mutationType({
         input: 'UpdateUsertInput',
       },
       async resolve(_root, args, ctx) {
-        if (!args) {
+        if (!args?.input) {
           throw new Error('Data not found');
         }
 

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 function useOnClickOutside(ref, setVisibility) {
   useEffect(() => {
     const listener = (event) => {
-      if (ref.current.contains(event.target)) {
+      if (ref?.current?.contains(event?.target)) {
         return;
       }
       setVisibility(false);
