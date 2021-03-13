@@ -36,6 +36,13 @@ import 'react-medium-image-zoom/dist/styles.css';
 const GET_PROJECT_QUERY = loader('./queryGetProject.graphql');
 const DELETE_USER_PROJECT = loader('./mutationDeleteProject.graphql');
 
+function updateQueryCache(existing, readField, deleteId) {
+  return {
+    ...existing,
+    results: existing.results.filter((p) => readField('id', p) !== deleteId),
+  };
+}
+
 function CardDetails() {
   const [imgLoaded, setImgLoaded] = useState(true);
 
@@ -60,18 +67,13 @@ function CardDetails() {
   const [deleteProject] = useMutation(DELETE_USER_PROJECT, {
     update(cache, { data: { deleteProject } }) {
       cache.modify({
-        id: cache.identify(currentUser),
         fields: {
-          projects(existingProjects, { readField }) {
-            return existingProjects.filter(
-              (p) => readField('id', p) !== deleteProject
-            );
-          },
-          favoriteProjects(existingProjects, { readField }) {
-            return existingProjects.filter(
-              (p) => readField('id', p) !== deleteProject
-            );
-          },
+          getProjects: (existing = {}, { readField }) =>
+            updateQueryCache(existing, readField, deleteProject),
+          getMyProjects: (existing = {}, { readField }) =>
+            updateQueryCache(existing, readField, deleteProject),
+          getMyFavoriteProjects: (existing = {}, { readField }) =>
+            updateQueryCache(existing, readField, deleteProject),
         },
       });
     },
