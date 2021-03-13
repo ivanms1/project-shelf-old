@@ -14,7 +14,7 @@ function PrivateRoutes({ path, isForAdmin, children, ...props }) {
     return <Redirect to='/signin' />;
   }
 
-  if (isForAdmin && currentUser.role === 'USER') {
+  if (isForAdmin && currentUser?.role === 'USER') {
     return <Redirect to='/' />;
   }
 

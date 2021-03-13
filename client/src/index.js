@@ -34,12 +34,16 @@ const authLink = setContext((_, { headers }) => {
 const projectsMergeConfig = {
   keyArgs: false,
   merge(existing = [], incoming) {
-    if (!Object.keys(existing).length) {
+    if (!existing || !Object.keys(existing).length) {
       return incoming;
     }
 
     if (!incoming.prevCursor) {
-      return existing;
+      const removedFirstNine = existing?.results?.slice(9) ?? [];
+      return {
+        ...existing,
+        results: [...incoming.results, ...removedFirstNine],
+      };
     }
 
     if (existing.nextCursor === incoming.nextCursor) {
