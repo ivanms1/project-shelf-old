@@ -2,7 +2,9 @@
 
 ![Project Pic](client/src/assets/HomePic.png)
 
-![Video](https://www.loom.com/share/a3462435a4ce4b1881289dd78e55cf43)
+## Video
+
+https://www.loom.com/share/a3462435a4ce4b1881289dd78e55cf43
 
 ### Description
 
