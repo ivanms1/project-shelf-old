@@ -6,6 +6,7 @@ import { loader } from 'graphql.macro';
 import Cardtwo from '../../../components/Cardv2/Cardtwo';
 import Button from '../../../components/Button/Button';
 import Spinner from '../../../components/Spinner/Spinner';
+import Loader from '../../../components/Loader/Loader';
 
 import {
   Container,
@@ -100,6 +101,10 @@ function Activated() {
     } catch (error) {
       console.log(error.message);
     }
+  }
+
+  if (loading && !data) {
+    return <Loader />;
   }
 
   if (error || errorR) {
