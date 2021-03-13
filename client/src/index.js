@@ -39,11 +39,7 @@ const projectsMergeConfig = {
     }
 
     if (!incoming.prevCursor) {
-      const removedFirstNine = existing?.results?.slice(9) ?? [];
-      return {
-        ...existing,
-        results: [...incoming.results, ...removedFirstNine],
-      };
+      return existing;
     }
 
     if (existing.nextCursor === incoming.nextCursor) {

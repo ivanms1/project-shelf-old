@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery, useMutation, NetworkStatus } from '@apollo/client';
+import { useQuery, useMutation, NetworkStatus, gql } from '@apollo/client';
 import { Waypoint } from 'react-waypoint';
 import { loader } from 'graphql.macro';
 
@@ -36,7 +36,56 @@ function Activated() {
   const [updateStatus, { error: errorR }] = useMutation(
     MUTATION_UPDATE_PROJECT_STATUS,
     {
-      notifyOnNetworkStatusChange: true,
+      update(cache, { data: { updateProjectStatus } }) {
+        cache.modify({
+          fields: {
+            getProjects(existing = {}, { readField }) {
+              return {
+                ...existing,
+                results: existing.results.filter(
+                  (p) => readField('id', p) !== updateProjectStatus.id
+                ),
+              };
+            },
+          },
+        });
+
+        cache.modify({
+          fields: {
+            adminGetNotApprovedProjects(existing = {}, { readField }) {
+              const projectNotApproved = cache.writeFragment({
+                data: updateProjectStatus,
+                fragment: gql`
+                  fragment NewProject on Project {
+                    id
+                    title
+                    preview
+                    description
+                    siteLink
+                    repoLink
+                    isApproved
+                    likes {
+                      id
+                    }
+                    favorites {
+                      id
+                    }
+                    createdAt
+                  }
+                `,
+              });
+              return {
+                ...existing,
+                results: [...existing.results, projectNotApproved].sort(
+                  (a, b) =>
+                    new Date(readField('createdAt', b)) -
+                    new Date(readField('createdAt', a))
+                ),
+              };
+            },
+          },
+        });
+      },
     }
   );
 

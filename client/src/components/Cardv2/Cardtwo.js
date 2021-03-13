@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useMutation } from '@apollo/client';
+import { useMutation, gql } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
 import useCurrentUser from '../useCurrentUser/useCurrentUser';
@@ -66,6 +66,52 @@ function Cardtwo({ project, children }) {
     MUTATION_FAVORITE_PROJECT,
     {
       ...getVariablesFavorite(),
+      update(cache, { data: { favoriteProject } }) {
+        cache.modify({
+          fields: {
+            getMyFavoriteProjects(existing = {}, { readField }) {
+              if (getActionFavorite(project, currentUser) === 'FAVORITE') {
+                const projectFavorited = cache.writeFragment({
+                  data: favoriteProject,
+                  fragment: gql`
+                    fragment NewProject on Project {
+                      id
+                      title
+                      preview
+                      description
+                      siteLink
+                      repoLink
+                      isApproved
+                      likes {
+                        id
+                      }
+                      favorites {
+                        id
+                      }
+                      createdAt
+                    }
+                  `,
+                });
+                return {
+                  ...existing,
+                  results: [...existing.results, projectFavorited].sort(
+                    (a, b) =>
+                      new Date(readField('createdAt', b)) -
+                      new Date(readField('createdAt', a))
+                  ),
+                };
+              }
+
+              return {
+                ...existing,
+                results: existing.results.filter(
+                  (p) => readField('id', p) !== favoriteProject.id
+                ),
+              };
+            },
+          },
+        });
+      },
     }
   );
 

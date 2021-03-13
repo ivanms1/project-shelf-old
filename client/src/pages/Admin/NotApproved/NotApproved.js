@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery, useMutation, NetworkStatus } from '@apollo/client';
+import { useQuery, useMutation, NetworkStatus, gql } from '@apollo/client';
 import { Waypoint } from 'react-waypoint';
 import { loader } from 'graphql.macro';
 
@@ -21,7 +21,7 @@ const MUTATION_UPDATE_PROJECT_STATUS = loader(
   './mutationUpdateProjectStatus.graphql'
 );
 
-function Notactivated() {
+function NotApproved() {
   const { data, loading, error, fetchMore, networkStatus } = useQuery(
     QUERY_GET_ALL_NOT_APPROVED_PROJECTS,
     {
@@ -34,7 +34,59 @@ function Notactivated() {
   );
 
   const [updateStatus, { error: errorR }] = useMutation(
-    MUTATION_UPDATE_PROJECT_STATUS
+    MUTATION_UPDATE_PROJECT_STATUS,
+    {
+      update(cache, { data: { updateProjectStatus } }) {
+        cache.modify({
+          fields: {
+            adminGetNotApprovedProjects(existing = {}, { readField }) {
+              return {
+                ...existing,
+                results: existing.results.filter(
+                  (p) => readField('id', p) !== updateProjectStatus.id
+                ),
+              };
+            },
+          },
+        });
+
+        cache.modify({
+          fields: {
+            getProjects(existing = {}, { readField }) {
+              const projectFavorited = cache.writeFragment({
+                data: updateProjectStatus,
+                fragment: gql`
+                  fragment NewProject on Project {
+                    id
+                    title
+                    preview
+                    description
+                    siteLink
+                    repoLink
+                    isApproved
+                    likes {
+                      id
+                    }
+                    favorites {
+                      id
+                    }
+                    createdAt
+                  }
+                `,
+              });
+              return {
+                ...existing,
+                results: [...existing.results, projectFavorited].sort(
+                  (a, b) =>
+                    new Date(readField('createdAt', b)) -
+                    new Date(readField('createdAt', a))
+                ),
+              };
+            },
+          },
+        });
+      },
+    }
   );
 
   if (error || errorR) {
@@ -110,4 +162,4 @@ function Notactivated() {
   );
 }
 
-export default Notactivated;
+export default NotApproved;
