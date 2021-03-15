@@ -7,7 +7,7 @@ import Zoom from 'react-medium-image-zoom';
 import Button from '../../Button/Button';
 import Header from '../../Header/Header';
 import Loader from '../../Loader/Loader';
-import PopupModal from '../../PopupModal/PopupModal';
+import PopupModal from '../../PopupModal/Modal';
 
 import useCurrentUser from '../../useCurrentUser/useCurrentUser';
 
@@ -45,10 +45,6 @@ function updateQueryCache(existing, readField, deleteId) {
 
 function CardDetails() {
   const [imgLoaded, setImgLoaded] = useState(true);
-
-  const [editModelIsOpen, setEditModelIsOpen] = useState(false);
-  const openEditModal = () => setEditModelIsOpen(true);
-  const closeEditModal = () => setEditModelIsOpen(false);
 
   const [deleteModelIsOpen, setDeleteModelIsOpen] = useState(false);
   const openDeleteModal = () => setDeleteModelIsOpen(true);
@@ -90,7 +86,6 @@ function CardDetails() {
   }
 
   function editUserProject(projectId) {
-    setEditModelIsOpen(false);
     history.push(`/edit/${projectId}`);
   }
 
@@ -218,7 +213,7 @@ function CardDetails() {
                         fontSize='medium'
                         kind='edit'
                         size='small'
-                        onClick={openEditModal}
+                        onClick={() => editUserProject(project?.id)}
                         addCSS={CustomDeleteButtonCSS}
                       >
                         Edit
@@ -235,18 +230,11 @@ function CardDetails() {
       </Container>
 
       <PopupModal
+        type='delete'
         isOpen={deleteModelIsOpen}
         onRequestClose={closeDeleteModal}
         onClick={() => {
           deleteUserProject(project?.id);
-        }}
-      />
-
-      <PopupModal
-        isOpen={editModelIsOpen}
-        onRequestClose={closeEditModal}
-        onClick={() => {
-          editUserProject(project?.id);
         }}
       />
     </Main>

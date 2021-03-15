@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
-import PopupModal from '../PopupModal/PopupModal';
+import PopupModal from '../PopupModal/Modal';
 import { Dropzone } from '../DropZone/Dropzone';
 import SelectTags from './SelectTags/SelectTags';
 import Button from '../Button/Button';
@@ -39,7 +39,6 @@ import {
   Links,
   Profile,
 } from '../Card/style';
-import { CustomYesButton } from '../PopupModal/style';
 
 const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
 
@@ -80,7 +79,7 @@ function ProjectForm({ onSubmit, project }) {
     try {
       await onSubmit(values);
       setImage(values.preview);
-      setSuccessModal(true);
+      // setSuccessModal(true);
     } catch (error) {
       toast.error("Couldn't create project");
     }
@@ -290,18 +289,6 @@ function ProjectForm({ onSubmit, project }) {
           Submit your Project
         </Button>
       </Submission>
-      <PopupModal
-        isOpen={successModal}
-        onRequestClose={() => setSuccessModal(false)}
-        title='Project Submitted'
-      >
-        <div className='imgContainer'>
-          <img src={image} alt='project'></img>
-        </div>
-        <Link to='/'>
-          <Button addCSS={CustomYesButton}>Ok</Button>
-        </Link>
-      </PopupModal>
     </FormContainer>
   );
 }
