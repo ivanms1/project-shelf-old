@@ -3,7 +3,6 @@ import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
-import Header from '../../components/Header/Header';
 import Loader from '../../components/Loader/Loader';
 import ProjectForm from '../../components/Form/ProjectForm';
 
@@ -42,7 +41,6 @@ function Edit() {
 
   return (
     <Main>
-      <Header />
       <Overlay>
         <Container>
           <p>

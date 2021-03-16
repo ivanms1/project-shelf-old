@@ -5,7 +5,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import Zoom from 'react-medium-image-zoom';
 
 import Button from '../../Button/Button';
-import Header from '../../Header/Header';
+
 import Loader from '../../Loader/Loader';
 import PopupModal from '../../PopupModal/PopupModal';
 
@@ -114,7 +114,6 @@ function CardDetails() {
 
   return (
     <Main>
-      <Header />
       <Container>
         {project && (
           <>

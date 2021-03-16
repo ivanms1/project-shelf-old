@@ -1,7 +1,6 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 
-import Header from '../../components/Header/Header';
 import PrivateRoute from '../../Routes/PrivateRoute';
 import Approved from './Approved/Approved';
 import NotApproved from './NotApproved/NotApproved';
@@ -26,7 +25,6 @@ const tabs = [
 function Admin() {
   return (
     <Main>
-      <Header />
       <Container>
         <TabContainer>
           <ul>

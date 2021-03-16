@@ -2,7 +2,6 @@ import React from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
-import Header from '../../components/Header/Header';
 import ProjectForm from '../../components/Form/ProjectForm';
 import Loader from '../../components/Loader/Loader';
 
@@ -56,7 +55,6 @@ function Submit() {
 
   return (
     <Main>
-      <Header />
       <Overlay>
         <Container>
           <p>

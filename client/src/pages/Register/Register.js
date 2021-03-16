@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { Redirect } from 'react-router-dom';
 
-import Header from '../../components/Header/Header';
 import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
 
@@ -60,7 +59,6 @@ function Register() {
     <Redirect to='/signin' />
   ) : (
     <Main>
-      <Header />
       <Container>
         <img alt='light' src={Light}></img>
         <form onSubmit={handleSubmit(onSubmit)}>

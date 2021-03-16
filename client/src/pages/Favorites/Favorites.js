@@ -4,7 +4,7 @@ import { useQuery, NetworkStatus } from '@apollo/client';
 import { Waypoint } from 'react-waypoint';
 
 import Cardtwo from '../../components/Cardv2/Cardtwo';
-import Header from '../../components/Header/Header';
+
 import Spinner from '../../components/Spinner/Spinner';
 import Loader from '../../components/Loader/Loader';
 
@@ -48,7 +48,6 @@ function Favorites() {
 
   return (
     <Main>
-      <Header />
       <Container>
         <Approval>
           <p>

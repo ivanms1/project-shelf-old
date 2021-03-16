@@ -9,7 +9,6 @@ import { useMutation } from '@apollo/client';
 import { Context } from '../../Context/AppContext';
 import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
-import Header from '../../components/Header/Header';
 
 import Rocket from '../../assets/rocket.svg';
 
@@ -59,8 +58,6 @@ function Signin() {
 
   return (
     <Container>
-      <Header />
-
       <Main>
         <img alt='rocket' src={Rocket}></img>
 

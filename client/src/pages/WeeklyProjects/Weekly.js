@@ -4,7 +4,7 @@ import { loader } from 'graphql.macro';
 import { Waypoint } from 'react-waypoint';
 
 import Cardtwo from '../../components/Cardv2/Cardtwo';
-import Header from '../../components/Header/Header';
+
 import Search from '../../components/Search/Search';
 import Spinner from '../../components/Spinner/Spinner';
 import Loader from '../../components/Loader/Loader';
@@ -47,7 +47,6 @@ function Weekly() {
 
   return (
     <Main>
-      <Header />
       <Container>
         <SearchContainer>
           <Search />
