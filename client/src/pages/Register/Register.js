@@ -11,7 +11,6 @@ import Button from '../../components/Button/Button';
 import Light from '../../assets/light.svg';
 
 import {
-  Main,
   Container,
   RegisterBox,
   InputContainer,
@@ -58,136 +57,130 @@ function Register() {
   return redirect === true ? (
     <Redirect to='/signin' />
   ) : (
-    <Main>
-      <Container>
-        <img alt='light' src={Light}></img>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <RegisterBox>
-            <span>Register</span>
-            <InputContainer>
-              <label>First name</label>
-              <Input
-                name='firstname'
-                placeholder='Joe'
-                maxLength='15'
-                ref={register({
-                  required: 'Full Name is required.',
-                  maxLength: 10,
-                  minLength: {
-                    value: 3,
-                    message: 'Must be 3 or more letters.',
-                  },
-                })}
-              />
+    <Container>
+      <img alt='light' src={Light}></img>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <RegisterBox>
+          <span>Register</span>
+          <InputContainer>
+            <label>First name</label>
+            <Input
+              name='firstname'
+              placeholder='Joe'
+              maxLength='15'
+              ref={register({
+                required: 'Full Name is required.',
+                maxLength: 10,
+                minLength: {
+                  value: 3,
+                  message: 'Must be 3 or more letters.',
+                },
+              })}
+            />
 
-              <ErrorMessage errors={errors} name='firstname' as={<ErrorText />}>
-                {({ message }) => <p>{message}</p>}
-              </ErrorMessage>
-            </InputContainer>
+            <ErrorMessage errors={errors} name='firstname' as={<ErrorText />}>
+              {({ message }) => <p>{message}</p>}
+            </ErrorMessage>
+          </InputContainer>
 
-            <InputContainer>
-              <label>Last name</label>
-              <Input
-                name='lastname'
-                placeholder='Don'
-                maxLength='15'
-                ref={register({
-                  required: 'Last Name is required.',
-                  maxLength: 10,
-                  minLength: {
-                    value: 3,
-                    message: 'Must be 3 or more letters.',
-                  },
-                })}
-              />
+          <InputContainer>
+            <label>Last name</label>
+            <Input
+              name='lastname'
+              placeholder='Don'
+              maxLength='15'
+              ref={register({
+                required: 'Last Name is required.',
+                maxLength: 10,
+                minLength: {
+                  value: 3,
+                  message: 'Must be 3 or more letters.',
+                },
+              })}
+            />
 
-              <ErrorMessage errors={errors} name='lastname' as={<ErrorText />}>
-                {({ message }) => <p>{message}</p>}
-              </ErrorMessage>
-            </InputContainer>
+            <ErrorMessage errors={errors} name='lastname' as={<ErrorText />}>
+              {({ message }) => <p>{message}</p>}
+            </ErrorMessage>
+          </InputContainer>
 
-            <InputContainer>
-              <label>Email Address</label>
-              <Input
-                name='email'
-                placeholder='joe@don.com'
-                maxLength='30'
-                ref={register({
-                  required: 'Email address is required.',
-                  maxLength: 20,
-                  pattern: {
-                    //eslint-disable-next-line
-                    value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                    message: 'Email address is not valid.',
-                  },
-                })}
-              />
+          <InputContainer>
+            <label>Email Address</label>
+            <Input
+              name='email'
+              placeholder='joe@don.com'
+              maxLength='30'
+              ref={register({
+                required: 'Email address is required.',
+                maxLength: 20,
+                pattern: {
+                  //eslint-disable-next-line
+                  value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  message: 'Email address is not valid.',
+                },
+              })}
+            />
 
-              <ErrorMessage errors={errors} name='email' as={<ErrorText />}>
-                {({ message }) => <p>{message}</p>}
-              </ErrorMessage>
-            </InputContainer>
+            <ErrorMessage errors={errors} name='email' as={<ErrorText />}>
+              {({ message }) => <p>{message}</p>}
+            </ErrorMessage>
+          </InputContainer>
 
-            <InputContainer>
-              <label>Password</label>
-              <Input
-                name='password'
-                type='password'
-                placeholder='123456'
-                maxLength='10'
-                ref={register({
-                  required: 'Password is required.',
-                  maxLength: 10,
-                  minLength: {
-                    value: 2,
-                    message: 'must be 2 or more letters.',
-                  },
-                })}
-              />
+          <InputContainer>
+            <label>Password</label>
+            <Input
+              name='password'
+              type='password'
+              placeholder='123456'
+              maxLength='10'
+              ref={register({
+                required: 'Password is required.',
+                maxLength: 10,
+                minLength: {
+                  value: 2,
+                  message: 'must be 2 or more letters.',
+                },
+              })}
+            />
 
-              <ErrorMessage errors={errors} name='password' as={<ErrorText />}>
-                {({ message }) => <p>{message}</p>}
-              </ErrorMessage>
-            </InputContainer>
+            <ErrorMessage errors={errors} name='password' as={<ErrorText />}>
+              {({ message }) => <p>{message}</p>}
+            </ErrorMessage>
+          </InputContainer>
 
-            <InputContainer>
-              <label>Re-Type Password</label>
-              <Input
-                name='rePassword'
-                type='password'
-                placeholder='123456'
-                maxLength='10'
-                ref={register({
-                  required: 'Re-type Password.',
-                  maxLength: {
-                    value: 10,
-                    message: 'must be 10 or less letters.',
-                  },
-                  minLength: {
-                    value: 2,
-                    message: 'must be 2 or more letters.',
-                  },
-                })}
-              />
+          <InputContainer>
+            <label>Re-Type Password</label>
+            <Input
+              name='rePassword'
+              type='password'
+              placeholder='123456'
+              maxLength='10'
+              ref={register({
+                required: 'Re-type Password.',
+                maxLength: {
+                  value: 10,
+                  message: 'must be 10 or less letters.',
+                },
+                minLength: {
+                  value: 2,
+                  message: 'must be 2 or more letters.',
+                },
+              })}
+            />
 
-              <ErrorMessage
-                errors={errors}
-                name='rePassword'
-                as={<ErrorText />}
-              >
-                {({ message }) => <p>{message}</p>}
-              </ErrorMessage>
-            </InputContainer>
+            <ErrorMessage errors={errors} name='rePassword' as={<ErrorText />}>
+              {({ message }) => <p>{message}</p>}
+            </ErrorMessage>
+          </InputContainer>
 
-            <SignIn to='/signin'>Sign In</SignIn>
+          <SignIn to='/signin'>Sign In</SignIn>
 
-            <Button addCSS={CustomRegisterCss} type='submit'>
-              Register
-            </Button>
-          </RegisterBox>
-        </form>
-      </Container>
-    </Main>
+          <Button addCSS={CustomRegisterCss} type='submit'>
+            Register
+          </Button>
+        </RegisterBox>
+      </form>
+    </Container>
   );
 }
 

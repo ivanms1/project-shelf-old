@@ -11,7 +11,12 @@ import { ReactComponent as Star } from './../../assets/Star.svg';
 import { ReactComponent as StarFill } from './../../assets/Star-Fill.svg';
 import { ReactComponent as Spinner } from './../../assets/spinner.svg';
 
-import { Main, CardContainerInner, ProjectDetails, ViewDetails } from './style';
+import {
+  Container,
+  CardContainerInner,
+  ProjectDetails,
+  ViewDetails,
+} from './style';
 
 const MUTATION_REACT_TO_PROJECT = loader('./mutationReactToProject.graphql');
 const MUTATION_FAVORITE_PROJECT = loader('./mutationFavoriteProject.graphql');
@@ -128,7 +133,7 @@ function Cardtwo({ project, children }) {
   };
 
   return (
-    <Main>
+    <Container>
       <button onClick={reactToProject} className='starContainer'>
         {getActionLikes(project, currentUser) === 'LIKE' ? (
           <Star />
@@ -173,7 +178,7 @@ function Cardtwo({ project, children }) {
         </span>
       </ProjectDetails>
       {children}
-    </Main>
+    </Container>
   );
 }
 

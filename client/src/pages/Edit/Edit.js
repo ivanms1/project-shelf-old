@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import Loader from '../../components/Loader/Loader';
 import ProjectForm from '../../components/Form/ProjectForm';
 
-import { Main, Overlay, Container } from './style';
+import { Overlay, Container } from './style';
 
 const MUTATION_UPDATE_PROJECT = loader('./mutationUpdateProject.graphql');
 const QUERY_GET_PROJECT = loader('./queryGetProject.graphql');
@@ -40,34 +40,32 @@ function Edit() {
   const { project } = data;
 
   return (
-    <Main>
-      <Overlay>
-        <Container>
-          <p>
-            <span>ShowCase them </span>
-            <span>so that people can learn from each other.</span>
-          </p>
-          <ProjectForm
-            project={project}
-            onSubmit={(values) =>
-              editProject({
-                variables: {
-                  projectId: project.id,
-                  input: {
-                    preview: values.preview,
-                    title: values.title,
-                    siteLink: values.siteLink,
-                    repoLink: values.repoLink,
-                    description: values.description,
-                    tags: values.tags.map((e) => e.value),
-                  },
+    <Overlay>
+      <Container>
+        <p>
+          <span>ShowCase them </span>
+          <span>so that people can learn from each other.</span>
+        </p>
+        <ProjectForm
+          project={project}
+          onSubmit={(values) =>
+            editProject({
+              variables: {
+                projectId: project.id,
+                input: {
+                  preview: values.preview,
+                  title: values.title,
+                  siteLink: values.siteLink,
+                  repoLink: values.repoLink,
+                  description: values.description,
+                  tags: values.tags.map((e) => e.value),
                 },
-              })
-            }
-          />
-        </Container>
-      </Overlay>
-    </Main>
+              },
+            })
+          }
+        />
+      </Container>
+    </Overlay>
   );
 }
 

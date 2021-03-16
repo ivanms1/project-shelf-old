@@ -1,12 +1,6 @@
 import styled, { css } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-export const Main = styled.div`
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-`;
-
 export const Container = styled.div`
   flex: 1;
   background-color: #f7f8fc;

@@ -1,12 +1,6 @@
 import styled, { css } from 'styled-components';
 import TextareaAutosize from 'react-textarea-autosize';
 
-export const Main = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-`;
-
 export const Overlay = styled.div`
   background-color: #f7f8fc;
   flex: 1;

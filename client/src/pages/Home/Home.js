@@ -11,13 +11,7 @@ import Loader from '../../components/Loader/Loader';
 
 import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
 
-import {
-  Main,
-  Container,
-  Approval,
-  CardContainer,
-  ActiveContainer,
-} from './style';
+import { Container, Approval, CardContainer, ActiveContainer } from './style';
 
 const QUERY_GET_MY_PROJECTS = loader('./queryGetMyProjects.graphql');
 
@@ -56,47 +50,43 @@ function Home() {
   };
 
   return (
-    <Main>
-      <Container>
-        <Approval>
-          <p>
-            Welcome {user?.name} {user?.lastName}
-          </p>
+    <Container>
+      <Approval>
+        <p>
+          Welcome {user?.name} {user?.lastName}
+        </p>
 
-          <ActiveContainer>
-            <div className='activeContainer'>
-              <Active />
-              <span className='text'>Not Approved</span>
-            </div>
+        <ActiveContainer>
+          <div className='activeContainer'>
+            <Active />
+            <span className='text'>Not Approved</span>
+          </div>
 
-            <div className='activeContainer'>
-              <Active active />
-              <span className='text'>Approved</span>
-            </div>
-          </ActiveContainer>
-        </Approval>
+          <div className='activeContainer'>
+            <Active active />
+            <span className='text'>Approved</span>
+          </div>
+        </ActiveContainer>
+      </Approval>
 
-        <CardContainer>
-          {networkStatus === NetworkStatus.setVariables ||
-          networkStatus === NetworkStatus.refetch ||
-          !data?.projects?.results?.length ? (
-            <p className='noproject'>
-              You do not have any projects to showcase.
-            </p>
-          ) : (
-            <>
-              {data?.projects?.results.map((project) => (
-                <Cardtwo key={project.id} project={project} />
-              ))}
-            </>
-          )}
-        </CardContainer>
-        {!loading && data?.projects?.nextCursor && (
-          <Waypoint onEnter={onRefetch} bottomOffset='-20%' />
+      <CardContainer>
+        {networkStatus === NetworkStatus.setVariables ||
+        networkStatus === NetworkStatus.refetch ||
+        !data?.projects?.results?.length ? (
+          <p className='noproject'>You do not have any projects to showcase.</p>
+        ) : (
+          <>
+            {data?.projects?.results.map((project) => (
+              <Cardtwo key={project.id} project={project} />
+            ))}
+          </>
         )}
-        {loading && data?.projects?.nextCursor && <Spinner />}
-      </Container>
-    </Main>
+      </CardContainer>
+      {!loading && data?.projects?.nextCursor && (
+        <Waypoint onEnter={onRefetch} bottomOffset='-20%' />
+      )}
+      {loading && data?.projects?.nextCursor && <Spinner />}
+    </Container>
   );
 }
 

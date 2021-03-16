@@ -14,7 +14,6 @@ import Rocket from '../../assets/rocket.svg';
 
 import {
   Container,
-  Main,
   SignInBox,
   Form,
   InputContainer,
@@ -58,63 +57,61 @@ function Signin() {
 
   return (
     <Container>
-      <Main>
-        <img alt='rocket' src={Rocket}></img>
+      <img alt='rocket' src={Rocket}></img>
 
-        <SignInBox>
-          <Form onSubmit={handleSubmit(submitUserDetails)}>
-            <span>Sign In</span>
+      <SignInBox>
+        <Form onSubmit={handleSubmit(submitUserDetails)}>
+          <span>Sign In</span>
 
-            <InputContainer>
-              <label>Email Address</label>
-              <Input
-                name='email'
-                placeholder='joe@don.com'
-                ref={register({
-                  required: 'Email address is required.',
-                  maxLength: 20,
-                  pattern: {
-                    //eslint-disable-next-line
-                    value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                    message: 'Email address is not valid',
-                  },
-                })}
-              />
+          <InputContainer>
+            <label>Email Address</label>
+            <Input
+              name='email'
+              placeholder='joe@don.com'
+              ref={register({
+                required: 'Email address is required.',
+                maxLength: 20,
+                pattern: {
+                  //eslint-disable-next-line
+                  value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  message: 'Email address is not valid',
+                },
+              })}
+            />
 
-              <ErrorMessage errors={errors} name='email' as={<ErrorText />}>
-                {({ message }) => <small>{message}</small>}
-              </ErrorMessage>
-            </InputContainer>
+            <ErrorMessage errors={errors} name='email' as={<ErrorText />}>
+              {({ message }) => <small>{message}</small>}
+            </ErrorMessage>
+          </InputContainer>
 
-            <InputContainer>
-              <label>Password</label>
-              <Input
-                name='password'
-                type='password'
-                placeholder='abcdefgh'
-                ref={register({
-                  required: 'Password is required.',
-                  maxLength: 10,
-                  minLength: {
-                    value: 2,
-                    message: 'Must be 2 or more letters.',
-                  },
-                })}
-              />
+          <InputContainer>
+            <label>Password</label>
+            <Input
+              name='password'
+              type='password'
+              placeholder='abcdefgh'
+              ref={register({
+                required: 'Password is required.',
+                maxLength: 10,
+                minLength: {
+                  value: 2,
+                  message: 'Must be 2 or more letters.',
+                },
+              })}
+            />
 
-              <ErrorMessage errors={errors} name='password' as={<ErrorText />}>
-                {({ message }) => <p>{message}</p>}
-              </ErrorMessage>
-            </InputContainer>
+            <ErrorMessage errors={errors} name='password' as={<ErrorText />}>
+              {({ message }) => <p>{message}</p>}
+            </ErrorMessage>
+          </InputContainer>
 
-            <Register to='/register'>Register ?</Register>
+          <Register to='/register'>Register ?</Register>
 
-            <Button addCSS={CustomSignInCss} type='submit'>
-              Sign In
-            </Button>
-          </Form>
-        </SignInBox>
-      </Main>
+          <Button addCSS={CustomSignInCss} type='submit'>
+            Sign In
+          </Button>
+        </Form>
+      </SignInBox>
     </Container>
   );
 }

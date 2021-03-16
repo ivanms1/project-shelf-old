@@ -1,13 +1,13 @@
 import styled, { css } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-export const Container = styled.div`
+export const Main = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 `;
 
-export const Main = styled.div`
+export const Container = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;

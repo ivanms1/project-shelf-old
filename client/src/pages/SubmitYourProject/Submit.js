@@ -7,7 +7,7 @@ import Loader from '../../components/Loader/Loader';
 
 import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
 
-import { Main, Overlay, Container } from './style';
+import { Overlay, Container } from './style';
 const CREATE_PROJECT_MUTATION = loader('./mutationCreateProject.graphql');
 
 function Submit() {
@@ -54,33 +54,31 @@ function Submit() {
   }
 
   return (
-    <Main>
-      <Overlay>
-        <Container>
-          <p>
-            <span>ShowCase them </span>
-            <span>so that people can learn from each other.</span>
-          </p>
-          <ProjectForm
-            onSubmit={(values) =>
-              createProject({
-                variables: {
-                  input: {
-                    authorId: user.id,
-                    preview: values.preview,
-                    title: values.title,
-                    siteLink: values.siteLink,
-                    repoLink: values.repoLink,
-                    description: values.description,
-                    tags: values.tags.map((e) => e.value),
-                  },
+    <Overlay>
+      <Container>
+        <p>
+          <span>ShowCase them </span>
+          <span>so that people can learn from each other.</span>
+        </p>
+        <ProjectForm
+          onSubmit={(values) =>
+            createProject({
+              variables: {
+                input: {
+                  authorId: user.id,
+                  preview: values.preview,
+                  title: values.title,
+                  siteLink: values.siteLink,
+                  repoLink: values.repoLink,
+                  description: values.description,
+                  tags: values.tags.map((e) => e.value),
                 },
-              })
-            }
-          />
-        </Container>
-      </Overlay>
-    </Main>
+              },
+            })
+          }
+        />
+      </Container>
+    </Overlay>
   );
 }
 

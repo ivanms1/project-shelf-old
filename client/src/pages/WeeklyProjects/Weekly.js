@@ -9,7 +9,7 @@ import Search from '../../components/Search/Search';
 import Spinner from '../../components/Spinner/Spinner';
 import Loader from '../../components/Loader/Loader';
 
-import { Main, Container, SearchContainer, CardContainer } from './style';
+import { Container, SearchContainer, CardContainer } from './style';
 
 const QUERY_WEEKLY_PROJECTS = loader('./queryGetProjects.graphql');
 
@@ -46,30 +46,28 @@ function Weekly() {
   };
 
   return (
-    <Main>
-      <Container>
-        <SearchContainer>
-          <Search />
-        </SearchContainer>
-        <CardContainer>
-          {networkStatus === NetworkStatus.setVariables ||
-          networkStatus === NetworkStatus.refetch ||
-          !data?.projects?.results?.length ? (
-            <p className='noproject'>No projects are currently live :(</p>
-          ) : (
-            <>
-              {data?.projects?.results.map((project) => (
-                <Cardtwo key={project.id} project={project} />
-              ))}
-            </>
-          )}
-        </CardContainer>
-        {!loading && data?.projects?.nextCursor && (
-          <Waypoint onEnter={onRefetch} bottomOffset='-20%' />
+    <Container>
+      <SearchContainer>
+        <Search />
+      </SearchContainer>
+      <CardContainer>
+        {networkStatus === NetworkStatus.setVariables ||
+        networkStatus === NetworkStatus.refetch ||
+        !data?.projects?.results?.length ? (
+          <p className='noproject'>No projects are currently live :(</p>
+        ) : (
+          <>
+            {data?.projects?.results.map((project) => (
+              <Cardtwo key={project.id} project={project} />
+            ))}
+          </>
         )}
-        {loading && data?.projects?.nextCursor && <Spinner />}
-      </Container>
-    </Main>
+      </CardContainer>
+      {!loading && data?.projects?.nextCursor && (
+        <Waypoint onEnter={onRefetch} bottomOffset='-20%' />
+      )}
+      {loading && data?.projects?.nextCursor && <Spinner />}
+    </Container>
   );
 }
 

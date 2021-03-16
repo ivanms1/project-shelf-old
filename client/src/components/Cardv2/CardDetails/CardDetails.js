@@ -19,7 +19,6 @@ import { ReactComponent as Email } from '../../../assets/email.svg';
 import { ReactComponent as Web } from '../../../assets/web.svg';
 
 import {
-  Main,
   HomeLink,
   Container,
   BackButton,
@@ -113,7 +112,7 @@ function CardDetails() {
   };
 
   return (
-    <Main>
+    <>
       <Container>
         {project && (
           <>
@@ -248,7 +247,7 @@ function CardDetails() {
           editUserProject(project?.id);
         }}
       />
-    </Main>
+    </>
   );
 }
 

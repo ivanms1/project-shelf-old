@@ -1,12 +1,6 @@
 import styled, { css } from 'styled-components';
 import Popup from 'reactjs-popup';
 
-export const Main = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-`;
-
 export const Container = styled.div`
   flex: 1;
   display: flex;
