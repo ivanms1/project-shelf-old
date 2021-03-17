@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
 import { useParams } from 'react-router-dom';
@@ -14,9 +15,12 @@ const MUTATION_UPDATE_PROJECT = loader('./mutationUpdateProject.graphql');
 const QUERY_GET_PROJECT = loader('./queryGetProject.graphql');
 
 function Edit() {
+  const [editValues, setEditValues] = useState(null);
   const [deleteModelIsOpen, setDeleteModelIsOpen] = useState(false);
   const openDeleteModal = () => setDeleteModelIsOpen(true);
   const closeDeleteModal = () => setDeleteModelIsOpen(false);
+
+  const history = useHistory();
 
   const { projectId } = useParams();
 
@@ -46,22 +50,21 @@ function Edit() {
   const { project } = data;
 
   function editTheProject(values) {
-    if (deleteModelIsOpen) {
-      editProject({
-        variables: {
-          projectId: project.id,
-          input: {
-            preview: values.preview,
-            title: values.title,
-            siteLink: values.siteLink,
-            repoLink: values.repoLink,
-            description: values.description,
-            tags: values.tags.map((e) => e.value),
-          },
+    editProject({
+      variables: {
+        projectId: project.id,
+        input: {
+          preview: values.preview,
+          title: values.title,
+          siteLink: values.siteLink,
+          repoLink: values.repoLink,
+          description: values.description,
+          tags: values.tags.map((e) => e.value),
         },
-      });
-      closeDeleteModal();
-    }
+      },
+    });
+    closeDeleteModal();
+    history.push('/');
   }
 
   return (
@@ -77,7 +80,7 @@ function Edit() {
             project={project}
             onSubmit={(values) => {
               openDeleteModal();
-              editTheProject(values);
+              setEditValues(values);
             }}
           />
         </Container>
@@ -88,7 +91,7 @@ function Edit() {
         isOpen={deleteModelIsOpen}
         onRequestClose={closeDeleteModal}
         onClick={() => {
-          closeDeleteModal();
+          editTheProject(editValues);
         }}
       />
     </Main>
