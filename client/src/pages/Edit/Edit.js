@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
+import Modal from '../../components/PopupModal/Modal';
 import Header from '../../components/Header/Header';
 import Loader from '../../components/Loader/Loader';
 import ProjectForm from '../../components/Form/ProjectForm';
@@ -13,6 +14,10 @@ const MUTATION_UPDATE_PROJECT = loader('./mutationUpdateProject.graphql');
 const QUERY_GET_PROJECT = loader('./queryGetProject.graphql');
 
 function Edit() {
+  const [deleteModelIsOpen, setDeleteModelIsOpen] = useState(false);
+  const openDeleteModal = () => setDeleteModelIsOpen(true);
+  const closeDeleteModal = () => setDeleteModelIsOpen(false);
+
   const { projectId } = useParams();
 
   const { data = {}, loading, error: projectError } = useQuery(
@@ -40,6 +45,25 @@ function Edit() {
 
   const { project } = data;
 
+  function editTheProject(values) {
+    if (deleteModelIsOpen) {
+      editProject({
+        variables: {
+          projectId: project.id,
+          input: {
+            preview: values.preview,
+            title: values.title,
+            siteLink: values.siteLink,
+            repoLink: values.repoLink,
+            description: values.description,
+            tags: values.tags.map((e) => e.value),
+          },
+        },
+      });
+      closeDeleteModal();
+    }
+  }
+
   return (
     <Main>
       <Header />
@@ -51,24 +75,22 @@ function Edit() {
           </p>
           <ProjectForm
             project={project}
-            onSubmit={(values) =>
-              editProject({
-                variables: {
-                  projectId: project.id,
-                  input: {
-                    preview: values.preview,
-                    title: values.title,
-                    siteLink: values.siteLink,
-                    repoLink: values.repoLink,
-                    description: values.description,
-                    tags: values.tags.map((e) => e.value),
-                  },
-                },
-              })
-            }
+            onSubmit={(values) => {
+              openDeleteModal();
+              editTheProject(values);
+            }}
           />
         </Container>
       </Overlay>
+
+      <Modal
+        type='edit'
+        isOpen={deleteModelIsOpen}
+        onRequestClose={closeDeleteModal}
+        onClick={() => {
+          closeDeleteModal();
+        }}
+      />
     </Main>
   );
 }

@@ -6,7 +6,7 @@ import { useApolloClient } from '@apollo/client';
 import Popper from '../Popper/Popper';
 import MobileMenu from '../MobileMenu/Mobilemenu';
 import BurgerIcon from '../BurgerIcon/BurgerIcon';
-import PopupModal from '../PopupModal/PopupModal';
+import PopupModal from '../PopupModal/Modal';
 
 import { Context } from '../../Context/AppContext';
 
@@ -213,6 +213,7 @@ function Header() {
       )}
 
       <PopupModal
+        type='logout'
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
         shouldCloseOnOverlayClick={false}
