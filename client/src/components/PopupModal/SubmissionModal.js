@@ -1,8 +1,9 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Button from '../Button/Button';
 
-import { ReactComponent as BeerSVG } from '../../../assets/beer.svg';
+import { ReactComponent as BeerSVG } from '../../assets/beer.svg';
 
 import {
   StyledModal,
@@ -14,6 +15,8 @@ import {
 } from './SubmissionStyle';
 
 const SubmissionModal = ({ isOpen, onRequestClose }) => {
+  const history = useHistory();
+
   return (
     <StyledModal
       isOpen={isOpen}
@@ -28,7 +31,13 @@ const SubmissionModal = ({ isOpen, onRequestClose }) => {
         <Message>
           Now take a beer while the admins approve this project.
         </Message>
-        <Button addCSS={CustomDONE} onClick={onRequestClose}>
+        <Button
+          addCSS={CustomDONE}
+          onClick={() => {
+            onRequestClose();
+            history.push('/');
+          }}
+        >
           Done
         </Button>
       </Body>

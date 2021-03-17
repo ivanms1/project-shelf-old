@@ -34,7 +34,13 @@ const MODAL_MESSAGES = {
   },
   edit: {
     title: 'Edit the Project ?',
-    message: 'Are you sure you want to Edit it ?',
+    message: (
+      <p>
+        Are you sure you want to Edit it ?
+        <br />
+        You will have to wait for approval again.
+      </p>
+    ),
     button_text_YES: 'EDIT',
     button_text_NO: 'CANCEL',
   },
