@@ -294,9 +294,16 @@ export const CustomSubmitCss = css`
   }
 `;
 
-export const CustomYesButton = css`
+export const CustomSubmitButton = css`
   letter-spacing: 1px;
   font-weight: 500;
   max-width: 120px;
   background-color: #1b74e4;
+`;
+
+export const CustomEditButton = css`
+  letter-spacing: 1px;
+  font-weight: 500;
+  width: 100%;
+  background-color: #2ecc71;
 `;

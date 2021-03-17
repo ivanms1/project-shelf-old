@@ -31,6 +31,7 @@ import {
   TextArea,
   ErrorText,
   CustomSubmitCss,
+  CustomEditButton,
 } from '../../pages/SubmitYourProject/style';
 import {
   CardOuter,
@@ -285,8 +286,11 @@ function ProjectForm({ onSubmit, project }) {
           </ErrorMessage>
         </InputContainer>
 
-        <Button addCSS={CustomSubmitCss} type='submit'>
-          Submit your Project
+        <Button
+          addCSS={!!project ? CustomEditButton : CustomSubmitCss}
+          type='submit'
+        >
+          {!!project ? 'Edit' : 'Submit'} your Project
         </Button>
       </Submission>
     </FormContainer>
