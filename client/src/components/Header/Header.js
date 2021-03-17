@@ -217,10 +217,11 @@ function Header() {
         onRequestClose={() => setModalIsOpen(false)}
         shouldCloseOnOverlayClick={false}
         onClick={() => {
-          client.cache.reset();
           localStorage.setItem('userToken', '');
-          setIsAuthenticated(false);
           history.push('/signin');
+          client.cache.reset();
+          setIsAuthenticated(false);
+          setModalIsOpen(false);
         }}
       />
     </Container>

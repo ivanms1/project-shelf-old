@@ -8,6 +8,7 @@ export const Container = styled.div`
   border-bottom: 1px solid #e6e6e6;
   align-items: center;
   padding-right: 20px;
+  background-color: #fff;
 `;
 
 export const Nav = styled.nav`
