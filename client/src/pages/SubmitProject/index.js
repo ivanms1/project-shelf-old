@@ -3,14 +3,14 @@ import { useMutation, gql } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
 import ProjectForm from '../../components/Form/ProjectForm';
-import Loader from '../../components/Loader/Loader';
+import Loader from '../../components/Loader';
 
-import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
+import useCurrentUser from '../../components/useCurrentUser';
 
 import { Overlay, Container } from './style';
 const CREATE_PROJECT_MUTATION = loader('./mutationCreateProject.graphql');
 
-function Submit() {
+function SubmitProject() {
   const { currentUser: user, loading: currentUserLoading } = useCurrentUser();
 
   const [createProject] = useMutation(CREATE_PROJECT_MUTATION, {
@@ -82,4 +82,4 @@ function Submit() {
   );
 }
 
-export default Submit;
+export default SubmitProject;

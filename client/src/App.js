@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
 import Globalstyles from './styles/Globalstyles';
-import Layout from './components/Layout/Layout';
+import Layout from './components/Layout';
 
 function App() {
   return (

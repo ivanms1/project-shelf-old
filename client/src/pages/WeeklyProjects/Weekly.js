@@ -3,11 +3,11 @@ import { useQuery, NetworkStatus } from '@apollo/client';
 import { loader } from 'graphql.macro';
 import { Waypoint } from 'react-waypoint';
 
-import Cardtwo from '../../components/Cardv2/Cardtwo';
+import Cardtwo from '../../components/Cardv2';
 
-import Search from '../../components/Search/Search';
-import Spinner from '../../components/Spinner/Spinner';
-import Loader from '../../components/Loader/Loader';
+import Search from '../../components/Search';
+import Spinner from '../../components/Spinner';
+import Loader from '../../components/Loader';
 
 import { Container, SearchContainer, CardContainer } from './style';
 

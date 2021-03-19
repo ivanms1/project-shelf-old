@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 
-import Button from '../Button/Button';
+import Button from '../Button';
 
 import {
   StyledModal,

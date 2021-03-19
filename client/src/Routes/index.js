@@ -4,22 +4,20 @@ import { Switch } from 'react-router-dom';
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
 
-import Loader from '../components/Loader/Loader';
+import Loader from '../components/Loader';
 
-const Home = lazy(() => import('../pages/Home/Home'));
-const Register = lazy(() => import('../pages/Register/Register'));
-const Contact = lazy(() => import('../pages/Contact/Contact'));
-const SignIn = lazy(() => import('../pages/SignIn/Signin'));
-const Logout = lazy(() => import('../pages/Logout/Logout'));
-const Submitproject = lazy(() => import('../pages/SubmitYourProject/Submit'));
+const Home = lazy(() => import('../pages/Home'));
+const Register = lazy(() => import('../pages/Register'));
+const Contact = lazy(() => import('../pages/Contact'));
+const SignIn = lazy(() => import('../pages/SignIn'));
+const Logout = lazy(() => import('../pages/Logout'));
+const Submitproject = lazy(() => import('../pages/SubmitProject'));
 const Weekly = lazy(() => import('../pages/WeeklyProjects/Weekly'));
-const Favorites = lazy(() => import('../pages/Favorites/Favorites'));
-const Error = lazy(() => import('../pages/Error/error'));
-const Admin = lazy(() => import('../pages/Admin/Admin'));
-const Edit = lazy(() => import('../pages/Edit/Edit'));
-const CardDetails = lazy(() =>
-  import('../components/Cardv2/CardDetails/CardDetails')
-);
+const Favorites = lazy(() => import('../pages/Favorites'));
+const Error = lazy(() => import('../pages/Error'));
+const Admin = lazy(() => import('../pages/Admin'));
+const Edit = lazy(() => import('../pages/Edit'));
+const CardDetails = lazy(() => import('../components/Cardv2/CardDetails'));
 
 function Routes() {
   return (

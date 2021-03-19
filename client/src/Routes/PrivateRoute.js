@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 import { Context } from '../Context/AppContext';
 
-import useCurrentUser from '../components/useCurrentUser/useCurrentUser';
+import useCurrentUser from '../components/useCurrentUser';
 
 function PrivateRoutes({ path, isForAdmin, children, ...props }) {
   const { isAuthenticated } = useContext(Context);

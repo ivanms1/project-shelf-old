@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Footer from '../../components/Footer/Footer';
-import Button from '../../components/Button/Button';
+import Footer from '../../components/Footer';
+import Button from '../../components/Button';
 
 import Kathmandu from '../../assets/kathmandu.svg';
 

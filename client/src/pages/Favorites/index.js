@@ -1,25 +1,22 @@
 import React from 'react';
 import { loader } from 'graphql.macro';
-import { Waypoint } from 'react-waypoint';
 import { useQuery, NetworkStatus } from '@apollo/client';
+import { Waypoint } from 'react-waypoint';
 
-import Cardtwo from '../../components/Cardv2/Cardtwo';
+import Cardtwo from '../../components/Cardv2';
 
-import Active from '../../components/Active/Active';
-import Spinner from '../../components/Spinner/Spinner';
-import Loader from '../../components/Loader/Loader';
+import Spinner from '../../components/Spinner';
+import Loader from '../../components/Loader';
 
-import useCurrentUser from '../../components/useCurrentUser/useCurrentUser';
+import { Approval, Container, CardContainer } from './style';
 
-import { Container, Approval, CardContainer, ActiveContainer } from './style';
+const QUERY_GET_MY_FAVORITE_PROJECTS = loader(
+  './queryGetMyFavoriteProjects.graphql'
+);
 
-const QUERY_GET_MY_PROJECTS = loader('./queryGetMyProjects.graphql');
-
-function Home() {
-  const { currentUser: user } = useCurrentUser();
-
+function Favorites() {
   const { data, loading, error, fetchMore, networkStatus } = useQuery(
-    QUERY_GET_MY_PROJECTS,
+    QUERY_GET_MY_FAVORITE_PROJECTS,
     {
       variables: {
         cursor: undefined,
@@ -53,27 +50,14 @@ function Home() {
     <Container>
       <Approval>
         <p>
-          Welcome {user?.name} {user?.lastName}
+          Favorite Projects <span>({data?.projects?.results?.length})</span>
         </p>
-
-        <ActiveContainer>
-          <div className='activeContainer'>
-            <Active />
-            <span className='text'>Not Approved</span>
-          </div>
-
-          <div className='activeContainer'>
-            <Active active />
-            <span className='text'>Approved</span>
-          </div>
-        </ActiveContainer>
       </Approval>
-
       <CardContainer>
         {networkStatus === NetworkStatus.setVariables ||
         networkStatus === NetworkStatus.refetch ||
         !data?.projects?.results?.length ? (
-          <p className='noproject'>You do not have any projects to showcase.</p>
+          <p className='noproject'>You do not have any favorite projects yet</p>
         ) : (
           <>
             {data?.projects?.results.map((project) => (
@@ -90,4 +74,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Favorites;

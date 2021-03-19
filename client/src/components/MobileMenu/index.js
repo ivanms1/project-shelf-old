@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { Context } from '../../Context/AppContext';
 
-import useCurrentUser from '../useCurrentUser/useCurrentUser';
+import useCurrentUser from '../useCurrentUser';
 
 import { Menu, NavLinks } from './style';
 

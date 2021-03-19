@@ -3,7 +3,7 @@ import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
-import Loader from '../../components/Loader/Loader';
+import Loader from '../../components/Loader';
 import ProjectForm from '../../components/Form/ProjectForm';
 
 import { Overlay, Container } from './style';

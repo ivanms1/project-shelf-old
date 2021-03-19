@@ -4,12 +4,12 @@ import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
 import Zoom from 'react-medium-image-zoom';
 
-import Button from '../../Button/Button';
+import Button from '../../Button';
 
-import Loader from '../../Loader/Loader';
-import PopupModal from '../../PopupModal/PopupModal';
+import Loader from '../../Loader';
+import PopupModal from '../../PopupModal';
 
-import useCurrentUser from '../../useCurrentUser/useCurrentUser';
+import useCurrentUser from '../../useCurrentUser';
 
 import { getCurrentDate } from '../../..//helpers/dateConverter';
 

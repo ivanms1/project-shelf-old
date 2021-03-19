@@ -2,8 +2,8 @@ import React from 'react';
 import { Switch } from 'react-router-dom';
 
 import PrivateRoute from '../../Routes/PrivateRoute';
-import Approved from './Approved/Approved';
-import NotApproved from './NotApproved/NotApproved';
+import Approved from './Approved';
+import NotApproved from './NotApproved';
 
 import { Container, TabContainer, StyledNavLink } from './style';
 

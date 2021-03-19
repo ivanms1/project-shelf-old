@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { useMutation, gql } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
-import useCurrentUser from '../useCurrentUser/useCurrentUser';
+import useCurrentUser from '../useCurrentUser';
 
 import { getCurrentDate } from '../../helpers/dateConverter';
 

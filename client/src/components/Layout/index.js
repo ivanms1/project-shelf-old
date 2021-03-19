@@ -1,5 +1,5 @@
-import Routes from '../../Routes/Routes';
-import Header from '../Header/Header';
+import Routes from '../../Routes';
+import Header from '../Header';
 
 import { Main } from './style';
 

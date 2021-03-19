@@ -7,8 +7,8 @@ import { loader } from 'graphql.macro';
 import { useMutation } from '@apollo/client';
 
 import { Context } from '../../Context/AppContext';
-import Loader from '../../components/Loader/Loader';
-import Button from '../../components/Button/Button';
+import Loader from '../../components/Loader';
+import Button from '../../components/Button';
 
 import Rocket from '../../assets/rocket.svg';
 

@@ -5,8 +5,8 @@ import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { Redirect } from 'react-router-dom';
 
-import Loader from '../../components/Loader/Loader';
-import Button from '../../components/Button/Button';
+import Loader from '../../components/Loader';
+import Button from '../../components/Button';
 
 import Light from '../../assets/light.svg';
 
