@@ -7,12 +7,12 @@ import PrivateRoute from './PrivateRoute';
 import Loader from '../components/Loader';
 
 const Home = lazy(() => import('../pages/Home'));
+const MyProjects = lazy(() => import('../pages/MyProjects'));
 const Register = lazy(() => import('../pages/Register'));
 const Contact = lazy(() => import('../pages/Contact'));
 const SignIn = lazy(() => import('../pages/SignIn'));
 const Logout = lazy(() => import('../pages/Logout'));
 const Submitproject = lazy(() => import('../pages/SubmitProject'));
-const Weekly = lazy(() => import('../pages/WeeklyProjects/Weekly'));
 const Favorites = lazy(() => import('../pages/Favorites'));
 const Error = lazy(() => import('../pages/Error'));
 const Admin = lazy(() => import('../pages/Admin'));
@@ -47,8 +47,8 @@ function Routes() {
         <PrivateRoute path='/submit'>
           <Submitproject />
         </PrivateRoute>
-        <PrivateRoute path='/weekly'>
-          <Weekly />
+        <PrivateRoute path='/myprojects'>
+          <MyProjects />
         </PrivateRoute>
         <PrivateRoute path='/favorites'>
           <Favorites />

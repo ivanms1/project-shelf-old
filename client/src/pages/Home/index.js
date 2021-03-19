@@ -1,25 +1,20 @@
 import React from 'react';
+import { useQuery, NetworkStatus } from '@apollo/client';
 import { loader } from 'graphql.macro';
 import { Waypoint } from 'react-waypoint';
-import { useQuery, NetworkStatus } from '@apollo/client';
 
 import Cardtwo from '../../components/Cardv2';
 
-import Active from '../../components/Active';
 import Spinner from '../../components/Spinner';
 import Loader from '../../components/Loader';
 
-import useCurrentUser from '../../components/useCurrentUser';
+import { Container, CardContainer } from './style';
 
-import { Container, Approval, CardContainer, ActiveContainer } from './style';
-
-const QUERY_GET_MY_PROJECTS = loader('./queryGetMyProjects.graphql');
+const QUERY_WEEKLY_PROJECTS = loader('./queryGetProjects.graphql');
 
 function Home() {
-  const { currentUser: user } = useCurrentUser();
-
   const { data, loading, error, fetchMore, networkStatus } = useQuery(
-    QUERY_GET_MY_PROJECTS,
+    QUERY_WEEKLY_PROJECTS,
     {
       variables: {
         cursor: undefined,
@@ -51,29 +46,12 @@ function Home() {
 
   return (
     <Container>
-      <Approval>
-        <p>
-          Welcome {user?.name} {user?.lastName}
-        </p>
-
-        <ActiveContainer>
-          <div className='activeContainer'>
-            <Active />
-            <span className='text'>Not Approved</span>
-          </div>
-
-          <div className='activeContainer'>
-            <Active active />
-            <span className='text'>Approved</span>
-          </div>
-        </ActiveContainer>
-      </Approval>
-
+      <p>Welcome! Here are some projects submitted here!</p>
       <CardContainer>
         {networkStatus === NetworkStatus.setVariables ||
         networkStatus === NetworkStatus.refetch ||
         !data?.projects?.results?.length ? (
-          <p className='noproject'>You do not have any projects to showcase.</p>
+          <p className='noproject'>No projects are currently live :(</p>
         ) : (
           <>
             {data?.projects?.results.map((project) => (

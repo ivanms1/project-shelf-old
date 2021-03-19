@@ -59,8 +59,8 @@ function Header() {
         exact: true,
       },
       {
-        title: 'Weekly',
-        to: `/weekly`,
+        title: 'My Projects',
+        to: `/myprojects`,
         exact: true,
       },
       {

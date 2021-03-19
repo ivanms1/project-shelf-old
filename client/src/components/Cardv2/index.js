@@ -33,7 +33,7 @@ const getActionFavorite = (project, currentUser) => {
     : 'FAVORITE';
 };
 
-function Cardtwo({ project, children }) {
+function Cardtwo({ project }) {
   const [imgLoaded, setImgLoaded] = useState(true);
 
   const { currentUser } = useCurrentUser();
@@ -177,7 +177,6 @@ function Cardtwo({ project, children }) {
           {getCurrentDate(project.createdAt)}
         </span>
       </ProjectDetails>
-      {children}
     </Container>
   );
 }

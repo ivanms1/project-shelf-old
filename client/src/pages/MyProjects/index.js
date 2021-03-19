@@ -1,21 +1,21 @@
 import React from 'react';
-import { useQuery, NetworkStatus } from '@apollo/client';
 import { loader } from 'graphql.macro';
 import { Waypoint } from 'react-waypoint';
+import { useQuery, NetworkStatus } from '@apollo/client';
 
 import Cardtwo from '../../components/Cardv2';
 
-import Search from '../../components/Search';
+import Active from '../../components/Active';
 import Spinner from '../../components/Spinner';
 import Loader from '../../components/Loader';
 
-import { Container, SearchContainer, CardContainer } from './style';
+import { Container, Approval, CardContainer, ActiveContainer } from './style';
 
-const QUERY_WEEKLY_PROJECTS = loader('./queryGetProjects.graphql');
+const QUERY_GET_MY_PROJECTS = loader('./queryGetMyProjects.graphql');
 
-function Weekly() {
+function MyProjects() {
   const { data, loading, error, fetchMore, networkStatus } = useQuery(
-    QUERY_WEEKLY_PROJECTS,
+    QUERY_GET_MY_PROJECTS,
     {
       variables: {
         cursor: undefined,
@@ -47,14 +47,27 @@ function Weekly() {
 
   return (
     <Container>
-      <SearchContainer>
-        <Search />
-      </SearchContainer>
+      <Approval>
+        <p>My Projects</p>
+
+        <ActiveContainer>
+          <div className='activeContainer'>
+            <Active />
+            <span className='text'>Not Approved</span>
+          </div>
+
+          <div className='activeContainer'>
+            <Active active />
+            <span className='text'>Approved</span>
+          </div>
+        </ActiveContainer>
+      </Approval>
+
       <CardContainer>
         {networkStatus === NetworkStatus.setVariables ||
         networkStatus === NetworkStatus.refetch ||
         !data?.projects?.results?.length ? (
-          <p className='noproject'>No projects are currently live :(</p>
+          <p className='noproject'>You do not have any projects to showcase.</p>
         ) : (
           <>
             {data?.projects?.results.map((project) => (
@@ -71,4 +84,4 @@ function Weekly() {
   );
 }
 
-export default Weekly;
+export default MyProjects;
