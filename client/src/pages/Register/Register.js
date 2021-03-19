@@ -50,7 +50,7 @@ function Register() {
         setRedirect(true);
         
       } catch (error) {
-    
+        // console.log(consoled)
         console.log(JSON.stringify(error, null, 2));
       }
     }
