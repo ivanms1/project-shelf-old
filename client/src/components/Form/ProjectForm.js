@@ -78,7 +78,6 @@ function ProjectForm({ onSubmit, project }) {
     try {
       await onSubmit(values);
       setImage(values.preview);
-      // setSuccessModal(true);
     } catch (error) {
       toast.error("Couldn't create project");
     }
