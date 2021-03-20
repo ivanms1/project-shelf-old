@@ -6,10 +6,6 @@ export const CustomButton = styled.button`
 
   background-color: ${({ kind }) => {
     switch (kind) {
-      // case 'delete':
-      //   return '#D1383D';
-      // case 'edit':
-      //   return '#7057FF';
       case 'approve':
         return '#20c997';
       case 'disapprove':
