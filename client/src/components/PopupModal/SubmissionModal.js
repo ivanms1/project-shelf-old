@@ -29,13 +29,13 @@ const SubmissionModal = ({ isOpen, onRequestClose }) => {
           <BeerSVG />
         </ImgContainer>
         <Message>
-          Now take a beer while the admins approve this project.
+          Now have a beer while the admins approve this project.
         </Message>
         <Button
           addCSS={CustomDONE}
           onClick={() => {
             onRequestClose();
-            history.push('/');
+            history.push('/myProjects');
           }}
         >
           Done
