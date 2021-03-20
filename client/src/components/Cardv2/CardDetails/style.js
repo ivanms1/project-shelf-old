@@ -6,13 +6,6 @@ const colors = {
   red: ' rgba(237, 44, 73, 0.7)',
 };
 
-export const HomeLink = styled(Link)`
-  text-decoration: none;
-  color: #000;
-  font-weight: 600;
-  cursor: pointer;
-`;
-
 export const Container = styled.div`
   flex: 1;
   display: flex;
@@ -30,17 +23,6 @@ export const Container = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-  }
-`;
-
-export const BackButton = styled.div`
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 0 25px 0;
-
-  & .projectTitle {
-    color: rgba(0, 203, 91);
-    font-weight: 600;
   }
 `;
 
@@ -171,19 +153,4 @@ export const CustomDeleteButtonCSS = css`
   letter-spacing: 1px;
   font-weight: 500;
   max-width: 150px;
-`;
-
-export const Status = styled.div`
-  margin-top: 5px;
-  width: 100px;
-  font-weight: 600;
-  border-radius: 3px;
-  padding: 5px 0;
-  font-size: 14px;
-  background-color: ${({ status }) =>
-    status === 'ADMIN' ? '#D1383D' : '#00CB5B'};
-  color: white;
-  font-family: 'Poppins', sans-serif;
-  letter-spacing: 1px;
-  text-align: center;
 `;

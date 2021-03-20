@@ -19,13 +19,10 @@ import { ReactComponent as Email } from '../../../assets/email.svg';
 import { ReactComponent as Web } from '../../../assets/web.svg';
 
 import {
-  HomeLink,
   Container,
-  BackButton,
   ImgContainerOuter,
   DetailsContainer,
   UserDetails,
-  Status,
   AllDetails,
   ButtonContainer,
   CustomDeleteButtonCSS,
@@ -113,11 +110,6 @@ function CardDetails() {
       <Container>
         {project && (
           <>
-            <BackButton>
-              <HomeLink to='/'>Home</HomeLink> /{' '}
-              <span className='projectTitle'>{project?.title}</span>
-            </BackButton>
-
             <div className='wrapper'>
               <DetailsContainer>
                 <div className='imgUserDetails'>
@@ -146,10 +138,6 @@ function CardDetails() {
                     <span className='fullName'>
                       {project?.author.name} {project?.author.lastName}
                     </span>
-
-                    <Status status={project?.author.role}>
-                      {project?.author.role}
-                    </Status>
                   </UserDetails>
                 </div>
 
