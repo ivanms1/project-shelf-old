@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { useMutation, gql } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
-import useCurrentUser from '../useCurrentUser/useCurrentUser';
+import useCurrentUser from '../useCurrentUser';
 
 import { getCurrentDate } from '../../helpers/dateConverter';
 
@@ -11,7 +11,12 @@ import { ReactComponent as Star } from './../../assets/Star.svg';
 import { ReactComponent as StarFill } from './../../assets/Star-Fill.svg';
 import { ReactComponent as Spinner } from './../../assets/spinner.svg';
 
-import { Main, CardContainerInner, ProjectDetails, ViewDetails } from './style';
+import {
+  Container,
+  CardContainerInner,
+  ProjectDetails,
+  ViewDetails,
+} from './style';
 
 const MUTATION_REACT_TO_PROJECT = loader('./mutationReactToProject.graphql');
 const MUTATION_FAVORITE_PROJECT = loader('./mutationFavoriteProject.graphql');
@@ -28,7 +33,7 @@ const getActionFavorite = (project, currentUser) => {
     : 'FAVORITE';
 };
 
-function Cardtwo({ project, children }) {
+function Cardtwo({ project }) {
   const [imgLoaded, setImgLoaded] = useState(true);
 
   const { currentUser } = useCurrentUser();
@@ -128,7 +133,7 @@ function Cardtwo({ project, children }) {
   };
 
   return (
-    <Main>
+    <Container>
       <button onClick={reactToProject} className='starContainer'>
         {getActionLikes(project, currentUser) === 'LIKE' ? (
           <Star />
@@ -172,8 +177,7 @@ function Cardtwo({ project, children }) {
           {getCurrentDate(project.createdAt)}
         </span>
       </ProjectDetails>
-      {children}
-    </Main>
+    </Container>
   );
 }
 

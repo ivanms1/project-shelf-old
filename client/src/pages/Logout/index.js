@@ -7,7 +7,7 @@ function Logout() {
   localStorage.setItem('userToken', '');
 
   const history = useHistory();
-  history.push('/signin');
+  history.push('/login');
 
   return <Container />;
 }

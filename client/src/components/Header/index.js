@@ -3,14 +3,14 @@ import Popup from 'reactjs-popup';
 import { useHistory } from 'react-router-dom';
 import { useApolloClient } from '@apollo/client';
 
-import Popper from '../Popper/Popper';
-import MobileMenu from '../MobileMenu/Mobilemenu';
-import BurgerIcon from '../BurgerIcon/BurgerIcon';
-import PopupModal from '../PopupModal/PopupModal';
+import Popper from '../Popper';
+import MobileMenu from '../MobileMenu';
+import BurgerIcon from '../BurgerIcon';
+import PopupModal from '../PopupModal';
 
 import { Context } from '../../Context/AppContext';
 
-import useCurrentUser from '../useCurrentUser/useCurrentUser';
+import useCurrentUser from '../useCurrentUser';
 
 import { ReactComponent as Cog } from '../../assets/cog.svg';
 import { ReactComponent as Bell } from '../../assets/bell.svg';
@@ -59,8 +59,8 @@ function Header() {
         exact: true,
       },
       {
-        title: 'Weekly',
-        to: `/weekly`,
+        title: 'My Projects',
+        to: `/myprojects`,
         exact: true,
       },
       {
@@ -93,8 +93,8 @@ function Header() {
         exact: true,
       },
       {
-        title: 'Sign in',
-        to: `/signin`,
+        title: 'Login',
+        to: `/login`,
         exact: true,
       },
     ],
@@ -217,10 +217,11 @@ function Header() {
         onRequestClose={() => setModalIsOpen(false)}
         shouldCloseOnOverlayClick={false}
         onClick={() => {
-          client.cache.reset();
           localStorage.setItem('userToken', '');
+          history.push('/login');
+          client.cache.reset();
           setIsAuthenticated(false);
-          history.push('/signin');
+          setModalIsOpen(false);
         }}
       />
     </Container>

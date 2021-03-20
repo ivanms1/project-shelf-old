@@ -1,6 +1,6 @@
 import React, { createContext, useState, useMemo, useEffect } from 'react';
 
-import useCurrentUser from '../components/useCurrentUser/useCurrentUser';
+import useCurrentUser from '../components/useCurrentUser';
 
 export const Context = createContext();
 

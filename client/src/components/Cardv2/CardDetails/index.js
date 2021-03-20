@@ -4,12 +4,12 @@ import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
 import Zoom from 'react-medium-image-zoom';
 
-import Button from '../../Button/Button';
-import Header from '../../Header/Header';
-import Loader from '../../Loader/Loader';
-import PopupModal from '../../PopupModal/PopupModal';
+import Button from '../../Button';
 
-import useCurrentUser from '../../useCurrentUser/useCurrentUser';
+import Loader from '../../Loader';
+import PopupModal from '../../PopupModal';
+
+import useCurrentUser from '../../useCurrentUser';
 
 import { getCurrentDate } from '../../..//helpers/dateConverter';
 
@@ -19,7 +19,6 @@ import { ReactComponent as Email } from '../../../assets/email.svg';
 import { ReactComponent as Web } from '../../../assets/web.svg';
 
 import {
-  Main,
   HomeLink,
   Container,
   BackButton,
@@ -113,8 +112,7 @@ function CardDetails() {
   };
 
   return (
-    <Main>
-      <Header />
+    <>
       <Container>
         {project && (
           <>
@@ -249,7 +247,7 @@ function CardDetails() {
           editUserProject(project?.id);
         }}
       />
-    </Main>
+    </>
   );
 }
 

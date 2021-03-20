@@ -6,7 +6,7 @@ import { loader } from 'graphql.macro';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
-import Button from '../../components/Button/Button';
+import Button from '../../components/Button';
 import Active from '../../components/Active/Active';
 
 import { getCurrentDate } from '../../helpers/dateConverter';

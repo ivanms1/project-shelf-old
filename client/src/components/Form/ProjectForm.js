@@ -8,16 +8,16 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
-import PopupModal from '../PopupModal/PopupModal';
-import { Dropzone } from '../DropZone/Dropzone';
-import SelectTags from './SelectTags/SelectTags';
-import Button from '../Button/Button';
-import Active from '../Active/Active';
-import Spinner from '../../components/Spinner/Spinner';
+import PopupModal from '../PopupModal';
+import { Dropzone } from '../DropZone';
+import SelectTags from './SelectTags';
+import Button from '../Button';
+import Active from '../Active';
+import Spinner from '../Spinner';
 
-import useCurrentUser from '../useCurrentUser/useCurrentUser';
+import useCurrentUser from '../useCurrentUser';
 
-import { options } from './SelectOptions/options';
+import { options } from './SelectOptions';
 import { getCurrentDate } from '../../helpers/dateConverter';
 
 import Rick from '../../assets/rick.png';
@@ -31,7 +31,7 @@ import {
   TextArea,
   ErrorText,
   CustomSubmitCss,
-} from '../../pages/SubmitYourProject/style';
+} from '../../pages/SubmitProject/style';
 import {
   CardOuter,
   CardInner,

@@ -4,22 +4,20 @@ import { Switch } from 'react-router-dom';
 import PublicRoute from './PublicRoute';
 import PrivateRoute from './PrivateRoute';
 
-import Loader from '../components/Loader/Loader';
+import Loader from '../components/Loader';
 
-const Home = lazy(() => import('../pages/Home/Home'));
-const Register = lazy(() => import('../pages/Register/Register'));
-const Contact = lazy(() => import('../pages/Contact/Contact'));
-const SignIn = lazy(() => import('../pages/SignIn/Signin'));
-const Logout = lazy(() => import('../pages/Logout/Logout'));
-const Submitproject = lazy(() => import('../pages/SubmitYourProject/Submit'));
-const Weekly = lazy(() => import('../pages/WeeklyProjects/Weekly'));
-const Favorites = lazy(() => import('../pages/Favorites/Favorites'));
-const Error = lazy(() => import('../pages/Error/error'));
-const Admin = lazy(() => import('../pages/Admin/Admin'));
-const Edit = lazy(() => import('../pages/Edit/Edit'));
-const CardDetails = lazy(() =>
-  import('../components/Cardv2/CardDetails/CardDetails')
-);
+const Home = lazy(() => import('../pages/Home'));
+const MyProjects = lazy(() => import('../pages/MyProjects'));
+const Register = lazy(() => import('../pages/Register'));
+const Contact = lazy(() => import('../pages/Contact'));
+const Login = lazy(() => import('../pages/Login'));
+const Logout = lazy(() => import('../pages/Logout'));
+const Submitproject = lazy(() => import('../pages/SubmitProject'));
+const Favorites = lazy(() => import('../pages/Favorites'));
+const Error = lazy(() => import('../pages/Error'));
+const Admin = lazy(() => import('../pages/Admin'));
+const Edit = lazy(() => import('../pages/Edit'));
+const CardDetails = lazy(() => import('../components/Cardv2/CardDetails'));
 
 function Routes() {
   return (
@@ -34,8 +32,8 @@ function Routes() {
         <PublicRoute path='/register'>
           <Register />
         </PublicRoute>
-        <PublicRoute path='/signin'>
-          <SignIn />
+        <PublicRoute path='/login'>
+          <Login />
         </PublicRoute>
         <PrivateRoute isForAdmin='true' path='/admin'>
           <Admin />
@@ -49,8 +47,8 @@ function Routes() {
         <PrivateRoute path='/submit'>
           <Submitproject />
         </PrivateRoute>
-        <PrivateRoute path='/weekly'>
-          <Weekly />
+        <PrivateRoute path='/myprojects'>
+          <MyProjects />
         </PrivateRoute>
         <PrivateRoute path='/favorites'>
           <Favorites />
