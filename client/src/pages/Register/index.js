@@ -27,16 +27,30 @@ const MUTATION_REGISTER_USER = loader('./mutationRegisterUser.graphql');
 function Register() {
   const [redirect, setRedirect] = useState(false);
 
-  let schema = yup.object().shape({
-    firstname: yup.string().required().min(3),
-    lastname: yup.string().required().min(3),
-    email: yup.string().required().email(),
-    password: yup.string().required().min(6),
-    confirmPassword: yup.string().required().min(6),
+  const requiredError = 'This field is required';
+  let validationSchema = yup.object().shape({
+    firstName: yup
+      .string()
+      .required(requiredError)
+      .min(3, 'First name must have more than 3 characters'),
+    lastName: yup
+      .string()
+      .required(requiredError)
+      .min(3, 'Last name must have more than 3 characters'),
+    email: yup.string().required(requiredError).email('Email must be valid'),
+    password: yup
+      .string()
+      .required(requiredError)
+      .min(6, 'Password must be more than 6 characters'),
+    confirmPassword: yup
+      .string()
+      .test('passwords-match', 'Passwords must match', function (value) {
+        return this.parent.password === value;
+      }),
   });
 
   const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(validationSchema),
   });
 
   const [reg, { loading }] = useMutation(MUTATION_REGISTER_USER);
@@ -46,23 +60,18 @@ function Register() {
   }
 
   async function onSubmit(data) {
-    if (data.password === data.confirmPassword) {
-      try {
-        await reg({
-          variables: {
-            email: data.email,
-            password: data.password,
-            name: data.firstName,
-            lastName: data.lastName,
-          },
-        });
-
-        setRedirect(true);
-        // redirect with the id from the response
-      } catch (error) {
-        // display error
-        console.log(JSON.stringify(error, null, 2));
-      }
+    try {
+      await reg({
+        variables: {
+          email: data.email,
+          password: data.password,
+          name: data.firstName,
+          lastName: data.lastName,
+        },
+      });
+      setRedirect(true);
+    } catch (error) {
+      console.log(JSON.stringify(error, null, 2));
     }
   }
 
@@ -76,29 +85,23 @@ function Register() {
           <span>Register</span>
           <InputContainer>
             <label>First name</label>
-            <Input name='firstname' placeholder='Joe' ref={register} />
+            <Input name='firstName' placeholder='Joe' ref={register} />
 
-            <ErrorMessage errors={errors} name='firstname' as={<ErrorText />}>
-              {({ message }) => <p>{message}</p>}
-            </ErrorMessage>
+            <ErrorMessage errors={errors} name='firstName' as={<ErrorText />} />
           </InputContainer>
 
           <InputContainer>
             <label>Last name</label>
-            <Input name='lastname' placeholder='Don' ref={register} />
+            <Input name='lastName' placeholder='Don' ref={register} />
 
-            <ErrorMessage errors={errors} name='lastname' as={<ErrorText />}>
-              {({ message }) => <p>{message}</p>}
-            </ErrorMessage>
+            <ErrorMessage errors={errors} name='lastName' as={<ErrorText />} />
           </InputContainer>
 
           <InputContainer>
             <label>Email Address</label>
             <Input name='email' placeholder='joe@don.com' ref={register} />
 
-            <ErrorMessage errors={errors} name='email' as={<ErrorText />}>
-              {({ message }) => <p>{message}</p>}
-            </ErrorMessage>
+            <ErrorMessage errors={errors} name='email' as={<ErrorText />} />
           </InputContainer>
 
           <InputContainer>
@@ -110,13 +113,11 @@ function Register() {
               ref={register}
             />
 
-            <ErrorMessage errors={errors} name='password' as={<ErrorText />}>
-              {({ message }) => <p>{message}</p>}
-            </ErrorMessage>
+            <ErrorMessage errors={errors} name='password' as={<ErrorText />} />
           </InputContainer>
 
           <InputContainer>
-            <label>Re-Type Password</label>
+            <label>Confirm Password</label>
             <Input
               name='confirmPassword'
               type='password'
@@ -128,9 +129,7 @@ function Register() {
               errors={errors}
               name='confirmPassword'
               as={<ErrorText />}
-            >
-              {({ message }) => <p>{message}</p>}
-            </ErrorMessage>
+            />
           </InputContainer>
 
           <SignIn to='/signin'>Sign In</SignIn>

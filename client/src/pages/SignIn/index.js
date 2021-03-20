@@ -5,6 +5,8 @@ import { toast } from 'react-hot-toast';
 import { ErrorMessage } from '@hookform/error-message';
 import { loader } from 'graphql.macro';
 import { useMutation } from '@apollo/client';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import { Context } from '../../Context/AppContext';
 import Loader from '../../components/Loader';
@@ -29,9 +31,20 @@ function Signin() {
   const history = useHistory();
   const { setIsAuthenticated } = useContext(Context);
 
+  const requiredError = 'This field is required';
+  let validationSchema = yup.object().shape({
+    email: yup.string().required(requiredError).email('Email must be valid'),
+    password: yup
+      .string()
+      .required(requiredError)
+      .min(6, 'Password must be more than 6 characters'),
+  });
+
   const notify = () => toast.error(`Please try again.`);
 
-  const { register, errors, handleSubmit } = useForm();
+  const { register, errors, handleSubmit } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
 
   const [signInUser, { loading }] = useMutation(MUTATION_LOGIN_USER);
 
@@ -65,23 +78,9 @@ function Signin() {
 
           <InputContainer>
             <label>Email Address</label>
-            <Input
-              name='email'
-              placeholder='joe@don.com'
-              ref={register({
-                required: 'Email address is required.',
-                maxLength: 20,
-                pattern: {
-                  //eslint-disable-next-line
-                  value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: 'Email address is not valid',
-                },
-              })}
-            />
+            <Input name='email' placeholder='joe@don.com' ref={register} />
 
-            <ErrorMessage errors={errors} name='email' as={<ErrorText />}>
-              {({ message }) => <small>{message}</small>}
-            </ErrorMessage>
+            <ErrorMessage errors={errors} name='email' as={<ErrorText />} />
           </InputContainer>
 
           <InputContainer>
@@ -89,20 +88,11 @@ function Signin() {
             <Input
               name='password'
               type='password'
-              placeholder='abcdefgh'
-              ref={register({
-                required: 'Password is required.',
-                maxLength: 10,
-                minLength: {
-                  value: 2,
-                  message: 'Must be 2 or more letters.',
-                },
-              })}
+              placeholder='123456'
+              ref={register}
             />
 
-            <ErrorMessage errors={errors} name='password' as={<ErrorText />}>
-              {({ message }) => <p>{message}</p>}
-            </ErrorMessage>
+            <ErrorMessage errors={errors} name='password' as={<ErrorText />} />
           </InputContainer>
 
           <Register to='/register'>Register ?</Register>

@@ -55,7 +55,6 @@ export const InputContainer = styled.div`
   > label {
     font-weight: 500;
     font-size: 15px;
-    margin-left: 5px;
   }
 `;
 
@@ -98,7 +97,6 @@ export const CustomSignInCss = css`
 
 export const ErrorText = styled.small`
   color: #ff3a4c !important;
-  margin: 5px 0 0 10px;
   font-size: 13px;
 `;
 
