@@ -9,6 +9,7 @@ import Loader from '../../components/Loader';
 import useCurrentUser from '../../components/useCurrentUser';
 
 import { Overlay, Container } from './style';
+
 const CREATE_PROJECT_MUTATION = loader('./mutationCreateProject.graphql');
 
 function SubmitProject() {

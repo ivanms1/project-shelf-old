@@ -30,7 +30,7 @@ import {
   ErrorText,
   CustomSubmitCss,
   CustomEditButton,
-} from '../../pages/SubmitProject/style';
+} from './style';
 
 import {
   CardOuter,
