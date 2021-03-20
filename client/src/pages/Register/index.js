@@ -4,6 +4,8 @@ import { loader } from 'graphql.macro';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { Redirect } from 'react-router-dom';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import Loader from '../../components/Loader';
 import Button from '../../components/Button';
@@ -25,7 +27,17 @@ const MUTATION_REGISTER_USER = loader('./mutationRegisterUser.graphql');
 function Register() {
   const [redirect, setRedirect] = useState(false);
 
-  const { register, handleSubmit, errors } = useForm();
+  let schema = yup.object().shape({
+    firstname: yup.string().required().min(3),
+    lastname: yup.string().required().min(3),
+    email: yup.string().required().email(),
+    password: yup.string().required().min(6),
+    confirmPassword: yup.string().required().min(6),
+  });
+
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const [reg, { loading }] = useMutation(MUTATION_REGISTER_USER);
 
@@ -34,14 +46,14 @@ function Register() {
   }
 
   async function onSubmit(data) {
-    if (data.password === data.rePassword) {
+    if (data.password === data.confirmPassword) {
       try {
         await reg({
           variables: {
             email: data.email,
             password: data.password,
-            name: data.firstname,
-            lastName: data.lastname,
+            name: data.firstName,
+            lastName: data.lastName,
           },
         });
 
@@ -64,19 +76,7 @@ function Register() {
           <span>Register</span>
           <InputContainer>
             <label>First name</label>
-            <Input
-              name='firstname'
-              placeholder='Joe'
-              maxLength='15'
-              ref={register({
-                required: 'Full Name is required.',
-                maxLength: 10,
-                minLength: {
-                  value: 3,
-                  message: 'Must be 3 or more letters.',
-                },
-              })}
-            />
+            <Input name='firstname' placeholder='Joe' ref={register} />
 
             <ErrorMessage errors={errors} name='firstname' as={<ErrorText />}>
               {({ message }) => <p>{message}</p>}
@@ -85,19 +85,7 @@ function Register() {
 
           <InputContainer>
             <label>Last name</label>
-            <Input
-              name='lastname'
-              placeholder='Don'
-              maxLength='15'
-              ref={register({
-                required: 'Last Name is required.',
-                maxLength: 10,
-                minLength: {
-                  value: 3,
-                  message: 'Must be 3 or more letters.',
-                },
-              })}
-            />
+            <Input name='lastname' placeholder='Don' ref={register} />
 
             <ErrorMessage errors={errors} name='lastname' as={<ErrorText />}>
               {({ message }) => <p>{message}</p>}
@@ -106,20 +94,7 @@ function Register() {
 
           <InputContainer>
             <label>Email Address</label>
-            <Input
-              name='email'
-              placeholder='joe@don.com'
-              maxLength='30'
-              ref={register({
-                required: 'Email address is required.',
-                maxLength: 20,
-                pattern: {
-                  //eslint-disable-next-line
-                  value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: 'Email address is not valid.',
-                },
-              })}
-            />
+            <Input name='email' placeholder='joe@don.com' ref={register} />
 
             <ErrorMessage errors={errors} name='email' as={<ErrorText />}>
               {({ message }) => <p>{message}</p>}
@@ -132,15 +107,7 @@ function Register() {
               name='password'
               type='password'
               placeholder='123456'
-              maxLength='10'
-              ref={register({
-                required: 'Password is required.',
-                maxLength: 10,
-                minLength: {
-                  value: 2,
-                  message: 'must be 2 or more letters.',
-                },
-              })}
+              ref={register}
             />
 
             <ErrorMessage errors={errors} name='password' as={<ErrorText />}>
@@ -151,24 +118,17 @@ function Register() {
           <InputContainer>
             <label>Re-Type Password</label>
             <Input
-              name='rePassword'
+              name='confirmPassword'
               type='password'
               placeholder='123456'
-              maxLength='10'
-              ref={register({
-                required: 'Re-type Password.',
-                maxLength: {
-                  value: 10,
-                  message: 'must be 10 or less letters.',
-                },
-                minLength: {
-                  value: 2,
-                  message: 'must be 2 or more letters.',
-                },
-              })}
+              ref={register}
             />
 
-            <ErrorMessage errors={errors} name='rePassword' as={<ErrorText />}>
+            <ErrorMessage
+              errors={errors}
+              name='confirmPassword'
+              as={<ErrorText />}
+            >
               {({ message }) => <p>{message}</p>}
             </ErrorMessage>
           </InputContainer>

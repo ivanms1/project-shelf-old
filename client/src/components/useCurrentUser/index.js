@@ -4,7 +4,7 @@ import { loader } from 'graphql.macro';
 const QUERY_USE_CURRENT_USER = loader('./queryUseCurrentUser.graphql');
 
 function useCurrentUser() {
-  const { data = {}, loading, error } = useQuery(QUERY_USE_CURRENT_USER);
+  const { data, loading, error } = useQuery(QUERY_USE_CURRENT_USER);
 
   return {
     loading,

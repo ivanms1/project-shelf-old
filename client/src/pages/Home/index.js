@@ -51,7 +51,7 @@ function Home() {
         {networkStatus === NetworkStatus.setVariables ||
         networkStatus === NetworkStatus.refetch ||
         !data?.projects?.results?.length ? (
-          <p className='noproject'>No projects are currently live :(</p>
+          <p className='noproject'>No projects are currently live</p>
         ) : (
           <>
             {data?.projects?.results.map((project) => (
