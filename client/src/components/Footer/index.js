@@ -68,7 +68,7 @@ function Footer() {
             </li>
 
             <li style={{ order: '4' }}>
-              <StyledLink activeClassName='current' to='/signin'>
+              <StyledLink activeClassName='current' to='/login'>
                 Sign in
               </StyledLink>
             </li>

@@ -1,12 +1,6 @@
 import styled, { css } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-export const Main = styled.div`
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-`;
-
 export const Container = styled.div`
   flex: 1;
   display: flex;
@@ -17,7 +11,7 @@ export const Container = styled.div`
   background-color: #f7f8fc;
 `;
 
-export const SignInBox = styled.div`
+export const LoginBox = styled.div`
   background-color: white;
   width: 100%;
   max-width: 350px;
@@ -87,7 +81,7 @@ export const Input = styled.input`
   }
 `;
 
-export const CustomSignInCss = css`
+export const CustomLoginCss = css`
   background-color: #00cb5b;
   font-weight: 500;
   letter-spacing: 1px;
@@ -100,7 +94,7 @@ export const ErrorText = styled.small`
   font-size: 13px;
 `;
 
-export const Register = styled(NavLink)`
+export const RegisterLink = styled(NavLink)`
   text-decoration: none;
   font-weight: 500;
   color: #4285f4;

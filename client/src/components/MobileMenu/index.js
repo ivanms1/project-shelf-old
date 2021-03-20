@@ -37,8 +37,8 @@ function Mobilemenu({ close }) {
         exact: true,
       },
       {
-        title: 'Sign in',
-        to: `/signin`,
+        title: 'Log In',
+        to: `/login`,
         exact: true,
       },
     ],

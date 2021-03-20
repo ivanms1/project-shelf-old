@@ -11,14 +11,14 @@ function PrivateRoutes({ path, isForAdmin, children, ...props }) {
   const { currentUser, loading } = useCurrentUser();
 
   if ((!isAuthenticated || !currentUser) && !loading) {
-    return <Redirect to='/signin' />;
+    return <Redirect to='/login' />;
   }
 
   if (isForAdmin && currentUser?.role === 'USER') {
     return <Redirect to='/' />;
   }
 
-  if (path === '/register' || path === '/signin') {
+  if (path === '/register' || path === '/login') {
     return <Redirect to='/' />;
   }
 

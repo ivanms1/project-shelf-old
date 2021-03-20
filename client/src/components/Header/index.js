@@ -93,8 +93,8 @@ function Header() {
         exact: true,
       },
       {
-        title: 'Sign in',
-        to: `/signin`,
+        title: 'Login',
+        to: `/login`,
         exact: true,
       },
     ],
@@ -218,7 +218,7 @@ function Header() {
         shouldCloseOnOverlayClick={false}
         onClick={() => {
           localStorage.setItem('userToken', '');
-          history.push('/signin');
+          history.push('/login');
           client.cache.reset();
           setIsAuthenticated(false);
           setModalIsOpen(false);

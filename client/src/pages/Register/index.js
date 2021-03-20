@@ -17,37 +17,37 @@ import {
   RegisterBox,
   InputContainer,
   Input,
-  SignIn,
+  LoginLink,
   ErrorText,
   CustomRegisterCss,
 } from './style';
 
 const MUTATION_REGISTER_USER = loader('./mutationRegisterUser.graphql');
 
+const requiredError = 'This field is required';
+let validationSchema = yup.object().shape({
+  firstName: yup
+    .string()
+    .required(requiredError)
+    .min(3, 'First name must have more than 3 characters'),
+  lastName: yup
+    .string()
+    .required(requiredError)
+    .min(3, 'Last name must have more than 3 characters'),
+  email: yup.string().required(requiredError).email('Email must be valid'),
+  password: yup
+    .string()
+    .required(requiredError)
+    .min(6, 'Password must be more than 6 characters'),
+  confirmPassword: yup
+    .string()
+    .test('passwords-match', 'Passwords must match', function (value) {
+      return this.parent.password === value;
+    }),
+});
+
 function Register() {
   const [redirect, setRedirect] = useState(false);
-
-  const requiredError = 'This field is required';
-  let validationSchema = yup.object().shape({
-    firstName: yup
-      .string()
-      .required(requiredError)
-      .min(3, 'First name must have more than 3 characters'),
-    lastName: yup
-      .string()
-      .required(requiredError)
-      .min(3, 'Last name must have more than 3 characters'),
-    email: yup.string().required(requiredError).email('Email must be valid'),
-    password: yup
-      .string()
-      .required(requiredError)
-      .min(6, 'Password must be more than 6 characters'),
-    confirmPassword: yup
-      .string()
-      .test('passwords-match', 'Passwords must match', function (value) {
-        return this.parent.password === value;
-      }),
-  });
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(validationSchema),
@@ -76,7 +76,7 @@ function Register() {
   }
 
   return redirect === true ? (
-    <Redirect to='/signin' />
+    <Redirect to='/login' />
   ) : (
     <Container>
       <img alt='light' src={Light}></img>
@@ -132,7 +132,7 @@ function Register() {
             />
           </InputContainer>
 
-          <SignIn to='/signin'>Sign In</SignIn>
+          <LoginLink to='/login'>Login?</LoginLink>
 
           <Button addCSS={CustomRegisterCss} type='submit'>
             Register

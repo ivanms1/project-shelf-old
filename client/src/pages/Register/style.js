@@ -88,7 +88,7 @@ export const ErrorText = styled.small`
   font-size: 13px;
 `;
 
-export const SignIn = styled(NavLink)`
+export const LoginLink = styled(NavLink)`
   text-decoration: none;
   font-weight: 500;
   color: #4285f4;

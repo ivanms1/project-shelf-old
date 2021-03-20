@@ -12,33 +12,29 @@ import { Context } from '../../Context/AppContext';
 import Loader from '../../components/Loader';
 import Button from '../../components/Button';
 
-import Rocket from '../../assets/rocket.svg';
-
 import {
   Container,
-  SignInBox,
+  LoginBox,
   Form,
   InputContainer,
-  ErrorText,
   Input,
-  Register,
-  CustomSignInCss,
+  ErrorText,
+  RegisterLink,
+  CustomLoginCss,
 } from './style';
 
+import Rocket from '../../assets/rocket.svg';
 const MUTATION_LOGIN_USER = loader('./mutationLoginUser.graphql');
 
-function Signin() {
+const requiredError = 'This field is required';
+let validationSchema = yup.object().shape({
+  email: yup.string().required(requiredError).email('Email must be valid'),
+  password: yup.string().required(requiredError),
+});
+
+function Login() {
   const history = useHistory();
   const { setIsAuthenticated } = useContext(Context);
-
-  const requiredError = 'This field is required';
-  let validationSchema = yup.object().shape({
-    email: yup.string().required(requiredError).email('Email must be valid'),
-    password: yup
-      .string()
-      .required(requiredError)
-      .min(6, 'Password must be more than 6 characters'),
-  });
 
   const notify = () => toast.error(`Please try again.`);
 
@@ -46,7 +42,7 @@ function Signin() {
     resolver: yupResolver(validationSchema),
   });
 
-  const [signInUser, { loading }] = useMutation(MUTATION_LOGIN_USER);
+  const [loginUser, { loading }] = useMutation(MUTATION_LOGIN_USER);
 
   if (loading) {
     return <Loader />;
@@ -54,7 +50,7 @@ function Signin() {
 
   const submitUserDetails = async (data) => {
     try {
-      const response = await signInUser({
+      const response = await loginUser({
         variables: {
           email: data.email,
           password: data.password,
@@ -72,7 +68,7 @@ function Signin() {
     <Container>
       <img alt='rocket' src={Rocket}></img>
 
-      <SignInBox>
+      <LoginBox>
         <Form onSubmit={handleSubmit(submitUserDetails)}>
           <span>Sign In</span>
 
@@ -95,15 +91,15 @@ function Signin() {
             <ErrorMessage errors={errors} name='password' as={<ErrorText />} />
           </InputContainer>
 
-          <Register to='/register'>Register ?</Register>
+          <RegisterLink to='/register'>Register ?</RegisterLink>
 
-          <Button addCSS={CustomSignInCss} type='submit'>
+          <Button addCSS={CustomLoginCss} type='submit'>
             Sign In
           </Button>
         </Form>
-      </SignInBox>
+      </LoginBox>
     </Container>
   );
 }
 
-export default Signin;
+export default Login;

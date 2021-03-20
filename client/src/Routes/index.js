@@ -10,7 +10,7 @@ const Home = lazy(() => import('../pages/Home'));
 const MyProjects = lazy(() => import('../pages/MyProjects'));
 const Register = lazy(() => import('../pages/Register'));
 const Contact = lazy(() => import('../pages/Contact'));
-const SignIn = lazy(() => import('../pages/SignIn'));
+const Login = lazy(() => import('../pages/Login'));
 const Logout = lazy(() => import('../pages/Logout'));
 const Submitproject = lazy(() => import('../pages/SubmitProject'));
 const Favorites = lazy(() => import('../pages/Favorites'));
@@ -32,8 +32,8 @@ function Routes() {
         <PublicRoute path='/register'>
           <Register />
         </PublicRoute>
-        <PublicRoute path='/signin'>
-          <SignIn />
+        <PublicRoute path='/login'>
+          <Login />
         </PublicRoute>
         <PrivateRoute isForAdmin='true' path='/admin'>
           <Admin />
