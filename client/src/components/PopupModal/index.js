@@ -3,8 +3,15 @@ import Modal from 'react-modal';
 
 import Button from '../Button';
 
+import { ReactComponent as LogoutModalSVG } from '../../assets/Logout_Modal.svg';
+import { ReactComponent as DeleteModalSVG } from '../../assets/Delete_Modal.svg';
+import { ReactComponent as EditModalSVG } from '../../assets/Edit_Modal.svg';
+
 import {
   StyledModal,
+  CloseButton,
+  Body,
+  Description,
   ButtonContainer,
   CustomNoButton,
   CustomYesButton,
@@ -12,12 +19,51 @@ import {
 
 Modal.setAppElement('#root');
 
-function PopupModal({
-  children,
+const MODAL_MESSAGES = {
+  logout: {
+    title: 'Logging Out ?',
+    message: 'Are you sure you want to Logout ?',
+    button_text_YES: 'YES',
+    button_text_NO: 'NO',
+  },
+  delete: {
+    title: 'Delete Project ?',
+    message: 'Are you sure you want to Delete it ?',
+    button_text_YES: 'DELETE',
+    button_text_NO: 'CANCEL',
+  },
+  edit: {
+    title: 'Edit the Project ?',
+    message: (
+      <p>
+        Are you sure you want to Edit it ?
+        <br />
+        You will have to wait for approval again.
+      </p>
+    ),
+    button_text_YES: 'EDIT',
+    button_text_NO: 'CANCEL',
+  },
+};
+
+const getSvg = (svgName) => {
+  switch (svgName) {
+    case 'logout':
+      return <LogoutModalSVG />;
+    case 'delete':
+      return <DeleteModalSVG />;
+    case 'edit':
+      return <EditModalSVG />;
+    default:
+      return null;
+  }
+};
+
+function ModalStyle({
   isOpen,
   onRequestClose,
-  title = 'Are you sure ?',
-  onClick = () => {},
+  type = 'logout',
+  onClick = null,
 }) {
   return (
     <StyledModal
@@ -25,28 +71,36 @@ function PopupModal({
       onRequestClose={onRequestClose}
       shouldCloseOnOverlayClick={false}
     >
-      {children ? null : (
-        <div className='header'>
+      <Body>
+        <CloseButton>
           <button onClick={onRequestClose}>X</button>
-        </div>
-      )}
+        </CloseButton>
+        {getSvg(type)}
+        <Description>
+          <span>{MODAL_MESSAGES[type]?.title}</span>
+          <span>{MODAL_MESSAGES[type]?.message}</span>
+        </Description>
 
-      <p className='body'>{title}</p>
-
-      {children ? (
-        children
-      ) : (
         <ButtonContainer>
-          <Button addCSS={CustomNoButton} onClick={onRequestClose}>
-            No
+          <Button
+            border={type}
+            addCSS={CustomNoButton}
+            onClick={onRequestClose}
+          >
+            {MODAL_MESSAGES[type].button_text_NO}
           </Button>
-          <Button addCSS={CustomYesButton} onClick={onClick}>
-            Yes
+
+          <Button
+            kind={type}
+            addCSS={CustomYesButton}
+            onClick={() => onClick && onClick()}
+          >
+            {MODAL_MESSAGES[type].button_text_YES}
           </Button>
         </ButtonContainer>
-      )}
+      </Body>
     </StyledModal>
   );
 }
 
-export default PopupModal;
+export default ModalStyle;
