@@ -13,7 +13,6 @@ export const Container = styled.div`
     padding: 50px 20px;
     font-weight: 600;
     font-size: 26px;
-    text-transform: capitalize;
   }
 `;
 

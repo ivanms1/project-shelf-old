@@ -46,7 +46,7 @@ function Home() {
 
   return (
     <Container>
-      <p>Welcome! Here are some projects submitted here!</p>
+      <p>Welcome! Here are some projects submitted</p>
       <CardContainer>
         {networkStatus === NetworkStatus.setVariables ||
         networkStatus === NetworkStatus.refetch ||
