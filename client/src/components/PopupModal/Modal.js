@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 
-import Button from '../Button/Button';
+import Button from '../Button';
 
 import { ReactComponent as LogoutModalSVG } from '../../assets/Logout_Modal.svg';
 import { ReactComponent as DeleteModalSVG } from '../../assets/Delete_Modal.svg';

@@ -4,20 +4,18 @@ import toast from 'react-hot-toast';
 import Zoom from 'react-medium-image-zoom';
 import { useForm, Controller } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
-import PopupModal from '../PopupModal/Modal';
-import { Dropzone } from '../DropZone/Dropzone';
-import SelectTags from './SelectTags/SelectTags';
-import Button from '../Button/Button';
-import Active from '../Active/Active';
-import Spinner from '../../components/Spinner/Spinner';
+import { Dropzone } from '../DropZone';
+import SelectTags from './SelectTags';
+import Button from '../Button';
+import Active from '../Active';
+import Spinner from '../Spinner';
 
-import useCurrentUser from '../useCurrentUser/useCurrentUser';
+import useCurrentUser from '../useCurrentUser';
 
-import { options } from './SelectOptions/options';
+import { options } from './SelectOptions';
 import { getCurrentDate } from '../../helpers/dateConverter';
 
 import Rick from '../../assets/rick.png';
@@ -32,7 +30,8 @@ import {
   ErrorText,
   CustomSubmitCss,
   CustomEditButton,
-} from '../../pages/SubmitYourProject/style';
+} from '../../pages/SubmitProject/style';
+
 import {
   CardOuter,
   CardInner,
@@ -47,7 +46,6 @@ const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
 
 function ProjectForm({ onSubmit, project }) {
   const [image, setImage] = useState('');
-  const [successModal, setSuccessModal] = useState(false);
 
   const { currentUser: user } = useCurrentUser();
 

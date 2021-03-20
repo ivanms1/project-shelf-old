@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { Context } from '../../Context/AppContext';
 
-import useCurrentUser from '../useCurrentUser/useCurrentUser';
+import useCurrentUser from '../useCurrentUser';
 
 import { Menu, NavLinks } from './style';
 
@@ -37,8 +37,8 @@ function Mobilemenu({ close }) {
         exact: true,
       },
       {
-        title: 'Sign in',
-        to: `/signin`,
+        title: 'Log In',
+        to: `/login`,
         exact: true,
       },
     ],

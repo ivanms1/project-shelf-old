@@ -1,8 +1,7 @@
 import React from 'react';
 
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
-import Button from '../../components/Button/Button';
+import Footer from '../../components/Footer';
+import Button from '../../components/Button';
 
 import Kathmandu from '../../assets/kathmandu.svg';
 
@@ -21,8 +20,6 @@ import {
 function Contact() {
   return (
     <div>
-      <Header />
-
       <Container>
         <TextContainer>
           <p>

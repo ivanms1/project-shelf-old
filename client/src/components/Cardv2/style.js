@@ -6,7 +6,7 @@ const colors = {
   red: ' rgba(237, 44, 73, 0.7)',
 };
 
-export const Main = styled.div`
+export const Container = styled.div`
   border-radius: 5px;
   margin-bottom: 25px;
   margin: 12px;

@@ -6,12 +6,6 @@ const colors = {
   red: ' rgba(237, 44, 73, 0.7)',
 };
 
-export const Main = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-`;
-
 export const HomeLink = styled(Link)`
   text-decoration: none;
   color: #000;
@@ -77,12 +71,11 @@ export const ImgContainerOuter = styled.figure`
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  border: 7px solid ${({ status }) => (status ? colors.green : colors.red)};
-
   img {
     display: block;
     width: 100%;
     height: auto;
+    border: 7px solid ${({ status }) => (status ? colors.green : colors.red)};
   }
 `;
 
