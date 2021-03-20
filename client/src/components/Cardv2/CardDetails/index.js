@@ -75,13 +75,15 @@ function CardDetails() {
   });
 
   async function deleteUserProject(projectId) {
-    await deleteProject({
+    const res = await deleteProject({
       variables: {
         projectId: projectId,
       },
     });
-    closeDeleteModal();
-    history.push('/');
+    if (res?.data) {
+      closeDeleteModal();
+      history.push('/myProjects');
+    }
   }
 
   function editUserProject(projectId) {
