@@ -70,7 +70,7 @@ function Login() {
 
       <LoginBox>
         <Form onSubmit={handleSubmit(submitUserDetails)}>
-          <span>Sign In</span>
+          <span>Log In</span>
 
           <InputContainer>
             <label>Email Address</label>
@@ -94,7 +94,7 @@ function Login() {
           <RegisterLink to='/register'>Register ?</RegisterLink>
 
           <Button addCSS={CustomLoginCss} type='submit'>
-            Sign In
+            Log In
           </Button>
         </Form>
       </LoginBox>
