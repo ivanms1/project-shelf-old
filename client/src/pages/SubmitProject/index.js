@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
-import ProjectForm from '../../components/Form/ProjectForm';
+import ProjectForm from '../../components/ProjectForm';
 import SubmissionModal from '../../components/PopupModal/SubmissionModal';
 import Loader from '../../components/Loader';
 

@@ -50,7 +50,7 @@ function Favorites() {
     <Container>
       <Approval>
         <p>
-          Favorite Projects <span>({data?.projects?.results?.length})</span>
+          Favorite Projects <span>({data?.projects?.totalCount})</span>
         </p>
       </Approval>
       <CardContainer>

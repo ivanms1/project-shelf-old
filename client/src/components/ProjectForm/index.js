@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactToolTip from 'react-tooltip';
 import toast from 'react-hot-toast';
 import Zoom from 'react-medium-image-zoom';
@@ -45,8 +45,6 @@ const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
 const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
 
 function ProjectForm({ onSubmit, project }) {
-  const [image, setImage] = useState('');
-
   const { currentUser: user } = useCurrentUser();
 
   const defaultValues = !!project
@@ -77,7 +75,6 @@ function ProjectForm({ onSubmit, project }) {
   async function submit(values) {
     try {
       await onSubmit(values);
-      setImage(values.preview);
     } catch (error) {
       toast.error("Couldn't create project");
     }

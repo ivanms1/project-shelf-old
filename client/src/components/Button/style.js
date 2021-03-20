@@ -13,7 +13,7 @@ export const CustomButton = styled.button`
       case 'logout':
         return '#1B74E4';
       case 'delete':
-        return '#F53803';
+        return '#f53434';
       case 'edit':
         return '#2ECC71';
       default:

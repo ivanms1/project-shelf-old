@@ -5,7 +5,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
 import Loader from '../../components/Loader';
-import ProjectForm from '../../components/Form/ProjectForm';
+import ProjectForm from '../../components/ProjectForm';
 import PopupModal from '../../components/PopupModal/index';
 
 import { Overlay, Container } from './style';

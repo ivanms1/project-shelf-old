@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { Link } from 'react-router-dom';
 
 const colors = {
   green: 'rgba(0, 203, 91, 0.7)',
