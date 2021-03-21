@@ -60,7 +60,7 @@ function Header() {
       },
       {
         title: 'My Projects',
-        to: `/myprojects`,
+        to: `/my-projects`,
         exact: true,
       },
       {

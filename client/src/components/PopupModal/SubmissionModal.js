@@ -35,7 +35,7 @@ const SubmissionModal = ({ isOpen, onRequestClose }) => {
           addCSS={CustomDONE}
           onClick={() => {
             onRequestClose();
-            history.push('/myProjects');
+            history.push('/my-projects');
           }}
         >
           Done

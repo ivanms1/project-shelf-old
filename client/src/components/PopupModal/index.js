@@ -46,8 +46,8 @@ const MODAL_MESSAGES = {
   },
 };
 
-const getSvg = (svgName) => {
-  switch (svgName) {
+const Svg = ({ type }) => {
+  switch (type) {
     case 'logout':
       return <LogoutModalSVG />;
     case 'delete':
@@ -75,7 +75,7 @@ function ModalStyle({
         <CloseButton>
           <button onClick={onRequestClose}>X</button>
         </CloseButton>
-        {getSvg(type)}
+        <Svg type={type} />
         <Description>
           <span>{MODAL_MESSAGES[type]?.title}</span>
           <span>{MODAL_MESSAGES[type]?.message}</span>

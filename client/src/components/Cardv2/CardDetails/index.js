@@ -79,7 +79,7 @@ function CardDetails() {
     });
     if (res?.data) {
       closeDeleteModal();
-      history.push('/myProjects');
+      history.push('/my-projects');
     }
   }
 

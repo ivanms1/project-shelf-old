@@ -63,7 +63,7 @@ function Edit() {
     });
     if (res?.data) {
       closeEditModal();
-      history.push('/myProjects');
+      history.push('/my-projects');
     }
   }
 
@@ -87,9 +87,7 @@ function Edit() {
         type='edit'
         isOpen={editModelIsOpen}
         onRequestClose={closeEditModal}
-        onClick={() => {
-          editTheProject(editValues);
-        }}
+        onClick={() => editTheProject(editValues)}
       />
     </Overlay>
   );
