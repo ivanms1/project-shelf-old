@@ -19,13 +19,10 @@ import { ReactComponent as Email } from '../../../assets/email.svg';
 import { ReactComponent as Web } from '../../../assets/web.svg';
 
 import {
-  HomeLink,
   Container,
-  BackButton,
   ImgContainerOuter,
   DetailsContainer,
   UserDetails,
-  Status,
   AllDetails,
   ButtonContainer,
   CustomDeleteButtonCSS,
@@ -44,10 +41,6 @@ function updateQueryCache(existing, readField, deleteId) {
 
 function CardDetails() {
   const [imgLoaded, setImgLoaded] = useState(true);
-
-  const [editModelIsOpen, setEditModelIsOpen] = useState(false);
-  const openEditModal = () => setEditModelIsOpen(true);
-  const closeEditModal = () => setEditModelIsOpen(false);
 
   const [deleteModelIsOpen, setDeleteModelIsOpen] = useState(false);
   const openDeleteModal = () => setDeleteModelIsOpen(true);
@@ -79,17 +72,18 @@ function CardDetails() {
   });
 
   async function deleteUserProject(projectId) {
-    await deleteProject({
+    const res = await deleteProject({
       variables: {
         projectId: projectId,
       },
     });
-    closeDeleteModal();
-    history.push('/');
+    if (res?.data) {
+      closeDeleteModal();
+      history.push('/my-projects');
+    }
   }
 
   function editUserProject(projectId) {
-    setEditModelIsOpen(false);
     history.push(`/edit/${projectId}`);
   }
 
@@ -116,11 +110,6 @@ function CardDetails() {
       <Container>
         {project && (
           <>
-            <BackButton>
-              <HomeLink to='/'>Home</HomeLink> /{' '}
-              <span className='projectTitle'>{project?.title}</span>
-            </BackButton>
-
             <div className='wrapper'>
               <DetailsContainer>
                 <div className='imgUserDetails'>
@@ -149,10 +138,6 @@ function CardDetails() {
                     <span className='fullName'>
                       {project?.author.name} {project?.author.lastName}
                     </span>
-
-                    <Status status={project?.author.role}>
-                      {project?.author.role}
-                    </Status>
                   </UserDetails>
                 </div>
 
@@ -216,7 +201,7 @@ function CardDetails() {
                         fontSize='medium'
                         kind='edit'
                         size='small'
-                        onClick={openEditModal}
+                        onClick={() => editUserProject(project?.id)}
                         addCSS={CustomDeleteButtonCSS}
                       >
                         Edit
@@ -233,18 +218,11 @@ function CardDetails() {
       </Container>
 
       <PopupModal
+        type='delete'
         isOpen={deleteModelIsOpen}
         onRequestClose={closeDeleteModal}
         onClick={() => {
           deleteUserProject(project?.id);
-        }}
-      />
-
-      <PopupModal
-        isOpen={editModelIsOpen}
-        onRequestClose={closeEditModal}
-        onClick={() => {
-          editUserProject(project?.id);
         }}
       />
     </>

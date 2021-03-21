@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
-import ProjectForm from '../../components/Form/ProjectForm';
+import ProjectForm from '../../components/ProjectForm';
+import SubmissionModal from '../../components/PopupModal/SubmissionModal';
 import Loader from '../../components/Loader';
 
 import useCurrentUser from '../../components/useCurrentUser';
 
 import { Overlay, Container } from './style';
+
 const CREATE_PROJECT_MUTATION = loader('./mutationCreateProject.graphql');
 
 function SubmitProject() {
   const { currentUser: user, loading: currentUserLoading } = useCurrentUser();
+
+  const [submitModelIsOpen, setSubmitModelIsOpen] = useState(false);
+  const openSubmitModal = () => setSubmitModelIsOpen(true);
+  const closeSubmitModal = () => setSubmitModelIsOpen(false);
 
   const [createProject] = useMutation(CREATE_PROJECT_MUTATION, {
     update(cache, { data: { createProject } }) {
@@ -53,6 +59,25 @@ function SubmitProject() {
     return <Loader />;
   }
 
+  async function submitTheProject(values) {
+    const res = await createProject({
+      variables: {
+        input: {
+          authorId: user.id,
+          preview: values.preview,
+          title: values.title,
+          siteLink: values.siteLink,
+          repoLink: values.repoLink,
+          description: values.description,
+          tags: values.tags.map((e) => e.value),
+        },
+      },
+    });
+    if (res?.data) {
+      openSubmitModal();
+    }
+  }
+
   return (
     <Overlay>
       <Container>
@@ -61,21 +86,14 @@ function SubmitProject() {
           <span>so that people can learn from each other.</span>
         </p>
         <ProjectForm
-          onSubmit={(values) =>
-            createProject({
-              variables: {
-                input: {
-                  authorId: user.id,
-                  preview: values.preview,
-                  title: values.title,
-                  siteLink: values.siteLink,
-                  repoLink: values.repoLink,
-                  description: values.description,
-                  tags: values.tags.map((e) => e.value),
-                },
-              },
-            })
-          }
+          onSubmit={(values) => {
+            submitTheProject(values);
+          }}
+        />
+
+        <SubmissionModal
+          isOpen={submitModelIsOpen}
+          onRequestClose={closeSubmitModal}
         />
       </Container>
     </Overlay>

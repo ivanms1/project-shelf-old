@@ -60,7 +60,7 @@ function Header() {
       },
       {
         title: 'My Projects',
-        to: `/myprojects`,
+        to: `/my-projects`,
         exact: true,
       },
       {
@@ -213,6 +213,7 @@ function Header() {
       )}
 
       <PopupModal
+        type='logout'
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
         shouldCloseOnOverlayClick={false}

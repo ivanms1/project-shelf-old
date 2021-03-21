@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { loader } from 'graphql.macro';
 import { useQuery, useMutation } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 
 import Loader from '../../components/Loader';
-import ProjectForm from '../../components/Form/ProjectForm';
+import ProjectForm from '../../components/ProjectForm';
+import PopupModal from '../../components/PopupModal/index';
 
 import { Overlay, Container } from './style';
 
@@ -13,6 +15,12 @@ const QUERY_GET_PROJECT = loader('./queryGetProject.graphql');
 
 function Edit() {
   const { projectId } = useParams();
+  const history = useHistory();
+
+  const [editValues, setEditValues] = useState(null);
+  const [editModelIsOpen, setEditModelIsOpen] = useState(false);
+  const openEditModal = () => setEditModelIsOpen(true);
+  const closeEditModal = () => setEditModelIsOpen(false);
 
   const { data = {}, loading, error: projectError } = useQuery(
     QUERY_GET_PROJECT,
@@ -39,6 +47,26 @@ function Edit() {
 
   const { project } = data;
 
+  async function editTheProject(values) {
+    const res = await editProject({
+      variables: {
+        projectId: project.id,
+        input: {
+          preview: values.preview,
+          title: values.title,
+          siteLink: values.siteLink,
+          repoLink: values.repoLink,
+          description: values.description,
+          tags: values.tags.map((e) => e.value),
+        },
+      },
+    });
+    if (res?.data) {
+      closeEditModal();
+      history.push('/my-projects');
+    }
+  }
+
   return (
     <Overlay>
       <Container>
@@ -48,23 +76,19 @@ function Edit() {
         </p>
         <ProjectForm
           project={project}
-          onSubmit={(values) =>
-            editProject({
-              variables: {
-                projectId: project.id,
-                input: {
-                  preview: values.preview,
-                  title: values.title,
-                  siteLink: values.siteLink,
-                  repoLink: values.repoLink,
-                  description: values.description,
-                  tags: values.tags.map((e) => e.value),
-                },
-              },
-            })
-          }
+          onSubmit={(values) => {
+            openEditModal();
+            setEditValues(values);
+          }}
         />
       </Container>
+
+      <PopupModal
+        type='edit'
+        isOpen={editModelIsOpen}
+        onRequestClose={closeEditModal}
+        onClick={() => editTheProject(editValues)}
+      />
     </Overlay>
   );
 }

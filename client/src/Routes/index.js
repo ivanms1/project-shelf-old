@@ -47,7 +47,7 @@ function Routes() {
         <PrivateRoute path='/submit'>
           <Submitproject />
         </PrivateRoute>
-        <PrivateRoute path='/myprojects'>
+        <PrivateRoute path='/my-projects'>
           <MyProjects />
         </PrivateRoute>
         <PrivateRoute path='/favorites'>

@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactToolTip from 'react-tooltip';
 import toast from 'react-hot-toast';
 import Zoom from 'react-medium-image-zoom';
 import { useForm, Controller } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
-import PopupModal from '../PopupModal';
 import { Dropzone } from '../DropZone';
 import SelectTags from './SelectTags';
 import Button from '../Button';
@@ -31,7 +29,9 @@ import {
   TextArea,
   ErrorText,
   CustomSubmitCss,
-} from '../../pages/SubmitProject/style';
+  CustomEditButton,
+} from './style';
+
 import {
   CardOuter,
   CardInner,
@@ -39,16 +39,12 @@ import {
   Links,
   Profile,
 } from '../Card/style';
-import { CustomYesButton } from '../PopupModal/style';
 
 const MUTATION_UPLOAD_IMAGE = loader('./mutationUploadImage.graphql');
 
 const EMAIL_STRING = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=';
 
 function ProjectForm({ onSubmit, project }) {
-  const [image, setImage] = useState('');
-  const [successModal, setSuccessModal] = useState(false);
-
   const { currentUser: user } = useCurrentUser();
 
   const defaultValues = !!project
@@ -79,8 +75,6 @@ function ProjectForm({ onSubmit, project }) {
   async function submit(values) {
     try {
       await onSubmit(values);
-      setImage(values.preview);
-      setSuccessModal(true);
     } catch (error) {
       toast.error("Couldn't create project");
     }
@@ -286,22 +280,13 @@ function ProjectForm({ onSubmit, project }) {
           </ErrorMessage>
         </InputContainer>
 
-        <Button addCSS={CustomSubmitCss} type='submit'>
-          Submit your Project
+        <Button
+          addCSS={!!project ? CustomEditButton : CustomSubmitCss}
+          type='submit'
+        >
+          {!!project ? 'Edit' : 'Submit'} your Project
         </Button>
       </Submission>
-      <PopupModal
-        isOpen={successModal}
-        onRequestClose={() => setSuccessModal(false)}
-        title='Project Submitted'
-      >
-        <div className='imgContainer'>
-          <img src={image} alt='project'></img>
-        </div>
-        <Link to='/'>
-          <Button addCSS={CustomYesButton}>Ok</Button>
-        </Link>
-      </PopupModal>
     </FormContainer>
   );
 }
