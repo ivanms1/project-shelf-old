@@ -161,7 +161,7 @@ export const Icon = styled.span`
   background-color: #e4e6eb;
 `;
 
-export const Vertical_Line = styled.div`
+export const VerticalLine = styled.div`
   border-right: 1px solid rgba(0, 0, 0, 0.6);
   width: 10px;
   height: 20px;

@@ -27,7 +27,7 @@ import {
   Icon,
   DropDownText,
   MenuButton,
-  Vertical_Line,
+  VerticalLine,
 } from './style';
 
 const popperOptions = {
@@ -67,7 +67,7 @@ function Header() {
         exact: true,
       },
     ],
-    authandDropdown: [
+    auth_and_Dropdown: [
       {
         title: 'Favorites',
         onClick: () => history.push(`/favorites`),
@@ -84,7 +84,7 @@ function Header() {
         leftIcon: <Settings />,
       },
     ],
-    notAuth: [
+    not_auth: [
       {
         title: 'Register',
         to: `/register`,
@@ -104,13 +104,13 @@ function Header() {
     if (loading === false && !error) {
       if (currentUser.role !== 'ADMIN') {
         const tabfilter = tabs.auth.filter((tab) => tab.title !== 'ADMIN');
-        const tabfilter1 = tabs.authandDropdown.filter(
+        const tabfilter1 = tabs.auth_and_Dropdown.filter(
           (tab) => tab.title !== 'ADMIN'
         );
-        tabs.authandDropdown = tabfilter1;
+        tabs.auth_and_Dropdown = tabfilter1;
         tabs.auth = tabfilter;
       }
-      tabs.authandDropdown.unshift({
+      tabs.auth_and_Dropdown.unshift({
         title: 'Profile',
         onClick: () => history.push('/home'),
         leftIcon: <Home />,
@@ -170,7 +170,7 @@ function Header() {
           </ul>
         ) : (
           <ul>
-            {tabs.notAuth.map((tab) => (
+            {tabs.not_auth.map((tab) => (
               <li key={tab.title}>
                 <StyledLink
                   activeClassName='current'
@@ -185,7 +185,7 @@ function Header() {
         )}
       </Nav>
 
-      <Vertical_Line />
+      <VerticalLine />
 
       {isAuthenticated && (
         <Popper
@@ -199,7 +199,7 @@ function Header() {
           options={popperOptions}
         >
           <DropdownContainer>
-            {tabs.authandDropdown.map((menu) => (
+            {tabs.auth_and_Dropdown.map((menu) => (
               <DropdownItem key={menu.title} onClick={menu.onClick}>
                 <Icon>{menu.leftIcon}</Icon>
 
