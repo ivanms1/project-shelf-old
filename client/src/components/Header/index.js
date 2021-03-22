@@ -67,7 +67,7 @@ function Header() {
         exact: true,
       },
     ],
-    auth_and_Dropdown: [
+    authAndDropdown: [
       {
         title: 'Favorites',
         onClick: () => history.push(`/favorites`),
@@ -84,7 +84,7 @@ function Header() {
         leftIcon: <Settings />,
       },
     ],
-    not_auth: [
+    notAuth: [
       {
         title: 'Register',
         to: `/register`,
@@ -104,13 +104,13 @@ function Header() {
     if (loading === false && !error) {
       if (currentUser.role !== 'ADMIN') {
         const tabfilter = tabs.auth.filter((tab) => tab.title !== 'ADMIN');
-        const tabfilter1 = tabs.auth_and_Dropdown.filter(
+        const tabfilter1 = tabs.authAndDropdown.filter(
           (tab) => tab.title !== 'ADMIN'
         );
-        tabs.auth_and_Dropdown = tabfilter1;
+        tabs.authAndDropdown = tabfilter1;
         tabs.auth = tabfilter;
       }
-      tabs.auth_and_Dropdown.unshift({
+      tabs.authAndDropdown.unshift({
         title: 'Profile',
         onClick: () => history.push('/home'),
         leftIcon: <Home />,
@@ -170,7 +170,7 @@ function Header() {
           </ul>
         ) : (
           <ul>
-            {tabs.not_auth.map((tab) => (
+            {tabs.notAuth.map((tab) => (
               <li key={tab.title}>
                 <StyledLink
                   activeClassName='current'
@@ -199,7 +199,7 @@ function Header() {
           options={popperOptions}
         >
           <DropdownContainer>
-            {tabs.auth_and_Dropdown.map((menu) => (
+            {tabs.authAndDropdown.map((menu) => (
               <DropdownItem key={menu.title} onClick={menu.onClick}>
                 <Icon>{menu.leftIcon}</Icon>
 
