@@ -12,8 +12,9 @@ import { Context } from '../../Context/AppContext';
 
 import useCurrentUser from '../useCurrentUser';
 
-import { ReactComponent as Cog } from '../../assets/cog.svg';
-import { ReactComponent as Bell } from '../../assets/bell.svg';
+import { ReactComponent as Git_Merge } from '../../assets/git-merge.svg';
+import { ReactComponent as Bookmark } from '../../assets/bookmark.svg';
+import { ReactComponent as Settings } from '../../assets/settings.svg';
 import { ReactComponent as Home } from '../../assets/home.svg';
 import { ReactComponent as User } from '../../assets/user.svg';
 
@@ -26,6 +27,7 @@ import {
   Icon,
   DropDownText,
   MenuButton,
+  Vertical_Line,
 } from './style';
 
 const popperOptions = {
@@ -54,36 +56,32 @@ function Header() {
   const tabs = {
     auth: [
       {
-        title: 'Home',
-        to: `/`,
-        exact: true,
-      },
-      {
         title: 'My Projects',
         to: `/my-projects`,
         exact: true,
       },
       {
-        title: 'Submit Project',
+        id: 'submit',
+        title: 'New Project',
         to: `/submit`,
-        exact: true,
-      },
-      {
-        title: 'Favorites',
-        to: `/favorites`,
         exact: true,
       },
     ],
     authandDropdown: [
       {
+        title: 'Favorites',
+        onClick: () => history.push(`/favorites`),
+        leftIcon: <Bookmark />,
+      },
+      {
         title: 'ADMIN',
         onClick: () => history.push('/admin/not-approved'),
-        leftIcon: <Bell />,
+        leftIcon: <Git_Merge />,
       },
       {
         title: 'Log Out',
         onClick: () => setModalIsOpen(true),
-        leftIcon: <Cog />,
+        leftIcon: <Settings />,
       },
     ],
     notAuth: [
@@ -113,10 +111,7 @@ function Header() {
         tabs.auth = tabfilter;
       }
       tabs.authandDropdown.unshift({
-        title:
-          currentUser.name.toUpperCase() +
-          ' ' +
-          currentUser.lastName.toUpperCase(),
+        title: 'Profile',
         onClick: () => history.push('/home'),
         leftIcon: <Home />,
       });
@@ -162,13 +157,13 @@ function Header() {
         {isAuthenticated ? (
           <ul>
             {tabs.auth.map((tab) => (
-              <li key={tab.title}>
+              <li key={tab.title} className={`nav ${tab?.id}`}>
                 <StyledLink
                   activeClassName='current'
                   exact={tab.exact}
                   to={tab.to}
                 >
-                  {tab.title}
+                  <p className={tab?.id}>{tab.title}</p>
                 </StyledLink>
               </li>
             ))}
@@ -189,6 +184,9 @@ function Header() {
           </ul>
         )}
       </Nav>
+
+      <Vertical_Line />
+
       {isAuthenticated && (
         <Popper
           reference={(ref, handleClick) => (
