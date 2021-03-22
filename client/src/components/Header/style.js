@@ -7,8 +7,13 @@ export const Container = styled.div`
   justify-content: center;
   border-bottom: 1px solid #e6e6e6;
   align-items: center;
-  padding-right: 20px;
+  padding-right: 40px;
   background-color: #fff;
+
+  @media screen and (max-width: 1366px) {
+    padding-right: 70px;
+    padding-left: 70px;
+  }
 `;
 
 export const Nav = styled.nav`
@@ -33,18 +38,18 @@ export const Nav = styled.nav`
 
   li {
     padding: 20px 15px 20px 15px;
-  }
 
-  .logo {
-    font-size: 23px;
-    color: #20c997;
-    text-decoration: none !important;
-    font-weight: 500;
-  }
+    .logo {
+      font-size: 23px;
+      color: #20c997;
+      text-decoration: none !important;
+      font-weight: 500;
+    }
 
-  .current {
-    color: #20c997;
-    font-weight: 500;
+    .current {
+      color: #20c997;
+      font-weight: 500;
+    }
   }
 
   @media screen and (max-width: 850px) {
@@ -62,9 +67,24 @@ export const StyledLink = styled(NavLink)`
   font-size: 18px;
   letter-spacing: 1px;
 
-  &:hover {
-    text-decoration: underline;
-    transition: text-decoration 0.3s ease-in;
+  .submit {
+    cursor: pointer;
+    color: white !important;
+    border-radius: 8px;
+    background-color: #1b74e4;
+    font-size: 14px;
+    text-decoration: none !important;
+    box-shadow: 0px 4px 10px rgba(45, 78, 255, 0.25);
+    padding: 8px 16px;
+
+    :hover {
+      transform: scale(1.02) !important;
+      transition: 0.2s linear !important;
+    }
+
+    :active {
+      transform: translateY(2px) scale(1.02) !important;
+    }
   }
 
   small {
@@ -112,6 +132,8 @@ export const DropdownItem = styled.button`
   padding: 8px 12px;
   border: none;
   width: 100%;
+  padding-right: 25px;
+
   &:hover {
     border-radius: 5px;
     background-color: #f2f2f2;
@@ -119,9 +141,12 @@ export const DropdownItem = styled.button`
 `;
 
 export const DropDownText = styled.span`
-  margin-left: 15px;
+  margin-left: 25px;
   font-size: 16px;
   font-weight: 400;
+  width: 100%;
+  text-align: left;
+  letter-spacing: 1px;
   font-family: 'Poppins';
 `;
 
@@ -134,4 +159,11 @@ export const Icon = styled.span`
   padding: 7px;
   border-radius: 50%;
   background-color: #e4e6eb;
+`;
+
+export const VerticalLine = styled.div`
+  border-right: 1px solid rgba(0, 0, 0, 0.6);
+  width: 10px;
+  height: 20px;
+  margin-right: 20px;
 `;
