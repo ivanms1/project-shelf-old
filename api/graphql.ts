@@ -465,6 +465,7 @@ schema.mutationType({
           where: {
             id: args.userId,
           },
+          // @ts-expect-error
           data: args.input,
         });
 
@@ -481,11 +482,13 @@ schema.mutationType({
         input: 'CreateProjectInput',
       },
       resolve(_root, { input }, ctx) {
+        // @ts-expect-error
         const { authorId, ...rest } = input;
         return ctx.db.project.create({
           data: {
             ...rest,
             tags: {
+              // @ts-expect-error
               set: rest.tags,
             },
             author: {
@@ -518,6 +521,7 @@ schema.mutationType({
             ...input,
             isApproved: false,
             tags: {
+              // @ts-expect-error
               set: input.tags,
             },
           },
