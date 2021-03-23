@@ -88,7 +88,7 @@ export const CardContainerInner = styled.div`
     align-items: center;
 
     & button {
-      /* transform: translateY(25px) */
+       
     }
   }
 
