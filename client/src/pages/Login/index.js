@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { ErrorMessage } from '@hookform/error-message';
@@ -8,7 +7,6 @@ import { useMutation } from '@apollo/client';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { Context } from '../../Context/AppContext';
 import Loader from '../../components/Loader';
 import Button from '../../components/Button';
 
@@ -24,6 +22,7 @@ import {
 } from './style';
 
 import Rocket from '../../assets/rocket.svg';
+import { useAppContext } from '../../Context/AppContext';
 const MUTATION_LOGIN_USER = loader('./mutationLoginUser.graphql');
 
 const requiredError = 'This field is required';
@@ -33,8 +32,7 @@ let validationSchema = yup.object().shape({
 });
 
 function Login() {
-  const history = useHistory();
-  const { setIsAuthenticated } = useContext(Context);
+  const { handleLogin } = useAppContext();
 
   const notify = () => toast.error(`Please try again.`);
 
@@ -44,10 +42,6 @@ function Login() {
 
   const [loginUser, { loading }] = useMutation(MUTATION_LOGIN_USER);
 
-  if (loading) {
-    return <Loader />;
-  }
-
   const submitUserDetails = async (data) => {
     try {
       const response = await loginUser({
@@ -56,10 +50,9 @@ function Login() {
           password: data.password,
         },
       });
-      localStorage.setItem('userToken', response?.data?.login?.userId);
-      setIsAuthenticated(true);
-      history.push('/');
+      handleLogin(response?.data?.login?.userId);
     } catch (error) {
+      console.log(`error`, error);
       notify();
     }
   };
@@ -93,7 +86,7 @@ function Login() {
 
           <RegisterLink to='/register'>Register ?</RegisterLink>
 
-          <Button addCSS={CustomLoginCss} type='submit'>
+          <Button addCSS={CustomLoginCss} type='submit' loading={loading}>
             Login
           </Button>
         </Form>

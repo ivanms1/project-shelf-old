@@ -21,6 +21,7 @@ import {
   ErrorText,
   CustomRegisterCss,
 } from './style';
+import { useAppContext } from '../../Context/AppContext';
 
 const MUTATION_REGISTER_USER = loader('./mutationRegisterUser.graphql');
 
@@ -47,21 +48,16 @@ let validationSchema = yup.object().shape({
 });
 
 function Register() {
-  const [redirect, setRedirect] = useState(false);
-
+  const { handleLogin } = useAppContext();
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(validationSchema),
   });
 
-  const [reg, { loading }] = useMutation(MUTATION_REGISTER_USER);
+  const [registerUser, { loading }] = useMutation(MUTATION_REGISTER_USER);
 
-  if (loading) {
-    return <Loader />;
-  }
-
-  async function onSubmit(data) {
+  const onSubmit = async (data) => {
     try {
-      await reg({
+      const res = await registerUser({
         variables: {
           email: data.email,
           password: data.password,
@@ -69,15 +65,15 @@ function Register() {
           lastName: data.lastName,
         },
       });
-      setRedirect(true);
+      if (res?.data?.signUp?.userId) {
+        handleLogin(res?.data?.signUp?.userId);
+      }
     } catch (error) {
       console.log(JSON.stringify(error, null, 2));
     }
-  }
+  };
 
-  return redirect === true ? (
-    <Redirect to='/login' />
-  ) : (
+  return (
     <Container>
       <img alt='light' src={Light}></img>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -134,7 +130,7 @@ function Register() {
 
           <LoginLink to='/login'>Login?</LoginLink>
 
-          <Button addCSS={CustomRegisterCss} type='submit'>
+          <Button addCSS={CustomRegisterCss} loading={loading} type='submit'>
             Register
           </Button>
         </RegisterBox>
