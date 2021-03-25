@@ -4,12 +4,12 @@ import { useMutation, gql } from '@apollo/client';
 import { loader } from 'graphql.macro';
 
 import useCurrentUser from '../useCurrentUser';
+import Spinner from '../Spinner';
 
 import { getCurrentDate } from '../../helpers/dateConverter';
 
 import { ReactComponent as Star } from './../../assets/Star.svg';
 import { ReactComponent as StarFill } from './../../assets/Star-Fill.svg';
-import { ReactComponent as Spinner } from './../../assets/spinner.svg';
 
 import {
   Container,
@@ -145,7 +145,7 @@ function Cardtwo({ project, children }) {
       <CardContainerInner isApproved={project.isApproved}>
         <div className='imgContainer'>
           {!imgLoaded ? (
-            <Spinner />
+            <Spinner type='black' />
           ) : (
             <img
               src={project.preview}

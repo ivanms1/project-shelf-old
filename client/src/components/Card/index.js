@@ -6,7 +6,7 @@ import Active from '../Active/Active';
 
 import { getCurrentDate } from '../../helpers/dateConverter';
 
-import { ReactComponent as Spinner } from './../../assets/spinner.svg';
+import Spinner from '../Spinner';
 import Rick from '../../assets/rick.png';
 
 import {
@@ -60,7 +60,7 @@ function Card({ children, user, project }) {
         <div className='imgContainer'>
           {!imgLoaded ? (
             <ImgLoading>
-              <Spinner />
+              <Spinner type='black' padding={0} />
             </ImgLoading>
           ) : null}
           <Zoom wrapStyle={{ display: 'block' }} zoomZindex='10px'>
