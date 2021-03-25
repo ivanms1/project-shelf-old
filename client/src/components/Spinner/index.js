@@ -1,11 +1,9 @@
-import { SpinnerDiv } from './style';
+import { SpinnerDiv, CircularLoader } from './style';
 
-import { ReactComponent as SpinnerSvg } from '../../assets/spinner.svg';
-
-const Spinner = () => {
+const Spinner = ({ type = 'white', padding = 0 }) => {
   return (
-    <SpinnerDiv>
-      <SpinnerSvg />
+    <SpinnerDiv padding={padding}>
+      <CircularLoader colors={type} />
     </SpinnerDiv>
   );
 };
