@@ -125,15 +125,15 @@ function ProjectForm({ onSubmit, project }) {
           </Links>
 
           <div className='imgContainer'>
-            <Zoom wrapStyle={{ display: 'block' }}>
-              {(loadingImg && (
-                <p className='loading'>
-                  <Spinner />
-                </p>
-              )) || (
+            {loadingImg ? (
+              <p className='loading'>
+                <Spinner type='black' />
+              </p>
+            ) : (
+              <Zoom wrapStyle={{ display: 'inline-block' }}>
                 <img alt={preview} src={preview} width='100%' height='100%' />
-              )}
-            </Zoom>
+              </Zoom>
+            )}
           </div>
           <Profile>
             <div className='profileContainer'>

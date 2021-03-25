@@ -8,12 +8,11 @@ import Button from '../../Button';
 
 import Loader from '../../Loader';
 import PopupModal from '../../PopupModal';
-
+import Spinner from '../../Spinner';
 import useCurrentUser from '../../useCurrentUser';
 
 import { getCurrentDate } from '../../..//helpers/dateConverter';
 
-import { ReactComponent as Spinner } from '../../../assets/spinner.svg';
 import { ReactComponent as Github } from '../../../assets/github.svg';
 import { ReactComponent as Email } from '../../../assets/email.svg';
 import { ReactComponent as Web } from '../../../assets/web.svg';
@@ -115,7 +114,7 @@ function CardDetails() {
                 <div className='imgUserDetails'>
                   <ImgContainerOuter status={project?.isApproved}>
                     {!imgLoaded ? (
-                      <Spinner />
+                      <Spinner type='black' />
                     ) : (
                       <Zoom
                         wrapStyle={{ display: 'inline-block' }}

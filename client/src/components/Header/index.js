@@ -1,18 +1,17 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import Popup from 'reactjs-popup';
 import { useHistory } from 'react-router-dom';
-import { useApolloClient } from '@apollo/client';
 
 import Popper from '../Popper';
 import MobileMenu from '../MobileMenu';
 import BurgerIcon from '../BurgerIcon';
 import PopupModal from '../PopupModal';
 
-import { Context } from '../../Context/AppContext';
+import { useAppContext } from '../../Context/AppContext';
 
 import useCurrentUser from '../useCurrentUser';
 
-import { ReactComponent as Git_Merge } from '../../assets/git-merge.svg';
+import { ReactComponent as GitMerge } from '../../assets/git-merge.svg';
 import { ReactComponent as Bookmark } from '../../assets/bookmark.svg';
 import { ReactComponent as Settings } from '../../assets/settings.svg';
 import { ReactComponent as Home } from '../../assets/home.svg';
@@ -47,9 +46,7 @@ function Header() {
   const history = useHistory();
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const client = useApolloClient();
-
-  const { isAuthenticated, setIsAuthenticated } = useContext(Context);
+  const { isAuthenticated, handleLogout } = useAppContext();
 
   const { currentUser, loading, error } = useCurrentUser();
 
@@ -76,7 +73,7 @@ function Header() {
       {
         title: 'ADMIN',
         onClick: () => history.push('/admin/not-approved'),
-        leftIcon: <Git_Merge />,
+        leftIcon: <GitMerge />,
       },
       {
         title: 'Log Out',
@@ -102,7 +99,7 @@ function Header() {
     return null;
   } else {
     if (loading === false && !error) {
-      if (currentUser.role !== 'ADMIN') {
+      if (currentUser?.role !== 'ADMIN') {
         const tabfilter = tabs.auth.filter((tab) => tab.title !== 'ADMIN');
         const tabfilter1 = tabs.authAndDropdown.filter(
           (tab) => tab.title !== 'ADMIN'
@@ -216,10 +213,7 @@ function Header() {
         onRequestClose={() => setModalIsOpen(false)}
         shouldCloseOnOverlayClick={false}
         onClick={() => {
-          localStorage.setItem('userToken', '');
-          history.push('/login');
-          client.cache.reset();
-          setIsAuthenticated(false);
+          handleLogout();
           setModalIsOpen(false);
         }}
       />

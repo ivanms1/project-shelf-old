@@ -69,7 +69,9 @@ function Favorites() {
       {!loading && data?.projects?.nextCursor && (
         <Waypoint onEnter={onRefetch} bottomOffset='-20%' />
       )}
-      {loading && data?.projects?.nextCursor && <Spinner />}
+      {loading && data?.projects?.nextCursor && (
+        <Spinner padding={20} type='black' />
+      )}
     </Container>
   );
 }

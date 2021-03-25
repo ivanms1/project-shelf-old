@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Loader from '../Loader';
+import Spinner from '../Spinner';
 
 import { CustomButton } from './style';
 
@@ -14,7 +14,7 @@ function Button({
 }) {
   return (
     <CustomButton className={className} size={size} kind={kind} {...props}>
-      {loading ? <Loader /> : children}
+      {loading ? <Spinner /> : children}
     </CustomButton>
   );
 }

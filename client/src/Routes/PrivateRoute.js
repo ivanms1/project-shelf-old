@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-import { Context } from '../Context/AppContext';
+import { useAppContext } from '../Context/AppContext';
 
 import useCurrentUser from '../components/useCurrentUser';
 
 function PrivateRoutes({ path, isForAdmin, children, ...props }) {
-  const { isAuthenticated } = useContext(Context);
+  const { isAuthenticated } = useAppContext();
 
   const { currentUser, loading } = useCurrentUser();
 
