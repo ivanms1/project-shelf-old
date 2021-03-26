@@ -72,11 +72,16 @@ export const PaginationContainer = styled.div`
   }
 
   button {
-    padding: 10px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
     border: none;
     background-color: transparent;
     color: #222;
     font-size: 18px;
+    border-radius: 50%;
   }
 
   button:focus {
@@ -87,6 +92,6 @@ export const PaginationContainer = styled.div`
   .active {
     color: #fff;
     background-color: #20c997;
-    border-radius: 5px;
+    transition: 0.3s linear;
   }
 `;
