@@ -2,8 +2,10 @@ import React from 'react';
 import { useTable } from 'react-table';
 
 import TrashPic from '../../../assets/trash.png';
+import { ReactComponent as LeftArrow } from '../../../assets/chevron-left.svg';
+import { ReactComponent as RightArrow } from '../../../assets/chevron-right.svg';
 
-import { Container, Table } from './style';
+import { Container, Table, PaginationContainer } from './style';
 
 function Users() {
   const data = React.useMemo(
@@ -113,6 +115,41 @@ function Users() {
           })}
         </tbody>
       </Table>
+      <PaginationContainer>
+        <ul>
+          <li>
+            <button>
+              <LeftArrow />
+            </button>
+          </li>
+          <li>
+            <button>1</button>
+          </li>
+          <li>
+            <button className='active'>2</button>
+          </li>
+          <li>
+            <button>3</button>
+          </li>
+          <li>
+            <button>4</button>
+          </li>
+          <li>
+            <button>5</button>
+          </li>
+          <li>
+            <button>6</button>
+          </li>
+          <li>
+            <button>7</button>
+          </li>
+          <li>
+            <button>
+              <RightArrow />
+            </button>
+          </li>
+        </ul>
+      </PaginationContainer>
     </Container>
   );
 }
