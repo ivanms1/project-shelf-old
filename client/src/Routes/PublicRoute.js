@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
-import { Context } from '../Context/AppContext';
+import { useAppContext } from '../Context/AppContext';
 
 function PublicRoutes({ path, children, ...props }) {
-  const { isAuthenticated } = useContext(Context);
+  const { isAuthenticated } = useAppContext();
 
   if (isAuthenticated) {
     return <Redirect to='/' />;

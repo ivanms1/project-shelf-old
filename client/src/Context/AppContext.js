@@ -1,31 +1,71 @@
-import React, { createContext, useState, useMemo, useEffect } from 'react';
+import { useApolloClient } from '@apollo/client';
+import React, {
+  createContext,
+  useState,
+  useMemo,
+  useEffect,
+  useCallback,
+  useContext,
+} from 'react';
+import { useHistory } from 'react-router';
 
 import useCurrentUser from '../components/useCurrentUser';
 
-export const Context = createContext();
+import { TOKEN_NAME } from '../const';
 
-const userToken = localStorage.getItem('userToken');
-let state = '';
-if (userToken) {
-  state = true;
-} else {
-  state = false;
-}
+const Context = createContext();
 
-export function AppContext({ children }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(state);
+const setToken = (token) => localStorage.setItem(TOKEN_NAME, token);
 
-  const { currentUser, loading } = useCurrentUser();
+export const getToken = () => {
+  return localStorage.getItem(TOKEN_NAME) || null;
+};
 
-  const value = useMemo(() => ({ isAuthenticated, setIsAuthenticated }), [
-    isAuthenticated,
-  ]);
+export function AppProvider({ children }) {
+  const [authToken, setAuthToken] = useState(getToken());
 
-  useEffect(() => {
-    if (!currentUser && !loading) {
-      setIsAuthenticated(false);
-    }
-  }, [currentUser, loading]);
+  const { currentUser, refetch } = useCurrentUser();
+
+  const client = useApolloClient();
+
+  const history = useHistory();
+
+  const handleLogin = useCallback(
+    (token) => {
+      setAuthToken(token);
+      setToken(token);
+      refetch();
+      history.replace('/');
+    },
+    [history, refetch]
+  );
+
+  const handleLogout = useCallback(async () => {
+    setAuthToken(null);
+    setToken(null);
+    await client.resetStore();
+    history.replace('/login');
+  }, [client, history]);
+
+  const value = useMemo(
+    () => ({
+      authToken,
+      isAuthenticated: !!currentUser,
+      handleLogin,
+      handleLogout,
+    }),
+    [authToken, currentUser, handleLogin, handleLogout]
+  );
 
   return <Context.Provider value={value}>{children}</Context.Provider>;
 }
+
+export const useAppContext = () => {
+  const context = useContext(Context);
+
+  if (context === undefined) {
+    throw new Error('useAppContext must be used within AppContext');
+  }
+
+  return context;
+};
