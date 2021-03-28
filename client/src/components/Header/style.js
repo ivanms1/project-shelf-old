@@ -9,6 +9,7 @@ export const Container = styled.div`
   align-items: center;
   padding-right: 40px;
   background-color: #fff;
+  position: relative;
 
   @media screen and (max-width: 1366px) {
     padding-right: 70px;

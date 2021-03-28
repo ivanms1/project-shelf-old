@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 export const Menu = styled.div`
   width: 100%;
   display: block;
+  border: 2px solid green;
   text-align: center;
   padding: 0px;
   ul {
