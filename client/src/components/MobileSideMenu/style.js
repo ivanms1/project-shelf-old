@@ -17,7 +17,10 @@ export const StyledModal = styled(Modal)`
   grid-gap: 5px;
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(3, 1fr);
-  /* border: 2px solid green; */
+
+  @media (min-width: 850px) {
+    display: none;
+  }
 `;
 
 export const Menu = styled(Link)`
@@ -36,7 +39,6 @@ export const Menu = styled(Link)`
   :active {
     transform: translateY(1px) scale(1.01) !important;
   }
-  /* border: 2px solid green; */
 
   span {
     text-align: center;
@@ -50,5 +52,4 @@ export const Exit = styled.button`
   background-color: transparent;
   outline: none;
   border: none;
-  /* border: 2px solid green; */
 `;

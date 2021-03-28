@@ -68,13 +68,11 @@ function MobileSideMenu({ isOpen, onRequestClose, onClick = null, ...props }) {
     ],
   };
 
-  if (loading === false && !error) {
-    if (currentUser?.role !== 'ADMIN') {
-      const tabfilter = MobileMenuOptions.ifAuth.filter(
-        (tab) => tab.title !== 'ADMIN'
-      );
-      MobileMenuOptions.ifAuth = tabfilter;
-    }
+  if (!loading && !error && currentUser?.role !== 'ADMIN') {
+    const tabfilter = MobileMenuOptions.ifAuth.filter(
+      (tab) => tab.title !== 'ADMIN'
+    );
+    MobileMenuOptions.ifAuth = tabfilter;
   }
 
   return (
