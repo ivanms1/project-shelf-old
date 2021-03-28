@@ -27,13 +27,7 @@ const customStyles = {
   },
 };
 
-function MobileSideMenu({
-  isOpen,
-  onRequestClose,
-  type = 'logout',
-  onClick = null,
-  ...props
-}) {
+function MobileSideMenu({ isOpen, onRequestClose, onClick = null, ...props }) {
   const { isAuthenticated, handleLogout } = useAppContext();
 
   const { currentUser, loading, error } = useCurrentUser();
@@ -69,18 +63,6 @@ function MobileSideMenu({
         to: 'log-out',
         icon: <LogOut />,
         onClick: () => handleLogout(),
-        exact: true,
-      },
-    ],
-    ifNotAuth: [
-      {
-        title: 'Register',
-        to: `/register`,
-        exact: true,
-      },
-      {
-        title: 'Log In',
-        to: `/login`,
         exact: true,
       },
     ],
