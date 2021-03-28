@@ -12,7 +12,7 @@ export const Container = styled.div`
     width: 100%;
     padding: 50px 20px;
     font-weight: 600;
-    font-size: 26px;
+    font-size: clamp(1.2rem, 2.5vw, 26px);
   }
 `;
 

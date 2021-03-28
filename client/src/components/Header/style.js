@@ -56,7 +56,7 @@ export const Nav = styled.nav`
   @media screen and (max-width: 850px) {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     width: 100%;
   }
@@ -167,4 +167,8 @@ export const VerticalLine = styled.div`
   width: 10px;
   height: 20px;
   margin-right: 20px;
+
+  @media (max-width: 849px) {
+    display: none;
+  }
 `;
