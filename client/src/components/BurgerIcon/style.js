@@ -6,11 +6,11 @@ export const Container = styled.div`
   }
   .burger-menu,
   .burger-menu.open {
-    display: block;
+    display: ${({ open }) => (open ? 'none' : 'block')};
     cursor: pointer;
-    position: absolute;
+    position: fixed;
     right: 25px;
-    top: 17px;
+    bottom: 17px;
     z-index: 9999;
     background: #fff;
     padding: 8px;
