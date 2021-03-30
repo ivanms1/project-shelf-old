@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { debounce } from 'lodash';
 import { useQuery, NetworkStatus } from '@apollo/client';
 import { loader } from 'graphql.macro';
 import { Waypoint } from 'react-waypoint';
 
 import Cardtwo from '../../components/Cardv2';
+import Search from '../../components/Search';
+import SearchInput from '../../components/Search/SearchInput';
 
 import Spinner from '../../components/Spinner';
 import Loader from '../../components/Loader';
@@ -12,9 +15,28 @@ import { Container, CardContainer } from './style';
 
 const QUERY_WEEKLY_PROJECTS = loader('./queryGetProjects.graphql');
 
+const CategoryOptions = [
+  { value: 'title', label: 'Title' },
+  { value: 'description', label: 'Description' },
+];
+
 function Home() {
   const [sortBy, setSortBy] = useState({ field: 'createdAt', value: 'desc' });
-  const [filterBy, setFilterBy] = useState(undefined);
+
+  const [filterBy, setFilterBy] = useState({
+    field: CategoryOptions[0].value,
+    value: '',
+  });
+  const debounceSave = useRef(
+    debounce((nextValue) => setFilterBy({ ...filterBy, value: nextValue }), 200)
+  ).current;
+
+  const handleChange = (e) => {
+    const { value: nextValue } = e.target;
+    // setInputValue(nextValue);
+    debounceSave(nextValue);
+  };
+
   const { data, loading, error, fetchMore, networkStatus } = useQuery(
     QUERY_WEEKLY_PROJECTS,
     {
@@ -29,6 +51,7 @@ function Home() {
         },
       },
       notifyOnNetworkStatusChange: true,
+      pollInterval: 1000,
     }
   );
 
@@ -53,7 +76,24 @@ function Home() {
   };
   return (
     <Container>
-      <p>Welcome! Here are some recently submitted projects</p>
+      {/* <p>Welcome! Here are some recently submitted projects</p> */}
+      <div style={{ margin: '30px 0 80px 0' }}>
+        <SearchInput
+          options={CategoryOptions}
+          inputValue={filterBy?.value}
+          inputOnChange={(e) => {
+            handleChange(e);
+            // setFilterBy({ ...filterBy, value: e.target.value });
+          }}
+          dropDownValue={filterBy?.field}
+          dropDownOnChange={(e) =>
+            setFilterBy({ ...filterBy, field: e?.value })
+          }
+          type='text'
+        />
+      </div>
+      {/* <Search /> */}
+      {/* 
       <div style={{ display: 'flex' }}>
         <div>
           <span>Search by:</span>
@@ -73,8 +113,8 @@ function Home() {
           onChange={(e) => setFilterBy({ ...filterBy, value: e.target.value })}
           type='text'
         />
-      </div>
-      <div style={{ display: 'flex' }}>
+      </div> */}
+      {/* <div style={{ display: 'flex' }}>
         <div>
           <span>sort by:</span>
           <select
@@ -95,7 +135,7 @@ function Home() {
             <option value='desc'>desc</option>
           </select>
         </div>
-      </div>
+      </div> */}
       <CardContainer>
         {networkStatus === NetworkStatus.setVariables ||
         networkStatus === NetworkStatus.refetch ||
