@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { debounce } from 'lodash';
-import { useQuery, NetworkStatus } from '@apollo/client';
+import { useQuery, useLazyQuery, NetworkStatus } from '@apollo/client';
 import { loader } from 'graphql.macro';
 import { Waypoint } from 'react-waypoint';
 
@@ -27,33 +27,59 @@ function Home() {
     field: CategoryOptions[0].value,
     value: '',
   });
-  const debounceSave = useRef(
-    debounce((nextValue) => setFilterBy({ ...filterBy, value: nextValue }), 200)
-  ).current;
-
-  const handleChange = (e) => {
-    const { value: nextValue } = e.target;
-    // setInputValue(nextValue);
-    debounceSave(nextValue);
-  };
-
-  const { data, loading, error, fetchMore, networkStatus } = useQuery(
-    QUERY_WEEKLY_PROJECTS,
-    {
+  const debounceSave = debounce((nextValue) => {
+    console.log(filterBy?.field, nextValue);
+    lazyFetch({
       variables: {
         cursor: undefined,
         modifiers: {
           sortBy: sortBy?.field && sortBy?.value ? sortBy : undefined,
-          filterBy:
-            filterBy?.field && (filterBy.value || filterBy.value === '')
-              ? filterBy
-              : undefined,
+          filterBy: {
+            field: filterBy?.field,
+            value: nextValue ? nextValue : undefined,
+          },
         },
       },
-      notifyOnNetworkStatusChange: true,
-      pollInterval: 1000,
-    }
-  );
+    });
+  }, 2200);
+
+  const handleChange = (e) => {
+    const { value: nextValue } = e.target;
+    // setInputValue(nextValue);
+    setFilterBy({ ...filterBy, value: nextValue });
+    debounceSave(nextValue);
+  };
+
+  const handleDropDownChange = (e) => {
+    setFilterBy({ field: e?.value, value: '' });
+    console.log(filterBy);
+    debounceSave(filterBy.value);
+  };
+
+  const [
+    lazyFetch,
+    { data, loading, error, fetchMore, networkStatus, called },
+  ] = useLazyQuery(QUERY_WEEKLY_PROJECTS, {
+    variables: {
+      cursor: undefined,
+      // modifiers: {
+      //   sortBy: sortBy?.field && sortBy?.value ? sortBy : undefined,
+      //   filterBy:
+      //     filterBy?.field && (filterBy.value || filterBy.value === '')
+      //       ? filterBy
+      //       : undefined,
+      // },
+    },
+    notifyOnNetworkStatusChange: true,
+  });
+
+  useEffect(() => {
+    lazyFetch();
+  }, []);
+
+  // if (!called) {
+  //   return <p>loading</p>;
+  // }
 
   if (error) {
     return <p>Sorry, something went wrong.</p>;
@@ -86,12 +112,12 @@ function Home() {
             // setFilterBy({ ...filterBy, value: e.target.value });
           }}
           dropDownValue={filterBy?.field}
-          dropDownOnChange={(e) =>
-            setFilterBy({ ...filterBy, field: e?.value })
-          }
+          dropDownOnChange={(e) => handleDropDownChange(e)}
           type='text'
         />
       </div>
+
+      <button onClick={() => debounceSave()}>debounce check</button>
       {/* <Search /> */}
       {/* 
       <div style={{ display: 'flex' }}>
