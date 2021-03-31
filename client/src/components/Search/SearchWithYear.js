@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Select from 'react-select';
 
 const colourStyles = {
@@ -57,15 +57,26 @@ const titleStyle = {
   fontWeight: 500,
 };
 
-function SearchWithYear({ options, onChange, title = 'Year' }) {
+function SearchWithYear({ options, onChange, title = 'Year', ...props }) {
+  const [dropDownValue, setDropDownValue] = useState({
+    value: 'title',
+    label: 'Title',
+  });
+
+  const handleChange = (newValue) => {
+    setDropDownValue(newValue);
+    onChange && onChange(newValue);
+  };
+
   return (
-    <div>
+    <div style={{ margin: '0 auto', maxWidth: 200 }}>
       <span style={titleStyle}>{title}</span>
       <Select
         styles={colourStyles}
         placeholder='Any'
         options={options}
-        onChange={onChange}
+        onChange={handleChange}
+        defaultValue={options[0]}
       />
     </div>
   );

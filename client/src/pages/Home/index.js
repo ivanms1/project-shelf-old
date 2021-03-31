@@ -1,15 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { debounce } from 'lodash';
+import React, { useState, useEffect } from 'react';
 import { useQuery, useLazyQuery, NetworkStatus } from '@apollo/client';
 import { loader } from 'graphql.macro';
 import { Waypoint } from 'react-waypoint';
 
 import Cardtwo from '../../components/Cardv2';
-import Search from '../../components/Search';
+
 import SearchInput from '../../components/Search/SearchInput';
 
 import Spinner from '../../components/Spinner';
-import Loader from '../../components/Loader';
 
 import { Container, CardContainer } from './style';
 
@@ -20,20 +18,28 @@ const CategoryOptions = [
   { value: 'description', label: 'Description' },
 ];
 
-function Home() {
-  const [sortBy, setSortBy] = useState({ field: 'createdAt', value: 'desc' });
+const SortOptions = [
+  { value: 'asc', label: 'Ascending' },
+  { value: 'desc', label: 'Descending' },
+];
 
+function Home() {
+  const [sortBy, setSortBy] = useState({ field: 'title', value: 'asc' });
   const [filterBy, setFilterBy] = useState({
     field: CategoryOptions[0].value,
     value: '',
   });
-  const debounceSave = debounce((nextValue) => {
-    console.log(filterBy?.field, nextValue);
+
+  const debounceSave = (nextValue, sortValue = 'asc') => {
+    console.log(sortValue, 'lazyFetch');
     lazyFetch({
       variables: {
         cursor: undefined,
         modifiers: {
-          sortBy: sortBy?.field && sortBy?.value ? sortBy : undefined,
+          sortBy: {
+            field: sortBy?.field,
+            value: sortValue ? sortValue : undefined,
+          },
           filterBy: {
             field: filterBy?.field,
             value: nextValue ? nextValue : undefined,
@@ -41,19 +47,22 @@ function Home() {
         },
       },
     });
-  }, 2200);
+  };
 
   const handleChange = (e) => {
     const { value: nextValue } = e.target;
-    // setInputValue(nextValue);
     setFilterBy({ ...filterBy, value: nextValue });
-    debounceSave(nextValue);
   };
 
   const handleDropDownChange = (e) => {
     setFilterBy({ field: e?.value, value: '' });
-    console.log(filterBy);
-    debounceSave(filterBy.value);
+    debounceSave(filterBy.value, sortBy?.value);
+  };
+
+  const handleSortDropDownChange = (e) => {
+    console.log(e?.value);
+    setSortBy({ field: 'createdAt', value: e?.value });
+    debounceSave(filterBy.value, e?.value);
   };
 
   const [
@@ -74,12 +83,11 @@ function Home() {
   });
 
   useEffect(() => {
-    lazyFetch();
-  }, []);
-
-  // if (!called) {
-  //   return <p>loading</p>;
-  // }
+    const timeoutId = setTimeout(() => {
+      debounceSave(filterBy?.value);
+    }, 1000);
+    return () => clearTimeout(timeoutId);
+  }, [filterBy?.value]);
 
   if (error) {
     return <p>Sorry, something went wrong.</p>;
@@ -100,25 +108,28 @@ function Home() {
       },
     });
   };
+
   return (
     <Container>
       {/* <p>Welcome! Here are some recently submitted projects</p> */}
       <div style={{ margin: '30px 0 80px 0' }}>
         <SearchInput
+          SortOptions={SortOptions}
           options={CategoryOptions}
           inputValue={filterBy?.value}
           inputOnChange={(e) => {
             handleChange(e);
-            // setFilterBy({ ...filterBy, value: e.target.value });
           }}
           dropDownValue={filterBy?.field}
           dropDownOnChange={(e) => handleDropDownChange(e)}
+          sortDropDownOnChange={
+            // (e) => console.log(e.value, 'sort')
+            (e) => handleSortDropDownChange(e)
+          }
           type='text'
         />
       </div>
 
-      <button onClick={() => debounceSave()}>debounce check</button>
-      {/* <Search /> */}
       {/* 
       <div style={{ display: 'flex' }}>
         <div>
