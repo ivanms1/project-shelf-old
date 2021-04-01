@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery, useLazyQuery, NetworkStatus } from '@apollo/client';
+import { useLazyQuery, NetworkStatus } from '@apollo/client';
 import { loader } from 'graphql.macro';
 import { Waypoint } from 'react-waypoint';
 
 import Cardtwo from '../../components/Cardv2';
-
 import SearchInput from '../../components/Search/SearchInput';
-
 import Spinner from '../../components/Spinner';
 
 import { Container, CardContainer } from './style';
@@ -16,6 +14,8 @@ const QUERY_WEEKLY_PROJECTS = loader('./queryGetProjects.graphql');
 const CategoryOptions = [
   { value: 'title', label: 'Title' },
   { value: 'description', label: 'Description' },
+  { value: 'tags', label: 'Tags' },
+  { value: 'createdAt', label: 'Created At' },
 ];
 
 const SortOptions = [
@@ -25,6 +25,7 @@ const SortOptions = [
 
 function Home() {
   const [sortBy, setSortBy] = useState({ field: 'title', value: 'asc' });
+  const [checkByCreatedDate, setCheckByCreatedDate] = useState(false);
   const [filterBy, setFilterBy] = useState({
     field: CategoryOptions[0].value,
     value: '',
@@ -37,7 +38,7 @@ function Home() {
         cursor: undefined,
         modifiers: {
           sortBy: {
-            field: sortBy?.field,
+            field: checkByCreatedDate ? 'createdAt' : 'title',
             value: sortValue ? sortValue : undefined,
           },
           filterBy: {
@@ -55,14 +56,21 @@ function Home() {
   };
 
   const handleDropDownChange = (e) => {
+    setCheckByCreatedDate(e.value == 'createdAt' ? true : false);
     setFilterBy({ field: e?.value, value: '' });
     debounceSave(filterBy.value, sortBy?.value);
   };
 
   const handleSortDropDownChange = (e) => {
-    console.log(e?.value);
-    setSortBy({ field: 'createdAt', value: e?.value });
+    setSortBy({
+      field: checkByCreatedDate ? 'createdAt' : 'title',
+      value: e?.value,
+    });
     debounceSave(filterBy.value, e?.value);
+  };
+
+  const handleCheckedChange = (e) => {
+    setCheckByCreatedDate(e);
   };
 
   const [
@@ -87,7 +95,7 @@ function Home() {
       debounceSave(filterBy?.value);
     }, 1000);
     return () => clearTimeout(timeoutId);
-  }, [filterBy?.value]);
+  }, [filterBy?.value, checkByCreatedDate]);
 
   if (error) {
     return <p>Sorry, something went wrong.</p>;
@@ -126,6 +134,7 @@ function Home() {
             // (e) => console.log(e.value, 'sort')
             (e) => handleSortDropDownChange(e)
           }
+          checked={handleCheckedChange}
           type='text'
         />
       </div>

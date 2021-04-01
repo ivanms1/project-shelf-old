@@ -1,8 +1,7 @@
 import React from 'react';
 
 import SearchWithYear from '../SearchWithYear';
-import SearchWithTags from '../SearchWithTags';
-
+import SortCheckBox from '../CheckBox/SortCheckBox';
 import CategoryDropdown from '../CategoryDropdown';
 
 import { ReactComponent as SearchIcon } from '../../../assets/search.svg';
@@ -17,6 +16,7 @@ function index({
   dropDownValue,
   dropDownOnChange,
   sortDropDownOnChange,
+  checked,
   type,
 }) {
   return (
@@ -46,19 +46,21 @@ function index({
           defaultValue={options[0]}
         />
       </InputWrapper>
-      <div style={{ display: 'flex', maxWidth: 600, margin: '10px auto' }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+
+          maxWidth: 600,
+          margin: '10px auto',
+        }}
+      >
         <SearchWithYear
           onChange={sortDropDownOnChange}
           options={SortOptions}
           title='Sort Order'
         />
-        <SearchWithTags
-          onChange={sortDropDownOnChange}
-          options={SortOptions}
-          title='Search with tags'
-        />
-
-        {/* <Search /> */}
+        <SortCheckBox checked={checked} />
       </div>
     </div>
   );
