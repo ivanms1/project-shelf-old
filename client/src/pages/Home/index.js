@@ -7,7 +7,9 @@ import Cardtwo from '../../components/Cardv2';
 import SearchInput from '../../components/Search/SearchInput';
 import Spinner from '../../components/Spinner';
 
-import { Container, CardContainer } from './style';
+import { ReactComponent as SearchIcon } from '../../assets/search.svg';
+
+import { Container, CardContainer, InitialSearchContainer } from './style';
 
 const QUERY_WEEKLY_PROJECTS = loader('./queryGetProjects.graphql');
 
@@ -15,7 +17,6 @@ const CategoryOptions = [
   { value: 'title', label: 'Title' },
   { value: 'description', label: 'Description' },
   { value: 'tags', label: 'Tags' },
-  { value: 'createdAt', label: 'Created At' },
 ];
 
 const SortOptions = [
@@ -24,6 +25,7 @@ const SortOptions = [
 ];
 
 function Home() {
+  const [showSearch, setShowSearch] = useState(false);
   const [sortBy, setSortBy] = useState({ field: 'title', value: 'asc' });
   const [checkByCreatedDate, setCheckByCreatedDate] = useState(false);
   const [filterBy, setFilterBy] = useState({
@@ -79,13 +81,6 @@ function Home() {
   ] = useLazyQuery(QUERY_WEEKLY_PROJECTS, {
     variables: {
       cursor: undefined,
-      // modifiers: {
-      //   sortBy: sortBy?.field && sortBy?.value ? sortBy : undefined,
-      //   filterBy:
-      //     filterBy?.field && (filterBy.value || filterBy.value === '')
-      //       ? filterBy
-      //       : undefined,
-      // },
     },
     notifyOnNetworkStatusChange: true,
   });
@@ -120,68 +115,39 @@ function Home() {
   return (
     <Container>
       {/* <p>Welcome! Here are some recently submitted projects</p> */}
-      <div style={{ margin: '30px 0 80px 0' }}>
-        <SearchInput
-          SortOptions={SortOptions}
-          options={CategoryOptions}
-          inputValue={filterBy?.value}
-          inputOnChange={(e) => {
-            handleChange(e);
+      <div
+        style={{
+          width: '100%',
+          // border: '2px solid green',
+          display: 'flex',
+          justifyContent: 'flex-end',
+        }}
+      >
+        <InitialSearchContainer
+          showSearch={showSearch}
+          onClick={() => {
+            setShowSearch(!showSearch);
           }}
-          dropDownValue={filterBy?.field}
-          dropDownOnChange={(e) => handleDropDownChange(e)}
-          sortDropDownOnChange={
-            // (e) => console.log(e.value, 'sort')
-            (e) => handleSortDropDownChange(e)
-          }
-          checked={handleCheckedChange}
-          type='text'
-        />
+        >
+          <SearchIcon />
+        </InitialSearchContainer>
       </div>
+      {showSearch && (
+        <div style={{ margin: '30px 0 80px 0' }}>
+          <SearchInput
+            SortOptions={SortOptions}
+            options={CategoryOptions}
+            inputValue={filterBy?.value}
+            inputOnChange={(e) => handleChange(e)}
+            dropDownValue={filterBy?.field}
+            dropDownOnChange={(e) => handleDropDownChange(e)}
+            sortDropDownOnChange={(e) => handleSortDropDownChange(e)}
+            checked={handleCheckedChange}
+            type='text'
+          />
+        </div>
+      )}
 
-      {/* 
-      <div style={{ display: 'flex' }}>
-        <div>
-          <span>Search by:</span>
-          <select
-            value={filterBy?.field}
-            onChange={(e) =>
-              setFilterBy({ ...filterBy, field: e.target.value })
-            }
-          >
-            <option value='title'>Title</option>
-            <option value='description'>Description</option>
-            <option value='tags'>Tags</option>
-          </select>
-        </div>
-        <input
-          value={filterBy?.value}
-          onChange={(e) => setFilterBy({ ...filterBy, value: e.target.value })}
-          type='text'
-        />
-      </div> */}
-      {/* <div style={{ display: 'flex' }}>
-        <div>
-          <span>sort by:</span>
-          <select
-            value={sortBy?.field}
-            onChange={(e) => setSortBy({ ...sortBy, field: e.target.value })}
-          >
-            <option value='title'>title</option>
-            <option value='createdAt'>date</option>
-          </select>
-        </div>
-        <div>
-          <span>sort order:</span>
-          <select
-            value={sortBy?.value}
-            onChange={(e) => setSortBy({ ...sortBy, value: e.target.value })}
-          >
-            <option value='asc'>asc</option>
-            <option value='desc'>desc</option>
-          </select>
-        </div>
-      </div> */}
       <CardContainer>
         {networkStatus === NetworkStatus.setVariables ||
         networkStatus === NetworkStatus.refetch ||

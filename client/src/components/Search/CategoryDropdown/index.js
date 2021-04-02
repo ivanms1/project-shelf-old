@@ -25,13 +25,13 @@ const colourStyles = {
   control: (styles) => ({
     ...styles,
     backgroundColor: 'white',
-    width: '180px',
+    width: '160px',
     minWidth: '100px',
     cursor: 'pointer',
   }),
   menu: ({ width, ...css }) => ({
     ...css,
-    width: '170px',
+    width: '150px',
     minWidth: '100px',
     cursor: 'pointer',
   }),
@@ -40,7 +40,7 @@ const colourStyles = {
     margin: '5px',
     padding: '4px 12px',
     cursor: 'pointer',
-    maxWidth: '160px',
+    maxWidth: '140px',
     minWidth: '100px',
     borderRadius: '5px',
     fontSize: '15px',
@@ -74,7 +74,6 @@ function CategoryDropdown({ value, options, onChange, ...props }) {
       }}
     >
       <Select
-        // value={dropDownValue.value}
         styles={colourStyles}
         placeholder='Any'
         options={options}
