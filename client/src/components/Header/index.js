@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import Popup from 'reactjs-popup';
 import { useHistory } from 'react-router-dom';
 
 import Popper from '../Popper';
-import MobileMenu from '../MobileMenu';
-import BurgerIcon from '../BurgerIcon';
 import PopupModal from '../PopupModal';
 
 import { useAppContext } from '../../Context/AppContext';
@@ -115,30 +112,8 @@ function Header() {
     }
   }
 
-  const contentStyle = {
-    background: '#f7f8fc',
-    width: '80%',
-    border: 'none',
-  };
-
-  const PopUpContainer = React.forwardRef((props, ref) => {
-    return (
-      <Popup
-        modal
-        overlayStyle={{ background: '#f7f8fc' }}
-        contentStyle={contentStyle}
-        closeOnDocumentClick={false}
-        trigger={(open) => <BurgerIcon open={open} />}
-      >
-        {(close) => <MobileMenu close={close} />}
-      </Popup>
-    );
-  });
-
   return (
     <Container>
-      <PopUpContainer />
-
       <Nav>
         <div>
           <li>
