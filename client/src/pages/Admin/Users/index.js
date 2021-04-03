@@ -1,69 +1,38 @@
 import React from 'react';
 import { useTable } from 'react-table';
+import { useQuery } from '@apollo/client';
+import { loader } from 'graphql.macro';
 
 import TrashPic from '../../../assets/trash.png';
-import { ReactComponent as LeftArrow } from '../../../assets/chevron-left.svg';
-import { ReactComponent as RightArrow } from '../../../assets/chevron-right.svg';
 
-import { Container, Table, PaginationContainer } from './style';
+import { Container, Table } from './style';
+
+const QUERY_GET_ALL_USERS = loader('./queryGetAllUsers.graphql');
 
 function Users() {
-  const data = React.useMemo(
-    () => [
-      {
-        col1: '132464356',
-        col2: 'Uzamaki',
-        col3: 'uzaBeastTitan@gmail.com',
-        col4: '16',
-        col5: 'USER',
-        col6: 'Delete',
-      },
-      {
-        col1: '2',
-        col2: 'Uzamaki',
-        col3: 'uzaBeastTitan@gmail.com',
-        col4: '16',
-        col5: 'USER',
-        col6: 'Delete',
-      },
-      {
-        col1: '3',
-        col2: 'Uzamaki',
-        col3: 'uzaBeastTitan@gmail.com',
-        col4: '16',
-        col5: 'USER',
-        col6: 'Delete',
-      },
-    ],
-    []
-  );
+  const { data } = useQuery(QUERY_GET_ALL_USERS);
+
   const columns = React.useMemo(
     () => [
       {
-        Header: '#ID',
-        accessor: 'col1',
-      },
-      {
-        Header: 'User',
-        accessor: 'col2',
+        Header: 'Name',
+        accessor: 'name',
       },
       {
         Header: 'Email',
-        accessor: 'col3',
+        accessor: 'email',
       },
       {
         Header: 'Projects',
-        accessor: 'col4',
+        accessor: 'projects',
+        Cell: ({ cell: { value } }) => <>{value?.length ?? 0}</>,
       },
       {
         Header: 'Role',
-        accessor: 'col5',
-        Cell: (props = { value: 'USER' }) =>
-          props.value === 'USER' ? (
-            <button className='user'>{props.value}</button>
-          ) : (
-            <button className='admin'>ADMIN</button>
-          ),
+        accessor: 'role',
+        Cell: ({ cell: { value } }) => (
+          <button className='user'>{value}</button>
+        ),
       },
       {
         Header: 'Action',
@@ -79,7 +48,7 @@ function Users() {
     []
   );
 
-  const tableInstance = useTable({ columns, data });
+  const tableInstance = useTable({ columns, data: data?.users?.results ?? [] });
   const {
     getTableProps,
     getTableBodyProps,
@@ -115,41 +84,6 @@ function Users() {
           })}
         </tbody>
       </Table>
-      <PaginationContainer>
-        <ul>
-          <li>
-            <button>
-              <LeftArrow />
-            </button>
-          </li>
-          <li>
-            <button>1</button>
-          </li>
-          <li>
-            <button className='active'>2</button>
-          </li>
-          <li>
-            <button>3</button>
-          </li>
-          <li>
-            <button>4</button>
-          </li>
-          <li>
-            <button>5</button>
-          </li>
-          <li>
-            <button>6</button>
-          </li>
-          <li>
-            <button>7</button>
-          </li>
-          <li>
-            <button>
-              <RightArrow />
-            </button>
-          </li>
-        </ul>
-      </PaginationContainer>
     </Container>
   );
 }

@@ -1,19 +1,24 @@
 query GetAllUsers {
-  user: getUsers {
-    id
-    name
-    lastName
-    email
-    role
-    projects {
+  users: getUsers {
+    nextCursor
+    prevCursor
+    totalCount
+    results {
       id
-      title
-      preview
-      description
-      createdAt
-      siteLink
-      repoLink
-      isApproved
+      name
+      lastName
+      email
+      role
+      projects {
+        id
+        title
+        preview
+        description
+        createdAt
+        siteLink
+        repoLink
+        isApproved
+      }
     }
   }
 }
