@@ -6,9 +6,6 @@ import {
   stringArg,
   inputObjectType,
 } from 'nexus';
-import * as cloudinary from 'cloudinary';
-
-const imageUploader = cloudinary.v2;
 
 export const User = objectType({
   name: 'User',
@@ -31,7 +28,6 @@ export const UpdateUsertInput = inputObjectType({
   description: 'Update the user information',
   definition(t) {
     t.nonNull.string('name');
-    t.nonNull.string('lastName');
     t.nonNull.string('email');
     t.nonNull.string('github');
     t.nonNull.string('discord');
@@ -95,7 +91,9 @@ export const SignUp = extendType({
         name: nonNull(stringArg()),
       },
       async resolve(_root, args, ctx) {
-        const newUser = await ctx.db.user.create({ data: { ...args } });
+        const newUser = await ctx.db.user.create({
+          data: { ...args },
+        });
         return {
           userId: newUser.id,
           token: 'some token',

@@ -6,10 +6,12 @@ import { schema } from './schema';
 
 const apollo = new ApolloServer({
   schema,
-  context: ({ req }) => ({
-    db,
-    currentUserId: req?.headers?.authorization,
-  }),
+  context: ({ req }) => {
+    return {
+      db,
+      currentUserId: req?.headers?.authorization,
+    };
+  },
 });
 
 const app = express();

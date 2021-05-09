@@ -22,9 +22,9 @@ export const Project = objectType({
     t.boolean('isApproved');
     t.field('createdAt', { type: 'DateTime' });
     t.list.string('tags');
-    t.nonNull.field('author', { type: 'User' });
-    t.nonNull.list.field('likes', { type: 'User' });
-    t.nonNull.list.field('favorites', { type: 'User' });
+    t.field('author', { type: 'User' });
+    t.list.field('likes', { type: 'User' });
+    t.list.field('favorites', { type: 'User' });
   },
 });
 
@@ -107,7 +107,81 @@ export const GetProject = extendType({
       resolve(_root, args, ctx) {
         return ctx.db.project.findUnique({
           where: { id: args.id },
+          include: {
+            likes: true,
+            favorites: true,
+            author: true,
+          },
         });
+      },
+    });
+  },
+});
+
+export const GetApprovedProjects = extendType({
+  type: 'Query',
+  definition(t) {
+    t.nonNull.field('getApprovedProjects', {
+      type: 'ProjectsResponse',
+      description: 'Get all approved projects',
+      args: {
+        cursor: stringArg(),
+      },
+      async resolve(_root, args, ctx) {
+        const incomingCursor = args?.cursor;
+        let results;
+
+        const totalCount = await ctx.db.project.count({
+          where: {
+            isApproved: true,
+          },
+        });
+
+        if (incomingCursor) {
+          results = await ctx.db.project.findMany({
+            take: 9,
+            skip: 1,
+            cursor: {
+              id: incomingCursor,
+            },
+            where: {
+              isApproved: true,
+            },
+            include: {
+              likes: true,
+              favorites: true,
+              author: true,
+            },
+            orderBy: {
+              createdAt: 'desc',
+            },
+          });
+        } else {
+          results = await ctx.db.project.findMany({
+            take: 9,
+            where: {
+              isApproved: true,
+            },
+            include: {
+              likes: true,
+              favorites: true,
+              author: true,
+            },
+            orderBy: {
+              createdAt: 'desc',
+            },
+          });
+        }
+
+        const lastResult = results[8];
+        const cursor = lastResult?.id;
+
+        return {
+          prevCursor: args.cursor,
+          nextCursor: cursor,
+          results,
+          totalCount,
+        };
       },
     });
   },
@@ -116,7 +190,7 @@ export const GetProject = extendType({
 export const GetProjectsAdmin = extendType({
   type: 'Query',
   definition(t) {
-    t.nonNull.list.field('getProjectsAdmin', {
+    t.nonNull.field('getProjectsAdmin', {
       type: 'ProjectsResponse',
       description: 'Admin query to get projects',
       args: {
@@ -143,6 +217,11 @@ export const GetProjectsAdmin = extendType({
             where: {
               isApproved: args.isApproved,
             },
+            include: {
+              likes: true,
+              favorites: true,
+              author: true,
+            },
             orderBy: {
               createdAt: 'desc',
             },
@@ -152,6 +231,11 @@ export const GetProjectsAdmin = extendType({
             take: 9,
             where: {
               isApproved: args.isApproved,
+            },
+            include: {
+              likes: true,
+              favorites: true,
+              author: true,
             },
             orderBy: {
               createdAt: 'desc',
@@ -176,7 +260,7 @@ export const GetProjectsAdmin = extendType({
 export const GetMyProjects = extendType({
   type: 'Query',
   definition(t) {
-    t.nonNull.list.field('getMyProjects', {
+    t.nonNull.field('getMyProjects', {
       type: 'ProjectsResponse',
       description: 'Get all my projects',
       args: {
@@ -202,6 +286,11 @@ export const GetMyProjects = extendType({
             where: {
               authorId: ctx.currentUserId,
             },
+            include: {
+              likes: true,
+              favorites: true,
+              author: true,
+            },
             orderBy: {
               createdAt: 'desc',
             },
@@ -211,6 +300,11 @@ export const GetMyProjects = extendType({
             take: 9,
             where: {
               authorId: ctx.currentUserId,
+            },
+            include: {
+              likes: true,
+              favorites: true,
+              author: true,
             },
             orderBy: {
               createdAt: 'desc',
@@ -235,7 +329,7 @@ export const GetMyProjects = extendType({
 export const GetMyFavoriteProjects = extendType({
   type: 'Query',
   definition(t) {
-    t.nonNull.list.field('getMyFavoriteProjects', {
+    t.nonNull.field('getMyFavoriteProjects', {
       type: 'ProjectsResponse',
       description: 'Get all my favorite projects',
       args: {
@@ -273,6 +367,11 @@ export const GetMyFavoriteProjects = extendType({
                 },
               },
             },
+            include: {
+              likes: true,
+              favorites: true,
+              author: true,
+            },
             orderBy: {
               createdAt: 'desc',
             },
@@ -288,6 +387,11 @@ export const GetMyFavoriteProjects = extendType({
                   },
                 },
               },
+            },
+            include: {
+              likes: true,
+              favorites: true,
+              author: true,
             },
             orderBy: {
               createdAt: 'desc',
@@ -466,6 +570,7 @@ export const ReactToProject = extendType({
           },
           include: {
             likes: true,
+            favorites: true,
             author: true,
           },
         });
@@ -512,6 +617,38 @@ export const FavoriteProject = extendType({
             favorites: true,
             author: true,
           },
+        });
+      },
+    });
+  },
+});
+
+export const UpdateProjectStatus = extendType({
+  type: 'Mutation',
+  definition(t) {
+    t.field('updateProjectStatus', {
+      type: 'Project',
+      args: {
+        projectId: nonNull(stringArg()),
+        isApproved: nonNull(booleanArg()),
+      },
+      async resolve(_root, args, ctx) {
+        if (!ctx.currentUserId) {
+          throw Error('Not Authorized');
+        }
+        const user = await ctx.db.user.findUnique({
+          where: {
+            id: ctx.currentUserId,
+          },
+        });
+
+        if (!user || user.role !== 'ADMIN') {
+          throw Error('Not Authorized');
+        }
+
+        return ctx.db.project.update({
+          where: { id: args.projectId },
+          data: { isApproved: args.isApproved },
         });
       },
     });

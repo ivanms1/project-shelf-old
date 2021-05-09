@@ -63,7 +63,6 @@ function SubmitProject() {
     const res = await createProject({
       variables: {
         input: {
-          authorId: user.id,
           preview: values.preview,
           title: values.title,
           siteLink: values.siteLink,

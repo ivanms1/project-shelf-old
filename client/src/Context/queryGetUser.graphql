@@ -2,7 +2,6 @@ query GetUser($id: String!) {
   user: getUser(id: $id) {
     id
     name
-    lastName
     email
     projects {
       id

@@ -85,10 +85,7 @@ function Card({ children, user, project }) {
           </div>
 
           <div className='profileDetails'>
-            <p>
-              {user.name || user.author.name}{' '}
-              {user.lastName || user.author.lastName}
-            </p>
+            <p>{user.name || user.author.name}</p>
 
             <p>4th weekly project</p>
           </div>

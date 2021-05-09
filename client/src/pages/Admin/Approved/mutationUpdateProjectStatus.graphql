@@ -4,7 +4,6 @@ mutation updateStatus($projectId: String!, $isApproved: Boolean!) {
     title
     author {
       name
-      lastName
       email
     }
     preview

@@ -40,7 +40,7 @@ function Activated() {
       update(cache, { data: { updateProjectStatus } }) {
         cache.modify({
           fields: {
-            getProjects(existing = {}, { readField }) {
+            getApprovedProjects(existing = {}, { readField }) {
               return {
                 ...existing,
                 results: existing.results.filter(

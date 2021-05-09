@@ -53,7 +53,7 @@ function NotApproved() {
 
         cache.modify({
           fields: {
-            getProjects(existing = {}, { readField }) {
+            getApprovedProjects(existing = {}, { readField }) {
               const projectFavorited = cache.writeFragment({
                 data: updateProjectStatus,
                 fragment: gql`

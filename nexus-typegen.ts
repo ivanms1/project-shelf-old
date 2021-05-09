@@ -72,7 +72,6 @@ export interface NexusGenInputs {
     discord: string; // String!
     email: string; // String!
     github: string; // String!
-    lastName: string; // String!
     name: string; // String!
     role: string; // String!
   }
@@ -96,13 +95,13 @@ export interface NexusGenScalars {
 export interface NexusGenObjects {
   Mutation: {};
   Project: { // root type
-    author: NexusGenRootTypes['User']; // User!
+    author?: NexusGenRootTypes['User'] | null; // User
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     description?: string | null; // String
-    favorites: Array<NexusGenRootTypes['User'] | null>; // [User]!
+    favorites?: Array<NexusGenRootTypes['User'] | null> | null; // [User]
     id?: string | null; // ID
     isApproved?: boolean | null; // Boolean
-    likes: Array<NexusGenRootTypes['User'] | null>; // [User]!
+    likes?: Array<NexusGenRootTypes['User'] | null> | null; // [User]
     preview?: string | null; // String
     repoLink?: string | null; // String
     siteLink?: string | null; // String
@@ -150,16 +149,18 @@ export interface NexusGenFieldTypes {
     reactToProject: NexusGenRootTypes['Project'] | null; // Project
     signup: NexusGenScalars['JSONObject']; // JSONObject!
     updateProject: NexusGenRootTypes['Project'] | null; // Project
+    updateProjectStatus: NexusGenRootTypes['Project'] | null; // Project
     updateUser: NexusGenRootTypes['User']; // User!
+    uploadImage: NexusGenScalars['JSONObject'] | null; // JSONObject
   }
   Project: { // field return type
-    author: NexusGenRootTypes['User']; // User!
+    author: NexusGenRootTypes['User'] | null; // User
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
     description: string | null; // String
-    favorites: Array<NexusGenRootTypes['User'] | null>; // [User]!
+    favorites: Array<NexusGenRootTypes['User'] | null> | null; // [User]
     id: string | null; // ID
     isApproved: boolean | null; // Boolean
-    likes: Array<NexusGenRootTypes['User'] | null>; // [User]!
+    likes: Array<NexusGenRootTypes['User'] | null> | null; // [User]
     preview: string | null; // String
     repoLink: string | null; // String
     siteLink: string | null; // String
@@ -173,11 +174,12 @@ export interface NexusGenFieldTypes {
     totalCount: number | null; // Int
   }
   Query: { // field return type
+    getApprovedProjects: NexusGenRootTypes['ProjectsResponse']; // ProjectsResponse!
     getCurrentUser: NexusGenRootTypes['User'] | null; // User
-    getMyFavoriteProjects: Array<NexusGenRootTypes['ProjectsResponse'] | null>; // [ProjectsResponse]!
-    getMyProjects: Array<NexusGenRootTypes['ProjectsResponse'] | null>; // [ProjectsResponse]!
+    getMyFavoriteProjects: NexusGenRootTypes['ProjectsResponse']; // ProjectsResponse!
+    getMyProjects: NexusGenRootTypes['ProjectsResponse']; // ProjectsResponse!
     getProject: NexusGenRootTypes['Project'] | null; // Project
-    getProjectsAdmin: Array<NexusGenRootTypes['ProjectsResponse'] | null>; // [ProjectsResponse]!
+    getProjectsAdmin: NexusGenRootTypes['ProjectsResponse']; // ProjectsResponse!
     getUser: NexusGenRootTypes['User'] | null; // User
     getUsers: Array<NexusGenRootTypes['User'] | null>; // [User]!
   }
@@ -205,7 +207,9 @@ export interface NexusGenFieldTypeNames {
     reactToProject: 'Project'
     signup: 'JSONObject'
     updateProject: 'Project'
+    updateProjectStatus: 'Project'
     updateUser: 'User'
+    uploadImage: 'JSONObject'
   }
   Project: { // field return type name
     author: 'User'
@@ -228,6 +232,7 @@ export interface NexusGenFieldTypeNames {
     totalCount: 'Int'
   }
   Query: { // field return type name
+    getApprovedProjects: 'ProjectsResponse'
     getCurrentUser: 'User'
     getMyFavoriteProjects: 'ProjectsResponse'
     getMyProjects: 'ProjectsResponse'
@@ -280,12 +285,22 @@ export interface NexusGenArgTypes {
       input?: NexusGenInputs['UpdateProjectInput'] | null; // UpdateProjectInput
       projectId: string; // ID!
     }
+    updateProjectStatus: { // args
+      isApproved: boolean; // Boolean!
+      projectId: string; // String!
+    }
     updateUser: { // args
       input?: NexusGenInputs['UpdateUsertInput'] | null; // UpdateUsertInput
       userId: string; // String!
     }
+    uploadImage: { // args
+      path: string; // String!
+    }
   }
   Query: {
+    getApprovedProjects: { // args
+      cursor?: string | null; // String
+    }
     getMyFavoriteProjects: { // args
       cursor?: string | null; // String
     }

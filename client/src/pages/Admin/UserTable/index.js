@@ -41,9 +41,7 @@ function UserTable({
               <img src={ProfilePic} alt={ProfilePic} />
             </div>
             <div>
-              <div className='name'>
-                {d.name} {d.lastName}
-              </div>
+              <div className='name'>{d.name}</div>
               <div className='email'>{d.email}</div>
             </div>
           </div>

@@ -31,10 +31,6 @@ let validationSchema = yup.object().shape({
     .string()
     .required(requiredError)
     .min(3, 'First name must have more than 3 characters'),
-  lastName: yup
-    .string()
-    .required(requiredError)
-    .min(3, 'Last name must have more than 3 characters'),
   email: yup.string().required(requiredError).email('Email must be valid'),
   password: yup
     .string()
@@ -62,11 +58,10 @@ function Register() {
           email: data.email,
           password: data.password,
           name: data.firstName,
-          lastName: data.lastName,
         },
       });
-      if (res?.data?.signUp?.userId) {
-        handleLogin(res?.data?.signUp?.userId);
+      if (res?.data?.signup?.userId) {
+        handleLogin(res?.data?.signup?.userId);
       }
     } catch (error) {
       console.log(JSON.stringify(error, null, 2));
@@ -84,13 +79,6 @@ function Register() {
             <Input name='firstName' placeholder='Joe' ref={register} />
 
             <ErrorMessage errors={errors} name='firstName' as={<ErrorText />} />
-          </InputContainer>
-
-          <InputContainer>
-            <label>Last name</label>
-            <Input name='lastName' placeholder='Don' ref={register} />
-
-            <ErrorMessage errors={errors} name='lastName' as={<ErrorText />} />
           </InputContainer>
 
           <InputContainer>

@@ -42,17 +42,19 @@ type Mutation {
   reactToProject(input: ReactToProjectInput): Project
   signup(email: String!, name: String!, password: String!): JSONObject!
   updateProject(input: UpdateProjectInput, projectId: ID!): Project
+  updateProjectStatus(isApproved: Boolean!, projectId: String!): Project
   updateUser(input: UpdateUsertInput, userId: String!): User!
+  uploadImage(path: String!): JSONObject
 }
 
 type Project {
-  author: User!
+  author: User
   createdAt: DateTime
   description: String
-  favorites: [User]!
+  favorites: [User]
   id: ID
   isApproved: Boolean
-  likes: [User]!
+  likes: [User]
   preview: String
   repoLink: String
   siteLink: String
@@ -74,17 +76,19 @@ type ProjectsResponse {
 }
 
 type Query {
+  """Get all approved projects"""
+  getApprovedProjects(cursor: String): ProjectsResponse!
   getCurrentUser: User
 
   """Get all my favorite projects"""
-  getMyFavoriteProjects(cursor: String): [ProjectsResponse]!
+  getMyFavoriteProjects(cursor: String): ProjectsResponse!
 
   """Get all my projects"""
-  getMyProjects(cursor: String): [ProjectsResponse]!
+  getMyProjects(cursor: String): ProjectsResponse!
   getProject(id: ID!): Project
 
   """Admin query to get projects"""
-  getProjectsAdmin(cursor: String, isApproved: Boolean! = true): [ProjectsResponse]!
+  getProjectsAdmin(cursor: String, isApproved: Boolean! = true): ProjectsResponse!
   getUser(userId: ID!): User
   getUsers: [User]!
 }
@@ -109,7 +113,6 @@ input UpdateUsertInput {
   discord: String!
   email: String!
   github: String!
-  lastName: String!
   name: String!
   role: String!
 }
