@@ -1,7 +1,7 @@
 #import "../../../graphql/projectFragment.graphql"
 
 query GetAllDissaprovedPojects($cursor: String = null) {
-  projects: getProjectsAdmin(cursor: $cursor) {
+  projects: getProjectsAdmin(cursor: $cursor, isApproved: false) {
     ...ProjectsResponseFragment
   }
 }

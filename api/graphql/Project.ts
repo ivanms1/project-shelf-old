@@ -433,6 +433,7 @@ export const CreateProject = extendType({
         return ctx.db.project.create({
           data: {
             ...rest,
+            // @ts-expect-error
             tags: {
               set: tags,
             },
@@ -468,6 +469,7 @@ export const UpdateProject = extendType({
           data: {
             ...rest,
             isApproved: false,
+            // @ts-expect-error
             tags: {
               set: tags,
             },
@@ -521,6 +523,7 @@ export const DeleteManyProjects = extendType({
       async resolve(_root, { ids }, ctx) {
         const { count } = await ctx.db.project.deleteMany({
           where: {
+            // @ts-expect-error
             id: { in: ids },
           },
         });

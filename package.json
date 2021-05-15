@@ -23,7 +23,7 @@
     "dev:client": "cd client && yarn start ",
     "dev": "concurrently --names 'SERVER,FRONTEND' \"yarn dev:backend\" \"yarn dev:client\"",
     "nexus:reflect": "ts-node --transpile-only api/schema",
-    "build": "yarn nexus:reflection && tsc",
+    "build": "yarn nexus:reflect && tsc",
     "start": "node .nexus/build/api",
     "migrate": "npx prisma migrate dev"
   },
