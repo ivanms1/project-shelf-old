@@ -27,11 +27,11 @@ export const UpdateUsertInput = inputObjectType({
   name: 'UpdateUsertInput',
   description: 'Update the user information',
   definition(t) {
-    t.nonNull.string('name');
-    t.nonNull.string('email');
-    t.nonNull.string('github');
-    t.nonNull.string('discord');
-    t.nonNull.string('role');
+    t.string('name');
+    t.string('email');
+    t.string('github');
+    t.string('discord');
+    t.string('role');
   },
 });
 
