@@ -1,4 +1,4 @@
-mutation updateStatus($projectId: String!, $isApproved: Boolean!) {
+mutation updateStatus($projectId: ID!, $isApproved: Boolean!) {
   updateProjectStatus(projectId: $projectId, isApproved: $isApproved) {
     id
     title

@@ -69,11 +69,11 @@ export interface NexusGenInputs {
     title?: string | null; // String
   }
   UpdateUsertInput: { // input type
-    discord: string; // String!
-    email: string; // String!
-    github: string; // String!
-    name: string; // String!
-    role: string; // String!
+    discord?: string | null; // String
+    email?: string | null; // String
+    github?: string | null; // String
+    name?: string | null; // String
+    role?: string | null; // String
   }
 }
 
@@ -287,7 +287,7 @@ export interface NexusGenArgTypes {
     }
     updateProjectStatus: { // args
       isApproved: boolean; // Boolean!
-      projectId: string; // String!
+      projectId: string; // ID!
     }
     updateUser: { // args
       input?: NexusGenInputs['UpdateUsertInput'] | null; // UpdateUsertInput

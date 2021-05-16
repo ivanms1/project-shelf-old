@@ -466,6 +466,7 @@ export const UpdateProject = extendType({
         const { tags, ...rest } = input;
 
         return ctx.db.project.update({
+          where: { id: projectId },
           data: {
             ...rest,
             isApproved: false,
@@ -632,7 +633,7 @@ export const UpdateProjectStatus = extendType({
     t.field('updateProjectStatus', {
       type: 'Project',
       args: {
-        projectId: nonNull(stringArg()),
+        projectId: nonNull(idArg()),
         isApproved: nonNull(booleanArg()),
       },
       async resolve(_root, args, ctx) {

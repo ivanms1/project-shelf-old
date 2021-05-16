@@ -42,7 +42,7 @@ type Mutation {
   reactToProject(input: ReactToProjectInput): Project
   signup(email: String!, name: String!, password: String!): JSONObject!
   updateProject(input: UpdateProjectInput, projectId: ID!): Project
-  updateProjectStatus(isApproved: Boolean!, projectId: String!): Project
+  updateProjectStatus(isApproved: Boolean!, projectId: ID!): Project
   updateUser(input: UpdateUsertInput, userId: String!): User!
   uploadImage(path: String!): JSONObject
 }
@@ -110,11 +110,11 @@ input UpdateProjectInput {
 
 """Update the user information"""
 input UpdateUsertInput {
-  discord: String!
-  email: String!
-  github: String!
-  name: String!
-  role: String!
+  discord: String
+  email: String
+  github: String
+  name: String
+  role: String
 }
 
 type User {
