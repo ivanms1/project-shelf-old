@@ -1,6 +1,7 @@
 node_modules
 migrations/
 *.env
+dist
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

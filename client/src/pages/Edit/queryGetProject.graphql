@@ -1,4 +1,4 @@
-query GetProject($id: String!) {
+query GetProject($id: ID!) {
   project: getProject(id: $id) {
     id
     title

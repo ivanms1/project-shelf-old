@@ -2,7 +2,6 @@ query GetAllUsers {
   user: getUsers {
     id
     name
-    lastName
     email
     role
     projects {

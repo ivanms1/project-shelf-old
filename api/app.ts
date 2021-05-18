@@ -1,12 +1,32 @@
-import { use } from 'nexus';
-import { prisma } from 'nexus-plugin-prisma';
-import { server } from 'nexus';
-import bodyParser from 'body-parser';
-import cors from 'cors';
+import { ApolloServer } from 'apollo-server-express';
+import express from 'express';
 
-use(prisma());
-server.express.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-server.express.use(
-  bodyParser.json({ type: 'application/json', limit: '50mb' })
-);
-server.express.use(cors());
+import { db } from './db';
+import { schema } from './schema';
+
+const apollo = new ApolloServer({
+  schema,
+  context: ({ req }) => {
+    return {
+      db,
+      currentUserId: req?.headers?.authorization,
+    };
+  },
+});
+
+const app = express();
+
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(express.json({ type: 'application/json', limit: '50mb' }));
+
+apollo.applyMiddleware({
+  app,
+  cors: {
+    origin: 'http://localhost:3000',
+    credentials: true,
+  },
+});
+
+app.listen(4000, () => {
+  console.log(`🚀 GraphQL service ready at http://localhost:4000/graphql`);
+});

@@ -22,13 +22,13 @@ const MUTATION_REACT_TO_PROJECT = loader('./mutationReactToProject.graphql');
 const MUTATION_FAVORITE_PROJECT = loader('./mutationFavoriteProject.graphql');
 
 const getActionLikes = (project, currentUser) => {
-  return project?.likes.some((user) => user?.id === currentUser?.id)
+  return project?.likes?.some((user) => user?.id === currentUser?.id)
     ? 'DISLIKE'
     : 'LIKE';
 };
 
 const getActionFavorite = (project, currentUser) => {
-  return project?.favorites.some((user) => user?.id === currentUser?.id)
+  return project?.favorites?.some((user) => user?.id === currentUser?.id)
     ? 'UNDO'
     : 'FAVORITE';
 };

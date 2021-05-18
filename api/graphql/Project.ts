@@ -1,53 +1,56 @@
-import { schema } from 'nexus';
-import * as cloudinary from 'cloudinary';
+import {
+  objectType,
+  extendType,
+  idArg,
+  nonNull,
+  stringArg,
+  booleanArg,
+  inputObjectType,
+  list,
+  enumType,
+} from 'nexus';
 
-const imageUploader = cloudinary.v2;
-
-schema.addToContext((req) => {
-  const currentUserId = !Array.isArray(req?.headers?.['current-user-id'])
-    ? req?.headers?.['current-user-id']
-    : undefined;
-  return {
-    currentUserId,
-  };
+export const Project = objectType({
+  name: 'Project',
+  definition(t) {
+    t.id('id');
+    t.string('title');
+    t.string('preview');
+    t.string('repoLink');
+    t.string('siteLink');
+    t.string('description');
+    t.boolean('isApproved');
+    t.field('createdAt', { type: 'DateTime' });
+    t.list.string('tags');
+    t.field('author', { type: 'User' });
+    t.list.field('likes', { type: 'User' });
+    t.list.field('favorites', { type: 'User' });
+  },
 });
 
-const ProjectActions = schema.enumType({
-  name: 'ProjectAction',
-  members: ['LIKE', 'DISLIKE'],
-  description: 'Actions available to the user',
-});
-
-const FavoriteActions = schema.enumType({
-  name: 'FavoriteAction',
-  members: ['FAVORITE', 'UNDO'],
-  description: 'Favorite actions',
-});
-
-const projectsResponse = schema.objectType({
+export const ProjectsResponse = objectType({
   name: 'ProjectsResponse',
   definition(t) {
     t.string('nextCursor');
     t.string('prevCursor');
-    t.field('results', { type: 'Project', list: true });
+    t.nonNull.list.field('results', { type: 'Project' });
     t.int('totalCount');
   },
 });
 
-schema.inputObjectType({
+export const CreateProjectInput = inputObjectType({
   name: 'CreateProjectInput',
   definition(t) {
-    t.string('authorId', { required: true });
-    t.string('title', { required: true });
-    t.string('preview', { required: true });
-    t.string('repoLink', { required: true });
-    t.string('siteLink', { required: true });
-    t.string('description', { required: true });
-    t.list.string('tags');
+    t.nonNull.string('title');
+    t.nonNull.string('preview');
+    t.nonNull.string('repoLink');
+    t.nonNull.string('siteLink');
+    t.nonNull.string('description');
+    t.nonNull.list.string('tags');
   },
 });
 
-schema.inputObjectType({
+export const UpdateProjectInput = inputObjectType({
   name: 'UpdateProjectInput',
   definition(t) {
     t.string('title');
@@ -59,126 +62,70 @@ schema.inputObjectType({
   },
 });
 
-schema.inputObjectType({
-  name: 'UpdateUsertInput',
-  description: 'Update the user information',
-  definition(t) {
-    t.string('name');
-    t.string('lastName');
-    t.string('email');
-    t.string('github');
-    t.string('discord');
-    t.string('role');
-  },
+const ProjectActions = enumType({
+  name: 'ProjectAction',
+  members: ['LIKE', 'DISLIKE'],
+  description: 'Actions available to the user',
 });
 
-schema.inputObjectType({
+export const ReactToProjectInput = inputObjectType({
   name: 'ReactToProjectInput',
   definition(t) {
-    t.string('projectId', { required: true });
-    t.string('userId', { required: true });
-    t.field('action', {
+    t.nonNull.id('projectId');
+    t.nonNull.id('userId');
+    t.nonNull.field('action', {
       type: ProjectActions,
-      required: true,
     });
   },
 });
 
-schema.inputObjectType({
+const FavoriteActions = enumType({
+  name: 'FavoriteAction',
+  members: ['FAVORITE', 'UNDO'],
+  description: 'Favorite actions',
+});
+
+export const FavoriteProjectInput = inputObjectType({
   name: 'FavoriteProjectInput',
   definition(t) {
-    t.string('projectId', { required: true });
-    t.string('userId', { required: true });
-    t.field('action', {
+    t.nonNull.string('projectId');
+    t.nonNull.string('userId');
+    t.nonNull.field('action', {
       type: FavoriteActions,
-      required: true,
     });
   },
 });
 
-schema.objectType({
-  name: 'User',
+export const GetProject = extendType({
+  type: 'Query',
   definition(t) {
-    t.model.id();
-    t.model.name();
-    t.model.lastName();
-    t.model.email();
-    t.model.github();
-    t.model.discord();
-    t.model.role();
-    t.model.projects();
-    t.model.projectsLiked();
-    t.model.favoriteProjects();
-  },
-});
-
-schema.objectType({
-  name: 'Project',
-  definition(t) {
-    t.model.id();
-    t.model.title();
-    t.model.author();
-    t.model.preview();
-    t.model.repoLink();
-    t.model.siteLink();
-    t.model.likes();
-    t.model.favorites();
-    t.model.description();
-    t.model.isApproved();
-    t.model.createdAt();
-    t.model.tags();
-  },
-});
-
-schema.queryType({
-  definition(t) {
-    t.field('getUser', {
-      type: 'User',
+    t.field('getProject', {
+      type: 'Project',
       args: {
-        id: schema.stringArg({ required: true }),
+        id: nonNull(idArg()),
       },
       resolve(_root, args, ctx) {
-        return ctx.db.user.findOne({
+        return ctx.db.project.findUnique({
           where: { id: args.id },
-        });
-      },
-    });
-    t.field('getUsers', {
-      type: 'User',
-      list: true,
-      resolve(_root, _, ctx) {
-        return ctx.db.user.findMany();
-      },
-    });
-    t.field('getCurrentUser', {
-      type: 'User',
-      resolve(_root, _, ctx) {
-        if (!ctx.currentUserId) {
-          throw Error('User not Found');
-        }
-        return ctx.db.user.findOne({
-          where: {
-            id: ctx.currentUserId,
+          include: {
+            likes: true,
+            favorites: true,
+            author: true,
           },
         });
       },
     });
-    t.field('getProject', {
-      type: 'Project',
-      args: {
-        id: schema.stringArg({ required: true }),
-      },
-      resolve(_root, args, ctx) {
-        return ctx.db.project.findOne({
-          where: { id: args.id },
-        });
-      },
-    });
-    t.field('getProjects', {
+  },
+});
+
+export const GetApprovedProjects = extendType({
+  type: 'Query',
+  definition(t) {
+    t.nonNull.field('getApprovedProjects', {
       type: 'ProjectsResponse',
       description: 'Get all approved projects',
       args: {
-        cursor: schema.stringArg(),
+        cursor: stringArg(),
       },
       async resolve(_root, args, ctx) {
         const incomingCursor = args?.cursor;
@@ -200,6 +147,11 @@ schema.queryType({
             where: {
               isApproved: true,
             },
+            include: {
+              likes: true,
+              favorites: true,
+              author: true,
+            },
             orderBy: {
               createdAt: 'desc',
             },
@@ -209,6 +161,11 @@ schema.queryType({
             take: 9,
             where: {
               isApproved: true,
+            },
+            include: {
+              likes: true,
+              favorites: true,
+              author: true,
             },
             orderBy: {
               createdAt: 'desc',
@@ -227,11 +184,87 @@ schema.queryType({
         };
       },
     });
-    t.field('getMyProjects', {
+  },
+});
+
+export const GetProjectsAdmin = extendType({
+  type: 'Query',
+  definition(t) {
+    t.nonNull.field('getProjectsAdmin', {
+      type: 'ProjectsResponse',
+      description: 'Admin query to get projects',
+      args: {
+        cursor: stringArg(),
+        isApproved: nonNull(booleanArg({ default: true })),
+      },
+      async resolve(_root, args, ctx) {
+        const incomingCursor = args?.cursor;
+        let results;
+
+        const totalCount = await ctx.db.project.count({
+          where: {
+            isApproved: args.isApproved,
+          },
+        });
+
+        if (incomingCursor) {
+          results = await ctx.db.project.findMany({
+            take: 9,
+            skip: 1,
+            cursor: {
+              id: incomingCursor,
+            },
+            where: {
+              isApproved: args.isApproved,
+            },
+            include: {
+              likes: true,
+              favorites: true,
+              author: true,
+            },
+            orderBy: {
+              createdAt: 'desc',
+            },
+          });
+        } else {
+          results = await ctx.db.project.findMany({
+            take: 9,
+            where: {
+              isApproved: args.isApproved,
+            },
+            include: {
+              likes: true,
+              favorites: true,
+              author: true,
+            },
+            orderBy: {
+              createdAt: 'desc',
+            },
+          });
+        }
+
+        const lastResult = results[8];
+        const cursor = lastResult?.id;
+
+        return {
+          prevCursor: args.cursor,
+          nextCursor: cursor,
+          results,
+          totalCount,
+        };
+      },
+    });
+  },
+});
+
+export const GetMyProjects = extendType({
+  type: 'Query',
+  definition(t) {
+    t.nonNull.field('getMyProjects', {
       type: 'ProjectsResponse',
       description: 'Get all my projects',
       args: {
-        cursor: schema.stringArg(),
+        cursor: stringArg(),
       },
       async resolve(_root, args, ctx) {
         const incomingCursor = args?.cursor;
@@ -253,6 +286,11 @@ schema.queryType({
             where: {
               authorId: ctx.currentUserId,
             },
+            include: {
+              likes: true,
+              favorites: true,
+              author: true,
+            },
             orderBy: {
               createdAt: 'desc',
             },
@@ -262,6 +300,11 @@ schema.queryType({
             take: 9,
             where: {
               authorId: ctx.currentUserId,
+            },
+            include: {
+              likes: true,
+              favorites: true,
+              author: true,
             },
             orderBy: {
               createdAt: 'desc',
@@ -280,11 +323,17 @@ schema.queryType({
         };
       },
     });
-    t.field('getMyFavoriteProjects', {
+  },
+});
+
+export const GetMyFavoriteProjects = extendType({
+  type: 'Query',
+  definition(t) {
+    t.nonNull.field('getMyFavoriteProjects', {
       type: 'ProjectsResponse',
-      description: 'Get my favorite projects',
+      description: 'Get all my favorite projects',
       args: {
-        cursor: schema.stringArg(),
+        cursor: stringArg(),
       },
       async resolve(_root, args, ctx) {
         const incomingCursor = args?.cursor;
@@ -318,6 +367,11 @@ schema.queryType({
                 },
               },
             },
+            include: {
+              likes: true,
+              favorites: true,
+              author: true,
+            },
             orderBy: {
               createdAt: 'desc',
             },
@@ -334,58 +388,10 @@ schema.queryType({
                 },
               },
             },
-            orderBy: {
-              createdAt: 'desc',
-            },
-          });
-        }
-
-        const lastResult = results[8];
-        const cursor = lastResult?.id;
-
-        return {
-          prevCursor: args.cursor,
-          nextCursor: cursor,
-          results,
-          totalCount,
-        };
-      },
-    });
-    t.field('adminGetNotApprovedProjects', {
-      type: 'ProjectsResponse',
-      description: 'Get all approved projects',
-      args: {
-        cursor: schema.stringArg(),
-      },
-      async resolve(_root, args, ctx) {
-        const incomingCursor = args?.cursor;
-        let results;
-
-        const totalCount = await ctx.db.project.count({
-          where: {
-            isApproved: false,
-          },
-        });
-
-        if (incomingCursor) {
-          results = await ctx.db.project.findMany({
-            take: 9,
-            skip: 1,
-            cursor: {
-              id: incomingCursor,
-            },
-            where: {
-              isApproved: false,
-            },
-            orderBy: {
-              createdAt: 'desc',
-            },
-          });
-        } else {
-          results = await ctx.db.project.findMany({
-            take: 9,
-            where: {
-              isApproved: false,
+            include: {
+              likes: true,
+              favorites: true,
+              author: true,
             },
             orderBy: {
               createdAt: 'desc',
@@ -407,89 +413,29 @@ schema.queryType({
   },
 });
 
-schema.mutationType({
+export const CreateProject = extendType({
+  type: 'Mutation',
   definition(t) {
-    t.field('signUp', {
-      type: 'Json',
-      args: {
-        email: schema.stringArg({ required: true }),
-        password: schema.stringArg({ required: true }),
-        name: schema.stringArg({ required: true }),
-        lastName: schema.stringArg({ required: true }),
-      },
-      async resolve(_root, args, ctx) {
-        const newUser = await ctx.db.user.create({ data: { ...args } });
-        return {
-          userId: newUser.id,
-          token: 'some token',
-          expiresIn: '1 year',
-        };
-      },
-    });
-    t.field('login', {
-      type: 'Json',
-      args: {
-        email: schema.stringArg({ required: true }),
-        password: schema.stringArg({ required: true }),
-      },
-      async resolve(_root, args, ctx) {
-        const user = await ctx.db.user.findMany({
-          where: {
-            email: args.email,
-          },
-        });
-
-        if (user.length < 1) {
-          throw new Error('User not found');
-        }
-
-        return {
-          userId: user[0].id,
-          token: 'some token',
-          expiresIn: '1 year',
-        };
-      },
-    });
-    t.field('updateUser', {
-      type: 'User',
-      args: {
-        userId: schema.stringArg({ required: true }),
-        input: 'UpdateUsertInput',
-      },
-      async resolve(_root, args, ctx) {
-        if (!args?.input) {
-          throw new Error('Data not found');
-        }
-
-        const user = await ctx.db.user.update({
-          where: {
-            id: args.userId,
-          },
-          // @ts-expect-error
-          data: args.input,
-        });
-
-        if (!user) {
-          throw new Error('User not found');
-        }
-
-        return user;
-      },
-    });
     t.field('createProject', {
       type: 'Project',
       args: {
         input: 'CreateProjectInput',
       },
       resolve(_root, { input }, ctx) {
-        // @ts-expect-error
-        const { authorId, ...rest } = input;
+        const authorId = ctx.currentUserId;
+
+        if (!authorId || !input) {
+          throw Error('Args missing');
+        }
+
+        const { tags, ...rest } = input;
+
         return ctx.db.project.create({
           data: {
             ...rest,
+            // @ts-expect-error
             tags: {
-              // @ts-expect-error
-              set: rest.tags,
+              set: tags,
             },
             author: {
               connect: {
@@ -500,82 +446,101 @@ schema.mutationType({
         });
       },
     });
+  },
+});
+
+export const UpdateProject = extendType({
+  type: 'Mutation',
+  definition(t) {
     t.field('updateProject', {
       type: 'Project',
       args: {
-        projectId: schema.stringArg({ required: true }),
+        projectId: nonNull(idArg()),
         input: 'UpdateProjectInput',
       },
-      resolve(_root, { projectId, input }, ctx) {
-        if (!projectId) {
-          throw Error('No ID provided');
+      resolve(_root, { input, projectId }, ctx) {
+        if (!projectId || !input) {
+          throw Error('Args missing');
         }
 
-        if (!input) {
-          throw 'No Data';
-        }
+        const { tags, ...rest } = input;
 
         return ctx.db.project.update({
           where: { id: projectId },
           data: {
-            ...input,
+            ...rest,
             isApproved: false,
+            // @ts-expect-error
             tags: {
-              // @ts-expect-error
-              set: input.tags,
+              set: tags,
             },
           },
         });
       },
     });
+  },
+});
+
+export const DeleteProject = extendType({
+  type: 'Mutation',
+  definition(t) {
     t.field('deleteProject', {
       type: 'String',
       args: {
-        projectId: schema.stringArg({ required: true }),
+        id: nonNull(idArg()),
       },
-      async resolve(_root, { projectId }, ctx) {
-        const projectToDelete = await ctx.db.project.findOne({
+      async resolve(_root, { id }, ctx) {
+        const projectToDelete = await ctx.db.project.findFirst({
           where: {
-            id: projectId,
+            id,
           },
         });
-
-        const userDeleting = await ctx.db.user.findOne({
+        const userDeleting = await ctx.db.user.findFirst({
           where: {
             id: ctx.currentUserId,
           },
         });
-
         if (
           projectToDelete?.authorId !== userDeleting?.id &&
           userDeleting?.role !== 'ADMIN'
         ) {
           throw Error('Not Authorized');
         }
-
-        await ctx.db.project.delete({ where: { id: projectId } });
-
-        return projectId;
+        await ctx.db.project.delete({ where: { id } });
+        return id;
       },
     });
+  },
+});
+
+export const DeleteManyProjects = extendType({
+  type: 'Mutation',
+  definition(t) {
     t.field('deleteManyProjects', {
-      type: 'Json',
+      type: 'JSONObject',
       args: {
-        projectIds: schema.stringArg({ required: true, list: true }),
+        ids: nonNull(list(idArg())),
       },
-      async resolve(_root, { projectIds }, ctx) {
+      async resolve(_root, { ids }, ctx) {
         const { count } = await ctx.db.project.deleteMany({
           where: {
-            id: { in: projectIds },
+            // @ts-expect-error
+            id: { in: ids },
           },
         });
 
         return {
           count,
-          ids: projectIds,
+          ids,
         };
       },
     });
+  },
+});
+
+export const ReactToProject = extendType({
+  type: 'Mutation',
+  definition(t) {
     t.field('reactToProject', {
       type: 'Project',
       args: {
@@ -609,11 +574,18 @@ schema.mutationType({
           },
           include: {
             likes: true,
+            favorites: true,
             author: true,
           },
         });
       },
     });
+  },
+});
+
+export const FavoriteProject = extendType({
+  type: 'Mutation',
+  definition(t) {
     t.field('favoriteProject', {
       type: 'Project',
       args: {
@@ -652,35 +624,23 @@ schema.mutationType({
         });
       },
     });
-    t.field('uploadImage', {
-      type: 'Json',
-      args: {
-        path: schema.stringArg({ required: true }),
-      },
-      async resolve(_root, { path }, ctx) {
-        return new Promise((resolve, reject) => {
-          imageUploader.uploader.upload(path, (err, res) => {
-            if (err) {
-              reject(err);
-            }
-            resolve({
-              url: res!.url,
-            });
-          });
-        });
-      },
-    });
+  },
+});
+
+export const UpdateProjectStatus = extendType({
+  type: 'Mutation',
+  definition(t) {
     t.field('updateProjectStatus', {
       type: 'Project',
       args: {
-        projectId: schema.stringArg({ required: true }),
-        isApproved: schema.booleanArg({ required: true }),
+        projectId: nonNull(idArg()),
+        isApproved: nonNull(booleanArg()),
       },
       async resolve(_root, args, ctx) {
         if (!ctx.currentUserId) {
           throw Error('Not Authorized');
         }
-        const user = await ctx.db.user.findOne({
+        const user = await ctx.db.user.findUnique({
           where: {
             id: ctx.currentUserId,
           },

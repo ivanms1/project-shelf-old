@@ -1,4 +1,4 @@
-mutation UpdateUserProject($projectId: String!, $input: UpdateProjectInput) {
+mutation UpdateUserProject($projectId: ID!, $input: UpdateProjectInput) {
   updateProject(projectId: $projectId, input: $input) {
     id
     title

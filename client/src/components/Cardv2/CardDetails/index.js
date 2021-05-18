@@ -59,7 +59,7 @@ function CardDetails() {
     update(cache, { data: { deleteProject } }) {
       cache.modify({
         fields: {
-          getProjects: (existing = {}, { readField }) =>
+          getApprovedProjects: (existing = {}, { readField }) =>
             updateQueryCache(existing, readField, deleteProject),
           getMyProjects: (existing = {}, { readField }) =>
             updateQueryCache(existing, readField, deleteProject),
@@ -134,9 +134,7 @@ function CardDetails() {
                   </ImgContainerOuter>
 
                   <UserDetails>
-                    <span className='fullName'>
-                      {project?.author.name} {project?.author.lastName}
-                    </span>
+                    <span className='fullName'>{project?.author.name}</span>
                   </UserDetails>
                 </div>
 

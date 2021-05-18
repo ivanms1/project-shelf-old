@@ -16,7 +16,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      'current-user-id': token,
+      Authorization: token,
     },
   };
 });
@@ -50,7 +50,7 @@ export const client = new ApolloClient({
     typePolicies: {
       Query: {
         fields: {
-          getProjects: projectsMergeConfig,
+          getApprovedProjects: projectsMergeConfig,
           getMyProjects: projectsMergeConfig,
           getMyFavoriteProjects: projectsMergeConfig,
           adminGetNotApprovedProjects: projectsMergeConfig,

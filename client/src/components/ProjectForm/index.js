@@ -140,9 +140,7 @@ function ProjectForm({ onSubmit, project }) {
               <img alt={Rick} src={Rick} width='100%' height='100%'></img>
             </div>
             <div className='profileDetails'>
-              <p>
-                {user.name} {user.lastName}
-              </p>
+              <p>{user.name}</p>
               <p>4th weekly project</p>
             </div>
           </Profile>

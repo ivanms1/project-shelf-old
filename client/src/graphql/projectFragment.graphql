@@ -8,7 +8,6 @@ fragment ProjectsResponseFragment on ProjectsResponse {
     createdAt
     author {
       name
-      lastName
       email
     }
     likes {
