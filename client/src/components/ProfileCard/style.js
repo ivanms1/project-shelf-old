@@ -27,14 +27,14 @@ export const PROFILE_PIC = styled.div`
   border-radius: 50%;
   background-color: #f7f8fc;
   overflow: hidden;
-  z-index: 99;
   border: 5px solid #f7f8fc;
 
   img {
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
     display: block;
     object-fit: contain;
+    user-select: none;
   }
 `;
 
