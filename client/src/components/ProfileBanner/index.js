@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import ReactCrop from 'react-image-crop';
 
 import { Dropzone } from './BannerDropZone';
@@ -81,7 +81,13 @@ function Index() {
       <PROFILE_BANNER>
         {preview == null && <NoBanner />}
 
-        {croppedImageUrl && <img src={croppedImageUrl} alt={croppedImageUrl} />}
+        {croppedImageUrl && (
+          <img
+            src={croppedImageUrl}
+            alt={croppedImageUrl}
+            onClick={() => window.open('/profile-page', '_blank')}
+          />
+        )}
       </PROFILE_BANNER>
 
       <BannerPopUp isOpen={submitModelIsOpen} onRequestClose={closeSubmitModal}>

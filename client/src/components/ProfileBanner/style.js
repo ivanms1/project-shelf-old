@@ -22,7 +22,7 @@ export const PROFILE_BANNER = styled.div`
     height: 100%;
     display: block;
     object-position: top;
-    object-fit: contain;
+    object-fit: cover;
     user-select: none;
   }
 `;

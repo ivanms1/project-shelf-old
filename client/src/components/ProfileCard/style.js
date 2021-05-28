@@ -46,7 +46,7 @@ export const PROFILE_PIC_EDIT_WRAPPER = styled.div`
   border-radius: 25px;
   background-color: white;
   cursor: pointer;
-  padding: 7px;
+  overflow: hidden;
   display: none;
 
   :active {
@@ -58,7 +58,6 @@ export const PROFILE_PIC_EDIT_WRAPPER = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
   }
 `;
 

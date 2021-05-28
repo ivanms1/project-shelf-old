@@ -4,6 +4,7 @@ import ProfileCard from '../../components/ProfileCard';
 import ProfileBanner from '../../components/ProfileBanner';
 
 import MyProjects from '../MyProjects';
+import FollowList from '../../components/FollowList';
 import Approved from '../Admin/Approved';
 import NotApproved from '../Admin/NotApproved';
 import Tabs from './Tabs';
@@ -34,7 +35,8 @@ function Index() {
           <TabContent>
             {tab == 2 && <Approved />}
             {tab == 3 && <NotApproved />}
-            {tab == 4 && <MyProjects />}
+            {tab == 4 && <FollowList />}
+            {tab == 5 && <FollowList />}
           </TabContent>
         </RIGHT_SIDE>
       </Layout>
