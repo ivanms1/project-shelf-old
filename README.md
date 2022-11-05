@@ -15,7 +15,7 @@ This project is intended to be a resource based website for a community of devel
 ### Start the app
 
 - `yarn dev`
-- `yarn dev:client` to only start the client.<br/> `yarn dev:backend` for only start the server.
+- `yarn dev:client` to only start the client.<br/> `yarn dev:backend` to only start the server.
 
 ### Built With
 
